@@ -12,7 +12,7 @@ main() {
   curl -o /etc/profile.d/sysangel.sh https://raw.githubusercontent.com/angelalonso/sysangel/master/profile_sysangel.sh
   echo "- Profile.d script installed"
 
-  curl -o ${INSTALLDIR}/sysangel.py /etc/profile.d/sysangel.sh https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py
+  curl -o ${INSTALLDIR}/sysangel.py https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py
   echo "- Profile.d script installed"
 
 }
