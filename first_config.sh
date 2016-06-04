@@ -6,14 +6,17 @@ INSTALLDIR="$HOME/sysangel"
 PROFILEDIR="/etc/profile.d"
 
 main() {
+  echo "- Installing work directory..."
   mkdir -p ${INSTALLDIR}
-  echo "- Installation dir created"
+  echo "  DONE"
 
+  echo "- Installing Profile.d script..."
   curl -o /etc/profile.d/sysangel.sh https://raw.githubusercontent.com/angelalonso/sysangel/master/profile_sysangel.sh
-  echo "- Profile.d script installed"
+  echo "  DONE"
 
+  echo " - Installing ${INSTALLDIR} main python script..."
   curl -o ${INSTALLDIR}/sysangel.py https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py
-  echo "- Profile.d script installed"
+  echo "  DONE"
 
 }
 
