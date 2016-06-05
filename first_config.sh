@@ -5,6 +5,27 @@ set -eo pipefail
 
 INSTALLDIR="$HOME/sysangel"
 PROFILEDIR="/etc/profile.d"
+HOSTNAME=$(hostname)
+
+configfile() {
+  # Add roles for this machine
+  echo "# Configuration roles for this machine, feel free to modify" > ${INSTALLDIR}/${MACHINE}.roles 
+  echo "#   But bear in mind they will be used in strict order, last overwrites previous" >> ${INSTALLDIR}/${MACHINE}.roles 
+  echo "ROLES:" >> ${INSTALLDIR}/${MACHINE}.roles
+
+  read -p "- Please, indicate name for this machine ["${HOSTNAME}"] " answer
+  if [ "${answer}" = "" ]; then MACHINE=${HOSTNAME}
+  else MACHINE=${answer}; fi
+  echo "From now on we will refer to this machine as ${MACHINE}"
+
+  echo "  - "${MACHINE} >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "  - common" >> ${INSTALLDIR}/${MACHINE}.roles
+  
+  # Add some characteristics of this machine
+  echo "# Attention! These Facts are not meant to be changed manually" >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "FACTS:" >> ${INSTALLDIR}/${MACHINE}.roles
+
+}
 
 main() {
   echo "- Installing work directory..."
@@ -23,8 +44,8 @@ main() {
     &> /dev/null
   echo "  DONE"
 
-  echo "- Please, indicate name for this machine"
-
+  configfile
+  
 }
 
 undo() {

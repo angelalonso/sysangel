@@ -1,0 +1,5 @@
+INSTALL:
+  - vim
+
+SPECIAL_INSTALL:
+  - gyazo
