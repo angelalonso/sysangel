@@ -12,13 +12,13 @@ main() {
   echo "  DONE"
 
   echo "- Installing Profile.d script..."
-  curl -o /etc/profile.d/sysangel.sh \
+  curl -os /etc/profile.d/sysangel.sh \
     https://raw.githubusercontent.com/angelalonso/sysangel/master/profile_sysangel.sh \
     &> /dev/null
   echo "  DONE"
 
   echo "- Installing ${INSTALLDIR} main python script..."
-  curl -o ${INSTALLDIR}/sysangel.py \
+  curl -os ${INSTALLDIR}/sysangel.py \
     https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py \
     &> /dev/null
   echo "  DONE"
