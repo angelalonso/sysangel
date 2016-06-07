@@ -37,15 +37,22 @@ main() {
   echo "  DONE"
 
   echo "- Installing Profile.d script..."
-  sudo curl -o -s /etc/profile.d/sysangel.sh \
+  sudo wget -O /etc/profile.d/sysangel.sh \
     https://raw.githubusercontent.com/angelalonso/sysangel/master/profile_sysangel.sh \
     &> /dev/null
   echo "  DONE"
 
   echo "- Installing ${INSTALLDIR} main python script..."
-  curl -o -s ${INSTALLDIR}/sysangel.py https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py
-#    &> /dev/null
+  wget -O ${INSTALLDIR}/sysangel.py \
+    https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py \
+    &> /dev/null
+  wget -O ${INSTALLDIR}/yaml \
+    https://raw.githubusercontent.com/angelalonso/sysangel/master/yaml \
+    &> /dev/null
   echo "  DONE"
+  wget -O ${INSTALLDIR}/platform \
+    https://raw.githubusercontent.com/angelalonso/sysangel/master/platform \
+    &> /dev/null
 
   configfile
   
