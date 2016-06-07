@@ -7,7 +7,7 @@ INSTALLDIR="$HOME/sysangel"
 PROFILEDIR="/etc/profile.d"
 HOSTNAME=$(hostname)
 
-PYTHON="/usr/bin/python3"
+PYTHON="/usr/bin/python"
 
 configfile() {
 
@@ -26,9 +26,7 @@ configfile() {
   # Add some characteristics of this machine
   echo "# Attention! These Facts are not meant to be changed manually" >> ${INSTALLDIR}/${MACHINE}.roles
   echo "FACTS:" >> ${INSTALLDIR}/${MACHINE}.roles
-  export PYTHONHOME=/usr/
   ${PYTHON} ${INSTALLDIR}/sysangel.py get-distro
-
 }
 
 main() {
