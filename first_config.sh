@@ -1,4 +1,4 @@
-NSTALLDIR}/sysangel.py #!/bin/usr/env bash
+#!/bin/usr/env bash
 #
 # Script to configure a new machine to use sysangel
 set -eo pipefail
@@ -7,7 +7,7 @@ INSTALLDIR="$HOME/sysangel"
 PROFILEDIR="/etc/profile.d"
 HOSTNAME=$(hostname)
 
-PYTHON=$(which python3)
+PYTHON="/usr/bin/python3"
 
 configfile() {
 
@@ -26,7 +26,7 @@ configfile() {
   # Add some characteristics of this machine
   echo "# Attention! These Facts are not meant to be changed manually" >> ${INSTALLDIR}/${MACHINE}.roles
   echo "FACTS:" >> ${INSTALLDIR}/${MACHINE}.roles
-
+  export PYTHONHOME=/usr/
   ${PYTHON} ${INSTALLDIR}/sysangel.py get-distro
 
 }
