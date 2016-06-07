@@ -46,13 +46,7 @@ main() {
   wget -O ${INSTALLDIR}/sysangel.py \
     https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py \
     &> /dev/null
-  wget -O ${INSTALLDIR}/yaml \
-    https://raw.githubusercontent.com/angelalonso/sysangel/master/yaml \
-    &> /dev/null
   echo "  DONE"
-  wget -O ${INSTALLDIR}/platform \
-    https://raw.githubusercontent.com/angelalonso/sysangel/master/platform \
-    &> /dev/null
 
   configfile
   
