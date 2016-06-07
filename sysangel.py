@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#ctions!/usr/bin/env python
 
 import platform
 import sys
@@ -18,12 +18,12 @@ def get_distro():
 def read_config(config_file):
     f = open(config_file)
     dataMap = yaml.safe_load(f)
-    print(dataMap)
     f.close()
+    return dataMap
 
 
 def main():
-    print('Here I am')
+    pass
 
 
 if __name__ == '__main__':
@@ -35,5 +35,6 @@ if __name__ == '__main__':
             print("(did you mean sysangel.py get-distro?)")
     except(IndexError):
         config_roles = "/home/aaf/sysangel/zenux.roles"
-        read_config(config_roles)
+        config = read_config(config_roles)
+        print(config['FACTS']['distro'])
         main()

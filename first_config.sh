@@ -31,9 +31,10 @@ configfile() {
   DIST=$(echo ${DISTRO} | awk -F "," '/1/ {print $1}')
   #VERSION=$(echo ${DISTRO} | awk -F "," '/1/ {print $2}')
   CODENAME=$(echo ${DISTRO} | awk -F "," '/1/ {print $3}')
-  echo "  - "${DIST} >> ${INSTALLDIR}/${MACHINE}.roles
-  #echo "  - "${VERSION} >> ${INSTALLDIR}/${MACHINE}.roles
-  echo "  - "${CODENAME} >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "  distro:" >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "    "${DIST} >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "  codename:" >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "    "${CODENAME} >> ${INSTALLDIR}/${MACHINE}.roles
 }
 
 main() {
