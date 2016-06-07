@@ -1,4 +1,4 @@
-#!/bin/usr/env bash
+NSTALLDIR}/sysangel.py #!/bin/usr/env bash
 #
 # Script to configure a new machine to use sysangel
 set -eo pipefail
@@ -6,6 +6,8 @@ set -eo pipefail
 INSTALLDIR="$HOME/sysangel"
 PROFILEDIR="/etc/profile.d"
 HOSTNAME=$(hostname)
+
+PYTHON=$(which python3)
 
 configfile() {
 
@@ -25,6 +27,8 @@ configfile() {
   echo "# Attention! These Facts are not meant to be changed manually" >> ${INSTALLDIR}/${MACHINE}.roles
   echo "FACTS:" >> ${INSTALLDIR}/${MACHINE}.roles
 
+  ${PYTHON} ${INSTALLDIR}/sysangel.py get-distro
+
 }
 
 main() {
@@ -33,15 +37,14 @@ main() {
   echo "  DONE"
 
   echo "- Installing Profile.d script..."
-  curl -o -s /etc/profile.d/sysangel.sh \
+  sudo curl -o -s /etc/profile.d/sysangel.sh \
     https://raw.githubusercontent.com/angelalonso/sysangel/master/profile_sysangel.sh \
     &> /dev/null
   echo "  DONE"
 
   echo "- Installing ${INSTALLDIR} main python script..."
-  curl -o -s ${INSTALLDIR}/sysangel.py \
-    https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py \
-    &> /dev/null
+  curl -o -s ${INSTALLDIR}/sysangel.py https://raw.githubusercontent.com/angelalonso/sysangel/master/sysangel.py
+#    &> /dev/null
   echo "  DONE"
 
   configfile
