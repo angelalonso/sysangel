@@ -26,7 +26,14 @@ configfile() {
   # Add some characteristics of this machine
   echo "# Attention! These Facts are not meant to be changed manually" >> ${INSTALLDIR}/${MACHINE}.roles
   echo "FACTS:" >> ${INSTALLDIR}/${MACHINE}.roles
-  ${PYTHON} ${INSTALLDIR}/sysangel.py get-distro
+  # First the Distro and codename
+  DISTRO=$(${PYTHON} ${INSTALLDIR}/sysangel.py get-distro)
+  DIST=$(echo ${DISTRO} | awk -F "," '/1/ {print $1}')
+  #VERSION=$(echo ${DISTRO} | awk -F "," '/1/ {print $2}')
+  CODENAME=$(echo ${DISTRO} | awk -F "," '/1/ {print $3}')
+  echo "  - "${DIST} >> ${INSTALLDIR}/${MACHINE}.roles
+  #echo "  - "${VERSION} >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "  - "${CODENAME} >> ${INSTALLDIR}/${MACHINE}.roles
 }
 
 main() {
