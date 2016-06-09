@@ -10,6 +10,7 @@ def get_system():
 # this_system = platform.system()
     return this_system
 
+
 def get_distro():
     this_distro = get_system()
     return (this_distro[0] + "," + this_distro[1] + "," + this_distro[2])
@@ -23,7 +24,13 @@ def read_config(config_file):
 
 
 def main():
-    pass
+    bashCommand = "dpkg-query -l vim | grep vim"
+    import subprocess
+    try:
+        output = subprocess.check_output(['bash', '-c', bashCommand])
+        print(output)
+    except subprocess.CalledProcessError as e:
+        print str(e.output)
 
 
 if __name__ == '__main__':
