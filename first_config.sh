@@ -40,6 +40,7 @@ configfile() {
 presentation() {
   echo "####              ####"
   echo "#### {\SYSANGEL/} ####"
+  echo "#### Installation ####"
   echo "######################"
   echo
 }
