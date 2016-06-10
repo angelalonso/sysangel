@@ -4,11 +4,11 @@ Configuration management for my machines, written in Python
 
 ## Install
 
-curl -s -o ./sysangel_firstconfig.sh \ \n
+curl -s -o ./sysangel_firstconfig.sh \<br />
 https://raw.githubusercontent.com/angelalonso/sysangel/master/first_config.sh
-\ \n
-&& bash ./sysangel_firstconfig.sh \ \n
-&& rm ./sysangel_firstconfig.sh \n
+\<br />
+&& bash ./sysangel_firstconfig.sh \<br />
+&& rm ./sysangel_firstconfig.sh<br />
 
 ## What this should have:
 - Auto installation in all machines
