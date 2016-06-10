@@ -3,6 +3,6 @@
 ## /etc/profile trigger for the sysadmin python script
 
 PYTHON=$(which python)
+TERM=$(which xterm)
 
-$PYTHON $HOME/sysangel/sysangel.py
-
+${TERM} -e "${PYTHON} ${HOME}/sysangel/sysangel.py && read answer"

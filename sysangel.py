@@ -23,6 +23,12 @@ def read_config(config_file):
     return dataMap
 
 
+def presentation():
+    print('####              ####')
+    print('#### {\SYSANGEL/} ####')
+    print('######################\n\n')
+
+
 def main():
     bashCommand = "dpkg-query -l vim | grep vim"
     import subprocess
@@ -34,6 +40,7 @@ def main():
 
 
 if __name__ == '__main__':
+    presentation()
     try:
         if (sys.argv[1] == 'get-distro'):
             print(get_distro())
