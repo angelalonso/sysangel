@@ -4,10 +4,10 @@ Configuration management for my machines, written in Python
 
 ## Install
 
-curl -s -o ./sysangel_firstconfig.sh \<br />
+curl -s -o ./sysangel_firstconfig.sh \ <br />
 https://raw.githubusercontent.com/angelalonso/sysangel/master/first_config.sh
-\<br />
-&& bash ./sysangel_firstconfig.sh \<br />
+\ <br />
+&& bash ./sysangel_firstconfig.sh \ <br />
 && rm ./sysangel_firstconfig.sh<br />
 
 ## What this should have:
