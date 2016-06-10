@@ -37,7 +37,15 @@ configfile() {
   echo "    "${CODENAME} >> ${INSTALLDIR}/${MACHINE}.roles
 }
 
+presentation() {
+  echo "####              ####"
+  echo "#### {\SYSANGEL/} ####"
+  echo "######################"
+  echo
+}
+
 main() {
+  presentation
   echo "- Installing work directory..."
   mkdir -p ${INSTALLDIR} &> /dev/null
   echo "  DONE"
