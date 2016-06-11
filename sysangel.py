@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
 import platform
+import subprocess
 import sys
 import yaml
-
-import itertools
 
 
 ''' Functions to take actions '''
@@ -15,6 +14,22 @@ def update_ubuntu(roledefs):
     for role in roledefs['ROLES']:
         yamldata = read_yaml(role, yamldata)
 
+    for package in yamldata['INSTALL']:
+        print("Installing " + str(package))
+        bashCommand = 'if [ $(/usr/bin/apt-cache policy ' + package + ' | \
+                        grep Installed | grep -v "(none)" \
+                        | wc -l) -ne 1 ];\
+                        then sudo apt-get install ' + package + '; \
+                        fi'
+        try:
+            subprocess.check_output(['bash', '-c', bashCommand])
+        except subprocess.CalledProcessError as e:
+            print "ERROR installing " + package
+            print str(e.output)
+
+    for package in yamldata['SPECIAL_INSTALL']:
+        print("Installing " + str(package))
+        print("Installing " + str(yamldata['SPECIAL_INSTALL'][package]))
 
 
 def update_debian(roledefs):
