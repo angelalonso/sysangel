@@ -14,7 +14,7 @@ def update_ubuntu(roledefs):
     yamldata = {}
     for role in roledefs['ROLES']:
         yamldata = read_yaml(role, yamldata)
-        print(yamldata['SPECIAL_INSTALL']['gimp'])
+
 
 
 def update_debian(roledefs):
@@ -70,22 +70,24 @@ def read_roles(roles_file):
 def mergeinto_yamldict(main, secondary):
     result = {}
     INSTALL = []
-    SPECIAL_INSTALL = []
+    SPECIAL_INSTALL = {}
 
-    if 'INSTALL' in main:
-        INSTALL += main['INSTALL']
+    for entry in main:
+        if (entry == 'INSTALL'):
+            INSTALL += main[entry]
+        elif (entry == 'SPECIAL_INSTALL'):
+            SPECIAL_INSTALL = main[entry]
+
     if 'INSTALL' in secondary:
-        INSTALL += secondary['INSTALL']
+        for entry in secondary['INSTALL']:
+            if entry not in INSTALL:
+                INSTALL.append(entry)
     result['INSTALL'] = INSTALL
 
-    if 'SPECIAL_INSTALL' in main:
-        SPECIAL_INSTALL += main['SPECIAL_INSTALL']
-        if 'SPECIAL_INSTALL' in secondary:
-            SPECIAL_INSTALL += secondary['SPECIAL_INSTALL']
-    else:
-        if 'SPECIAL_INSTALL' in secondary:
-            SPECIAL_INSTALL += secondary['SPECIAL_INSTALL']
-
+    if 'SPECIAL_INSTALL' in secondary:
+        for entry in secondary['SPECIAL_INSTALL']:
+            for key, value in entry.iteritems():
+                SPECIAL_INSTALL[key] = value
     result['SPECIAL_INSTALL'] = SPECIAL_INSTALL
 
     return result

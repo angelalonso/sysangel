@@ -21,8 +21,8 @@ configfile() {
   echo "# Configuration roles for this machine, feel free to modify" > ${INSTALLDIR}/${MACHINE}.roles 
   echo "#   But bear in mind they will be used in strict order, last overwrites previous" >> ${INSTALLDIR}/${MACHINE}.roles 
   echo "ROLES:" >> ${INSTALLDIR}/${MACHINE}.roles
-  echo "  - "${MACHINE} >> ${INSTALLDIR}/${MACHINE}.roles
   echo "  - common" >> ${INSTALLDIR}/${MACHINE}.roles
+  echo "  - "${MACHINE} >> ${INSTALLDIR}/${MACHINE}.roles
 
   # Download the definitions for the first time
   echo "- Downloading definition for 'common'"
