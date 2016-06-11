@@ -30,9 +30,28 @@ configfile() {
           https://raw.githubusercontent.com/angelalonso/sysangel/master/ROLES/common.yaml \
               &> /dev/null
   echo "  DONE"
+  # For this machine's one we have to be more careful
   echo "- Creating definition for '${MACHINE}'"
-  touch ${ROLEDIR}/${MACHINE}.yaml
-  echo "  DONE"
+  if [ -e "${ROLEDIR}/${MACHINE}.yaml" ]; then
+    echo "${ROLEDIR}/${MACHINE}.yaml exists"
+    while true; do
+      read -p "Do you want to overwrite? " answer
+      case $answer in
+        [yY]* ) echo "INSTALL:" > ${ROLEDIR}/${MACHINE}.yaml
+          echo >> ${ROLEDIR}/${MACHINE}.yaml
+          echo "SPECIAL_INSTALL:" >> ${ROLEDIR}/${MACHINE}.yaml
+          echo "  DONE"
+          break;;
+        [nN]* ) exit;;
+        * )     echo "Dude, just enter Y or N, please.";;
+      esac
+    done
+  else
+    echo "INSTALL:" >> ${ROLEDIR}/${MACHINE}.yaml
+    echo >> ${ROLEDIR}/${MACHINE}.yaml
+    echo "SPECIAL_INSTALL:" >> ${ROLEDIR}/${MACHINE}.yaml
+    echo "  DONE"
+  fi
 
 
   
