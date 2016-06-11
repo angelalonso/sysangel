@@ -5,6 +5,15 @@ import sys
 import yaml
 
 
+''' Functions to take actions '''
+
+def install_packages(config):
+    print(config)
+
+
+''' Functions to get Information '''
+
+
 def get_system():
     this_system = platform.dist()
 # this_system = platform.system()
@@ -21,6 +30,9 @@ def read_config(config_file):
     dataMap = yaml.safe_load(f)
     f.close()
     return dataMap
+
+
+''' General Functions '''
 
 
 def presentation():
@@ -40,7 +52,6 @@ def main():
 
 
 if __name__ == '__main__':
-    presentation()
     try:
         if (sys.argv[1] == 'get-distro'):
             print(get_distro())
@@ -48,7 +59,8 @@ if __name__ == '__main__':
             print("ERROR: parameter not recognized")
             print("(did you mean sysangel.py get-distro?)")
     except(IndexError):
+        presentation()
         config_roles = "/home/aaf/sysangel/zenux.roles"
         config = read_config(config_roles)
-        print(config['FACTS']['distro'])
+        install_packages(config)
         main()
