@@ -3,7 +3,8 @@
 # Script to configure a new machine to use sysangel
 set -eo pipefail
 
-INSTALLDIR="$HOME/sysangel"
+INSTALLDIR="${HOME}/sysangel"
+ROLEDIR="${INSTALLDIR}/ROLES"
 PROFILEDIR="/etc/profile.d"
 HOSTNAME=$(hostname)
 
@@ -22,6 +23,18 @@ configfile() {
   echo "ROLES:" >> ${INSTALLDIR}/${MACHINE}.roles
   echo "  - "${MACHINE} >> ${INSTALLDIR}/${MACHINE}.roles
   echo "  - common" >> ${INSTALLDIR}/${MACHINE}.roles
+
+  # Download the definitions for the first time
+  echo "- Downloading definition for 'common'"
+  wget -O ${ROLEDIR}/common.yaml \
+          https://raw.githubusercontent.com/angelalonso/sysangel/master/ROLES/common.yaml \
+              &> /dev/null
+  echo "  DONE"
+  echo "- Creating definition for '${MACHINE}'"
+  touch ${ROLEDIR}/${MACHINE}.yaml
+  echo "  DONE"
+
+
   
   # Add some characteristics of this machine
   echo "# Attention! These Facts are not meant to be changed manually" >> ${INSTALLDIR}/${MACHINE}.roles
@@ -48,7 +61,7 @@ presentation() {
 main() {
   presentation
   echo "- Installing work directory..."
-  mkdir -p ${INSTALLDIR} &> /dev/null
+  mkdir -p ${ROLEDIR} &> /dev/null
   echo "  DONE"
 
   echo "- Installing Profile.d script..."

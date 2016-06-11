@@ -1,4 +1,4 @@
-#ctions!/usr/bin/env python
+#!/usr/bin/env python
 
 import platform
 import sys
@@ -7,8 +7,28 @@ import yaml
 
 ''' Functions to take actions '''
 
-def install_packages(config):
-    print(config)
+
+def update_ubuntu(config):
+
+    print("Ubuntu not yet implemented")
+
+
+def update_debian():
+    print("Debian not yet implemented")
+
+
+def update_machine(config):
+    current_distro = get_distro()
+    system_types = {'Ubuntu': update_ubuntu,
+                    'Debian': update_debian,
+                    }
+
+    if (current_distro.split(',')[0] == config['FACTS']['distro'] and
+            current_distro.split(',')[2] == config['FACTS']['codename']):
+        system_types[current_distro.split(',')[0]]()
+
+    else:
+        print("ERROR! the Version or even the distro itself has changed!")
 
 
 ''' Functions to get Information '''
@@ -41,7 +61,9 @@ def presentation():
     print('######################\n\n')
 
 
-def main():
+def main(roles_file):
+    presentation()
+    update_machine(read_config(roles_file))
     bashCommand = "dpkg-query -l vim | grep vim"
     import subprocess
     try:
@@ -52,6 +74,8 @@ def main():
 
 
 if __name__ == '__main__':
+    roles_file = "/home/aaf/sysangel/zenux.roles"
+
     try:
         if (sys.argv[1] == 'get-distro'):
             print(get_distro())
@@ -59,8 +83,4 @@ if __name__ == '__main__':
             print("ERROR: parameter not recognized")
             print("(did you mean sysangel.py get-distro?)")
     except(IndexError):
-        presentation()
-        config_roles = "/home/aaf/sysangel/zenux.roles"
-        config = read_config(config_roles)
-        install_packages(config)
-        main()
+        main(roles_file)
