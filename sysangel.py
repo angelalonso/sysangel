@@ -4,28 +4,32 @@ import platform
 import sys
 import yaml
 
+import itertools
+
 
 ''' Functions to take actions '''
 
 
-def update_ubuntu(config):
+def update_ubuntu(roledefs):
+    yamldata = {}
+    for role in roledefs['ROLES']:
+        yamldata = read_yaml(role, yamldata)
+        print(yamldata['SPECIAL_INSTALL']['gimp'])
 
-    print("Ubuntu not yet implemented")
 
-
-def update_debian():
+def update_debian(roledefs):
     print("Debian not yet implemented")
 
 
-def update_machine(config):
+def update_machine(roledefs):
     current_distro = get_distro()
     system_types = {'Ubuntu': update_ubuntu,
                     'Debian': update_debian,
                     }
 
-    if (current_distro.split(',')[0] == config['FACTS']['distro'] and
-            current_distro.split(',')[2] == config['FACTS']['codename']):
-        system_types[current_distro.split(',')[0]]()
+    if (current_distro.split(',')[0] == roledefs['FACTS']['distro'] and
+            current_distro.split(',')[2] == roledefs['FACTS']['codename']):
+        system_types[current_distro.split(',')[0]](roledefs)
 
     else:
         print("ERROR! the Version or even the distro itself has changed!")
@@ -45,12 +49,46 @@ def get_distro():
     return (this_distro[0] + "," + this_distro[1] + "," + this_distro[2])
 
 
-def read_config(config_file):
-    f = open(config_file)
-    dataMap = yaml.safe_load(f)
-    f.close()
+def read_yaml(role, yamldata):
+    yaml_file = "/home/aaf/sysangel/ROLES/" + str(role) + ".yaml"
+    yf = open(yaml_file)
+    dataMap = yaml.safe_load(yf)
+    mergedict = mergeinto_yamldict(yamldata, dataMap)
+    return mergedict
+
+
+def read_roles(roles_file):
+    rf = open(roles_file)
+    dataMap = yaml.safe_load(rf)
+    rf.close()
     return dataMap
 
+
+''' General Tools '''
+
+
+def mergeinto_yamldict(main, secondary):
+    result = {}
+    INSTALL = []
+    SPECIAL_INSTALL = []
+
+    if 'INSTALL' in main:
+        INSTALL += main['INSTALL']
+    if 'INSTALL' in secondary:
+        INSTALL += secondary['INSTALL']
+    result['INSTALL'] = INSTALL
+
+    if 'SPECIAL_INSTALL' in main:
+        SPECIAL_INSTALL += main['SPECIAL_INSTALL']
+        if 'SPECIAL_INSTALL' in secondary:
+            SPECIAL_INSTALL += secondary['SPECIAL_INSTALL']
+    else:
+        if 'SPECIAL_INSTALL' in secondary:
+            SPECIAL_INSTALL += secondary['SPECIAL_INSTALL']
+
+    result['SPECIAL_INSTALL'] = SPECIAL_INSTALL
+
+    return result
 
 ''' General Functions '''
 
@@ -63,12 +101,12 @@ def presentation():
 
 def main(roles_file):
     presentation()
-    update_machine(read_config(roles_file))
+    update_machine(read_roles(roles_file))
     bashCommand = "dpkg-query -l vim | grep vim"
     import subprocess
     try:
         output = subprocess.check_output(['bash', '-c', bashCommand])
-        print(output)
+        #print(output)
     except subprocess.CalledProcessError as e:
         print str(e.output)
 
