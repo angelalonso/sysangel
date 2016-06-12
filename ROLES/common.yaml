@@ -2,4 +2,5 @@ INSTALL:
   - vim
 
 SPECIAL_INSTALL:
-  - gyazo
+  - gyazo:
+    - nothing

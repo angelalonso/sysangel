@@ -13,6 +13,6 @@ https://raw.githubusercontent.com/angelalonso/sysangel/master/first_config.sh
 ## What this should have:
 - Auto installation in all machines
   - Online
-  - Offline
+  - Offline (wait, WHAT??? I don't even recall what I meant here)
 
 - Machine/key management, encrypted

@@ -9,27 +9,17 @@ import yaml
 ''' Functions to take actions '''
 
 
-def update_ubuntu(roledefs):
-    yamldata = {}
-    for role in roledefs['ROLES']:
-        yamldata = read_yaml(role, yamldata)
-
-    for package in yamldata['INSTALL']:
-        print("Installing " + str(package))
-        bashCommand = 'if [ $(/usr/bin/apt-cache policy ' + package + ' | \
-                        grep Installed | grep -v "(none)" \
-                        | wc -l) -ne 1 ];\
-                        then sudo apt-get install ' + package + '; \
-                        fi'
-        try:
-            subprocess.check_output(['bash', '-c', bashCommand])
-        except subprocess.CalledProcessError as e:
-            print "ERROR installing " + package
-            print str(e.output)
-
-    for package in yamldata['SPECIAL_INSTALL']:
-        print("Installing " + str(package))
-        print("Installing " + str(yamldata['SPECIAL_INSTALL'][package]))
+def update_ubuntu(package):
+    bashCommand = 'if [ $(/usr/bin/apt-cache policy ' + package + ' | \
+                    grep Installed | grep -v "(none)" \
+                    | wc -l) -ne 1 ];\
+                    then sudo apt-get install ' + package + '; \
+                    fi'
+    try:
+        subprocess.check_output(['bash', '-c', bashCommand])
+    except subprocess.CalledProcessError as e:
+        print "ERROR installing " + package
+        print str(e.output)
 
 
 def update_debian(roledefs):
@@ -37,17 +27,27 @@ def update_debian(roledefs):
 
 
 def update_machine(roledefs):
-    current_distro = get_distro()
-    system_types = {'Ubuntu': update_ubuntu,
-                    'Debian': update_debian,
-                    }
+    yamldata = {}
+ 
+    for role in roledefs['ROLES']:
+        yamldata = read_yaml(role, yamldata)
 
-    if (current_distro.split(',')[0] == roledefs['FACTS']['distro'] and
-            current_distro.split(',')[2] == roledefs['FACTS']['codename']):
-        system_types[current_distro.split(',')[0]](roledefs)
+    for package in yamldata['INSTALL']:
+        print("Installing " + str(package))
 
-    else:
-        print("ERROR! the Version or even the distro itself has changed!")
+        current_distro = get_distro()
+        system_types = {'Ubuntu': update_ubuntu,
+                        'Debian': update_debian,
+                        }
+        if (current_distro.split(',')[0] == roledefs['FACTS']['distro'] and
+                current_distro.split(',')[2] == roledefs['FACTS']['codename']):
+            system_types[current_distro.split(',')[0]](package)
+        else:
+            print("ERROR! the Version or even the distro itself has changed!")
+
+    for package in yamldata['SPECIAL_INSTALL']:
+        print("Installing " + str(package))
+        print("Installing " + str(yamldata['SPECIAL_INSTALL'][package]))
 
 
 ''' Functions to get Information '''
