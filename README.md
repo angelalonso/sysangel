@@ -31,5 +31,6 @@ git, install it however you like
 
 ## Installation
 
-git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install.sh
+cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install.sh
 
+IMPORTANT: it MUST be installed on your HOME directory to work properly
