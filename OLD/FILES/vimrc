@@ -1,0 +1,131 @@
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/#making-vim-more-useful
+"
+" VIMRC - Angel Alonso
+
+" Needed to load Pathogen
+" http://www.vim.org/scripts/script.php?script_id=2332 to see why the first line is needed
+"  Install with:
+"  mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+"  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+filetype off
+" had to change this for infect
+"call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
+
+" https://github.com/VundleVim/Vundle.vim 
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" sudo apt-get install build-essential cmake python-dev python3-dev
+" Plugin 'Valloric/YouCompleteMe'
+"
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Install Youcompleteme
+" cd ~/.vim/bundle && git clone https://github.com/Valloric/YouCompleteMe
+" git submodule update --init --recursive
+" cd ~/.vim/bundle/YouCompleteMe/third_party/ycmd && python ./build.py
+Plugin 'Valloric/YouCompleteMe'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()   
+filetype plugin indent on
+
+" had to change this for infect
+
+" gets rid of all the crap that Vim does to be vi compatible. It’s 2010 — we don’t need to be compatible with vi at the expense of functionality any more.
+set nocompatible
+
+" prevents some security exploits having to do with modelines in files. I never use modelines so I don’t miss any functionality here.
+set modelines=0
+
+" all tabs to expand to TWO spaces. I don't need 4 chars for that
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" general sane behaviour
+set encoding=utf-8
+set scrolloff=3
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set visualbell
+"set cursorline
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+" DISABLED -> changes Vim’s line number column to display how far away each line is from the current one, instead of showing the absolute line number.
+"set relativenumber
+" tells Vim to create <FILENAME>.un~ files whenever you edit a file. These files contain undo information so you can undo previous actions even after you close and reopen a file.
+set undofile
+
+" Vim’s horribly broken default regex “handling” by automatically inserting a
+" \v before any string you search for. This turns off Vim’s crazy default regex
+" characters and makes searches use normal regexes.
+nnoremap / /\v
+vnoremap / /\v
+
+" together make Vim deal with case-sensitive search intelligently. If you
+" search for an all-lowercase string your search will be case-insensitive, but
+" if one or more characters is uppercase the search will be case-sensitive.
+" Most of the time this does what you want.
+set ignorecase
+set smartcase
+
+" work together to highlight search results (as you type). It’s really quite
+" handy, as long as you have the next line as well.
+set incsearch
+set showmatch
+set hlsearch
+
+" manage my line wrapping settings and also show a colored column at 85
+" characters (so I can see when I write a too-long line of code).
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+
+
+" “save on losing focus” feature.
+au FocusLost * :wa
+
+" \w open a new vertical split and switch over to it. Because really, how often
+" do you split your window and not want to do something in the new split?
+nnoremap <leader>w <C-w>v<C-w>l
+
+" These are my 'quick movement' combos for Splitted Windows
+"  To be changed if a conflict is found...
+"  Original had <C-W>_ as follows but it seems not needed
+"nnoremap <C-h> <C-W>h<C-W>_
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+
+" Finally, no arrows
+nnoremap <Left> :echo "No left for you!"<CR>
+vnoremap <Left> :<C-u>echo "No left for you!"<CR>
+" inoremap <Left> <C-o>:echo "No left for you!"<CR>
+nnoremap <Right> :echo "No Right for you!"<CR>
+vnoremap <Right> :<C-u>echo "No Right for you!"<CR>
+" inoremap <Right> <C-o>:echo "No Right for you!"<CR>
+nnoremap <Up> :echo "No Up for you!"<CR>
+vnoremap <Up> :<C-u>echo "No Up for you!"<CR>
+" inoremap <Up> <C-o>:echo "No Up for you!"<CR>
+nnoremap <Down> :echo "No Down for you!"<CR>
+vnoremap <Down> :<C-u>echo "No Down for you!"<CR>
+" inoremap <Down> <C-o>:echo "No Down for you!"<CR>
+
+" #### COLOR SCHEME ####
+" set t_Co=256
+colorscheme test

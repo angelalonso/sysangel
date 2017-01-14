@@ -1,0 +1,5 @@
+- Substitute keepassx access for encrypted file with password to encfs
+
+- Add .vimrc without arrows
+- Win+Y for menu? -> right button on menu
+- Shortcuts? Import them from FILES (own folder?)

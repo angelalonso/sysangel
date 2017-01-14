@@ -1,0 +1,8 @@
+INSTALL:
+  - vim
+  - openssh-server 
+  - openssh-client
+
+SPECIAL_INSTALL:
+  - gyazo:
+    - nothing

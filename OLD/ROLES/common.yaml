@@ -1,0 +1,47 @@
+INSTALL:
+  - curl
+  - libreoffice
+  - openssh-client
+  - pdftk
+  - pwgen
+  - python
+  - python-pip
+  - vim
+  - vim-gtk
+  - zeal
+  - zim
+
+SPECIAL_INSTALL:
+  - gyazo:
+    - command:
+      - curl -s https://packagecloud.io/install/repositories/gyazo/gyazo-for-linux/script.deb.sh | sudo bash && sudo apt-get install gyazo
+    - type:
+      - other
+    - checktest:
+      - apt-cache policy gyazo | grep Installed | grep -v none | wc -l
+  - oh_my_zsh:
+    - command:
+      - sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    - type:
+      - other
+    - checktest:
+      - if [ -d "$HOME/.oh-my-zsh" ]; then echo "1"; else echo "0"; fi
+  - PyYAML:
+    - command:
+      - if [ $(pip list | grep PyYAML | wc -l) -ne 1 ]; then sudo pip install pyyaml; fi
+    - type:
+      - pip
+
+UNINSTALL:
+  - fslint:
+    - type:
+      - apt
+  - openssh-server:
+
+FILE:
+  - vimrc:
+    - action:
+      - copy
+    - destination:
+      - $HOME/.vimrc
+
