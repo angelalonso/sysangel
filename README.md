@@ -1,6 +1,7 @@
 # Sysangel v.whatever
 
 Script to get my laptops up and running with as little manual effort as possible
+NOTE: previous failures can be found under OLD/
 
 ## Background
 
@@ -14,7 +15,7 @@ What I need now is a script that simply gets me up and running with all things I
 ## How it should work
 
 install.sh
-- Installs all dependencies before we start
+- Installs all dependencies for sysangel.py to work
 - Calls the actual sysangel.py script with "install" as parameter
 
 sysangel.py
@@ -23,13 +24,12 @@ sysangel.py
 - on update mode:
   - tbd
 
-## Installation
-
 ### Prerequisites
 
-git
+git, install it however you like
+
+
+## Installation
 
 git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install.sh
-tbd
 
-NOTE: previous failures can be found under OLD/
