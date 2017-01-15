@@ -20,9 +20,13 @@ install.sh
 
 sysangel.py
 - on install mode:
-  - tbd
+  - Installs all required packages - WIP
+  - Installs Dropbox - DONE
+    - Would need error handling
+  - Sets up shared encrypted volume - TBD
 - on update mode:
-  - tbd
+  - Installs required packages - TBD
+  - Accepts parameters to only update one part - TBD
 
 ### Prerequisites
 
@@ -34,3 +38,13 @@ git, install it however you like
 cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install.sh
 
 IMPORTANT: it MUST be installed on your HOME directory to work properly
+
+
+# Personal Goals
+
+- One script that sets up everything after a fresh install. Apart from the above, I'd also want...
+  - Vim 8.0, vimrc and plugins
+  - Mouse touchpad click
+  - Oh My Zsh
+  - Key Shortcuts
+  - Firefox Sync
