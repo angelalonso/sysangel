@@ -16,7 +16,10 @@ install(){
 
   # First up, get Dropbox installed
   #  based on https://www.dropbox.com/install-linux
-  cd ~ & wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
+  echo "#### GET READY! \n
+  We will install DROPBOX, so you should go look for your user and password RIGHT NOW!"
+
+  cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
   ~/.dropbox-dist/dropboxd &
 }
 
