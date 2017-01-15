@@ -4,10 +4,19 @@
 install(){
   echo "installing structure"
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
-  ARCH=$(uname -m)
+  UNAME_M=$(uname -m)
+  case ${UNAME_M} in
+    i686)
+      ARCH="x86";;
+    x86_64)
+      ARCH="x86_64";;
+    *)
+      ARCH="x86";;
+  esac
 
+  # First up, get Dropbox installed
+  #  based on https://www.dropbox.com/install-linux
   cd ~ & wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
-
   ~/.dropbox-dist/dropboxd &
 }
 
