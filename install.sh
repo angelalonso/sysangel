@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-UBUNTUPKGS="python"
-DEBIANPKGS="python"
+UBUNTUPKGS="python git"
+DEBIANPKGS="python git"
 
 dependencies(){
   # Install all required packages for sysangel.py
-  echo $1
+  ./scripts/packages.sh install $@
   #sudo apt-get update && sudo apt-get install $1
 }
 
@@ -14,11 +14,11 @@ main(){
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
 
   case "${SYSTEM}" in
-    Ubuntu)
-      dependencies ${UBUNTUPKGS}
+    Ubuntu|ubuntu)
+      dependencies "${UBUNTUPKGS}"
       ;;
-    Debian)
-      dependencies ${DEBIANPKGS}
+    Debian|debian)
+      dependencies "${DEBIANPKGS}"
       ;;
   esac
 

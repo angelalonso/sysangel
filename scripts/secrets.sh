@@ -2,11 +2,11 @@
 # Installs all parts required for the private mounpoint to work automatically
 
 install(){
-  echo "installing"
+  echo "installing structure"
 }
 
 remove(){
-  echo "uninstalling"
+  echo "uninstalling structure"
 }
 
 case "$1" in

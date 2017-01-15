@@ -20,6 +20,8 @@ def install(system):
     Manages configuration for new installs
     """
     uninstall(system)
+    # Install required packages
+    scriptrun('./scripts/packages.sh install')
     # Install Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh install')
 
@@ -34,6 +36,8 @@ def uninstall(system):
     """
     Cleans up configuration after sysangel is no longer needed
     """
+    ## Removing required packages
+    #scriptrun('./scripts/packages.sh remove')
     # Removing Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh remove')
 
