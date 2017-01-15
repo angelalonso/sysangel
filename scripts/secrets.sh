@@ -6,7 +6,7 @@ install(){
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
   ARCH=$(uname -m)
 
-  cd /home/aaf/Software/Dev/sysangel/AUX && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
+  cd ~ & wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
 
   ~/.dropbox-dist/dropboxd &
 }
