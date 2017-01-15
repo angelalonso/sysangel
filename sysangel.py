@@ -3,7 +3,16 @@
 System configuration manager for my own
 """
 
+import subprocess
 import sys
+
+
+def scriptrun(cmd):
+    """
+    runs shell scripts
+    """
+    # TODO: manage errors
+    subprocess.Popen([cmd], shell=True)
 
 
 def install(system):
@@ -11,6 +20,8 @@ def install(system):
     Manages configuration for new installs
     """
     uninstall(system)
+    # Install Dropbox, encfs, keys...
+    scriptrun('./scripts/secrets.sh install')
     print system
 
 
@@ -25,6 +36,7 @@ def uninstall(system):
     """
     Cleans up configuration after sysangel is no longer needed
     """
+    # TODO: Uninstall Dropbox, encfs, keys...
     print system
 
 
@@ -39,3 +51,4 @@ if __name__ == '__main__':
         print 'ERROR: parameter not recognized'
         print 'SYNTAX:'
         print 'sysangel.py [install|update|uninstall]'
+    # TODO: manage empty parameters
