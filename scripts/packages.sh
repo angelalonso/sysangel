@@ -6,15 +6,31 @@ install(){
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
 
   echo "Installing ${PKGS}"
+
+  case "${SYSTEM}" in
+    ubuntu|Ubuntu)
+      sudo apt-get update && sudo apt-get install ${PKGS}
+      ;;
+    debian|Debian)
+      su - root -c "apt-get update && apt-get install ${PKGS}"
+      ;;
+  esac
 }
 
 remove(){
   PKGS=$(echo $@ | cut -d' ' -f2-)
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
 
-  echo "SYSTEM IS $SYSTEM"
-
   echo "Removing ${PKGS}"
+
+  case "${SYSTEM}" in
+    ubuntu|Ubuntu)
+      sudo apt-get remove --purge ${PKGS}
+      ;;
+    debian|Debian)
+      su - root -c "apt-get remove --purge ${PKGS}"
+      ;;
+  esac
 }
 
 if [[ $# -lt 2 ]]; then
