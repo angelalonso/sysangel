@@ -22,22 +22,20 @@ def install(system):
     uninstall(system)
     # Install Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh install')
-    print system
 
 
 def update(system):
     """
     Manages configuration for system changes and updates
     """
-    print system
 
 
 def uninstall(system):
     """
     Cleans up configuration after sysangel is no longer needed
     """
-    # TODO: Uninstall Dropbox, encfs, keys...
-    print system
+    # Removing Dropbox, encfs, keys...
+    scriptrun('./scripts/secrets.sh remove')
 
 
 if __name__ == '__main__':
