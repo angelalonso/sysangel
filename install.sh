@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+INSTALLDIR="~/.sysangel"
+
 UBUNTUPKGS="python git"
 DEBIANPKGS="python git"
 
@@ -22,6 +24,13 @@ main(){
       ;;
   esac
 
+  # Create directories for the installation
+  mkdir -p ${INSTALLDIR}/TMP
+
   ./sysangel.py install "${SYSTEM}"
+
+  # Remove directories that were created for the installation
+  rm -r ${INSTALLDIR}/TMP
+
 }
 main
