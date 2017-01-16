@@ -6,8 +6,9 @@ NOTE: previous failures can be found under OLD/
 ## Background
 
 What I need now is a script that simply gets me up and running with all things I use in a regular basis:
-- Dropbox
+- Dropbox - DONE
 - Automount of encrypted folder
+  -  TODO: Needs key generation, corrections of profile script
 - SSH agent autoloading
 - Chrome and Firefox, which I then sync afterwards
 ...

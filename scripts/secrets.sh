@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installs all parts required for the private mounpoint to work automatically
 
-install(){
+install_dropbox(){
   echo "installing structure"
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
   UNAME_M=$(uname -m)
@@ -23,16 +23,28 @@ install(){
   ~/.dropbox-dist/dropboxd &
 }
 
-remove(){
+remove_dropbox(){
   echo "cleaning up structure"
+  sudo killall dropbox || sudo killall dropboxd
+  rm -r ~/.dropbox-dist
+}
+
+install_encfs(){
+  echo "configuring encfs mountpoint"
+}
+
+remove_encfs(){
+  echo "removing encfs mountpoint"
 }
 
 case "$1" in
   install|i|Install|I)
-    install
+    install_dropbox
+    install_encfs
     ;;
   remove|Remove|r|R|uninstall|u|Uninstall|U)
-    remove
+    remove_dropbox
+    remove_encfs
     ;;
   *)
     echo "ERROR: Syntax is $0 [install|remove|]"
