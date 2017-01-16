@@ -2,8 +2,8 @@
 
 INSTALLDIR="~/.sysangel"
 
-UBUNTUPKGS="python git"
-DEBIANPKGS="python git"
+UBUNTUPKGS="encfs git python"
+DEBIANPKGS="encfs git python"
 
 dependencies(){
   # Install all required packages for sysangel.py
