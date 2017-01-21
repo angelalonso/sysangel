@@ -36,8 +36,8 @@ def uninstall(system):
     """
     Cleans up configuration after sysangel is no longer needed
     """
-    ## Removing required packages
-    #scriptrun('./scripts/packages.sh remove')
+    # Removing required packages
+    # scriptrun('./scripts/packages.sh remove')
     # Removing Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh remove')
 

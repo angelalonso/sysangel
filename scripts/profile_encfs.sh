@@ -4,8 +4,8 @@
 
 USER=$(whoami)
 HOME="/home/$USER"
-FOLDRCONFIG="$HOME/sysangel"
-FOLDRKEYS="$FOLDRCONFIG/KEYS"
+FOLDRCONFIG="$HOME/.sysangel"
+FOLDRKEYS="$FOLDRCONFIG/keys"
 FLD_ENC_ORIG="$HOME/Dropbox/data/.encrypted"
 FLD_ENC_DEST="$HOME/Private"
 

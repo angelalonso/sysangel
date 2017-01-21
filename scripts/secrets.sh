@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
+
 # Installs all parts required for the private mounpoint to work automatically
+
+INSTALLDIR="~/.sysangel"
+TMPDIR="${INSTALLDIR}/tmp"
+SCRIPTSDIR="${INSTALLDIR}/scripts"
+KEYSDIR="${INSTALLDIR}/keys"
 
 install_dropbox(){
   echo "installing structure"
@@ -31,10 +37,36 @@ remove_dropbox(){
 
 install_encfs(){
   echo "configuring encfs mountpoint"
+
+  echo "generating bridge keys"
+  openssl genrsa -out priv.key 4096
+  openssl rsa -in ${KEYSDIR}/priv.key -pubout > ${KEYSDIR}/pub.key
+
+  # http://stackoverflow.com/questions/1923435/how-do-i-echo-stars-when-reading-password-with-read
+  prompt="Enter Password:"
+  while IFS= read -p "$prompt" -r -s -n 1 char
+  do
+      if [[ $char == $'\0' ]]
+      then
+          break
+      fi
+      prompt='*'
+      password+="$char"
+  done
+  echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass
+
+  sudo cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
+    sudo chown root:root /etc/profile.d/privatemount.sh && \
+    sudo chmod 644 /etc/profile.d/privatemount.sh
 }
 
 remove_encfs(){
   echo "removing encfs mountpoint"
+  rm ${KEYSDIR}/priv.key
+  rm ${KEYSDIR}/pub.key
+  rm ${KEYSDIR}/main_encfs.pass
+
+  sudo rm /etc/profile.d/privatemount.sh
 }
 
 case "$1" in

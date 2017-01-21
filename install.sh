@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 INSTALLDIR="~/.sysangel"
+TMPDIR="${INSTALLDIR}/tmp"
+KEYSDIR="${INSTALLDIR}/keys"
 
-UBUNTUPKGS="encfs git python"
-DEBIANPKGS="encfs git python"
+UBUNTUPKGS="encfs git passwd python"
+DEBIANPKGS="encfs git passwd python"
 
 dependencies(){
   # Install all required packages for sysangel.py
@@ -24,13 +26,15 @@ main(){
       ;;
   esac
 
-  # Create directories for the installation
-  mkdir -p ${INSTALLDIR}/TMP
+  # Create directories needed for the future
+  mkdir -p ${KEYSDIR}
+  # Create directories only for the installation
+  mkdir -p ${TMPDIR}
 
   ./sysangel.py install "${SYSTEM}"
 
   # Remove directories that were created for the installation
-  rm -r ${INSTALLDIR}/TMP
+  rm -r ${TMPDIR}
 
 }
 main
