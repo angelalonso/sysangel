@@ -25,12 +25,15 @@ install_dropbox(){
   echo "#### GET READY! \n
   We will install DROPBOX, so you should go look for your user and password RIGHT NOW!"
 
+  # TODO: only download if file is not yet there
   cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
+
   ~/.dropbox-dist/dropboxd &
 }
 
 remove_dropbox(){
   echo "cleaning up structure"
+  # TODO: no sudo on debian
   sudo killall dropbox || sudo killall dropboxd
   rm -r ~/.dropbox-dist
 }
@@ -39,7 +42,7 @@ install_encfs(){
   echo "configuring encfs mountpoint"
 
   echo "generating bridge keys"
-  openssl genrsa -out priv.key 4096
+  openssl genrsa -out ${KEYSDIR}/priv.key 4096
   openssl rsa -in ${KEYSDIR}/priv.key -pubout > ${KEYSDIR}/pub.key
 
   # http://stackoverflow.com/questions/1923435/how-do-i-echo-stars-when-reading-password-with-read
@@ -55,6 +58,7 @@ install_encfs(){
   done
   echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass
 
+  # TODO: ISSUE: no sudo on debian!!
   sudo cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
     sudo chown root:root /etc/profile.d/privatemount.sh && \
     sudo chmod 644 /etc/profile.d/privatemount.sh
