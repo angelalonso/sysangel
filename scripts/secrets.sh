@@ -7,6 +7,8 @@ TMPDIR="${INSTALLDIR}/tmp"
 SCRIPTSDIR="${INSTALLDIR}/scripts"
 KEYSDIR="${INSTALLDIR}/keys"
 
+SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
+
 install_dropbox(){
   echo "installing structure"
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
@@ -33,9 +35,18 @@ install_dropbox(){
 
 remove_dropbox(){
   echo "cleaning up structure"
-  # TODO: no sudo on debian
-  sudo killall dropbox || sudo killall dropboxd
+
+  case "${SYSTEM}" in
+    ubuntu|Ubuntu)
+      sudo killall dropbox || sudo killall dropboxd
+      ;;
+    debian|Debian)
+      su - root -c "killall dropbox || killall dropboxd"
+      ;;
+  esac
+
   rm -r ~/.dropbox-dist
+
 }
 
 install_encfs(){
@@ -58,10 +69,19 @@ install_encfs(){
   done
   echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass
 
-  # TODO: ISSUE: no sudo on debian!!
-  sudo cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
-    sudo chown root:root /etc/profile.d/privatemount.sh && \
-    sudo chmod 644 /etc/profile.d/privatemount.sh
+  case "${SYSTEM}" in
+    ubuntu|Ubuntu)
+      sudo cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
+        sudo chown root:root /etc/profile.d/privatemount.sh && \
+        sudo chmod 644 /etc/profile.d/privatemount.sh
+      ;;
+    debian|Debian)
+      su - root -c "cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
+        chown root:root /etc/profile.d/privatemount.sh && \
+        chmod 644 /etc/profile.d/privatemount.sh"
+      ;;
+  esac
+
 }
 
 remove_encfs(){
@@ -71,6 +91,15 @@ remove_encfs(){
   rm ${KEYSDIR}/main_encfs.pass
 
   sudo rm /etc/profile.d/privatemount.sh
+  case "${SYSTEM}" in
+    ubuntu|Ubuntu)
+      sudo rm /etc/profile.d/privatemount.sh
+      ;;
+    debian|Debian)
+      su - root -c "rm /etc/profile.d/privatemount.sh"
+      ;;
+  esac
+
 }
 
 case "$1" in
