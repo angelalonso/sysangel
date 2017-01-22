@@ -38,12 +38,12 @@ remove_dropbox(){
 
   case "${SYSTEM}" in
     ubuntu|Ubuntu)
-      sudo killall dropbox || sudo killall dropboxd
+      sudo killall dropbox; sudo killall dropboxd
       ;;
     debian|Debian)
       echo "killing dropbox"
-      su - root -c "killall dropbox || killall dropboxd"
-      echo "killeddropbox"
+      su - root -c "killall dropbox; killall dropboxd"
+      echo "killed dropbox"
       ;;
   esac
 
