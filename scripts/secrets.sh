@@ -84,7 +84,6 @@ remove_encfs(){
   rm ${KEYSDIR}/pub.key
   rm ${KEYSDIR}/main_encfs.pass
 
-  sudo rm /etc/profile.d/privatemount.sh
   case "${SYSTEM}" in
     ubuntu|Ubuntu)
       sudo rm /etc/profile.d/privatemount.sh
