@@ -33,6 +33,8 @@ remove(){
   esac
 }
 
+echo "number of params is"
+echo $#
 if [[ $# -lt 2 ]]; then
   echo "Illegal number of parameters"
   exit 2
