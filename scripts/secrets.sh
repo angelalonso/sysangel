@@ -98,8 +98,8 @@ remove_encfs(){
 
 case "$1" in
   install|i|Install|I)
-    install_dropbox
     install_encfs
+    install_dropbox
     ;;
   remove|Remove|r|R|uninstall|u|Uninstall|U)
     remove_dropbox
