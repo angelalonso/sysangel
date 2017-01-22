@@ -2,7 +2,7 @@
 
 # Installs all parts required for the private mounpoint to work automatically
 
-INSTALLDIR="~/.sysangel"
+INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 SCRIPTSDIR="${INSTALLDIR}/scripts"
 KEYSDIR="${INSTALLDIR}/keys"
@@ -28,9 +28,9 @@ install_dropbox(){
   We will install DROPBOX, so you should go look for your user and password RIGHT NOW!"
 
   # TODO: only download if file is not yet there
-  cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
+  cd ${HOME} && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
 
-  ~/.dropbox-dist/dropboxd &
+  ${HOME}/.dropbox-dist/dropboxd &
 }
 
 remove_dropbox(){
@@ -45,7 +45,7 @@ remove_dropbox(){
       ;;
   esac
 
-  rm -r ~/.dropbox-dist
+  rm -r ${HOME}/.dropbox-dist
 
 }
 

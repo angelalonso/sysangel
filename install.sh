@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-INSTALLDIR="~/.sysangel"
+INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 
@@ -16,6 +16,7 @@ dependencies(){
 main(){
   # Find out the current distro
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
+  echo "System is ${SYSTEM}"
 
   case "${SYSTEM}" in
     Ubuntu|ubuntu)
