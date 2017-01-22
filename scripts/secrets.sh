@@ -41,7 +41,9 @@ remove_dropbox(){
       sudo killall dropbox || sudo killall dropboxd
       ;;
     debian|Debian)
+      echo "killing dropbox"
       su - root -c "killall dropbox || killall dropboxd"
+      echo "killeddropbox"
       ;;
   esac
 
