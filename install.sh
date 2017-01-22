@@ -27,6 +27,7 @@ main(){
   esac
 
   # Create directories needed for the future
+  mkdir -p ${INSTALLDIR}
   mkdir -p ${KEYSDIR}
   # Create directories only for the installation
   mkdir -p ${TMPDIR}
