@@ -20,8 +20,6 @@ def install(system):
     Manages configuration for new installs
     """
     uninstall(system)
-    # Install required packages
-    scriptrun('./scripts/packages.sh install')
     # Install Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh install')
 
