@@ -12,7 +12,7 @@ def scriptrun(cmd):
     runs shell scripts
     """
     # TODO: manage errors
-    subprocess.Popen([cmd], shell=True)
+    subprocess.Popen([cmd], shell=True).communicate()
 
 
 def install(system):
