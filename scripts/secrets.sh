@@ -65,12 +65,16 @@ install_encfs(){
 
   case "${SYSTEM}" in
     ubuntu|Ubuntu)
-      sudo cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
+      sudo echo '#!/usr/bin/env bash' > /etc/profile.d/privatemount.sh && \
+        sudo echo 'USER="aaf"' >> /etc/profile.d/privatemount.sh && \
+        sudo cat ${SCRIPTSDIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
         sudo chmod 644 /etc/profile.d/privatemount.sh
       ;;
     debian|Debian)
-      su - root -c "cp ${SCRIPTSDIR}/profile_encfs.sh /etc/profile.d/privatemount.sh && \
+      su - root -c "echo '#!/usr/bin/env bash' > /etc/profile.d/privatemount.sh && \
+        echo 'USER=\"aaf\"' >> /etc/profile.d/privatemount.sh && \
+        cat ${SCRIPTSDIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
         chown root:root /etc/profile.d/privatemount.sh && \
         chmod 644 /etc/profile.d/privatemount.sh"
       ;;

@@ -1,8 +1,6 @@
-#!/usr/bin/env bash
-#
 ## /etc/profile trigger for the automount of an encrypted volume
+# Above these lines: user definition (sort of manual)
 
-USER=$(whoami)
 HOME="/home/$USER"
 FOLDRCONFIG="$HOME/.sysangel"
 FOLDRKEYS="$FOLDRCONFIG/keys"
