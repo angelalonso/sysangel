@@ -72,7 +72,7 @@ install_encfs(){
         sudo chmod 644 /etc/profile.d/privatemount.sh
       ;;
     debian|Debian)
-      su - root -c "echo '#!/usr/bin/env bash' > /etc/profile.d/privatemount.sh && \
+      su - root -c "echo '\#\!/usr/bin/env bash' > /etc/profile.d/privatemount.sh && \
         echo 'USER=\"aaf\"' >> /etc/profile.d/privatemount.sh && \
         cat ${SCRIPTSDIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
         chown root:root /etc/profile.d/privatemount.sh && \
