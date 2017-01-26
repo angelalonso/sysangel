@@ -6,7 +6,7 @@ USR=$(whoami)
 HOME="/home/${USR}"
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
-KEYSDIR="${INSTALLDIR}/keys"
+KEYSDIR="${INSTALLDIR}/KEYS"
 GITDIR="${HOME}/sysangel"
 SCRIPTSDIR="${GITDIR}/scripts"
 
