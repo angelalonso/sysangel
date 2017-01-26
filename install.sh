@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+USR=$(whoami)
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 
-UBUNTUPKGS="encfs git passwd python"
-DEBIANPKGS="encfs git passwd python"
+UBUNTUPKGS="encfs expect git passwd python sudo"
+DEBIANPKGS="encfs expect git passwd python sudo"
 
 dependencies(){
   # Install all required packages for sysangel.py
@@ -26,6 +27,9 @@ main(){
       dependencies "${DEBIANPKGS}"
       ;;
   esac
+
+  # Add user to sudoers
+  su - root -c 'echo "aaf ALL=(ALL:ALL) ALL" >> /etc/sudoers' 
 
   # Create directories needed for the future
   mkdir -p ${INSTALLDIR}

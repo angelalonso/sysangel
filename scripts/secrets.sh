@@ -2,10 +2,13 @@
 
 # Installs all parts required for the private mounpoint to work automatically
 
+USR=$(whoami)
+HOME="/home/${USR}"
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
-SCRIPTSDIR="${INSTALLDIR}/scripts"
 KEYSDIR="${INSTALLDIR}/keys"
+GITDIR="${HOME}/sysangel"
+SCRIPTSDIR="${GITDIR}/scripts"
 
 SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
 
@@ -64,19 +67,26 @@ install_encfs(){
   echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass
 
   case "${SYSTEM}" in
-    ubuntu|Ubuntu)
-      sudo echo '#!/usr/bin/env bash' > /etc/profile.d/privatemount.sh && \
-        sudo echo 'USER="aaf"' >> /etc/profile.d/privatemount.sh && \
-        sudo cat ${SCRIPTSDIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
+    ubuntu|Ubuntu|debian|Debian)
+      sudo sh -c 'echo "#!/usr/bin/env bash" > /etc/profile.d/privatemount.sh' && \
+        sudo -i env USR="$USR" sh -c 'echo "USER=${USR}" >> /etc/profile.d/privatemount.sh' && \
+        sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh' && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
         sudo chmod 644 /etc/profile.d/privatemount.sh
       ;;
-    debian|Debian)
+    *)
+      echo "HERE  -> "$SCRIPTSDIR ${SCRIPTSDIR}
+      echo "############################################"
+      su - root -c 'echo "HERE  -> "$SCRIPTSDIR ${SCRIPTSDIR}'
+      echo "############################################"
       su - root -c 'echo "#!/usr/bin/env bash" > /etc/profile.d/privatemount.sh && \
-        echo "USER=aaf" >> /etc/profile.d/privatemount.sh && \
-        cat ${SCRIPTSDIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
+        echo "USER="$USR >> /etc/profile.d/privatemount.sh && \
+	echo "HERE  -> "$SCRIPTSDIR ${SCRIPTSDIR}
+        cat $SCRIPTSDIR/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
         chown root:root /etc/profile.d/privatemount.sh && \
         chmod 644 /etc/profile.d/privatemount.sh'
+      echo "############################################"
+
       ;;
   esac
 
