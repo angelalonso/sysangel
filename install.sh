@@ -5,8 +5,8 @@ INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/KEYS"
 
-UBUNTUPKGS="encfs expect git passwd python sudo"
-DEBIANPKGS="encfs expect git passwd python sudo"
+UBUNTUPKGS="encfs expect git passwd python sudo zsh"
+DEBIANPKGS="encfs expect git passwd python sudo zsh"
 
 dependencies(){
   # Install all required packages for sysangel.py

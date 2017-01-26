@@ -21,6 +21,7 @@ def install(system):
     """
     uninstall(system)
     # Install Dropbox, encfs, keys...
+    scriptrun('./scripts/ohmyzsh.sh install')
     scriptrun('./scripts/secrets.sh install')
 
 
@@ -38,6 +39,7 @@ def uninstall(system):
     # scriptrun('./scripts/packages.sh remove')
     # Removing Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh remove')
+    scriptrun('./scripts/ohmyzsh.sh remove')
 
 
 if __name__ == '__main__':
