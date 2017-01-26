@@ -3,7 +3,7 @@
 USR=$(whoami)
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
-KEYSDIR="${INSTALLDIR}/keys"
+KEYSDIR="${INSTALLDIR}/KEYS"
 
 UBUNTUPKGS="encfs expect git passwd python sudo"
 DEBIANPKGS="encfs expect git passwd python sudo"
@@ -29,7 +29,7 @@ main(){
   esac
 
   # Add user to sudoers
-  su - root -c 'echo "aaf ALL=(ALL:ALL) ALL" >> /etc/sudoers' 
+  su - root -c 'echo "aaf ALL=(ALL:ALL) ALL" >> /etc/sudoers'
 
   # Create directories needed for the future
   mkdir -p ${INSTALLDIR}
