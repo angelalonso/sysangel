@@ -9,6 +9,7 @@
 # openssl rsa -in ~/.sysangel/KEYS/priv.key -pubout > ~/.sysangel/KEYS/pub.key
 # echo "${NEWPASS}" | openssl rsautl -inkey  ~/.sysangel/KEYS/pub.key -pubin -encrypt >  ~/.sysangel/KEYS/main_encfs.pass
 
+USER=$(whoami)
 HOME="/home/$USER"
 FOLDRCONFIG="$HOME/.sysangel"
 FOLDRKEYS="$FOLDRCONFIG/KEYS"
@@ -23,18 +24,12 @@ TERM=$(which xterm)
 mount_encfs(){
   PASS_ENCFS=$(/usr/bin/openssl rsautl -inkey $FOLDRKEYS/priv.key -decrypt < $FOLDRKEYS/main_encfs.pass)
 
-  expect <<- DONE
-    spawn encfs $FLD_ENC_ORIG $FLD_ENC_DEST
-    expect "EncFS Password:"
-    send    "$PASS_ENCFS\n"
-    expect eof
-DONE
+  echo $PASS_ENCFS | encfs -S $FLD_ENC_ORIG $FLD_ENC_DEST
 
 }
 
 # Call the mount function
-RUNUSER=$(whoami)
-if [ "${RUNUSER}" = "aaf" ] ;then
+if [ "${USER}" = "aaf" ] ;then
   mount_encfs
 fi
 

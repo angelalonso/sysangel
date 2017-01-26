@@ -68,25 +68,16 @@ install_encfs(){
 
   case "${SYSTEM}" in
     ubuntu|Ubuntu|debian|Debian)
-      sudo sh -c 'echo "#!/usr/bin/env bash" > /etc/profile.d/privatemount.sh' && \
-        sudo -i env USR="$USR" sh -c 'echo "USER=${USR}" >> /etc/profile.d/privatemount.sh' && \
-        sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh' && \
+      sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh' && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
         sudo chmod 644 /etc/profile.d/privatemount.sh
       ;;
     *)
-      echo "HERE  -> "$SCRIPTSDIR ${SCRIPTSDIR}
-      echo "############################################"
-      su - root -c 'echo "HERE  -> "$SCRIPTSDIR ${SCRIPTSDIR}'
-      echo "############################################"
       su - root -c 'echo "#!/usr/bin/env bash" > /etc/profile.d/privatemount.sh && \
         echo "USER="$USR >> /etc/profile.d/privatemount.sh && \
-	echo "HERE  -> "$SCRIPTSDIR ${SCRIPTSDIR}
         cat $SCRIPTSDIR/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
         chown root:root /etc/profile.d/privatemount.sh && \
         chmod 644 /etc/profile.d/privatemount.sh'
-      echo "############################################"
-
       ;;
   esac
 
