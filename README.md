@@ -2,6 +2,7 @@
 
 Script to get my laptops up and running with as little manual effort as possible
 NOTE: previous failures can be found under OLD/
+NOTE2: as much as I'd like to improve this, I'm starting with support only for XFCE (yeah, I'm that mediocre!)
 
 ## Background
 
