@@ -9,6 +9,7 @@ TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/KEYS"
 GITDIR="${HOME}/sysangel"
 SCRIPTSDIR="${GITDIR}/scripts"
+FILESDIR="${GITDIR}/files"
 
 SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
 
@@ -71,13 +72,10 @@ install_encfs(){
       sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh' && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
         sudo chmod 644 /etc/profile.d/privatemount.sh
+      cp ${FILESDIR}/private_mount.desktop ${HOME}.config/autostart/private_mount.desktop
       ;;
     *)
-      su - root -c 'echo "#!/usr/bin/env bash" > /etc/profile.d/privatemount.sh && \
-        echo "USER="$USR >> /etc/profile.d/privatemount.sh && \
-        cat $SCRIPTSDIR/profile_encfs.sh >> /etc/profile.d/privatemount.sh && \
-        chown root:root /etc/profile.d/privatemount.sh && \
-        chmod 644 /etc/profile.d/privatemount.sh'
+      echo "SYSTEM NOT YET SUPPORTED"
       ;;
   esac
 
