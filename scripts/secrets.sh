@@ -6,7 +6,7 @@ USR=$(whoami)
 HOME="/home/${USR}"
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
-KEYSDIR="${INSTALLDIR}/KEYS"
+KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 SCRIPTSDIR="${GITDIR}/scripts"
 FILESDIR="${GITDIR}/files"
@@ -41,13 +41,11 @@ remove_dropbox(){
   echo "cleaning up structure"
 
   case "${SYSTEM}" in
-    ubuntu|Ubuntu)
+    ubuntu|Ubuntu|debian|Debian)
       sudo killall dropbox; sudo killall dropboxd
       ;;
-    debian|Debian)
-      echo "killing dropbox"
-      su - root -c "killall dropbox; killall dropboxd"
-      echo "killed dropbox"
+    *)
+      echo "SYSTEM NOT YET SUPPORTED"
       ;;
   esac
 
@@ -88,11 +86,11 @@ remove_encfs(){
   rm ${KEYSDIR}/main_encfs.pass
 
   case "${SYSTEM}" in
-    ubuntu|Ubuntu)
+    ubuntu|Ubuntu|debian|Debian)
       sudo rm /etc/profile.d/privatemount.sh
       ;;
-    debian|Debian)
-      su - root -c "rm /etc/profile.d/privatemount.sh"
+    *)
+      echo "SYSTEM NOT YET SUPPORTED"
       ;;
   esac
 

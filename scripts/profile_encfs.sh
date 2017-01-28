@@ -4,15 +4,15 @@
 
 
 # Generating the keys:
-# mkdir -p ~/.sysangel/KEYS
+# mkdir -p ~/.sysangel/keys
 # openssl genrsa -out priv.key 4096
-# openssl rsa -in ~/.sysangel/KEYS/priv.key -pubout > ~/.sysangel/KEYS/pub.key
-# echo "${NEWPASS}" | openssl rsautl -inkey  ~/.sysangel/KEYS/pub.key -pubin -encrypt >  ~/.sysangel/KEYS/main_encfs.pass
+# openssl rsa -in ~/.sysangel/keys/priv.key -pubout > ~/.sysangel/keys/pub.key
+# echo "${NEWPASS}" | openssl rsautl -inkey  ~/.sysangel/keys/pub.key -pubin -encrypt >  ~/.sysangel/keys/main_encfs.pass
 
 USER=$(whoami)
 HOME="/home/$USER"
 FOLDRCONFIG="$HOME/.sysangel"
-FOLDRKEYS="$FOLDRCONFIG/KEYS"
+FOLDRKEYS="$FOLDRCONFIG/keys"
 FLD_ENC_ORIG="$HOME/Dropbox/data/.encrypted"
 FLD_ENC_DEST="$HOME/Private"
 
@@ -29,6 +29,7 @@ mount_encfs(){
 }
 
 # Call the mount function
+## PLEASE, CHANGE THIS TO YOUR USERNAME
 if [ "${USER}" = "aaf" ] ;then
   mount_encfs
 fi

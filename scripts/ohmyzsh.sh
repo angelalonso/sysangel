@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Installs all parts required for the private mounpoint to work automatically
 
+
 install(){
   echo "installing"
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
@@ -8,7 +9,7 @@ install(){
 
 remove(){
   echo "uninstalling"
-  uninstall_oh_my_zsh
+  bash ${HOME}/.oh-my-zsh/tools/uninstall.sh
 }
 
 case "$1" in

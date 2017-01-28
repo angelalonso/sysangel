@@ -3,7 +3,7 @@
 USR=$(whoami)
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
-KEYSDIR="${INSTALLDIR}/KEYS"
+KEYSDIR="${INSTALLDIR}/keys"
 
 UBUNTUPKGS="encfs expect git passwd python sudo zsh"
 DEBIANPKGS="encfs expect git passwd python sudo zsh"

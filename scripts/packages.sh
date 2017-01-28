@@ -8,11 +8,11 @@ install(){
   echo "Installing ${PKGS}"
 
   case "${SYSTEM}" in
-    ubuntu|Ubuntu)
+    ubuntu|Ubuntu|debian|Debian)
       sudo apt-get update && sudo apt-get install ${PKGS}
       ;;
-    debian|Debian)
-      su - root -c "apt-get update && apt-get install ${PKGS}"
+    *)
+      echo "SYSTEM NOT YET SUPPORTED"
       ;;
   esac
 }
@@ -24,11 +24,11 @@ remove(){
   echo "Removing ${PKGS}"
 
   case "${SYSTEM}" in
-    ubuntu|Ubuntu)
+    ubuntu|Ubuntu|debian|Debian)
       sudo apt-get remove --purge ${PKGS}
       ;;
-    debian|Debian)
-      su - root -c "apt-get remove --purge ${PKGS}"
+    *)
+      echo "SYSTEM NOT YET SUPPORTED"
       ;;
   esac
 }
