@@ -34,6 +34,8 @@ install_dropbox(){
   # TODO: only download if file is not yet there
   cd ${HOME} && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
 
+  cp ${FILESDIR}/dropbox.desktop ${HOME}.config/autostart/dropbox.desktop
+
   ${HOME}/.dropbox-dist/dropboxd &
 }
 
@@ -69,8 +71,11 @@ install_encfs(){
     ubuntu|Ubuntu|debian|Debian)
       sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/profile_encfs.sh >> /etc/profile.d/privatemount.sh' && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
-        sudo chmod 644 /etc/profile.d/privatemount.sh
+        sudo chmod 755 /etc/profile.d/privatemount.sh
       cp ${FILESDIR}/private_mount.desktop ${HOME}.config/autostart/private_mount.desktop
+      #TODO:
+      # Automate mount after dropbox got all data
+      # Create a mount/unmount script/button
       ;;
     *)
       echo "SYSTEM NOT YET SUPPORTED"
