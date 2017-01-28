@@ -6,8 +6,9 @@ TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 
 
-PKGS="encfs expect git keepassx passwd pwgen python sudo terminator \
-zim zsh"
+PKGS="curl encfs expect fabric git jq keepassx openssh-client passwd pdftk pwgen \
+python python-pip sudo terminator \
+zeal zim zsh"
 
 UBUNTUPKGS="${PKGS}"
 DEBIANPKGS="${PKGS}"
