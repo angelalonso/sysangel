@@ -8,7 +8,12 @@ install(){
     libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
     python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git
 
-  sudo apt-get remove vim vim-runtime gvim
+  sudo apt-get remove --purge vim vim-runtime gvim vim-common
+  sudo rm /usr/bin/vi
+  sudo rm /usr/bin/vim
+  sudo rm /usr/bin/vim.basic
+  sudo rm /usr/bin/vim.gtk
+  sudo rm -rf /usr/share/vim
 
   cd ~
   git clone https://github.com/vim/vim.git
@@ -35,6 +40,9 @@ install(){
 
 remove(){
   echo "uninstalling vim"
+  rm -rf ~/vim
+  sudo apt-get remove --purge vim vim-runtime gvim vim-common
+
 }
 
 case "$1" in

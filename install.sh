@@ -34,8 +34,8 @@ main(){
   esac
 
   # Add user to sudoers
-  if [ $(su - root -c 'grep aaf /etc/sudoers | wc -l') -lt 1 ]; then
-    su - root -c 'echo "aaf ALL=(ALL:ALL) ALL" >> /etc/sudoers'
+  if [ $(su -i env USRin="${USR}" sh -c 'grep ${USRin} /etc/sudoers | wc -l') -lt 1 ]; then
+    su -i env USRin="${USR}" sh -c 'echo "${USRin} ALL=(ALL:ALL) ALL" >> /etc/sudoers'
   fi
 
   # Create directories needed for the future

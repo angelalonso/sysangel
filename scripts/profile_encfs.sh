@@ -29,12 +29,4 @@ mount_encfs(){
 }
 
 # Call the mount function
-## PLEASE, CHANGE THIS TO YOUR USERNAME
-if [ "${USER}" = "aaf" ] ;then
-  mount_encfs
-fi
-
-# Wait for the user to know what happened
-#   (this is meant to run in a terminal that will close afterwards)
-#echo "Press a key to continue"
-#read -n 1
+if [ "${USER}" = "myuser" ] ;then mount_encfs; fi
