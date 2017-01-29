@@ -22,8 +22,8 @@ def install(system):
     uninstall(system)
     # Install Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh install')
-    scriptrun('./scripts/ohmyzsh.sh install')
     scriptrun('./scripts/vim_compile.sh install')
+    scriptrun('./scripts/ohmyzsh.sh install')
 
 
 def update(system):
@@ -40,8 +40,8 @@ def uninstall(system):
     # scriptrun('./scripts/packages.sh remove')
     # Removing Dropbox, encfs, keys...
     scriptrun('./scripts/secrets.sh remove')
-    scriptrun('./scripts/ohmyzsh.sh remove')
     scriptrun('./scripts/vim_compile.sh remove')
+    scriptrun('./scripts/ohmyzsh.sh remove')
 
 
 if __name__ == '__main__':
