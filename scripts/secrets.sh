@@ -63,6 +63,7 @@ install_encfs(){
   openssl rsa -in ${KEYSDIR}/priv.key -pubout > ${KEYSDIR}/pub.key
 
   # http://stackoverflow.com/questions/1923435/how-do-i-echo-stars-when-reading-password-with-read
+  # TODO: hide answer
   echo "Enter Password for Encfs:"
   read password
   echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass

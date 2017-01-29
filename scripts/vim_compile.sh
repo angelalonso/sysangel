@@ -31,11 +31,13 @@ install(){
   sudo update-alternatives --set editor /usr/bin/vim
   sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
   sudo update-alternatives --set vi /usr/bin/vim
+
+  #TODO: add vim plugins and configurations (including theme and font)
 }
 
 remove(){
   echo "uninstalling vim"
-  rm -rf ~/vim
+  sudo rm -rf ~/vim
   sudo dpkg -r vim
   sudo apt-get remove --purge vim vim-runtime gvim vim-common
   sudo rm /usr/bin/vi

@@ -34,6 +34,7 @@ main(){
   esac
 
   # Add user to sudoers
+  # TODO: this gives me an error (-i not recognized?)
   if [ $(su -i env USRin="${USR}" sh -c 'grep ${USRin} /etc/sudoers | wc -l') -lt 1 ]; then
     su -i env USRin="${USR}" sh -c 'echo "${USRin} ALL=(ALL:ALL) ALL" >> /etc/sudoers'
   fi
