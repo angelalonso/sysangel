@@ -61,6 +61,7 @@ remove(){
 }
 
 remove_plugins(){
+  echo "removing"
 
 }
 
