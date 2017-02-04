@@ -38,8 +38,12 @@ install(){
 }
 
 install_plugins(){
+  echo "installing plugins"
   #TODO: add vim plugins and configurations (including theme and font)
+
   cd ~
+  # TODO: only copy over if no previous version, and only if .vimrc was there already
+  cp .vimrc .vimrc.orig
   ln -s ${HOME}/Dropbox/data/config_open/vimrc .vimrc
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
@@ -61,7 +65,11 @@ remove(){
 }
 
 remove_plugins(){
-  echo "removing"
+  echo "removing plugins"
+  cd ~
+  rm .vimrc
+  # TODO: only copy over if previous version
+  cp .vimrc.orig .vimrc
 
 }
 
