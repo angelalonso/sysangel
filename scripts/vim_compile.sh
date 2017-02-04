@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Installs all parts required for the private mounpoint to work automatically
 
+USR=$(whoami)
+HOME="/home/${USR}"
+
 install(){
   echo "compiling vim"
   sudo apt-get install checkinstall libncurses5-dev libgnome2-dev libgnomeui-dev \
@@ -32,7 +35,16 @@ install(){
   sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
   sudo update-alternatives --set vi /usr/bin/vim
 
+}
+
+install_plugins(){
   #TODO: add vim plugins and configurations (including theme and font)
+  cd ~
+  ln -s ${HOME}/Dropbox/data/config_open/vimrc .vimrc
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+  vim +PluginInstall +qall
+
 }
 
 remove(){
@@ -48,12 +60,18 @@ remove(){
 
 }
 
+remove_plugins(){
+
+}
+
 case "$1" in
   install|i|Install|I)
     install
+    install_plugins
     ;;
   remove|Remove|r|R|uninstall|u|Uninstall|U)
     remove
+    remove_plugins
     ;;
   *)
     echo "ERROR: Syntax is $0 [install|remove|]"
