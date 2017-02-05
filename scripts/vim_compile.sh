@@ -47,12 +47,17 @@ install_plugins(){
   ln -s ${HOME}/Dropbox/data/config_open/vimrc .vimrc
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+  mkdir -p ${HOME}/.vim/autoload ~/.vim/bundle && \
+  curl -LSso ${HOME}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
   vim +PluginInstall +qall
 
 }
 
 remove(){
   echo "uninstalling vim"
+
+  sudo rm -rf ~/.vim
   sudo rm -rf ~/vim
   sudo dpkg -r vim
   sudo apt-get remove --purge vim vim-runtime gvim vim-common
