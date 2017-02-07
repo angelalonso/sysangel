@@ -74,7 +74,7 @@ install_encfs(){
         sudo -i env USRin="${USR}" sh -c 'sed -i '"'"'s/myuser/${USRin}/g\'"'"' /etc/profile.d/privatemount.sh' && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
         sudo chmod 755 /etc/profile.d/privatemount.sh
-      cp ${FILESDIR}/private_mount.desktop ${HOME}.config/autostart/private_mount.desktop
+      cp ${FILESDIR}/private_mount.desktop ${HOME}/.config/autostart/private_mount.desktop
       #TODO:
       # Automate mount after dropbox got all data
       # Create a mount/unmount script/button
