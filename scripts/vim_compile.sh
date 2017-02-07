@@ -35,6 +35,10 @@ install(){
   sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
   sudo update-alternatives --set vi /usr/bin/vim
 
+  # Add vimbrant colorscheme
+  mkdir -p ${HOME}/.vim/colors
+  wget -O ${HOME}/.vim/colors/vimbrant.vim https://raw.githubusercontent.com/chrishunt/color-schemes/master/thayer/vimbrant.vim
+
 }
 
 install_plugins(){
