@@ -6,11 +6,11 @@ GITDIR="${HOME}/sysangel"
 
 install(){
   echo "installing fonts"
-  cd ${HOME}
-  git clone https://github.com/powerline/fonts
-  cd fonts
-  git clone https://github.com/belluzj/fantasque-sans
-  ./install.sh
+  # Thanks to https://github.com/belluzj/fantasque-sans
+  # I already compiled my own, I'd rather just copy it
+  sudo cp ${GITDIR}/files/FantasqueSansMono_Regular.ttf /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+  sudo chmod 644 /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+  sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
 
   echo "installing terminator config"
   mkdir -p ${HOME}/.config/terminator
