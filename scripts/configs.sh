@@ -8,7 +8,10 @@ install(){
   echo "installing fonts"
   # Thanks to https://github.com/belluzj/fantasque-sans
   # I already compiled my own, I'd rather just copy it
+  sudo mkdir -p /usr/local/share/fonts/f
+
   sudo cp ${GITDIR}/files/FantasqueSansMono_Regular.ttf /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+
   sudo chmod 644 /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
   sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
 
