@@ -15,6 +15,8 @@ install(){
   sudo chmod 644 /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
   sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
 
+  #TODO: backup if there is no previous backup
+
   echo "installing terminator config"
   mkdir -p ${HOME}/.config/terminator
   cp ${GITDIR}/files/terminator_config ${HOME}/.config/terminator/config
@@ -24,7 +26,8 @@ install(){
 
 remove(){
   echo "uninstalling"
-  #TODO: this
+  #TODO: restore from backup
+  sudo rm /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
 }
 
 case "$1" in

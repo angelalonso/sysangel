@@ -7,7 +7,7 @@ KEYSDIR="${INSTALLDIR}/keys"
 
 
 PKGS="curl encfs expect fabric git jq keepassx openssh-client passwd pdftk pwgen \
-python python-pip sudo terminator \
+python python-pip sudo tcptraceroute terminator \
 zim zsh"
 
 UBUNTUPKGS="${PKGS}"
