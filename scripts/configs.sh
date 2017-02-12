@@ -3,6 +3,7 @@
 USR=$(whoami)
 HOME="/home/${USR}"
 GITDIR="${HOME}/sysangel"
+FILESDIR="${GITDIR}/files"
 
 install(){
   echo "installing fonts"
@@ -23,6 +24,8 @@ install(){
   fi
   cp ${GITDIR}/files/terminator_config ${HOME}/.config/terminator/config
 
+  cp ${FILESDIR}/capstoesc.desktop ${HOME}.config/autostart/capstoesc.desktop
+
 
 }
 
@@ -35,6 +38,7 @@ remove(){
     rm ${HOME}/.config/terminator/config
   fi
   sudo rm /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+  rm ${HOME}.config/autostart/capstoesc.desktop
 }
 
 case "$1" in
