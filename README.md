@@ -45,8 +45,8 @@ IMPORTANT: it MUST be installed on your HOME directory to work properly
 # Personal Goals
 
 - One script that sets up everything after a fresh install. Apart from the above, I'd also want...
-  - Vim 8.0, vimrc and plugins
   - Mouse touchpad click
-  - Oh My Zsh
+    http://askubuntu.com/questions/690138/synaptics-touchpad-tap-to-click-is-not-working-in-ubuntu-15-10gnome
+    synclient TapButton1=1 TapButton2=3 TapButton3=2
   - Key Shortcuts
   - Firefox Sync
