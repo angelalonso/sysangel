@@ -11,8 +11,11 @@ brew tap caskroom/cask
 brew install caskroom/cask/brew-cask
 sudo chown -R $(whoami) /usr/local/Caskroom
 
-# oh my zsh
 # vim
 
-brew cask install firefox
-brew cask install chrome libreoffice keepass
+brew cask install firefox google-chrome libreoffice keepassx
+echo "TASK: MOVE FIREFOX, CHROME, LIBREOFFICE TO DOCK"
+echo "TASK: CREATE KEYS FOR FIREFOX, CHROME KEEPASSX"
+
+# oh my zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
