@@ -30,6 +30,7 @@ What I need now is a script that simply gets me up and running with all things I
   - Automount of encrypted folder
     - TO TEST: key generation, autorun of profile script
   - TO DO: SSH agent autoloading
+  - Mouse touchpad scroll, mac-like
   - Mouse touchpad click
     http://askubuntu.com/questions/690138/synaptics-touchpad-tap-to-click-is-not-working-in-ubuntu-15-10gnome
     synclient TapButton1=1 TapButton2=3 TapButton3=2
