@@ -21,7 +21,14 @@ dependencies(){
 
 main(){
   # Find out the current distro
-  SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
+  # MAC not currently supported but well...
+
+  if [ $(uname) == "Linux" ]; then
+    SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
+  elif [ $(uname) == "Darwin" ]; then
+    SYSTEM="Mac"
+  fi
+
   echo "System is ${SYSTEM}"
 
   case "${SYSTEM}" in
@@ -30,6 +37,10 @@ main(){
       ;;
     Debian|debian)
       dependencies "${DEBIANPKGS}"
+      ;;
+    Mac|mac)
+      ./macinstall.sh
+      exit 0
       ;;
   esac
 
