@@ -11,7 +11,7 @@ brew tap caskroom/cask
 brew install caskroom/cask/brew-cask
 sudo chown -R $(whoami) /usr/local/Caskroom
 
-brew cask install firefox google-chrome libreoffice keepassx dropbox
+brew cask install git firefox google-chrome libreoffice keepassx dropbox virtualbox
 echo
 echo "TASK: MOVE FIREFOX, CHROME, LIBREOFFICE TO DOCK"
 echo
@@ -21,7 +21,12 @@ echo "TASK: LOGIN WITH USER INTO FIREFOX, CHROME"
 
 # automount Private
 
-# reinstall git, rub, python manually
+# Install Commandlinetools package (clang make...)
+xcode-select --install
+
+# reinstall python manually
+brew install python3 python
+
 
 # vim
 
