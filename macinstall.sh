@@ -11,7 +11,7 @@ brew tap caskroom/cask
 brew install caskroom/cask/brew-cask
 sudo chown -R $(whoami) /usr/local/Caskroom
 
-brew cask install git firefox google-chrome libreoffice keepassx dropbox virtualbox
+brew cask install git firefox google-chrome vim libreoffice keepassx dropbox virtualbox
 echo
 echo "TASK: MOVE FIREFOX, CHROME, LIBREOFFICE TO DOCK"
 echo
@@ -28,7 +28,7 @@ xcode-select --install
 brew install python3 python
 
 
-# vim
+# vim config
 
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
