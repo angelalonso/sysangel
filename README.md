@@ -36,6 +36,9 @@ What I need now is a script that simply gets me up and running with all things I
     synclient TapButton1=1 TapButton2=3 TapButton3=2
     synclient VertScrollDelta=-77 HorizScrollDelta=-77
   - Key Shortcuts
+    - iTerm profile (#<-, #->) save here
+    - Map iTerm keybindings
+    - Map # as Win?
   - Firefox Sync
 
 - On a future phase, it also is capable of cleaning up what it did
