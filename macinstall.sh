@@ -3,21 +3,21 @@
 # http://lifehacker.com/how-to-make-your-own-bulk-app-installer-for-os-x-1586252163
 echo "Installing Homebrew and Cask"
 ruby -e "$(curl -fsSL "https://raw.githubusercontent.com/Homebrew/install/master/install")"
-sudo chown -R $(whoami) /usr/local/Cellar
-sudo chown -R $(whoami) /usr/local/Homebrew
-sudo chown -R $(whoami) /usr/local/var/homebrew
-sudo chown -R $(whoami) /usr/local/zsh
+sudo chown -R $(whoami) /usr/local
 brew tap caskroom/cask
 brew install caskroom/cask/brew-cask
-sudo chown -R $(whoami) /usr/local/Caskroom
 
-brew cask install git firefox google-chrome vim libreoffice keepassx dropbox virtualbox
+
+
+brew cask install git macports homebrew/fuse/encfs firefox google-chrome vim libreoffice keepassx dropbox franz virtualbox
 echo
 echo "TASK: MOVE FIREFOX, CHROME, LIBREOFFICE TO DOCK"
 echo
 echo "TASK: CREATE KEYS FOR FIREFOX, CHROME, KEEPASSX"
 echo
-echo "TASK: LOGIN WITH USER INTO FIREFOX, CHROME"
+echo "TASK: LOGIN WITH USER INTO FIREFOX, CHROME, DROPBOX, FRANZ"
+echo
+echo "TASK: COPY OVER SSH KEYS, GPG KEYS"
 
 # automount Private
 
