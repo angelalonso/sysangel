@@ -7,9 +7,19 @@ INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 
-PKGS="curl encfs exfat-fuse exfat-utils expect fabric git jq keepassx openssh-client passwd pdftk pwgen \
+PKGS="curl encfs exfat-fuse exfat-utils expect fabric git \
+gtk2-engines-murrine gtk3-engines-xfce \
+jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip sudo tcptraceroute terminator \
 zim zsh"
+
+# Bash colors
+BLU='\033[0;34m'
+LGR='\033[1;32m'
+LBL='\033[1;34m'
+ORN='\033[0;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 # Check it's the right system
 
@@ -25,6 +35,13 @@ zim zsh"
 # if [ $(su -i env USRin="${USR}" sh -c 'grep ${USRin} /etc/sudoers | wc -l') -lt 1 ]; then
 #   su -i env USRin="${USR}" sh -c 'echo "${USRin} ALL=(ALL:ALL) ALL" >> /etc/sudoers'
 # fi
+
+preparation(){
+echo -e "${LBL} Before we start, bear in mind that you will need the following:"
+echo -e "${LGR}- Dropbox user and password"
+echo -e "${LBL}Press any button when you are ready...${NC}"
+read confirm
+}
 
 # Dependencies
 
@@ -65,20 +82,13 @@ gtk-update-icon-cache-3.0 -f -t ~/.icons
 
 sudo apt-get install gtk2-engines-murrine gtk3-engines-xfce
 
-#Then apply the themes in:
+echo -e "${LBL} Apply the themes in:"
+echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Greybird master'
+Settings Manager --> Appearance --> Icons tab: choose 'elementary xfce dark'
+Settings Manager --> Window Manager --> Style tab: choose 'Greybird master'${NC}"
 
-#Settings Manager --> Appearance --> Style tab: choose "Greybird master"
-#Settings Manager --> Appearance --> Icons tab: choose "elementary xfce dark"
-#Settings Manager --> Window Manager --> Style tab: choose "Greybird master"
-
-#For the themes to work even for the root user (such as Synaptic), you can set up a symlink:
-
-# Open a root shell
+#For the themes to work even for the root user (such as Synaptic), you have to set up a symlink:
 sudo ln -s /home/aaf/.themes  /root
-
-# Just checking
-sudo ls -A /root/.themes
-#Greybird-master
 
 }
 
@@ -86,4 +96,17 @@ cleanup(){
 # Remove directories that were created for the installation
 rm -r ${TMPDIR}
 }
-configs
+
+AMISUDO=$(sudo -v 2>/dev/null; echo $?)
+if [ $AMISUDO -ne 0 ]; then
+  echo -e "${RED} Your user is NOT in the SUDOERS LIST!${NC}"
+  echo " Please add it with:"
+  echo -e "${ORN}su -l root"
+  echo -e "visudo"
+  echo -e "${NC}, then add the following line: ${ORN}"
+  echo -e "${USR} sudo ALL=(ALL:ALL) ALL${NC}"
+  exit 2
+else
+  preparation
+  echo configs
+fi
