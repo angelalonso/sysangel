@@ -108,7 +108,7 @@ mkdir -p ${HOME}/.config/terminator
 if [[ -f ${HOME}/.config/terminator/config && ! -f ${HOME}/.config/terminator/config.orig ]]; then
   cp ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config.orig
 fi
-cp ${GITDIR}/files/terminator_config ${HOME}/.config/terminator/config
+ln -s ${GITDIR}/files/terminator_config ${HOME}/.config/terminator/config
 
 #TODO: is this needed?
 #cp ${FILESDIR}/capstoesc.desktop ${HOME}.config/autostart/capstoesc.desktop
