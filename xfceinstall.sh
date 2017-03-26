@@ -39,7 +39,7 @@ NC='\033[0m' # No Color
 preparation(){
 echo -e "${LBL} Before we start, bear in mind that you will need the following:"
 echo -e "${LGR}- Dropbox user and password"
-echo -e "${LBL}Press any button when you are ready...${NC}"
+echo -e "${LBL}Press <Intro> when you are ready...${NC}"
 read confirm
 }
 
