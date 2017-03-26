@@ -15,7 +15,7 @@ zim zsh"
 
 if [ $(uname) == "Linux" ]; then
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
-else; then
+else
   exit 2
 fi
 
@@ -28,18 +28,19 @@ fi
 
 # Dependencies
 
-# Folders
+folders(){
 # Create directories needed for the future
 mkdir -p ${INSTALLDIR}
 mkdir -p ${KEYSDIR}
 # Create directories only for the installation
 mkdir -p ${TMPDIR}
+}
 
 # Keys
 
 # Configs
 
-# Cleanup
+cleanup(){
 # Remove directories that were created for the installation
 rm -r ${TMPDIR}
-
+}
