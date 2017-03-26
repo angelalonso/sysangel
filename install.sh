@@ -6,7 +6,7 @@ TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 
 
-PKGS="curl encfs exfat-fuse exfat-utils expect fabric git jq keepassx openssh-client passwd pdftk pwgen \
+PKGS="curl encfs exfat-fuse exfat-utils expect fabric git jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip sudo tcptraceroute terminator \
 zim zsh"
 
