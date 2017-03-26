@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Keyboard
+setxkbmap -option compose:rctrl
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+
+# Touchpad
+if egrep -iq 'touchpad' /proc/bus/input/devices; then
+  synclient VertEdgeScroll=1 TapButton1=1 HorizScrollDelta=-150 VertScrollDelta=-150 &
+fi
+
+#seahorse &
