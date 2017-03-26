@@ -3,9 +3,11 @@
 # Vars
 
 USR=$(whoami)
+HOME="/home/${USR}"
 INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
+GITDIR="${HOME}/sysangel"
 
 PKGS="curl encfs exfat-fuse exfat-utils expect fabric git \
 gtk2-engines-murrine gtk3-engines-xfce \
@@ -44,8 +46,8 @@ read confirm
 }
 
 # Dependencies
-packages(){
-./scripts/packages.sh install ${PKGS}
+otherpackages(){
+echo "here"
 }
 
 folders(){
@@ -61,7 +63,9 @@ mkdir -p ${TMPDIR}
 # Configs
 configs(){
 
+
 # Install theme
+echo -e "${LGR}installing theme${NC}"
 mkdir -p ~/.themes
 cd $_
 wget https://github.com/shimmerproject/Greybird/archive/master.zip
@@ -70,9 +74,9 @@ rm master.zip
 
 
 # Install Icons
+echo -e "${LGR}installing icons${NC}"
 mkdir -p ~/.icons
 cd $_
-
 wget https://github.com/shimmerproject/elementary-xfce/archive/master.zip
 unzip master.zip
 mv elementary*/* .
@@ -86,6 +90,28 @@ Settings Manager --> Window Manager --> Style tab: choose 'Greybird master'${NC}
 #For the themes to work even for the root user (such as Synaptic), you have to set up a symlink:
 sudo ln -s /home/aaf/.themes  /root
 
+
+# Install Fonts
+echo -e "${LGR}installing fonts${NC}"
+# Thanks to https://github.com/belluzj/fantasque-sans
+# I already compiled my own, I'd rather just copy it
+sudo mkdir -p /usr/local/share/fonts/f
+sudo cp ${GITDIR}/files/FantasqueSansMono_Regular.ttf /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+sudo chmod 644 /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+
+
+# Install Terminator config
+echo -e "${LGR}installing terminator config${NC}"
+mkdir -p ${HOME}/.config/terminator
+# Don't overwrite previous backups
+if [[ -f ${HOME}/.config/terminator/config && ! -f ${HOME}/.config/terminator/config.orig ]]; then
+  cp ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config.orig
+fi
+cp ${GITDIR}/files/terminator_config ${HOME}/.config/terminator/config
+
+#TODO: is this needed?
+#cp ${FILESDIR}/capstoesc.desktop ${HOME}.config/autostart/capstoesc.desktop
 
 
 }
@@ -106,6 +132,14 @@ if [ $AMISUDO -ne 0 ]; then
   exit 2
 else
   preparation
-  packages
-  echo configs
+  sudo apt-get update && sudo apt-get install ${PKGS}
+  echo -e "${LGR}installing keys and passwords${NC}"
+  ./scripts/secrets.sh install
+  echo -e "${LGR}installing vim${NC}"
+  ./scripts/vim_compile.sh install
+  echo -e "${LGR}installing ohmyszh${NC}"
+  ./scripts/ohmyzsh.sh install
+  # TODO
+  #otherpackages
+  configs
 fi
