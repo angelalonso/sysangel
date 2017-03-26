@@ -44,6 +44,9 @@ read confirm
 }
 
 # Dependencies
+packages(){
+./scripts/packages.sh install ${PKGS}
+}
 
 folders(){
 # Create directories needed for the future
@@ -74,21 +77,16 @@ wget https://github.com/shimmerproject/elementary-xfce/archive/master.zip
 unzip master.zip
 mv elementary*/* .
 rm master.zip
-
 # update icon cache (optional)
 gtk-update-icon-cache-3.0 -f -t ~/.icons
-
-#For the Greybird theme to work, you need to:
-
-sudo apt-get install gtk2-engines-murrine gtk3-engines-xfce
-
 echo -e "${LBL} Apply the themes in:"
 echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Greybird master'
 Settings Manager --> Appearance --> Icons tab: choose 'elementary xfce dark'
 Settings Manager --> Window Manager --> Style tab: choose 'Greybird master'${NC}"
-
 #For the themes to work even for the root user (such as Synaptic), you have to set up a symlink:
 sudo ln -s /home/aaf/.themes  /root
+
+
 
 }
 
@@ -108,5 +106,6 @@ if [ $AMISUDO -ne 0 ]; then
   exit 2
 else
   preparation
+  packages
   echo configs
 fi
