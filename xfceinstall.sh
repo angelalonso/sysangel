@@ -39,6 +39,49 @@ mkdir -p ${TMPDIR}
 # Keys
 
 # Configs
+configs(){
+
+# Install theme
+mkdir -p ~/.themes
+cd $_
+wget https://github.com/shimmerproject/Greybird/archive/master.zip
+unzip master.zip
+rm master.zip
+
+
+# Install Icons
+mkdir -p ~/.icons
+cd $_
+
+wget https://github.com/shimmerproject/elementary-xfce/archive/master.zip
+unzip master.zip
+mv elementary*/* .
+rm master.zip
+
+# update icon cache (optional)
+gtk-update-icon-cache-3.0 -f -t ~/.icons
+
+#For the Greybird theme to work, you need to:
+
+apt-get install gtk2-engines-murrine gtk3-engines-unico
+
+#Then apply the themes in:
+
+#Settings Manager --> Appearance --> Style tab: choose "Greybird master"
+#Settings Manager --> Appearance --> Icons tab: choose "elementary xfce dark"
+#Settings Manager --> Window Manager --> Style tab: choose "Greybird master"
+
+#For the themes to work even for the root user (such as Synaptic), you can set up a symlink:
+
+# Open a root shell
+su -
+ln -s /home/aaf/.themes  /root
+
+# Just checking
+ls -A /root/.themes
+#Greybird-master
+
+}
 
 cleanup(){
 # Remove directories that were created for the installation
