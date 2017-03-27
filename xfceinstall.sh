@@ -41,7 +41,6 @@ NC='\033[0m' # No Color
 preparation(){
 echo -e "${LBL} Before we start, bear in mind that you will need the following:"
 echo -e "${LGR}- Your Encrypted Dropbox folder's password"
-echo -e "${LGR}- Dropbox user and password"
 echo -e "${LBL}Press <Intro> when you are ready...${NC}"
 read confirm
 }
@@ -131,7 +130,7 @@ if [ $AMISUDO -ne 0 ]; then
   echo -e "${ORN}su -l root"
   echo -e "visudo"
   echo -e "${NC}, then add the following line: ${ORN}"
-  echo -e "${USR} sudo ALL=(ALL:ALL) ALL${NC}"
+  echo -e "${USR} ALL=(ALL:ALL) ALL${NC}"
   exit 2
 else
   preparation

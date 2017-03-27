@@ -61,7 +61,8 @@ sysangel.py
 
 ### Prerequisites
 
-git, install it however you like
+sudo
+git
 
 
 ## Installation
