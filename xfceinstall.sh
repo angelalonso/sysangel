@@ -9,7 +9,7 @@ TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 
-PKGS="curl encfs exfat-fuse exfat-utils expect fabric git \
+PKGS="curl encfs exfat-fuse exfat-utils expect fabric firefox git \
 gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip sudo tcptraceroute terminator \
