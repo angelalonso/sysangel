@@ -9,7 +9,7 @@ TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 
-PKGS="curl encfs exfat-fuse exfat-utils expect fabric iceweasel git \
+PKGS="curl encfs exfat-fuse exfat-utils expect fabric git \
 gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip sudo tcptraceroute terminator \
@@ -47,6 +47,7 @@ read confirm
 
 # Dependencies
 otherpackages(){
+  # Needed: firefox for debian (compile from source?)
 echo "here"
 }
 
