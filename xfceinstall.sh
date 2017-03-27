@@ -137,8 +137,10 @@ else
   preparation
   echo -e "${LGR}installing packages${NC}"
   sudo apt-get update && sudo apt-get install ${PKGS}
-#   echo -e "${LGR}installing keys and passwords${NC}"
-#   ./scripts/secrets.sh install
+  echo -e "${LGR}installing keys and passwords${NC}"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
+  ./scripts/secrets.sh install
 #   echo -e "${LGR}installing vim${NC}"
 #   ./scripts/vim_compile.sh install
 #   echo -e "${LGR}installing ohmyszh${NC}"
