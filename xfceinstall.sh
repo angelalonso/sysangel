@@ -40,6 +40,7 @@ NC='\033[0m' # No Color
 
 preparation(){
 echo -e "${LBL} Before we start, bear in mind that you will need the following:"
+echo -e "${LGR}- Your Encrypted Dropbox folder's password"
 echo -e "${LGR}- Dropbox user and password"
 echo -e "${LBL}Press <Intro> when you are ready...${NC}"
 read confirm
@@ -66,6 +67,8 @@ configs(){
 
 # Install theme
 echo -e "${LGR}installing theme${NC}"
+echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+read confirm
 mkdir -p ~/.themes
 cd $_
 wget https://github.com/shimmerproject/Greybird/archive/master.zip
@@ -132,14 +135,15 @@ if [ $AMISUDO -ne 0 ]; then
   exit 2
 else
   preparation
+  echo -e "${LGR}installing packages${NC}"
   sudo apt-get update && sudo apt-get install ${PKGS}
-  echo -e "${LGR}installing keys and passwords${NC}"
-  ./scripts/secrets.sh install
-  echo -e "${LGR}installing vim${NC}"
-  ./scripts/vim_compile.sh install
-  echo -e "${LGR}installing ohmyszh${NC}"
-  ./scripts/ohmyzsh.sh install
+#   echo -e "${LGR}installing keys and passwords${NC}"
+#   ./scripts/secrets.sh install
+#   echo -e "${LGR}installing vim${NC}"
+#   ./scripts/vim_compile.sh install
+#   echo -e "${LGR}installing ohmyszh${NC}"
+#   ./scripts/ohmyzsh.sh install
   # TODO
   #otherpackages
-  configs
+#  configs
 fi

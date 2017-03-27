@@ -1,15 +1,35 @@
 [global_config]
+  enabled_plugins = CustomCommandsMenu,
   handle_size = 1
   inactive_color_offset = 0.51
+  window_state = maximise
 [keybindings]
+  close_term = <Ctrl>w
+  copy = <Primary><Shift>c
   edit_window_title = None
+  full_screen = <Ctrl><Shift>f
+  go_down = <Primary>Down
+  go_left = <Primary>Left
+  go_right = <Primary>Right
+  go_up = <Primary>Up
+  group_all = None
+  group_tab_toggle = <Primary><Alt>i
   move_tab_left = <Primary><Shift>Left
   move_tab_right = <Primary><Shift>Right
-  new_tab = <Alt>t
-  next_tab = <Shift>Right
-  prev_tab = <Shift>Left
-  split_horiz = <Alt>h
-  split_vert = <Alt>v
+  new_tab = <Ctrl>t
+  new_window = <Ctrl>n
+  next_tab = <Primary>Right
+  paste = <Primary><Shift>v
+  prev_tab = <Primary>Left
+  reset_clear = None
+  resize_down = <Primary><Super>Down
+  resize_left = <Primary><Super>Left
+  resize_right = <Primary><Super>Right
+  resize_up = <Primary><Super>Up
+  scaled_zoom = <Ctrl><Shift>k
+  search = <Primary><Shift>f
+  split_horiz = <Primary><Shift>d
+  split_vert = <Primary>d
 [layouts]
   [[default]]
     [[[child1]]]
