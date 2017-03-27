@@ -41,6 +41,7 @@ NC='\033[0m' # No Color
 preparation(){
 echo -e "${LBL} Before we start, bear in mind that you will need the following:"
 echo -e "${LGR}- Your Encrypted Dropbox folder's password"
+echo -e "${LGR}- Your Dropbox username and password"
 echo -e "${LBL}Press <Intro> when you are ready...${NC}"
 read confirm
 }
