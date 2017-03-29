@@ -44,6 +44,13 @@ echo -e "${LGR}- Your Encrypted Dropbox folder's password"
 echo -e "${LGR}- Your Dropbox username and password"
 echo -e "${LBL}Press <Intro> when you are ready...${NC}"
 read confirm
+
+# BEFORE STARTING, create directories needed for the future
+mkdir -p ${INSTALLDIR}
+mkdir -p ${KEYSDIR}
+# Create directories only for the installation
+mkdir -p ${TMPDIR}
+# , then continue to the next steps...
 }
 
 # Dependencies
@@ -52,13 +59,6 @@ otherpackages(){
 echo "here"
 }
 
-folders(){
-# Create directories needed for the future
-mkdir -p ${INSTALLDIR}
-mkdir -p ${KEYSDIR}
-# Create directories only for the installation
-mkdir -p ${TMPDIR}
-}
 
 # Keys
 
