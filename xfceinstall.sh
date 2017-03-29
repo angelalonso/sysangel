@@ -144,9 +144,10 @@ else
   ./scripts/xfce_secrets.sh install
   echo -e "${LGR}installing vim${NC}"
   ./scripts/vim_compile.sh install
-#   echo -e "${LGR}installing ohmyszh${NC}"
-#   ./scripts/ohmyzsh.sh install
   # TODO
   #otherpackages
 #  configs
+# Leaving ohmyzsh fpr the  final step
+#   echo -e "${LGR}installing ohmyszh${NC}"
+#   ./scripts/ohmyzsh.sh install
 fi
