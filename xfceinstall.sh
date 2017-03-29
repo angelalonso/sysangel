@@ -141,7 +141,7 @@ else
   echo -e "${LGR}installing keys and passwords${NC}"
   echo -e "${LBL}Press <Intro> when you are ready...${NC}"
   read confirm
-  ./scripts/secrets.sh install
+  ./scripts/xfce_secrets.sh install
 #   echo -e "${LGR}installing vim${NC}"
 #   ./scripts/vim_compile.sh install
 #   echo -e "${LGR}installing ohmyszh${NC}"
