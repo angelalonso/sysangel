@@ -48,6 +48,7 @@ read confirm
 # BEFORE STARTING, create directories needed for the future
 mkdir -p ${INSTALLDIR}
 mkdir -p ${KEYSDIR}
+mkdir -p ${HOME}/Private
 # Create directories only for the installation
 mkdir -p ${TMPDIR}
 # , then continue to the next steps...
