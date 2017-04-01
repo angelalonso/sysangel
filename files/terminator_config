@@ -17,7 +17,7 @@
   move_tab_left = <Primary><Shift>Left
   move_tab_right = <Primary><Shift>Right
   new_tab = <Ctrl>t
-  new_window = <Ctrl>n
+  new_window = None
   next_tab = <Primary>Right
   paste = <Primary><Shift>v
   prev_tab = <Primary>Left
