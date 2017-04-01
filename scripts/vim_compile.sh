@@ -46,7 +46,7 @@ install_plugins(){
   #TODO: add vim plugins and configurations (including theme and font)
 
   # TODO: only copy over if no previous version, and only if .vimrc was there already
-  cp ${HOME}/.vimrc ${HOME}/.vimrc.orig 2>/dev/null
+  mv ${HOME}/.vimrc ${HOME}/.vimrc.orig 2>/dev/null
   ln -s ${HOME}/Dropbox/data/config_open/vimrc_home ${HOME}/.vimrc
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
