@@ -48,7 +48,7 @@ install_plugins(){
   cd ~
   # TODO: only copy over if no previous version, and only if .vimrc was there already
   cp .vimrc .vimrc.orig
-  ln -s ${HOME}/Private/config_secret/vimrc_home .vimrc
+  ln -s ${HOME}/Dropbox/data/config_open/vimrc_home .vimrc
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
   mkdir -p ${HOME}/.vim/autoload ~/.vim/bundle && \
