@@ -111,7 +111,7 @@ echo -e "${LGR}installing terminator config${NC}"
 mkdir -p ${HOME}/.config/terminator
 
 if [[ ! -f ${HOME}/.config/terminator/config ]]; then
-  mv ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config
+  mv ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config 2>/dev/null
 else
   rm ${HOME}/.config/terminator/config 2>/dev/null
 fi
