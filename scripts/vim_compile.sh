@@ -51,10 +51,8 @@ install_plugins(){
   fi
   ln -s ${HOME}/Dropbox/data/config_open/vimrc_home ${HOME}/.vimrc
 
-  mv ${HOME}/.vimrc ${HOME}/.vimrc.orig 2>/dev/null
+  mkdir -p ${HOME}/.vim/autoload ${HOME}/.vim/bundle
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-  mkdir -p ${HOME}/.vim/autoload ~/.vim/bundle && \
   curl -LSso ${HOME}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
   vim +PluginInstall +qall
