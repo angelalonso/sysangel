@@ -147,5 +147,5 @@ else
   configs
 # Leaving ohmyzsh fpr the  final step
   echo -e "${LGR}installing ohmyszh${NC}"
-  ./scripts/ohmyzsh.sh install
+  ${GITDIR}/scripts/ohmyzsh.sh install
 fi
