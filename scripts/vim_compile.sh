@@ -43,11 +43,15 @@ install(){
 
 install_plugins(){
   echo "installing plugins"
-  #TODO: add vim plugins and configurations (including theme and font)
 
-  # TODO: only copy over if no previous version, and only if .vimrc was there already
-  mv ${HOME}/.vimrc ${HOME}/.vimrc.orig 2>/dev/null
+  if [[ ! -f ${HOME}/.vimrc ]]; then
+    mv ${HOME}/.vimrc ${HOME}/.vimrc.orig
+  else
+    rm ${HOME}/.vimrc 2>/dev/null
+  fi
   ln -s ${HOME}/Dropbox/data/config_open/vimrc_home ${HOME}/.vimrc
+
+  mv ${HOME}/.vimrc ${HOME}/.vimrc.orig 2>/dev/null
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
   mkdir -p ${HOME}/.vim/autoload ~/.vim/bundle && \
@@ -75,8 +79,9 @@ remove(){
 remove_plugins(){
   echo "removing plugins"
   rm ${HOME}/.vimrc
-  # TODO: only copy over if previous version
-  cp ${HOME}/.vimrc.orig ${HOME}/.vimrc
+  if [[ -f ${HOME}/.vimrc.orig ]]; then
+    cp ${HOME}/.vimrc.orig ${HOME}/.vimrc
+  fi
 
 }
 
