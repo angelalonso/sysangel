@@ -109,15 +109,13 @@ sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
 # Install Terminator config
 echo -e "${LGR}installing terminator config${NC}"
 mkdir -p ${HOME}/.config/terminator
-# Don't overwrite previous backups
-if [[ -f ${HOME}/.config/terminator/config && ! -f ${HOME}/.config/terminator/config.orig ]]; then
-  cp ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config.orig
+
+if [[ ! -f ${HOME}/.config/terminator/config ]]; then
+  mv ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config
+else
+  rm ${HOME}/.config/terminator/config 2>/dev/null
 fi
-ln -s ${GITDIR}/files/terminator_config ${HOME}/.config/terminator/config
-
-#TODO: is this needed?
-#cp ${FILESDIR}/capstoesc.desktop ${HOME}.config/autostart/capstoesc.desktop
-
+ln -s ${HOME}/Dropbox/data/config_open/terminator_config ${HOME}/.config/terminator/config
 
 }
 
@@ -145,10 +143,9 @@ else
   ./scripts/xfce_secrets.sh install
   echo -e "${LGR}installing vim${NC}"
   ./scripts/vim_compile.sh install
-  # TODO
-  #otherpackages
-#  configs
+  otherpackages
+  configs
 # Leaving ohmyzsh fpr the  final step
-#   echo -e "${LGR}installing ohmyszh${NC}"
-#   ./scripts/ohmyzsh.sh install
+  echo -e "${LGR}installing ohmyszh${NC}"
+  ./scripts/ohmyzsh.sh install
 fi
