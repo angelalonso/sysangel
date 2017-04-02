@@ -144,8 +144,8 @@ else
   echo -e "${LGR}installing vim${NC}"
   ./scripts/vim_compile.sh install
   otherpackages
-  configs
 # Leaving ohmyzsh fpr the  final step
   echo -e "${LGR}installing ohmyszh${NC}"
   ${GITDIR}/scripts/ohmyzsh.sh install
+  configs
 fi
