@@ -154,18 +154,18 @@ if [ $AMISUDO -ne 0 ]; then
   echo -e "${USR} ALL=(ALL:ALL) ALL${NC}"
   exit 2
 else
-  preparation
-  echo -e "${LGR}installing packages${NC}"
-  sudo apt-get update && sudo apt-get install ${PKGS}
-  echo -e "${LGR}installing keys and passwords${NC}"
-  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-  read confirm
-  ./scripts/xfce_secrets.sh install
-  echo -e "${LGR}installing vim${NC}"
-  ./scripts/vim_compile.sh install
-  otherpackages
-# Leaving ohmyzsh fpr the  final step
-  echo -e "${LGR}installing ohmyszh${NC}"
-  ${GITDIR}/scripts/ohmyzsh.sh install
+#   preparation
+#   echo -e "${LGR}installing packages${NC}"
+#   sudo apt-get update && sudo apt-get install ${PKGS}
+#   echo -e "${LGR}installing keys and passwords${NC}"
+#   echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+#   read confirm
+#   ./scripts/xfce_secrets.sh install
+#   echo -e "${LGR}installing vim${NC}"
+#   ./scripts/vim_compile.sh install
+#   otherpackages
+# # Leaving ohmyzsh fpr the  final step
+#   echo -e "${LGR}installing ohmyszh${NC}"
+#   ${GITDIR}/scripts/ohmyzsh.sh install
   configs
 fi

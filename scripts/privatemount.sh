@@ -29,4 +29,4 @@ mount_encfs(){
 }
 
 # Call the mount function
-if [ "${USER}" = "myuser" ] ;then mount_encfs; fi
+if [ "${USER}" = "aaf" ] ;then mount_encfs; fi
