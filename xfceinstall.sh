@@ -110,12 +110,32 @@ sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
 echo -e "${LGR}installing terminator config${NC}"
 mkdir -p ${HOME}/.config/terminator
 
-if [[ ! -f ${HOME}/.config/terminator/config ]]; then
-  mv ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config 2>/dev/null
+if [[ ! -f ${HOME}/.config/terminator/config.orig ]]; then
+  mv ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config.orig 2>/dev/null
 else
   rm ${HOME}/.config/terminator/config 2>/dev/null
 fi
 ln -s ${HOME}/Dropbox/data/config_open/terminator_config ${HOME}/.config/terminator/config
+
+# Install SSH keys
+echo -e "${LGR}installing ssh keys${NC}"
+
+if [[ ! -f ${HOME}/.ssh.orig ]]; then
+  mv ${HOME}/.ssh ${HOME}/.ssh.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.ssh 2>/dev/null
+fi
+ln -s ${HOME}/Private/config_secret/.ssh ${HOME}/.ssh
+
+# Install AWS keys
+echo -e "${LGR}installing aws keys${NC}"
+
+if [[ ! -f ${HOME}/.aws.orig ]]; then
+  mv ${HOME}/.aws ${HOME}/.aws.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.aws 2>/dev/null
+fi
+ln -s ${HOME}/Private/config_secret/.aws ${HOME}/.aws
 
 }
 
