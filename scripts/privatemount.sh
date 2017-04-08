@@ -15,16 +15,25 @@ FOLDRCONFIG="$HOME/.sysangel"
 FOLDRKEYS="$FOLDRCONFIG/keys"
 FLD_ENC_ORIG="$HOME/Dropbox/data/.encrypted"
 FLD_ENC_DEST="$HOME/Private"
+FLD_BACKUP="$HOME/Private_offline"
 
 TERM=$(which xterm)
 
 ### Functions
+
+sync_priv(){
+  if [ "$(ls -A "$FLD_ENC_DEST" 2> /dev/null)" != "" ]; then
+    rsync -rtvu ${FLD_ENC_DEST}/ ${FLD_BACKUP}/ 2>/dev/null
+  fi
+}
 
 # Mount the encfs folder
 mount_encfs(){
   PASS_ENCFS=$(/usr/bin/openssl rsautl -inkey $FOLDRKEYS/priv.key -decrypt < $FOLDRKEYS/main_encfs.pass)
 
   echo $PASS_ENCFS | encfs -S $FLD_ENC_ORIG $FLD_ENC_DEST
+
+  sync_priv
 
 }
 

@@ -49,6 +49,7 @@ read confirm
 mkdir -p ${INSTALLDIR}
 mkdir -p ${KEYSDIR}
 mkdir -p ${HOME}/Private
+mkdir -p ${HOME}/Private_offline
 # Create directories only for the installation
 mkdir -p ${TMPDIR}
 # , then continue to the next steps...
@@ -113,6 +114,25 @@ else
 fi
 ln -s ${HOME}/Dropbox/data/config_open/terminator_config ${HOME}/.config/terminator/config
 
+# Install ZSH config
+echo -e "${LGR}installing ZSH config ${NC}"
+
+if [[ ! -f ${HOME}/.zshrc.orig ]]; then
+  mv ${HOME}/.zshrc ${HOME}/.zshrc.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.zshrc 2>/dev/null
+fi
+ln -s ${HOME}/Dropbox/data/config_open/zshrc_home ${HOME}/.zshrc
+
+
+}
+
+# Private Configs
+private_configs(){
+#TODO:
+
+# Modify Mount Script to sync to Offline Folder
+
 # Install SSH keys
 echo -e "${LGR}installing ssh keys${NC}"
 
@@ -121,7 +141,7 @@ if [[ ! -f ${HOME}/.ssh.orig ]]; then
 else
   rm -rf ${HOME}/.ssh 2>/dev/null
 fi
-ln -s ${HOME}/Private/config_secret/.ssh ${HOME}/.ssh
+ln -s ${HOME}/Private_offline/config_secret/.ssh ${HOME}/.ssh
 
 # Install AWS keys
 echo -e "${LGR}installing aws keys${NC}"
@@ -131,7 +151,8 @@ if [[ ! -f ${HOME}/.aws.orig ]]; then
 else
   rm -rf ${HOME}/.aws 2>/dev/null
 fi
-ln -s ${HOME}/Private/config_secret/.aws ${HOME}/.aws
+ln -s ${HOME}/Private_offline/config_secret/.aws ${HOME}/.aws
+
 
 }
 
@@ -171,8 +192,10 @@ else
 #   ./scripts/vim_compile.sh install
 #   otherpackages
 # # Leaving ohmyzsh fpr the  final step
-#   echo -e "${LGR}installing ohmyszh${NC}"
+  /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+   echo -e "${LGR}installing ohmyszh${NC}"
 #   ${GITDIR}/scripts/ohmyzsh.sh install
   configs
+  private_configs
   to_do
 fi
