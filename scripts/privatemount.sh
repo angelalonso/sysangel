@@ -18,8 +18,6 @@ FLD_ENC_DEST="$HOME/Private"
 FLD_BACKUP="$HOME/Private_offline"
 GITDIR="${HOME}/sysangel"
 
-TERM=$(which xterm)
-
 ### Functions
 
 sync_priv(){

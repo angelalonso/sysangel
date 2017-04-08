@@ -191,11 +191,13 @@ else
 #   echo -e "${LGR}installing vim${NC}"
 #   ./scripts/vim_compile.sh install
 #   otherpackages
-# # Leaving ohmyzsh fpr the  final step
+# ohmyzsh
   /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
    echo -e "${LGR}installing ohmyszh${NC}"
-#   ${GITDIR}/scripts/ohmyzsh.sh install
+  ${GITDIR}/scripts/ohmyzsh.sh install
   configs
   private_configs
+  # check the mount of Private again, solve links situation
+  ${GITDIR}/scripts/privatemount.sh
   to_do
 fi
