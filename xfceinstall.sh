@@ -129,9 +129,9 @@ ln -s ${HOME}/Dropbox/data/config_open/zshrc_home ${HOME}/.zshrc
 
 # Private Configs
 private_configs(){
-#TODO:
 
-# Modify Mount Script to sync to Offline Folder
+# We mount to Private_offline by default.
+#   , but it will be re-linked to the Private one, when it gets mounted
 
 # Install SSH keys
 echo -e "${LGR}installing ssh keys${NC}"

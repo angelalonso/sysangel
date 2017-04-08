@@ -16,6 +16,7 @@ FOLDRKEYS="$FOLDRCONFIG/keys"
 FLD_ENC_ORIG="$HOME/Dropbox/data/.encrypted"
 FLD_ENC_DEST="$HOME/Private"
 FLD_BACKUP="$HOME/Private_offline"
+GITDIR="${HOME}/sysangel"
 
 TERM=$(which xterm)
 
@@ -34,6 +35,7 @@ mount_encfs(){
   echo $PASS_ENCFS | encfs -S $FLD_ENC_ORIG $FLD_ENC_DEST
 
   sync_priv
+  ${GITDIR}/scripts/priv_data.sh
 
 }
 
