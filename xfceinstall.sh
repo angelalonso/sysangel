@@ -88,10 +88,6 @@ mv elementary*/* .
 rm master.zip
 # update icon cache (optional)
 gtk-update-icon-cache-3.0 -f -t ~/.icons
-echo -e "${LBL} Apply the themes in:"
-echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Greybird master'
-Settings Manager --> Appearance --> Icons tab: choose 'elementary xfce dark'
-Settings Manager --> Window Manager --> Style tab: choose 'Greybird master'${NC}"
 #For the themes to work even for the root user (such as Synaptic), you have to set up a symlink:
 sudo ln -s /home/aaf/.themes  /root
 
@@ -139,6 +135,16 @@ ln -s ${HOME}/Private/config_secret/.aws ${HOME}/.aws
 
 }
 
+to_do(){
+echo -e "${RED} Further Manual Steps needed:"
+echo
+echo -e "${LBL} Apply the themes in:"
+echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Greybird master'
+Settings Manager --> Appearance --> Icons tab: choose 'elementary xfce dark'
+Settings Manager --> Window Manager --> Style tab: choose 'Greybird master'${NC}"
+
+}
+
 cleanup(){
 # Remove directories that were created for the installation
 rm -r ${TMPDIR}
@@ -168,4 +174,5 @@ else
 #   echo -e "${LGR}installing ohmyszh${NC}"
 #   ${GITDIR}/scripts/ohmyzsh.sh install
   configs
+  to_do
 fi
