@@ -4,6 +4,7 @@
 
 install(){
   echo "installing"
+  /usr/bin/xterm -e "echo 'Enter exit on the main terminal to continue'; read answer" &
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
   exit
 }
