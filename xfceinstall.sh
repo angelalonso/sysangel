@@ -13,7 +13,7 @@ PKGS="curl encfs exfat-fuse exfat-utils expect fabric git \
 gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
-unzip zim zip zsh"
+unzip xbindkeys xvkdb zim zip zsh"
 
 # Bash colors
 BLU='\033[0;34m'
