@@ -124,6 +124,13 @@ else
 fi
 ln -s ${HOME}/Dropbox/data/config_open/zshrc_home ${HOME}/.zshrc
 
+# Autostart applications .desktop files
+if [[ ! -f ${HOME}/.config/autostart ]]; then
+  mv ${HOME}/.config/autostart ${HOME}/.config/autostart.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.config/autostart/.zshrc 2>/dev/null
+fi
+ln -s ${HOME}/Dropbox/data/config_open/xfce_autostart ${HOME}/.config/autostart
 
 }
 
@@ -187,9 +194,9 @@ else
 #   echo -e "${LGR}installing keys and passwords${NC}"
 #   echo -e "${LBL}Press <Intro> when you are ready...${NC}"
 #   read confirm
-#   ./scripts/xfce_secrets.sh install
+#   ${GITDIR}/scripts/xfce_secrets.sh install
 #   echo -e "${LGR}installing vim${NC}"
-#   ./scripts/vim_compile.sh install
+#   ${GITDIR}/scripts/vim_compile.sh install
 #   otherpackages
 # ohmyzsh
   /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &

@@ -34,8 +34,6 @@ install_dropbox(){
   # TODO: only download if file is not yet there
   cd ${HOME} && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
 
-  # Needed?
-  # cp ${FILESDIR}/dropbox.desktop ${HOME}.config/autostart/dropbox.desktop
 
   ${HOME}/.dropbox-dist/dropboxd &
 }
