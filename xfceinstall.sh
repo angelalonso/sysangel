@@ -128,9 +128,9 @@ ln -s ${HOME}/Dropbox/data/config_open/zshrc_home ${HOME}/.zshrc
 if [[ ! -f ${HOME}/.config/autostart ]]; then
   mv ${HOME}/.config/autostart ${HOME}/.config/autostart.orig 2>/dev/null
 else
-  rm -rf ${HOME}/.config/autostart/.zshrc 2>/dev/null
+  rm -rf ${HOME}/.config/autostart 2>/dev/null
 fi
-ln -s ${HOME}/Dropbox/data/config_open/xfce_autostart ${HOME}/.config/autostart
+ln -s ${GITDIR}/files/xfce_autostart ${HOME}/.config/autostart
 
 }
 
