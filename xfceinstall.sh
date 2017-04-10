@@ -140,6 +140,14 @@ else
 fi
 ln -s ${GITDIR}/files/Xmodmap_mac_ctrl ${HOME}/.Xmodmap
 
+# xfce xml config files
+if [[ ! -f ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml ]]; then
+  mv ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml 2>/dev/null
+else
+  rm -rf ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml 2>/dev/null
+fi
+ln -s ${GITDIR}/files/xfce/xfce-perchannel-xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml
+
 }
 
 # Private Configs
@@ -207,9 +215,9 @@ else
 #   ${GITDIR}/scripts/vim_compile.sh install
 #   otherpackages
 # ohmyzsh
-  /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-   echo -e "${LGR}installing ohmyszh${NC}"
-  ${GITDIR}/scripts/ohmyzsh.sh install
+#   /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+#   echo -e "${LGR}installing ohmyszh${NC}"
+#  ${GITDIR}/scripts/ohmyzsh.sh install
   configs
   private_configs
   # check the mount of Private again, solve links situation
