@@ -132,6 +132,14 @@ else
 fi
 ln -s ${GITDIR}/files/xfce_autostart ${HOME}/.config/autostart
 
+# Xmodmap with Apple-like keys
+if [[ ! -f ${HOME}/.Xmodmap ]]; then
+  mv ${HOME}/.Xmodmap ${HOME}/.Xmodmap.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.Xmodmap 2>/dev/null
+fi
+ln -s ${GITDIR}/files/Xmodmap_mac_ctrl ${HOME}/.Xmodmap
+
 }
 
 # Private Configs
