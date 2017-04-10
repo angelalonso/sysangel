@@ -140,6 +140,15 @@ else
 fi
 ln -s ${GITDIR}/files/Xmodmap_mac_ctrl ${HOME}/.Xmodmap
 
+# Xbindkeys and xvkbd trik to use ctrl on terminal
+if [[ ! -f ${HOME}/.xbindkeysrc ]]; then
+  mv ${HOME}/.xbindkeysrc ${HOME}/.xbindkeysrc.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.xbindkeysrc 2>/dev/null
+fi
+ln -s ${GITDIR}/files/xbindkeysrc ${HOME}/.xbindkeysrc
+
+
 # xfce xml config files
 if [[ ! -f ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml ]]; then
   mv ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml 2>/dev/null
