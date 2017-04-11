@@ -32,3 +32,8 @@ brew install python3 python
 
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# CONFIG CHANGES:
+# System Preferences > Keyboard > Shortcuts > App Shortcuts
+#  iTerm, Split Vertically with Current Profile CTRL+SHIFT+d
+
