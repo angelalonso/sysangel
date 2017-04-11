@@ -3,7 +3,7 @@ CTRL
 C-a
 C-b
 C-c
-C-d
+C-d, L: terminal close session, M:, V:
 C-e
 C-f
 C-g
@@ -22,7 +22,7 @@ C-s
 C-t
 C-u
 C-v
-C-w
+C-w, L: terminal delete word, M:, V:
 C-x
 C-y
 C-z
