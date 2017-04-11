@@ -1,6 +1,118 @@
-# Window management
-#-F3 -> Show Desktop
+CTRL
+      linux         mac       vim
+C-a
+C-b
+C-c
+C-d
+C-e
+C-f
+C-g
+C-h
+C-i
+C-j
+C-k
+C-l
+C-m
+C-n
+C-o
+C-p
+C-q
+C-r
+C-s
+C-t
+C-u
+C-v
+C-w
+C-x
+C-y
+C-z
+
+CMD / Super-L / Win
+            linux         mac       vim
+W-a
+W-b
+W-c
+W-d
+W-e
+W-f
+W-g
+W-h
+W-i
+W-j
+W-k
+W-l
+W-m
+W-n
+W-o
+W-p
+W-q
+W-r
+W-s
+W-t
+W-u
+W-v
+W-w
+W-x
+W-y
+W-z
+W-arrow   L: Terminator move to split
 
 
+SHIFT
+      linux         mac       vim
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V, L:, M:, V: visual block
+W
+X
+Y
+Z
 
+NORMAL
+      linux         mac       vim
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v, L:, M:, V: visual line
+w
+x
+y
+z
 
