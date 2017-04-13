@@ -27,6 +27,7 @@ xcode-select --install
 # reinstall python manually
 brew install python3 python tcptraceroute awscli base64 encfs docker git htop kubernetes-cli terraform zsh zsh-completions
 
+sudo pip install ansible --quiet
 
 # vim config
 
