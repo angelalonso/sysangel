@@ -1,124 +1,123 @@
-CTRL
-COMBO, Linux, Mac
-C-a
-C-b
-C-c
-C-d, L: terminal close session, M:
-C-e
-C-f
-C-g
-C-h
-C-i
-C-j
-C-k
-C-l
-C-m
-C-n
-C-o
-C-p
-C-q
-C-r
-C-s
-C-t
-C-u
-C-v
+CTRL,,,
+COMBO, Linux, Mac,
+C-a,,,
+C-b,,,
+C-c,,,
+C-d, L: terminal close session, M:,
+C-e,,,
+C-f,,,
+C-g,,,
+C-h,,,
+C-i,,,
+C-j,,,
+C-k,,,
+C-l,,,
+C-m,,,
+C-n,,,
+C-o,,,
+C-p,,,
+C-q,,,
+C-r,,,
+C-s,,,
+C-t,,,
+C-u,,,
+C-v,,,
 C-w, L: terminal delete word, M:, V:
-C-x
-C-y
-C-z
-
-CMD / Super-L / Win
-COMBO, Linux, Mac
-            linux         mac       vim
-W-a
-W-b
-W-c
-W-d
-W-e
-W-f
-W-g
-W-h
-W-i
-W-j
-W-k
-W-l
-W-m
-W-n
-W-o
-W-p
-W-q
-W-r
-W-s
-W-t
-W-u
-W-v
-W-w
-W-x
-W-y
-W-z
-W-Left Right, L:, M: iterm move to tab
-
-
-SHIFT
-COMBO, Linux, Mac
-A
-B
-C
-D
-E
-F
-G
-H
-I
-J
-K
-L
-M
-N
-O
-P
-Q
-R
-S
-T
-U
-V, L: VIM: visual block, M: VIM: visual block
-W
-X
-Y
-Z
-
-NORMAL
-COMBO, Linux, Mac
-a
-b
-c
-d
-e
-f
-g
-h
-i
-j
-k
-l
-m
-n
-o
-p
-q
-r
-s
-t
-u
-v, L: VIM:visual line, M: VIM: visual line
-w
-x
-y
-z
-
-OTHER
-COMBO, Linux, Mac
-C-D, L: ,M: iterm vert split
-W-D, L: ,M: iterm horiz split
-W-A-arrow, L: ,M: iterm move to split
+C-x,,,
+C-y,,,
+C-z,,,
+,,,
+CMD / Super-L / Win,,,
+COMBO, Linux, Mac,
+W-a,,,
+W-b,,,
+W-c,,,
+W-d,,,
+W-e,,,
+W-f,,,
+W-g,,,
+W-h,,,
+W-i,,,
+W-j,,,
+W-k,,,
+W-l,,,
+W-m,,,
+W-n,,,
+W-o,,,
+W-p,,,
+W-q,,,
+W-r,,,
+W-s,,,
+W-t,,,
+W-u,,,
+W-v,,,
+W-w,,,
+W-x,,,
+W-y,,,
+W-z,,,
+W-Left Right, L:, M: iterm move to tab,
+,,,
+,,,
+SHIFT,,,
+COMBO, Linux, Mac,
+A,,,
+B,,,
+C,,,
+D,,,
+E,,,
+F,,,
+G,,,
+H,,,
+I,,,
+J,,,
+K,,,
+L,,,
+M,,,
+N,,,
+O,,,
+P,,,
+Q,,,
+R,,,
+S,,,
+T,,,
+U,,,
+V, L: VIM: visual block, M: VIM: visual block,
+W,,,
+X,,,
+Y,,,
+Z,,,
+,,,
+NORMAL,,,
+COMBO, Linux, Mac,
+a,,,
+b,,,
+c,,,
+d,,,
+e,,,
+f,,,
+g,,,
+h,,,
+i,,,
+j,,,
+k,,,
+l,,,
+m,,,
+n,,,
+o,,,
+p,,,
+q,,,
+r,,,
+s,,,
+t,,,
+u,,,
+v, L: VIM:visual line, M: VIM: visual line,
+w,,,
+x,,,
+y,,,
+z,,,
+,,,
+OTHER,,,
+COMBO, Linux, Mac,
+C-D, L: ,M: iterm vert split,
+W-D, L: ,M: iterm horiz split,
+W-A-arrow, L: ,M: iterm move to split,
