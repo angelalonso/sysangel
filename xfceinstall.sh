@@ -214,20 +214,20 @@ if [ $AMISUDO -ne 0 ]; then
   echo -e "${USR} ALL=(ALL:ALL) ALL${NC}"
   exit 2
 else
-#   preparation
-#   echo -e "${LGR}installing packages${NC}"
-#   sudo apt-get update && sudo apt-get install ${PKGS}
-#   echo -e "${LGR}installing keys and passwords${NC}"
-#   echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-#   read confirm
-#   ${GITDIR}/scripts/xfce_secrets.sh install
-#   echo -e "${LGR}installing vim${NC}"
-#   ${GITDIR}/scripts/vim_compile.sh install
-#   otherpackages
-# ohmyzsh
-#   /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-#   echo -e "${LGR}installing ohmyszh${NC}"
-#  ${GITDIR}/scripts/ohmyzsh.sh install
+  preparation
+  echo -e "${LGR}installing packages${NC}"
+  sudo apt-get update && sudo apt-get install ${PKGS}
+  echo -e "${LGR}installing keys and passwords${NC}"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
+  ${GITDIR}/scripts/xfce_secrets.sh install
+  echo -e "${LGR}installing vim${NC}"
+  ${GITDIR}/scripts/vim_compile.sh install
+  otherpackages
+  ohmyzsh
+  /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+  echo -e "${LGR}installing ohmyszh${NC}"
+  ${GITDIR}/scripts/ohmyzsh.sh install
   configs
   private_configs
   # check the mount of Private again, solve links situation
