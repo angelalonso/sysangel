@@ -15,7 +15,7 @@ gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh \
-autokeys"
+autokey-gtk"
 
 # Bash colors
 BLU='\033[0;34m'
