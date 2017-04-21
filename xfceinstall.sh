@@ -210,11 +210,12 @@ if [ $AMISUDO -ne 0 ]; then
   echo " Please add it with:"
   echo -e "${ORN}su -l root"
   echo -e "visudo"
-  echo -e "${NC}, then add the following line: ${ORN}"
+  echo -e "${NC}, then add something like the following line: ${ORN}"
   echo -e "${USR} ALL=(ALL:ALL) ALL${NC}"
   exit 2
 else
-  preparation
+
+preparation
   echo -e "${LGR}installing packages${NC}"
   sudo apt-get update && sudo apt-get install ${PKGS}
   echo -e "${LGR}installing keys and passwords${NC}"
