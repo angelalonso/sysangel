@@ -215,23 +215,66 @@ if [ $AMISUDO -ne 0 ]; then
   exit 2
 else
 
-preparation
-  echo -e "${LGR}installing packages${NC}"
-  sudo apt-get update && sudo apt-get install ${PKGS}
-  echo -e "${LGR}installing keys and passwords${NC}"
-  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-  read confirm
-  ${GITDIR}/scripts/xfce_secrets.sh install
-  echo -e "${LGR}installing vim${NC}"
-  ${GITDIR}/scripts/vim_compile.sh install
-  otherpackages
-  ohmyzsh
-  /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-  echo -e "${LGR}installing ohmyszh${NC}"
-  ${GITDIR}/scripts/ohmyzsh.sh install
-  configs
-  private_configs
-  # check the mount of Private again, solve links situation
-  ${GITDIR}/scripts/privatemount.sh
-  to_do
+  if [ "$#" -ne 1 ]; then
+    preparation
+    echo -e "${LGR}installing packages${NC}"
+    sudo apt-get update && sudo apt-get install ${PKGS}
+    echo -e "${LGR}installing keys and passwords${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    ${GITDIR}/scripts/xfce_secrets.sh install
+    echo -e "${LGR}installing vim${NC}"
+    ${GITDIR}/scripts/vim_compile.sh install
+    otherpackages
+    ohmyzsh
+    /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+    echo -e "${LGR}installing ohmyszh${NC}"
+    ${GITDIR}/scripts/ohmyzsh.sh install
+    configs
+    private_configs
+    # check the mount of Private again, solve links situation
+    ${GITDIR}/scripts/privatemount.sh
+    to_do
+  else
+    case $1 in
+      remove)
+        ;;
+      packages)
+        echo -e "${LGR}installing packages${NC}"
+        sudo apt-get update && sudo apt-get install ${PKGS}
+        ;;
+      secrets)
+        echo -e "${LGR}installing keys and passwords${NC}"
+        echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+        read confirm
+        ${GITDIR}/scripts/xfce_secrets.sh install
+        ;;
+      vim)
+        echo -e "${LGR}installing vim${NC}"
+        ${GITDIR}/scripts/vim_compile.sh install
+        ;;
+      otherpackages)
+        otherpackages
+        ;;
+      ohmyzsh)
+        ohmyzsh
+        /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+        echo -e "${LGR}installing ohmyszh${NC}"
+        ${GITDIR}/scripts/ohmyzsh.sh install
+        ;;
+      configs)
+        configs
+        ;;
+      private_configs)
+        private_configs
+        ;;
+      to_do)
+        to_do
+        ;;
+      *)
+        echo "Usage: $0 [remove|packages|secrets|vim|otherpackages|ohmyszh|configs|private_configs|to_do]"
+        ;;
+    esac
+
+  fi
 fi
