@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Installs all parts required for the private mounpoint to work automatically
 
-USR=$(whoami)
-HOME="/home/${USR}"
+
+USR=$(whoami) HOME="/home/${USR}"
 
 install(){
   echo "compiling vim"
@@ -62,15 +62,15 @@ install_plugins(){
 remove(){
   echo "uninstalling vim"
 
-  sudo rm -rf ${HOME}/.vim
-  sudo rm -rf ${HOME}/vim
-  sudo dpkg -r vim
-  sudo apt-get remove --purge vim vim-runtime gvim vim-common
-  sudo rm /usr/bin/vi
-  sudo rm /usr/bin/vim
-  sudo rm /usr/bin/vim.basic
-  sudo rm /usr/bin/vim.gtk
-  sudo rm -rf /usr/share/vim
+  sudo rm -rf ${HOME}/.vim 2>/dev/null
+  sudo rm -rf ${HOME}/vim 2>/dev/null
+  sudo dpkg -r vim 2>/dev/null
+  sudo apt-get remove --purge vim vim-runtime gvim vim-common vim-gui-common
+  sudo rm /usr/bin/vi 2>/dev/null
+  sudo rm /usr/bin/vim 2>/dev/null
+  sudo rm /usr/bin/vim.basic 2>/dev/null
+  sudo rm /usr/bin/vim.gtk 2>/dev/null
+  sudo rm -rf /usr/share/vim 2>/dev/null
 
 }
 
@@ -94,5 +94,4 @@ case "$1" in
     ;;
   *)
     echo "ERROR: Syntax is $0 [install|remove|]"
-    ;;
-esac
+    ;; esac
