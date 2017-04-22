@@ -79,18 +79,19 @@ vimcompile(){
 
   if [[ "${COMPILER}" == "${REAL}" ]]; then
     echo -e "${RED}Another compiled vim exists!${NC}"
-    while true; do
+    LOOP=true
+    while [[ $LOOP == true ]] ; do
       read -r -n 1 -p "${1:-Do you want to RECOMPILE?} [y/n]: " REPLY
       case $REPLY in
         [yY])
           echo
           echo -e "${LGR}compiling vim${NC}"
           ${GITDIR}/scripts/vim_compile.sh install
-          return 0
+          LOOP=false
           ;;
         [nN])
           echo
-          return 0
+          LOOP=false
           ;;
         *) printf " \033[31m %s \n\033[0m" "invalid input"
       esac
