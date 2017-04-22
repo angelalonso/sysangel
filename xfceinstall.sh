@@ -40,6 +40,7 @@ NC='\033[0m' # No Color
 #   su -i env USRin="${USR}" sh -c 'echo "${USRin} ALL=(ALL:ALL) ALL" >> /etc/sudoers'
 # fi
 
+
 preparation(){
 echo -e "${LBL} Before we start, bear in mind that you will need the following:"
 echo -e "${LGR}- Your Encrypted Dropbox folder's password"
@@ -57,12 +58,39 @@ mkdir -p ${TMPDIR}
 # , then continue to the next steps...
 }
 
+
+packages(){
+  echo -e "${LGR}installing packages${NC}"
+  sudo apt-get update && sudo apt-get install ${PKGS}
+}
+
+
+secrets(){
+  echo -e "${LGR}installing keys and passwords${NC}"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
+  ${GITDIR}/scripts/xfce_secrets.sh install
+}
+
+
+vim(){
+  echo -e "${LGR}installing vim${NC}"
+  ${GITDIR}/scripts/vim_compile.sh install
+}
+
+
 # Dependencies
 otherpackages(){
   # Needed: firefox for debian (compile from source?)
 echo "here"
 }
 
+
+ohmyzsh(){
+  /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+  echo -e "${LGR}installing ohmyszh${NC}"
+  ${GITDIR}/scripts/ohmyzsh.sh install
+}
 
 # Keys
 
@@ -187,7 +215,8 @@ else
 fi
 ln -s ${HOME}/Private_offline/config_secret/.aws ${HOME}/.aws
 
-
+# check the mount of Private again, solve links situation
+${GITDIR}/scripts/privatemount.sh
 }
 
 to_do(){
@@ -218,49 +247,32 @@ else
 
   if [ "$#" -ne 1 ]; then
     preparation
-    echo -e "${LGR}installing packages${NC}"
-    sudo apt-get update && sudo apt-get install ${PKGS}
-    echo -e "${LGR}installing keys and passwords${NC}"
-    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-    read confirm
-    ${GITDIR}/scripts/xfce_secrets.sh install
-    echo -e "${LGR}installing vim${NC}"
-    ${GITDIR}/scripts/vim_compile.sh install
+    packages
+    secrets
+    vim
     otherpackages
-    /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-    echo -e "${LGR}installing ohmyszh${NC}"
-    ${GITDIR}/scripts/ohmyzsh.sh install
+    ohmyzsh
     configs
     private_configs
-    # check the mount of Private again, solve links situation
-    ${GITDIR}/scripts/privatemount.sh
     to_do
   else
     case $1 in
       remove)
         ;;
       packages)
-        echo -e "${LGR}installing packages${NC}"
-        sudo apt-get update && sudo apt-get install ${PKGS}
+        packages
         ;;
       secrets)
-        echo -e "${LGR}installing keys and passwords${NC}"
-        echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-        read confirm
-        ${GITDIR}/scripts/xfce_secrets.sh install
+        secrets
         ;;
       vim)
-        echo -e "${LGR}installing vim${NC}"
-        ${GITDIR}/scripts/vim_compile.sh install
+        vim
         ;;
       otherpackages)
         otherpackages
         ;;
       ohmyzsh)
         ohmyzsh
-        /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-        echo -e "${LGR}installing ohmyszh${NC}"
-        ${GITDIR}/scripts/ohmyzsh.sh install
         ;;
       configs)
         configs
