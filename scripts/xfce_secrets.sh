@@ -61,10 +61,24 @@ install_encfs(){
   openssl genrsa -out ${KEYSDIR}/priv.key 4096
   openssl rsa -in ${KEYSDIR}/priv.key -pubout > ${KEYSDIR}/pub.key
 
-  # http://stackoverflow.com/questions/1923435/how-do-i-echo-stars-when-reading-password-with-read
-  # TODO: hide answer
   echo "Enter Password for Encfs:"
-  read password
+  # http://stackoverflow.com/questions/1923435/how-do-i-echo-stars-when-reading-password-with-read#1923503
+  while IFS= read -p "$prompt" -r -s -n 1 char
+  do
+      # Enter - accept password
+      if [[ $char == $'\0' ]] ; then
+          break
+      fi
+      # Backspace
+      if [[ $char == $'\177' ]] ; then
+          prompt=$'\b \b'
+          password="${password%?}"
+      else
+          prompt='*'
+          password+="$char"
+      fi
+  done
+  echo
   echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass
 
   case "${SYSTEM}" in
