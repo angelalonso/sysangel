@@ -42,20 +42,20 @@ NC='\033[0m' # No Color
 
 
 preparation(){
-echo -e "${LBL} Before we start, bear in mind that you will need the following:"
-echo -e "${LGR}- Your Encrypted Dropbox folder's password"
-echo -e "${LGR}- Your Dropbox username and password"
-echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-read confirm
+  echo -e "${LBL} Before we start, bear in mind that you will need the following:"
+  echo -e "${LGR}- Your Encrypted Dropbox folder's password"
+  echo -e "${LGR}- Your Dropbox username and password"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
 
-# BEFORE STARTING, create directories needed for the future
-mkdir -p ${INSTALLDIR}
-mkdir -p ${KEYSDIR}
-mkdir -p ${HOME}/Private
-mkdir -p ${HOME}/Private_offline
-# Create directories only for the installation
-mkdir -p ${TMPDIR}
-# , then continue to the next steps...
+  # BEFORE STARTING, create directories needed for the future
+  mkdir -p ${INSTALLDIR}
+  mkdir -p ${KEYSDIR}
+  mkdir -p ${HOME}/Private
+  mkdir -p ${HOME}/Private_offline
+  # Create directories only for the installation
+  mkdir -p ${TMPDIR}
+  # , then continue to the next steps...
 }
 
 
@@ -255,6 +255,7 @@ else
     configs
     private_configs
     to_do
+    cleanup
   else
     case $1 in
       remove)
@@ -283,8 +284,11 @@ else
       to_do)
         to_do
         ;;
+      cleanup)
+        cleanup
+        ;;
       *)
-        echo "Usage: $0 [remove|packages|secrets|vim|otherpackages|ohmyszh|configs|private_configs|to_do]"
+        echo "Usage: $0 [remove|packages|secrets|vim|otherpackages|ohmyszh|configs|private_configs|to_do|cleanup]"
         ;;
     esac
 
