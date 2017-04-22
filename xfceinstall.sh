@@ -227,7 +227,6 @@ else
     echo -e "${LGR}installing vim${NC}"
     ${GITDIR}/scripts/vim_compile.sh install
     otherpackages
-    ohmyzsh
     /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
     echo -e "${LGR}installing ohmyszh${NC}"
     ${GITDIR}/scripts/ohmyzsh.sh install
