@@ -113,9 +113,33 @@ echo "here"
 
 
 ohmyzsh(){
-  /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-  echo -e "${LGR}installing ohmyszh${NC}"
-  ${GITDIR}/scripts/ohmyzsh.sh install
+  if [[ -d ${HOME}/.oh-my-zsh ]]; then
+    echo -e "${RED}Oh my Zsh is already installed!${NC}"
+    LOOP=true
+    while [[ $LOOP == true ]] ; do
+      read -r -n 1 -p "${1:-Do you want to REINSTALL?} [y/n]: " REPLY
+      case $REPLY in
+        [yY])
+          echo
+          /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+          echo -e "${LGR}Reinstalling ohmyszh${NC}"
+          ${GITDIR}/scripts/ohmyzsh.sh install
+          LOOP=false
+          ;;
+        [nN])
+          echo
+          LOOP=false
+          ;;
+        *) printf " \033[31m %s \n\033[0m" "invalid input"
+      esac
+    done
+  else
+    echo -e "${LGR}installing ohmyszh${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+    ${GITDIR}/scripts/ohmyzsh.sh install
+  fi
 }
 
 # Keys
