@@ -73,11 +73,34 @@ secrets(){
 }
 
 
-vim(){
-  echo -e "${LGR}compiling vim${NC}"
-  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
-  read confirm
-  ${GITDIR}/scripts/vim_compile.sh install
+vimcompile(){
+  COMPILER=$(vim --version | grep "Compiled by" | awk '{print $3}')
+  REAL=${USER}@${HOSTNAME}
+
+  if [[ "${COMPILER}" == "${REAL}" ]]; then
+    echo -e "${RED}Another compiled vim exists!${NC}"
+    while true; do
+      read -r -n 1 -p "${1:-Do you want to RECOMPILE?} [y/n]: " REPLY
+      case $REPLY in
+        [yY])
+          echo
+          echo -e "${LGR}compiling vim${NC}"
+          ${GITDIR}/scripts/vim_compile.sh install
+          return 0
+          ;;
+        [nN])
+          echo
+          return 0
+          ;;
+        *) printf " \033[31m %s \n\033[0m" "invalid input"
+      esac
+    done
+  else
+    echo -e "${LGR}compiling vim${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    ${GITDIR}/scripts/vim_compile.sh install
+  fi
 }
 
 
@@ -251,7 +274,7 @@ else
     preparation
     packages
     secrets
-    vim
+    vimcompile
     otherpackages
     ohmyzsh
     configs
@@ -268,8 +291,8 @@ else
       secrets)
         secrets
         ;;
-      vim)
-        vim
+      vimcompile)
+        vimcompile
         ;;
       otherpackages)
         otherpackages
@@ -290,7 +313,7 @@ else
         cleanup
         ;;
       *)
-        echo "Usage: $0 [remove|packages|secrets|vim|otherpackages|ohmyszh|configs|private_configs|to_do|cleanup]"
+        echo "Usage: $0 [remove|packages|secrets|vimcompile|otherpackages|ohmyszh|configs|private_configs|to_do|cleanup]"
         ;;
     esac
 
