@@ -74,7 +74,9 @@ secrets(){
 
 
 vim(){
-  echo -e "${LGR}installing vim${NC}"
+  echo -e "${LGR}compiling vim${NC}"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
   ${GITDIR}/scripts/vim_compile.sh install
 }
 
