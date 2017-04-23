@@ -124,7 +124,7 @@ remove_encfs(){
 
 case "$1" in
   install|i|Install|I)
-    KEYS_EXIST=$(ls /home/aaf/.sysangel/KEYS 2>/dev/null | grep "main_encfs.pass\|priv.key\|pub.key" | wc -l)
+    KEYS_EXIST=$(ls ${KEYSDIR} 2>/dev/null | grep "main_encfs.pass\|priv.key\|pub.key" | wc -l)
     if [[ "${KEYS_EXIST}" -gt 2 ]]; then
       echo -e "${RED}Keys already exist!!${NC}"
       LOOP=true
