@@ -74,7 +74,7 @@ secrets(){
 
 
 vimcompile(){
-  COMPILER=$(vim --version | grep "Compiled by" | awk '{print $3}')
+  COMPILER=$(vim --version 2>/dev/null| grep "Compiled by" | awk '{print $3}')
   REAL=${USER}@${HOSTNAME}
 
   if [[ "${COMPILER}" == "${REAL}" ]]; then
