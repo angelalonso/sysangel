@@ -13,6 +13,14 @@ FILESDIR="${GITDIR}/files"
 
 SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
 
+# Bash colors
+BLU='\033[0;34m'
+LGR='\033[1;32m'
+LBL='\033[1;34m'
+ORN='\033[0;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
 install_dropbox(){
   echo "installing structure"
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
@@ -117,7 +125,30 @@ remove_encfs(){
 case "$1" in
   install|i|Install|I)
     install_encfs
-    install_dropbox
+    RUNNING=$(ps aux | grep dropbox | grep -v grep | wc -l)
+    if [[ "${RUNNING}" -gt 0 ]]; then
+      echo -e "${RED}Another Dropbox is Running!${NC}"
+      LOOP=true
+      while [[ $LOOP == true ]] ; do
+        read -r -n 1 -p "${1:-Do you want to REINSTALL?} [y/n]: " REPLY
+        case $REPLY in
+          [yY])
+            echo
+            echo -e "${LGR}reinstalling dropbox${NC}"
+            install_dropbox
+            LOOP=false
+            ;;
+          [nN])
+            echo
+            LOOP=false
+            ;;
+          *) printf " \033[31m %s \n\033[0m" "invalid input"
+        esac
+      done
+    else
+      echo -e "${LGR}installing dropbox${NC}"
+      install_dropbox
+    fi
     ;;
   remove|Remove|r|R|uninstall|u|Uninstall|U)
     remove_dropbox
