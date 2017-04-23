@@ -124,7 +124,31 @@ remove_encfs(){
 
 case "$1" in
   install|i|Install|I)
-    install_encfs
+    KEYS_EXIST=$(ls /home/aaf/.sysangel/KEYS | grep "main_encfs.pass\|priv.key\|pub.key" | wc -l)
+    if [[ "${KEYS_EXIST}" -gt 2 ]]; then
+      echo -e "${RED}Keys already exist!!${NC}"
+      LOOP=true
+      while [[ $LOOP == true ]] ; do
+        read -r -n 1 -p "${1:-Do you want to RECONFIGURE them?} [y/n]: " REPLY
+        case $REPLY in
+          [yY])
+            echo
+            echo -e "${LGR}reconfiguring Keys${NC}"
+            install_encfs
+            LOOP=false
+            ;;
+          [nN])
+            echo
+            LOOP=false
+            ;;
+          *) printf " \033[31m %s \n\033[0m" "invalid input"
+        esac
+      done
+    else
+      echo -e "${LGR}reconfiguring Keys${NC}"
+      install_encfs
+    fi
+
     RUNNING=$(ps aux | grep dropbox | grep -v grep | wc -l)
     if [[ "${RUNNING}" -gt 0 ]]; then
       echo -e "${RED}Another Dropbox is Running!${NC}"
