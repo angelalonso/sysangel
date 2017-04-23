@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
+# TODO: Pipefail exits also if I choose not to install something.
+#       Obviously response handling is wrong
+#set -eo pipefail
 # Vars
 
 USR=$(whoami)
