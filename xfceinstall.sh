@@ -110,6 +110,7 @@ vimcompile(){
 # Dependencies
 otherpackages(){
   # Needed: firefox for debian (compile from source?)
+  # Franz
 echo "here"
 }
 

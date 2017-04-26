@@ -25,7 +25,8 @@ echo "TASK: COPY OVER SSH KEYS, GPG KEYS"
 xcode-select --install
 
 # reinstall python manually
-brew install python3 python tcptraceroute awscli base64 encfs docker git htop kubernetes-cli terraform zsh zsh-completions
+brew install python3 python tcptraceroute awscli base64 encfs docker git htop kubernetes-cli terraform zsh zsh-completions \
+  iproute2mac
 
 sudo pip install ansible --quiet
 
