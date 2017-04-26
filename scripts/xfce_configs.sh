@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 USR=$(whoami)
 HOME="/home/${USR}"
 INSTALLDIR="${HOME}/.sysangel"
@@ -58,7 +59,7 @@ theme_remove(){
   echo -e "${LGR}removing theme${NC}"
   echo -e "${LBL}Press <Intro> when you are ready...${NC}"
   read confirm
-  rm master.zip
+  rm ~/.themes/Greybird-master 2>/dev/null
 
 }
 
