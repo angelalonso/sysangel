@@ -2,7 +2,9 @@
 # Installs all parts required for the private mounpoint to work automatically
 
 
-USR=$(whoami) HOME="/home/${USR}"
+USR=$(whoami)
+HOME="/home/${USR}"
+GITDIR="${HOME}/sysangel"
 
 install(){
   echo "compiling vim"
@@ -49,7 +51,7 @@ install_plugins(){
   else
     rm ${HOME}/.vimrc 2>/dev/null
   fi
-  ln -s ${HOME}/Dropbox/data/config_open/vimrc_home ${HOME}/.vimrc
+  ln -s ${GITDIR}/files/vimrc_home ${HOME}/.vimrc
 
   mkdir -p ${HOME}/.vim/autoload ${HOME}/.vim/bundle
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim

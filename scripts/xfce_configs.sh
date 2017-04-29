@@ -122,7 +122,7 @@ zsh(){
   else
     rm -rf ${HOME}/.zshrc 2>/dev/null
   fi
-  ln -s ${HOME}/Dropbox/data/config_open/zshrc_home ${HOME}/.zshrc
+  ln -s ${GITDIR}/files/zshrc_home ${HOME}/.zshrc
 
 }
 
