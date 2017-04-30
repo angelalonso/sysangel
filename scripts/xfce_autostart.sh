@@ -7,7 +7,7 @@
 # Compose keys -> RCTRL + (n ~) = ñ
 setxkbmap  -option compose:rctrl
 # map that switches ctrl and SuperL (mac style)
-xmodmap ~/.Xmodmap
+#xmodmap ~/.Xmodmap
 # Caps Lock used as another Esc
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 # This makes CTRL (the key) usable in the terminal
