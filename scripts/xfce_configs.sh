@@ -165,12 +165,12 @@ keymaps(){
 # xfce xml config files
 xmlconfigs(){
 
-  if [[ ! -f ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml ]]; then
-    mv ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml 2>/dev/null
+  if [[ ! -f ${HOME}/.config/xfce4 ]]; then
+    mv ${HOME}/.config/xfce4 ${HOME}/.config/xfce4.orig 2>/dev/null
   else
-    rm -rf ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml 2>/dev/null
+    rm -rf ${HOME}/.config/xfce4 2>/dev/null
   fi
-  ln -s ${GITDIR}/files/xfce/xfce-perchannel-xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml
+  ln -s ${GITDIR}/files/xfce4 ${HOME}/.config/xfce4
 
 }
 
