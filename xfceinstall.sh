@@ -12,12 +12,11 @@ TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 
-PKGS="curl encfs exfat-fuse exfat-utils expect fabric git \
-gtk2-engines-murrine gtk3-engines-xfce \
+PKGS="autokey-gtk curl dmenu encfs exfat-fuse exfat-utils expect \
+fabric git gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
-unzip xbindkeys xvkbd zim zip zsh \
-autokey-gtk"
+unzip xbindkeys xvkbd zim zip zsh"
 
 # Bash colors
 BLU='\033[0;34m'
