@@ -35,8 +35,8 @@
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-8" type="string" value="mixer">
-      <property name="sound-card" type="string" value="HDAIntelAlsamixer"/>
-      <property name="track" type="string" value="Master"/>
+      <property name="sound-card" type="string" value="Intel82801AAICHAlsamixer"/>
+      <property name="track" type="string" value="PCM"/>
       <property name="command" type="string" value="xfce4-mixer"/>
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
     </property>
