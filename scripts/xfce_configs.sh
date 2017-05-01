@@ -22,7 +22,8 @@ NC='\033[0m' # No Color
 install(){
 
   theme
-  icons
+# We dont need Elementary -> Faenza installed as package
+#  icons
   fonts
   terminator
   zsh

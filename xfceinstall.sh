@@ -13,7 +13,7 @@ KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 
 PKGS="autokey-gtk curl encfs exfat-fuse exfat-utils expect \
-fabric git gtk2-engines-murrine gtk3-engines-xfce \
+fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
@@ -189,9 +189,9 @@ to_do(){
 echo -e "${RED} Further Manual Steps needed:"
 echo
 echo -e "${LBL} Apply the themes in:"
-echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Greybird master'
-Settings Manager --> Appearance --> Icons tab: choose 'elementary xfce dark'
-Settings Manager --> Window Manager --> Style tab: choose 'Greybird master'${NC}"
+echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Adwaita'
+Settings Manager --> Appearance --> Icons tab: choose 'Faenza Radiance'
+Settings Manager --> Window Manager --> Style tab: choose 'Greybird-master'${NC}"
 
 }
 
