@@ -36,6 +36,7 @@ install(){
 
 remove(){
   theme_remove
+  icons_remove
   echo "uninstalling not yet ready"
 }
 
@@ -81,6 +82,20 @@ icons(){
   sudo ln -s /home/aaf/.themes  /root
 
 }
+
+# Install Icons
+icons_remove(){
+
+  echo -e "${LGR}removing icons${NC}"
+  cd ~/.icons
+  rm -rf elementary-xfce*
+  gtk-update-icon-cache-3.0 -f -t ~/.icons
+  # Is this needed to be removed?
+  #sudo ln -s /home/aaf/.themes  /root
+  #TODO: have a backup of the config files to set back to the previous icon set.
+
+}
+
 
 
 # Install Fonts
