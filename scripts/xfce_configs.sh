@@ -186,7 +186,7 @@ xmlconfigs(){
   else
     rm -rf ${HOME}/.config/xfce4 2>/dev/null
   fi
-  ln -s ${GITDIR}/files/xfce/xfce4 ${HOME}/.config/xfce4
+  ln -s ${GITDIR}/files/xfce/xfce4 ${HOME}/.config/
 
 }
 
