@@ -181,6 +181,16 @@ else
 fi
 ln -s ${HOME}/Private_offline/config_secret/.aws ${HOME}/.aws
 
+# Install KUBECTL keys
+echo -e "${LGR}installing kubectl keys${NC}"
+
+if [[ ! -f ${HOME}/.kube.orig ]]; then
+  mv ${HOME}/.kube ${HOME}/.kube.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.kube 2>/dev/null
+fi
+ln -s ${HOME}/Private_offline/config_secret/.kube ${HOME}/.kube
+
 # check the mount of Private again, solve links situation
 ${GITDIR}/scripts/privatemount.sh
 }
