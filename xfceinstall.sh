@@ -171,7 +171,40 @@ ohmyzsh(){
   fi
 }
 
-# Keys
+additional(){
+  # TODO: not each one, jut all of them (see issue)
+  echo -e "${LBL} The following packages are not installed by default,"
+  echo -e " Please confirm that you want to install each of them."
+
+  LOOP=true
+  while [[ $LOOP == true ]] ; do
+    read -r -n 1 -p "${1:-DOCKER, do you want to INSTALL it?} [y/n]: " REPLY
+    case $REPLY in
+      [yY])
+        echo
+        # ONLY AVAILABLE FOR ARM AND AMD64, TODO: check this is the case or skip and ALERT
+        echo -e "${LGR}installing DOCKER${NC}"
+        # sudo apt-get remove docker docker-engine
+        # sudo apt-get install apt-transport-https ca-certificates \
+        #   curl gnupg2 software-properties-common
+        # curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+        # sudo apt-key fingerprint 0EBFCD88
+        # sudo apt-get update
+        # sudo apt-get install docker-ce
+        LOOP=false
+        ;;
+      [nN])
+        echo
+        LOOP=false
+        ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid input"
+    esac
+  done
+  echo -e "${LGR} Docker Installed'${NC}"
+
+
+}
+
 
 # Configs
 configs(){
@@ -255,6 +288,7 @@ else
     vimcompile
     otherpackages
     ohmyzsh
+    additional
     configs
     private_configs
     to_do
@@ -278,6 +312,9 @@ else
       ohmyzsh)
         ohmyzsh
         ;;
+      additional)
+        additional
+        ;;
       configs)
         configs
         ;;
@@ -291,7 +328,7 @@ else
         cleanup
         ;;
       *)
-        echo "Usage: $0 [remove|packages|secrets|vimcompile|otherpackages|ohmyszh|configs|private_configs|to_do|cleanup]"
+        echo "Usage: $0 [remove|packages|secrets|vimcompile|otherpackages|ohmyszh|configs|private_configs|to_do|additional|cleanup]"
         ;;
     esac
 
