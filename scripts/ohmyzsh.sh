@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Installs all parts required for the private mounpoint to work automatically
+# Installs OhMyZsh
 
 
 install(){
-  echo "installing"
+  echo "installing OhMyZsh"
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
   exit
 }
 
 remove(){
-  echo "uninstalling"
+  echo "uninstalling OhMyZsh"
   bash ${HOME}/.oh-my-zsh/tools/uninstall.sh
 }
 
