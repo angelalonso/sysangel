@@ -146,7 +146,7 @@ zsh(){
 # Autostart applications .desktop files
 autostart(){
 
-  if [[ ! -f ${HOME}/.config/autostart ]]; then
+  if [[ ! -d ${HOME}/.config/autostart.orig ]]; then
     mv ${HOME}/.config/autostart ${HOME}/.config/autostart.orig 2>/dev/null
   else
     rm -rf ${HOME}/.config/autostart 2>/dev/null
@@ -160,7 +160,7 @@ autostart(){
 keymaps(){
 
   # Xmodmap with Apple-like keys
-  if [[ ! -f ${HOME}/.Xmodmap ]]; then
+  if [[ ! -f ${HOME}/.Xmodmap.orig ]]; then
     mv ${HOME}/.Xmodmap ${HOME}/.Xmodmap.orig 2>/dev/null
   else
     rm -rf ${HOME}/.Xmodmap 2>/dev/null
@@ -168,7 +168,7 @@ keymaps(){
   ln -s ${GITDIR}/files/Xmodmap_mac_ctrl ${HOME}/.Xmodmap
 
   # Xbindkeys and xvkbd trik to use ctrl on terminal
-  if [[ ! -f ${HOME}/.xbindkeysrc ]]; then
+  if [[ ! -f ${HOME}/.xbindkeysrc.orig ]]; then
     mv ${HOME}/.xbindkeysrc ${HOME}/.xbindkeysrc.orig 2>/dev/null
   else
     rm -rf ${HOME}/.xbindkeysrc 2>/dev/null
@@ -181,7 +181,7 @@ keymaps(){
 # xfce xml config files
 xmlconfigs(){
 
-  if [[ ! -f ${HOME}/.config/xfce4 ]]; then
+  if [[ ! -d ${HOME}/.config/xfce4.orig ]]; then
     mv ${HOME}/.config/xfce4 ${HOME}/.config/xfce4.orig 2>/dev/null
   else
     rm -rf ${HOME}/.config/xfce4 2>/dev/null

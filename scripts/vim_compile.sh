@@ -11,7 +11,7 @@ install(){
   sudo apt-get install checkinstall libncurses5-dev \
     libatk1.0-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-    python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git 
+    python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git
 
   remove
 
@@ -46,7 +46,7 @@ install(){
 install_plugins(){
   echo "installing plugins"
 
-  if [[ ! -f ${HOME}/.vimrc ]]; then
+  if [[ ! -f ${HOME}/.vimrc.orig ]]; then
     mv ${HOME}/.vimrc ${HOME}/.vimrc.orig
   else
     rm ${HOME}/.vimrc 2>/dev/null
