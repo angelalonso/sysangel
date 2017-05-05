@@ -108,6 +108,33 @@ vimcompile(){
 
 # Dependencies
 otherpackages(){
+  KUBEEXE=$(which kubectl)
+  if [[ ${KUBEEXE} == "" ]]; then
+    echo -e "${LGR}installing Kubectl${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    ${GITDIR}/scripts/kubectl_config.sh install
+  else
+    echo -e "${RED}Kubectl is already installed!${NC}"
+    LOOP=true
+    while [[ $LOOP == true ]] ; do
+      read -r -n 1 -p "${1:-Do you want to REINSTALL?} [y/n]: " REPLY
+      case $REPLY in
+        [yY])
+          echo
+          echo -e "${LGR}Reinstalling Kubectl${NC}"
+          ${GITDIR}/scripts/kubectl_config.sh install
+          LOOP=false
+          ;;
+        [nN])
+          echo
+          LOOP=false
+          ;;
+        *) printf " \033[31m %s \n\033[0m" "invalid input"
+      esac
+    done
+  fi
+
   # Needed: firefox for debian (compile from source?)
   # Franz
 echo "here"
@@ -181,8 +208,8 @@ else
 fi
 ln -s ${HOME}/Private_offline/config_secret/.aws ${HOME}/.aws
 
-# Install KUBECTL keys
-echo -e "${LGR}installing kubectl keys${NC}"
+# Install Kubectl keys
+echo -e "${LGR}installing Kubectl keys${NC}"
 
 if [[ ! -f ${HOME}/.kube.orig ]]; then
   mv ${HOME}/.kube ${HOME}/.kube.orig 2>/dev/null
