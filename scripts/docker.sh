@@ -33,20 +33,19 @@ install(){
       $(lsb_release -cs) stable"
     sudo apt-get update
     sudo apt-get install docker-ce
-  else
-    if test "${ARCH#*"arm"}" != "$ARCH"; then
-      echo "Installing docker for ARM Arch"
-      sudo apt-get remove docker docker-engine
-      sudo apt-get install apt-transport-https ca-certificates \
-         curl gnupg2 software-properties-common
-      curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-      sudo apt-key fingerprint 0EBFCD88
+  elif test "${ARCH#*"arm"}" != "$ARCH"; then
+    echo "Installing docker for ARM Arch"
+    sudo apt-get remove docker docker-engine
+    sudo apt-get install apt-transport-https ca-certificates \
+       curl gnupg2 software-properties-common
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+    sudo apt-key fingerprint 0EBFCD88
 
-      echo "deb [arch=armhf] https://download.docker.com/linux/debian \
-        $(lsb_release -cs) stable" | \
-        sudo tee /etc/apt/sources.list.d/docker.list
-      sudo apt-get update
-      sudo apt-get install docker-ce
+    echo "deb [arch=armhf] https://download.docker.com/linux/debian \
+      $(lsb_release -cs) stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list
+    sudo apt-get update
+    sudo apt-get install docker-ce
   else
     echo "Docker has no installation candidate for your Architecture type, ${ARCH}"
   fi
