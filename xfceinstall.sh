@@ -184,13 +184,7 @@ additional(){
         echo
         # ONLY AVAILABLE FOR ARM AND AMD64, TODO: check this is the case or skip and ALERT
         echo -e "${LGR}installing DOCKER${NC}"
-        # sudo apt-get remove docker docker-engine
-        # sudo apt-get install apt-transport-https ca-certificates \
-        #   curl gnupg2 software-properties-common
-        # curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-        # sudo apt-key fingerprint 0EBFCD88
-        # sudo apt-get update
-        # sudo apt-get install docker-ce
+        ${GITDIR}/scripts/docker.sh install
         LOOP=false
         ;;
       [nN])
@@ -200,7 +194,6 @@ additional(){
       *) printf " \033[31m %s \n\033[0m" "invalid input"
     esac
   done
-  echo -e "${LGR} Docker Installed'${NC}"
 
 
 }
