@@ -11,6 +11,7 @@ if [ "$(ls -A "$PRIVDIR" 2> /dev/null)" == "" ]; then
     ln -s ${BACKDIR}/.ssh ${SSHDIR}
     rm -rf ${KUBEDIR} 2>/dev/null
     ln -s ${BACKDIR}/.kube ${KUBEDIR}
+    # kubectl and docker and terraform do not like .aws to be a link
     mkdir -p ${AWSDIR}
     rsync -avzh ${BACKDIR}/.aws/ ${AWSDIR}
 
@@ -19,6 +20,7 @@ if [ "$(ls -A "$PRIVDIR" 2> /dev/null)" == "" ]; then
     ln -s ${PRIVDIR}/.ssh ${SSHDIR}
     rm -rf ${KUBEDIR} 2>/dev/null
     ln -s ${PRIVDIR}/.kube ${KUBEDIR}
+    # kubectl and docker and terraform do not like .aws to be a link
     mkdir -p ${AWSDIR}
     rsync -avzh ${PRIVDIR}/.aws/ ${AWSDIR}
 fi
