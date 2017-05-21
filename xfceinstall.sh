@@ -11,10 +11,11 @@ INSTALLDIR="${HOME}/.sysangel"
 TMPDIR="${INSTALLDIR}/tmp"
 KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
+FILESDIR="${GITDIR}/files"
 
-PKGS="autokey-gtk curl encfs exfat-fuse exfat-utils expect \
+PKGS="autokey-gtk curl encfs/testing exfat-fuse exfat-utils expect \
 fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
-jq keepass2 openssh-client passwd pdftk pwgen \
+jq keepass2 nmap openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
 
@@ -61,6 +62,13 @@ preparation(){
 
 
 packages(){
+  echo -e "${LGR}installing sources${NC}"
+  for ver in security stable testing unstable experimental; do
+    sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
+    sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
+  done
+  sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
+
   echo -e "${LGR}installing packages${NC}"
   sudo apt-get update && sudo apt-get install ${PKGS}
 }
