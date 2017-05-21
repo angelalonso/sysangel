@@ -62,7 +62,7 @@ preparation(){
 
 
 packages(){
-  echo -e "${LGR}installing sources${NC}"
+  echo -e "${LGR}installing different sources${NC}"
   for ver in security stable testing unstable experimental; do
     sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
     sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
