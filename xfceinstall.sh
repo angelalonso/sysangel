@@ -13,7 +13,8 @@ KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 FILESDIR="${GITDIR}/files"
 
-PKGS="autokey-gtk curl encfs/testing exfat-fuse exfat-utils expect \
+PKGS="autokey-gtk curl chromium \
+encfs exfat-fuse exfat-utils expect \
 fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
 jq keepass2 nmap openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
