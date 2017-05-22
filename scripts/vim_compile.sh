@@ -47,7 +47,7 @@ install_plugins(){
   echo "installing plugins"
 
   if [[ ! -f ${HOME}/.vimrc.orig ]]; then
-    mv ${HOME}/.vimrc ${HOME}/.vimrc.orig
+    mv ${HOME}/.vimrc ${HOME}/.vimrc.orig 2>/dev/null
   else
     rm ${HOME}/.vimrc 2>/dev/null
   fi
