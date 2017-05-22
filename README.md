@@ -63,13 +63,14 @@ sysangel.py
 
 ### Prerequisites
 
-sudo
-git
+- sudo<br>
+- git
 
+# TL;DR
 
 ## Installation
 
-cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install.sh
+cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash xfceinstall.sh
 
 IMPORTANT: it MUST be installed on your HOME directory to work properly
 
