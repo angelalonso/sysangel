@@ -20,8 +20,8 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 "Plugin 'wincent/command-t'
 Plugin 'scrooloose/syntastic'
-Plugin 'puppetlabs/puppet-syntax-vim'
-Plugin 'rodjek/vim-puppet'
+"Plugin 'puppetlabs/puppet-syntax-vim'
+"Plugin 'rodjek/vim-puppet'
 Plugin 'godlygeek/tabular'
 "Plugin 'Yggdroot/indentLine'
 Plugin 'mileszs/ack.vim'
@@ -143,9 +143,10 @@ map <C-tab> :tabnext<cr>
 " remap visual because:
 " - I want to better use mac-like bindings
 " - I use line and block select more often
-nnoremap v V
-nnoremap <C-V> v
-nnoremap V <C-v>
+"   ATTENTION 2: I decided not to use this
+"nnoremap v V
+"nnoremap <C-V> v
+"nnoremap V <C-v>
 
 
 " unimpaired mapping for set paste
