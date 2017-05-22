@@ -293,7 +293,11 @@ echo
 echo -e "${LBL} Apply the themes in:"
 echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Adwaita'
 Settings Manager --> Appearance --> Icons tab: choose 'Faenza Radiance'
-Settings Manager --> Window Manager --> Style tab: choose 'Greybird-master'${NC}"
+Settings Manager --> Window Manager --> Style tab: choose 'Greybird-master'
+Packages to also install (MAYBE?):
+blueman
+firmware-atheros
+'${NC}"
 
 }
 
