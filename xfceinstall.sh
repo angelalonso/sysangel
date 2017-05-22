@@ -63,40 +63,43 @@ preparation(){
 
 
 packages(){
-  if [[ $(ls /etc/apt/sources.list.d | wc -l) -gt 0 ]]  && [[ $(ls /etc/apt/preferences.d | wc -l) -gt 0 ]]; then
-    echo -e "${RED}There are other sources configured!${NC}"
-    ls /etc/apt/sources.list.d
-    ls /etc/apt/preferences.d
-    LOOP=true
-    while [[ $LOOP == true ]] ; do
-      read -r -n 1 -p "${1:-Do you want to OVERWRITE?} [y/n]: " REPLY
-      case $REPLY in
-        [yY])
-          echo
-          echo -e "${LGR}installing additional sources${NC}"
-          for ver in security stable testing unstable experimental; do
-            sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
-            sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
-          done
-          sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
-          LOOP=false
-          ;;
-        [nN])
-          echo
-          LOOP=false
-          ;;
-        *) printf " \033[31m %s \n\033[0m" "invalid input"
-      esac
-    done
-  else
-    echo -e "${LGR}installing additional sources${NC}"
-    for ver in security stable testing unstable experimental; do
-      sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
-      sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
-    done
-    sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
-  fi
+  # This thing runs to broken dependencies!
+  #if [[ $(ls /etc/apt/sources.list.d | wc -l) -gt 0 ]]  && [[ $(ls /etc/apt/preferences.d | wc -l) -gt 0 ]]; then
+  #  echo -e "${RED}There are other sources configured!${NC}"
+  #  ls /etc/apt/sources.list.d
+  #  ls /etc/apt/preferences.d
+  #  LOOP=true
+  #  while [[ $LOOP == true ]] ; do
+  #    read -r -n 1 -p "${1:-Do you want to OVERWRITE?} [y/n]: " REPLY
+  #    case $REPLY in
+  #      [yY])
+  #        echo
+  #        echo -e "${LGR}installing additional sources${NC}"
+  #        for ver in security stable testing unstable experimental; do
+  #          sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
+  #          sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
+  #        done
+  #        sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
+  #        LOOP=false
+  #        ;;
+  #      [nN])
+  #        echo
+  #        LOOP=false
+  #        ;;
+  #      *) printf " \033[31m %s \n\033[0m" "invalid input"
+  #    esac
+  #  done
+  #else
+  #  echo -e "${LGR}installing additional sources${NC}"
+  #  for ver in security stable testing unstable experimental; do
+  #    sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
+  #    sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
+  #  done
+  #  sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
+  #fi
 
+  # remove when the dependency hell above is repaired
+  sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
   echo -e "${LGR}installing packages${NC}"
   sudo apt-get update && sudo apt-get install ${PKGS}
 }
