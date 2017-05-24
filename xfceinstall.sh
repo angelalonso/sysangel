@@ -242,6 +242,12 @@ additional(){
 configs(){
 
   ${GITDIR}/scripts/xfce_configs.sh install
+  # Needed to improve terminator's tabs
+  if [[ ! -f ${HOME}/.config/gtk-3.0/gtk.css.orig ]]; then
+    mv ${HOME}/.config/gtk-3.0/gtk.css ${HOME}/.config/gtk-3.0/gtk.css.orig 2>/dev/null
+  fi
+  cp ${FILESDIR}/xfce/gtk-3.0_gtk.css ${HOME}/.config/gtk-3.0/gtk.css
+
 
 }
 
