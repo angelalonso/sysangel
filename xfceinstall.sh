@@ -175,6 +175,11 @@ otherpackages(){
   fi
 
   # Needed: firefox for debian (compile from source?)
+  # Virtualbox
+  curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
+  sudo apt-key add oracle_vbox_2016.asc
+#sudo apt-get update
+#sudo apt-get install virtualbox-5.1
   # Franz
 echo "here"
 }
