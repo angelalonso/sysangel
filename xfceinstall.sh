@@ -266,7 +266,7 @@ else
   rm -rf ${HOME}/.ssh 2>/dev/null
 fi
 ln -s ${HOME}/Private_offline/config_secret/.ssh ${HOME}/.ssh
-for i in $(ls ${HOME}/.ssh | grep -v "pub\|cer\|config\|known" ); do chmod 0600 ${HOME}/.ssh/$i; ssh-add ${HOME}/.ssh/$i ; done
+for i in $(ls ${HOME}/.ssh/ | grep -v "pub\|cer\|config\|known" ); do chmod 0600 ${HOME}/.ssh/$i; ssh-add ${HOME}/.ssh/$i ; done
 
 
 # Install AWS keys
