@@ -51,6 +51,10 @@ theme(){
   wget https://github.com/shimmerproject/Greybird/archive/master.zip
   unzip master.zip
   rm master.zip
+  wget https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz
+  tar -xvf 90145-axiom.tar.gz
+  sudo cp -pr axio* /usr/share/themes
+  sudo rm -rf axiom axiomd
 
 }
 
