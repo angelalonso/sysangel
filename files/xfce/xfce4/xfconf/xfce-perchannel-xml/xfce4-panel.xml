@@ -26,6 +26,7 @@
         <value type="uint" value="55226"/>
         <value type="uint" value="65535"/>
       </property>
+      <property name="autohide-behavior" type="uint" value="1"/>
     </property>
   </property>
   <property name="plugins" type="empty">

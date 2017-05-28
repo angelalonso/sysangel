@@ -12,9 +12,9 @@ action_on_low=1
 action_on_critical=1
 hide_when_full=0
 colorA=rgb(136,136,255)
-colorH=rgb(0,255,0)
-colorL=rgb(255,255,0)
-colorC=rgb(255,0,0)
+colorH=rgb(138,226,52)
+colorL=rgb(252,233,79)
+colorC=rgb(239,41,41)
 command_on_low=
 command_on_critical=
 

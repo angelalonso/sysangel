@@ -1,6 +1,6 @@
 layout=3
-date_font=Bitstream Vera Sans 8
-time_font=Droid Sans Fallback 12
-date_format=%d %b %Y
+date_font=Liberation Sans Narrow Condensed 12
+time_font=Liberation Sans Narrow Condensed 2097000
+date_format=%d %b
 time_format=%H:%M
 
