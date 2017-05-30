@@ -5,6 +5,7 @@
 #set -eo pipefail
 # Vars
 
+ARCH=$(uname -m)
 USR=$(whoami)
 HOME="/home/${USR}"
 INSTALLDIR="${HOME}/.sysangel"
@@ -175,39 +176,59 @@ otherpackages(){
   fi
 
   # Needed: firefox for debian (compile from source?)
+
   # Virtualbox
-  curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
-  sudo apt-key add oracle_vbox_2016.asc
+
+  #curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
+  #sudo apt-key add oracle_vbox_2016.asc
 #sudo apt-get update
 #sudo apt-get install virtualbox-5.1
+
   # Franz
-# Taken from https://gist.github.com/ruebenramirez/22234da93f08be65125cc45fc386c1cd
+  # Taken from https://gist.github.com/ruebenramirez/22234da93f08be65125cc45fc386c1cd
+  FRANZEXE=$(which Franz)
+  if [[ ${FRANZEXE} == "" ]]; then
+    sudo rm -fr /opt/franz
+    sudo rm -fr /usr/share/applications/franz.desktop
+    # create installation dir
+    sudo mkdir -p /opt/franz
+    #install franz. 4.0.4 is end of may, latest
+    wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | sudo tar xvz -C /opt/franz/
+    sudo ln -s /opt/franz/Franz /usr/bin/Franz
+    # add app icon
+    sudo wget "https://cdn-images-1.medium.com/max/360/1*v86tTomtFZIdqzMNpvwIZw.png" -O /opt/franz/franz-icon.png
+    # configure app for desktop use
+    sudo bash -c "cat <<EOF > /usr/share/applications/franz.desktop
+    [Desktop Entry]
+    Name=Franz
+    Comment=
+    Exec=/opt/franz/Franz
+    Icon=/opt/franz/franz-icon.png
+    Terminal=false
+    Type=Application
+    Categories=Messaging,Internet
+    EOF"
+  else
+    echo "Franz already installed"
+  fi
 
-sudo rm -fr /opt/franz
-sudo rm -fr /usr/share/applications/franz.desktop
+  # Terraform
+  TFEXE=$(which terraform)
+  if [[ ${TFEXE} == "" ]]; then
+    if test "${ARCH#*"64"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_amd64.zip
+    elif test "${ARCH#*"86"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_386.zip
+    elif test "${ARCH#*"arm"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_arm.zip
+    fi
+    unzip terraform_*
+    sudo mv terraform /usr/local/bin/
+    rm terraform_*
+  else
+    echo "Terraform already installed"
+  fi
 
-
-# create installation dir
-sudo mkdir -p /opt/franz
-
-#install franz
-# 4.0.4 is end of may, latest
-wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | sudo tar xvz -C /opt/franz/
-sudo ln -s /opt/franz/Franz /usr/bin/Franz
-# add app icon
-sudo wget "https://cdn-images-1.medium.com/max/360/1*v86tTomtFZIdqzMNpvwIZw.png" -O /opt/franz/franz-icon.png
-
-# configure app for desktop use
-sudo bash -c "cat <<EOF > /usr/share/applications/franz.desktop
-[Desktop Entry]
-Name=Franz
-Comment=
-Exec=/opt/franz/Franz
-Icon=/opt/franz/franz-icon.png
-Terminal=false
-Type=Application
-Categories=Messaging,Internet
-EOF"
 echo "here"
 }
 
