@@ -192,8 +192,11 @@ otherpackages(){
     sudo rm -fr /usr/share/applications/franz.desktop
     # create installation dir
     sudo mkdir -p /opt/franz
-    #install franz. 4.0.4 is end of may, latest
-    wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | sudo tar xvz -C /opt/franz/
+    if test "${ARCH#*"64"}" != "$ARCH"; then
+      wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | sudo tar xvz -C /opt/franz/
+    else
+      wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-ia32-4.0.4.tgz | sudo tar xvz -C /opt/franz/
+    fi
     sudo ln -s /opt/franz/Franz /usr/bin/Franz
     # add app icon
     sudo wget "https://cdn-images-1.medium.com/max/360/1*v86tTomtFZIdqzMNpvwIZw.png" -O /opt/franz/franz-icon.png
