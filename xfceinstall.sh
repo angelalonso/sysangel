@@ -304,6 +304,11 @@ configs(){
   fi
   cp ${FILESDIR}/xfce/gtk-3.0_gtk.css ${HOME}/.config/gtk-3.0/gtk.css
 
+  # Needed to improve Youtube's visibility
+  if [[ ! -f ${HOME}/.gtkrc-2.0.mine.orig ]]; then
+    mv ${HOME}/.gtkrc-2.0.mine ${HOME}/.gtkrc-2.0.mine.orig 2>/dev/null
+  fi
+  cp ${FILESDIR}/xfce/.gtkrc-2.0.mine ${HOME}/.gtkrc-2.0.mine
 
 }
 

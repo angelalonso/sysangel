@@ -1,0 +1,9 @@
+style "dusk-lighter"
+{
+    text[ACTIVE]      = "#999999"
+    text[INSENSITIVE] = "#999999"
+    text[NORMAL]      = "#999999"
+    text[PRELIGHT]    = "#999999"
+    text[SELECTED]    = "#999999"
+}
+widget_class "*" style "dusk-lighter"
