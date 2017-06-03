@@ -262,9 +262,9 @@ ohmyzsh(){
 }
 
 additional(){
-  # TODO: not each one, jut all of them (see issue)
   echo -e "${LBL} The following packages are not installed by default,"
   echo -e " Please confirm that you want to install each of them."
+
   #Docker
   echo -e "${RED}Docker is going to be installed!${NC}"
   LOOP=true
@@ -298,6 +298,25 @@ additional(){
         sudo apt-key add oracle_vbox_2016.asc
         sudo apt-get update
         sudo apt-get install virtualbox-5.1
+        LOOP=false
+        ;;
+      [nN])
+        echo
+        LOOP=false
+        ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid input"
+    esac
+  done
+  #AWSCLI
+  echo -e "${RED}AWSCLI is going to be installed!${NC}"
+  LOOP=true
+  while [[ $LOOP == true ]] ; do
+    read -r -n 1 -p "${1:-AWSCLI, do you want to INSTALL it?} [y/n]: " REPLY
+    case $REPLY in
+      [yY])
+        echo
+        echo -e "${LGR}installing AWSCLI${NC}"
+        pip install awscli --upgrade --user
         LOOP=false
         ;;
       [nN])
