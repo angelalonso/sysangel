@@ -177,12 +177,6 @@ otherpackages(){
 
   # Needed: firefox for debian (compile from source?)
 
-  # Virtualbox
-
-  #curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
-  #sudo apt-key add oracle_vbox_2016.asc
-#sudo apt-get update
-#sudo apt-get install virtualbox-5.1
 
   # Franz
   # Taken from https://gist.github.com/ruebenramirez/22234da93f08be65125cc45fc386c1cd
@@ -270,7 +264,8 @@ additional(){
   # TODO: not each one, jut all of them (see issue)
   echo -e "${LBL} The following packages are not installed by default,"
   echo -e " Please confirm that you want to install each of them."
-
+  #Docker
+  echo -e "${RED}Docker is going to be installed!${NC}"
   LOOP=true
   while [[ $LOOP == true ]] ; do
     read -r -n 1 -p "${1:-DOCKER, do you want to INSTALL it?} [y/n]: " REPLY
@@ -289,6 +284,29 @@ additional(){
       *) printf " \033[31m %s \n\033[0m" "invalid input"
     esac
   done
+  # Virtualbox
+  echo -e "${RED}Virtualbox is going to be installed!${NC}"
+  LOOP=true
+  while [[ $LOOP == true ]] ; do
+    read -r -n 1 -p "${1:-VIRTUALBOX, do you REALLY want to INSTALL it?} [y/n]: " REPLY
+    case $REPLY in
+      [yY])
+        echo
+        echo -e "${LGR}Installing Virtualbox${NC}"
+        curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
+        sudo apt-key add oracle_vbox_2016.asc
+        sudo apt-get update
+        sudo apt-get install virtualbox-5.1
+        LOOP=false
+        ;;
+      [nN])
+        echo
+        LOOP=false
+        ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid input"
+    esac
+  done
+
 
 
 }
@@ -354,9 +372,16 @@ echo
 echo -e "${LBL} Install the following packages if the system is big enough:"
 echo -e "${LGR} sudo apt-get install \\"
 echo -e "${LGR} inskcape gimp libreoffice "
+echo
 echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
 echo -e "${LGR} sudo apt-get install \\"
 echo -e "${LGR} blueman firmware-atheros"
+echo
+echo -e "${LBL} If you are using an SSD Drive:
+echo -e "${LGR} sudo vim /etc/fstab "
+echo -e "${LBL} , then add noatime to all \(root, home\) mountpoints EXCEPT the RAM one!"
+echo -e "${LBL} https://sites.google.com/site/easylinuxtipsproject/ssd#TOC-Avoid-exaggerated-measures"
+echo
 echo -e "${LBL} Then restart! ${NC}"
 
 }
