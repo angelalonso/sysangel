@@ -17,7 +17,7 @@ FILESDIR="${GITDIR}/files"
 PKGS="autokey-gtk curl chromium \
 encfs exfat-fuse exfat-utils expect \
 fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
-iotop jq keepass2 nmap openssh-client passwd pdftk pwgen \
+iotop jq keepass2 mtr nmap openssh-client passwd pdftk pwgen \
 python python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
 
