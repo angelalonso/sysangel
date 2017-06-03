@@ -101,6 +101,7 @@ packages(){
 
   # remove when the dependency hell above is repaired
   sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
+  sudo cp ${FILESDIR}/xfce/apt/virtualbox.list /etc/apt/sources.list.d/virtualbox.list
   echo -e "${LGR}installing packages${NC}"
   sudo apt-get update && sudo apt-get install ${PKGS}
 }
@@ -371,13 +372,13 @@ echo -e "${RED} Further Manual Steps needed:"
 echo
 echo -e "${LBL} Install the following packages if the system is big enough:"
 echo -e "${LGR} sudo apt-get install \\"
-echo -e "${LGR} inskcape gimp libreoffice "
+echo -e "${LGR} inkscape gimp libreoffice "
 echo
 echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
 echo -e "${LGR} sudo apt-get install \\"
 echo -e "${LGR} blueman firmware-atheros"
 echo
-echo -e "${LBL} If you are using an SSD Drive:
+echo -e "${LBL} If you are using an SSD Drive:"
 echo -e "${LGR} sudo vim /etc/fstab "
 echo -e "${LBL} , then add noatime to all \(root, home\) mountpoints EXCEPT the RAM one!"
 echo -e "${LBL} https://sites.google.com/site/easylinuxtipsproject/ssd#TOC-Avoid-exaggerated-measures"
