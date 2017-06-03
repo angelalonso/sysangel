@@ -304,12 +304,6 @@ configs(){
   fi
   cp ${FILESDIR}/xfce/gtk-3.0_gtk.css ${HOME}/.config/gtk-3.0/gtk.css
 
-  # Needed to improve Youtube's visibility
-  if [[ ! -f ${HOME}/.gtkrc-2.0.mine.orig ]]; then
-    mv ${HOME}/.gtkrc-2.0.mine ${HOME}/.gtkrc-2.0.mine.orig 2>/dev/null
-  fi
-  cp ${FILESDIR}/xfce/.gtkrc-2.0.mine ${HOME}/.gtkrc-2.0.mine
-
 }
 
 # Private Configs
@@ -357,14 +351,13 @@ ${GITDIR}/scripts/privatemount.sh
 to_do(){
 echo -e "${RED} Further Manual Steps needed:"
 echo
-echo -e "${LBL} Apply the themes in:"
-echo -e "${LGR} Settings Manager --> Appearance --> Style tab: choose 'Adwaita'
-Settings Manager --> Appearance --> Icons tab: choose 'Faenza Radiance'
-Settings Manager --> Window Manager --> Style tab: choose 'Greybird-master'
-Packages to also install (MAYBE?):
-blueman
-firmware-atheros
-'${NC}"
+echo -e "${LBL} Install the following packages if the system is big enough:"
+echo -e "${LGR} sudo apt-get install \\"
+echo -e "${LGR} inskcape gimp libreoffice "
+echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
+echo -e "${LGR} sudo apt-get install \\"
+echo -e "${LGR} blueman firmware-atheros"
+echo -e "${LBL} Then restart! ${NC}"
 
 }
 
