@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/aaf/.oh-my-zsh
@@ -95,6 +96,7 @@ bindkey "\e[1;3D" backward-word
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; sleep 1; done"
 alias wk='vim -c VimwikiIndex'
 
 ws() {
