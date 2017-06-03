@@ -37,7 +37,9 @@ install(){
 #  sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
 #  sudo update-alternatives --set vi /usr/bin/vim
   sudo apt-get update
-  sudo apt-get install vim
+  # vim-gtk has lua, needed for newcomplete
+
+  sudo apt-get install vim-gtk
 
   # Add vimbrant colorscheme
   mkdir -p ${HOME}/.vim/colors
