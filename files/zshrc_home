@@ -113,6 +113,8 @@ alias got='cd /home/aaf/Software/foodpanda/tools'
 alias goa='cd /home/aaf/Software/foodpanda/aws'
 alias gok='cd /home/aaf/Software/foodpanda/k8s-terraform'
 
+alias gk8='cd /home/aaf/Software/Dev/k8s-local'
+
 # Kill all running containers.
 alias dockerkillall='d kill $(docker ps -q)'
 
@@ -159,7 +161,7 @@ alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
 alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 
 #Helm
-export HELM_HOME=/Users/angel.fonseca/Software/foodpanda/pfm-tools/helm-home
+export HELM_HOME=/home/aaf/Software/foodpanda/pfm-tools/helm-home
 
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm"
 alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_EU helm"

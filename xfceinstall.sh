@@ -227,7 +227,20 @@ otherpackages(){
     echo "Terraform already installed"
   fi
 
-echo "here"
+  # Vagrant
+  VGEXE=$(which vagrant)
+  if [[ ${VGEXE} == "" ]]; then
+    if test "${ARCH#*"64"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/vagrant/1.9.5/vagrant_1.9.5_x86_64.deb
+    else
+      wget https://releases.hashicorp.com/vagrant/1.9.5/vagrant_1.9.5_i686.deb
+    fi
+    sudo dpkg -i vagrant_*
+    rm vagrant_*
+  else
+    echo "Vagrant already installed"
+  fi
+
 }
 
 
