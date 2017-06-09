@@ -100,7 +100,7 @@ alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; slee
 alias wk='vim -c VimwikiIndex'
 
 ws() {
-  grep $1 -R -T /home/aaf/Private/Vimwiki/*
+  grep $1 -R -T /home/aaf/Private/Vimwiki/* /home/aaf/Software/foodpanda/pandora/*
 }
 
 zs() {
