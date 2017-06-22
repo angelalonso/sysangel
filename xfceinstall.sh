@@ -14,7 +14,7 @@ KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 FILESDIR="${GITDIR}/files"
 
-PKGS="autokey-gtk curl chromium \
+PKGS="autokey-gtk python-boto3 curl chromium \
 encfs exfat-fuse exfat-utils expect \
 fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
 iotop jq keepassx mtr nmap openssh-client passwd pdftk pwgen \
@@ -103,7 +103,7 @@ packages(){
   sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
   sudo cp ${FILESDIR}/xfce/apt/virtualbox.list /etc/apt/sources.list.d/virtualbox.list
   echo -e "${LGR}installing packages${NC}"
-  sudo apt-get update && sudo apt-get install ${PKGS}
+  sudo apt update && sudo apt install ${PKGS}
 }
 
 
@@ -309,8 +309,8 @@ additional(){
         echo -e "${LGR}Installing Virtualbox${NC}"
         curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
         sudo apt-key add oracle_vbox_2016.asc
-        sudo apt-get update
-        sudo apt-get install virtualbox-5.1
+        sudo apt update
+        sudo apt install virtualbox-5.1
         LOOP=false
         ;;
       [nN])
@@ -403,11 +403,11 @@ to_do(){
 echo -e "${RED} Further Manual Steps needed:"
 echo
 echo -e "${LBL} Install the following packages if the system is big enough:"
-echo -e "${LGR} sudo apt-get install \\"
+echo -e "${LGR} sudo apt install \\"
 echo -e "${LGR} inkscape gimp libreoffice "
 echo
 echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
-echo -e "${LGR} sudo apt-get install \\"
+echo -e "${LGR} sudo apt install \\"
 echo -e "${LGR} blueman firmware-atheros"
 echo
 echo -e "${LBL} If you are using an SSD Drive:"
