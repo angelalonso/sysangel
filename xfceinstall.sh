@@ -18,7 +18,7 @@ PKGS="autokey-gtk python-boto3 curl chromium \
 encfs exfat-fuse exfat-utils expect \
 fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
 iotop jq keepassx mtr nmap openssh-client passwd pdftk pwgen \
-python python-pip seahorse sudo tcptraceroute terminator \
+python python-pip python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
 
 # Bash colors
@@ -149,6 +149,11 @@ vimcompile(){
 
 # Dependencies
 otherpackages(){
+  # Let's count python's pip as packages as well
+  PIP3_PACKS="flake8"
+  sudo pip3 install ${PIP3_PACKS}
+
+
   KUBEEXE=$(which kubectl)
   if [[ ${KUBEEXE} == "" ]]; then
     echo -e "${LGR}installing Kubectl${NC}"
