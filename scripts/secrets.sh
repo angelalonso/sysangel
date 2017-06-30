@@ -18,12 +18,10 @@ install_dropbox(){
   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
   UNAME_M=$(uname -m)
   case ${UNAME_M} in
-    i686)
-      ARCH="x86";;
     x86_64)
-      ARCH="x86_64";;
+      ARCH="amd_64";;
     *)
-      ARCH="x86";;
+      ARCH="i386";;
   esac
 
   # First up, get Dropbox installed
@@ -31,13 +29,13 @@ install_dropbox(){
   echo "#### GET READY! \n
   We will install DROPBOX, so you should go look for your user and password RIGHT NOW!"
 
-  # TODO: only download if file is not yet there
-  cd ${HOME} && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
-
-  # Needed?
-  # cp ${FILESDIR}/dropbox.desktop ${HOME}.config/autostart/dropbox.desktop
-
-  ${HOME}/.dropbox-dist/dropboxd &
+  cd ${HOME} && wget https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_$ARCH.deb
+  sudo dpkg -i dropbox_2015.10.28_$ARCH.deb
+  dropbox start -i
+  ## OLD METHOD
+  ## # TODO: only download if file is not yet there
+  ## cd ${HOME} && wget -O - "https://www.dropbox.com/download?plat=lnx.$ARCH" | tar xzf -
+  ## ${HOME}/.dropbox-dist/dropboxd &
 }
 
 remove_dropbox(){
@@ -52,7 +50,8 @@ remove_dropbox(){
       ;;
   esac
 
-  rm -r ${HOME}/.dropbox-dist
+  rm -r ${HOME}/.dropbox-dist 2>/dev/null
+  sudo apt remove --purge dropbox
 
 }
 
