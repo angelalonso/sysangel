@@ -23,7 +23,7 @@ python python-pip python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
 
 DEB_PKGS="chromium"
-UBU_PKGS="compizconfig-settings-manager google-chrome-stable indicator-multiload"
+UBU_PKGS="compizconfig-settings-manager gnome-tweak-tool google-chrome-stable indicator-multiload"
 
 # Bash colors
 BLU='\033[0;34m'
@@ -389,22 +389,58 @@ ${GITDIR}/scripts/privatemount.sh
 }
 
 to_do(){
-echo -e "${RED} Further Manual Steps needed:"
-echo
-echo -e "${LBL} Install the following packages if the system is big enough:"
-echo -e "${LGR} sudo apt install \\"
-echo -e "${LGR} inkscape gimp libreoffice "
-echo
-echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
-echo -e "${LGR} sudo apt install \\"
-echo -e "${LGR} blueman firmware-atheros"
-echo
-echo -e "${LBL} If you are using an SSD Drive:"
-echo -e "${LGR} sudo vim /etc/fstab "
-echo -e "${LBL} , then add noatime to all \(root, home\) mountpoints EXCEPT the RAM one!"
-echo -e "${LBL} https://sites.google.com/site/easylinuxtipsproject/ssd#TOC-Avoid-exaggerated-measures"
-echo
-echo -e "${LBL} Then restart! ${NC}"
+  if [[ $DIST == "Ubuntu" ]]; then
+    echo -e "${RED} Further Manual Steps for UBUNTU users:"
+    echo
+    echo -e "${LBL} - USE FAENZY ICONS:"
+    echo -e "${LGL} Open gnome-tweak-tool > Appearance > Icons"
+    echo -e "${LGR} Choose Faenza-Ambiance"
+    echo
+    echo -e "${LBL} - MAKE CAPS LOCK ANOTHER ESC:"
+    echo -e "${LGL} Open gnome-tweak-tool > Typing > Caps Lock key behavior"
+    echo -e "${LGR} Make Caps Lock an additional ESC"
+    echo
+    echo -e "${LBL} - AVOID COLLISION WITH <SUPER> KEY:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > Launcher"
+    echo -e "${LGR} Key to show the Dash... > <Alt><Super>"
+    echo -e "${LGR} Key to start the Application switcher > Disabled"
+    echo -e "${LGR} Key to start the App... in reverse > Disabled"
+    echo
+    echo -e "${LBL} - SIMULATE MAC COMMAND RUN:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > General"
+    echo -e "${LGR} Key to execute a command > <Shift><Control>XF86PowerOff"
+    echo
+    echo -e "${LBL} - SIMULATE MAC SWITCHER COMBO:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > Switcher"
+    echo -e "${LGR} Key to Start the Switcher > <Super>Tab"
+    echo -e "${LGR} Key to Switch to the previous... > <Shift><Super>Tab"
+    echo
+    echo -e "${LBL} - SIMULATE MAC SCREEN LOCK COMBO:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > General"
+    echo -e "${LGR} Key to lock the screen > <Shift><Control>XF86PowerOff"
+    echo
+  fi
+
+  echo -e "${RED} Further Manual Steps needed:"
+  echo
+  echo -e "${LBL} Install the following packages if the system is big enough:"
+  echo -e "${LGR} sudo apt install \\"
+  echo -e "${LGR} inkscape gimp libreoffice "
+  echo
+  echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
+  echo -e "${LGR} sudo apt install \\"
+  echo -e "${LGR} blueman firmware-atheros"
+  echo
+  echo -e "${LBL} If you are using an SSD Drive:"
+  echo -e "${LGR} sudo vim /etc/fstab "
+  echo -e "${LBL} , then add noatime to all \(root, home\) mountpoints EXCEPT the RAM one!"
+  echo -e "${LBL} https://sites.google.com/site/easylinuxtipsproject/ssd#TOC-Avoid-exaggerated-measures"
+  echo
+  echo -e "${LBL} Then restart! ${NC}"
 
 }
 
