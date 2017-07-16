@@ -14,21 +14,16 @@ KEYSDIR="${INSTALLDIR}/keys"
 GITDIR="${HOME}/sysangel"
 FILESDIR="${GITDIR}/files"
 
-if [[ $(uname -a) == *"Debian"* ]]; then
-  DIST="Debian"
-elif [[ $(uname -a) == *"buntu"* ]]; then
-  DIST="Ubuntu"
-else
-  DIST="Other"
-fi
 
-
-PKGS="autokey-gtk python-boto3 curl chromium \
+GEN_PKGS="autokey-gtk python-boto3 curl \
 encfs exfat-fuse exfat-utils expect \
 fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
 iotop jq keepassx mtr nmap openssh-client passwd pdftk pwgen \
 python python-pip python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
+
+DEB_PKGS="chromium"
+UBU_PKGS="google-chrome-stable indicator-multiload"
 
 # Bash colors
 BLU='\033[0;34m'
@@ -37,21 +32,6 @@ LBL='\033[1;34m'
 ORN='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
-
-# Check it's the right system
-
-# if [ $(uname) == "Linux" ]; then
-#   SYSTEM=$(grep "^ID=" /etc/*-release | cut -d '=' -f 2)
-# else
-#   exit 2
-# fi
-
-# Get sudo
-# Add user to sudoers
-# TODO: this gives me an error (-i not recognized?)
-# if [ $(su -i env USRin="${USR}" sh -c 'grep ${USRin} /etc/sudoers | wc -l') -lt 1 ]; then
-#   su -i env USRin="${USR}" sh -c 'echo "${USRin} ALL=(ALL:ALL) ALL" >> /etc/sudoers'
-# fi
 
 
 preparation(){
@@ -73,44 +53,31 @@ preparation(){
 
 
 packages(){
-  # This thing runs to broken dependencies!
-  #if [[ $(ls /etc/apt/sources.list.d | wc -l) -gt 0 ]]  && [[ $(ls /etc/apt/preferences.d | wc -l) -gt 0 ]]; then
-  #  echo -e "${RED}There are other sources configured!${NC}"
-  #  ls /etc/apt/sources.list.d
-  #  ls /etc/apt/preferences.d
-  #  LOOP=true
-  #  while [[ $LOOP == true ]] ; do
-  #    read -r -n 1 -p "${1:-Do you want to OVERWRITE?} [y/n]: " REPLY
-  #    case $REPLY in
-  #      [yY])
-  #        echo
-  #        echo -e "${LGR}installing additional sources${NC}"
-  #        for ver in security stable testing unstable experimental; do
-  #          sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
-  #          sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
-  #        done
-  #        sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
-  #        LOOP=false
-  #        ;;
-  #      [nN])
-  #        echo
-  #        LOOP=false
-  #        ;;
-  #      *) printf " \033[31m %s \n\033[0m" "invalid input"
-  #    esac
-  #  done
-  #else
-  #  echo -e "${LGR}installing additional sources${NC}"
-  #  for ver in security stable testing unstable experimental; do
-  #    sudo cp ${FILESDIR}/xfce/apt/${ver}.list /etc/apt/sources.list.d/${ver}.list
-  #    sudo cp ${FILESDIR}/xfce/apt/${ver}.pref /etc/apt/preferences.d/${ver}.pref
-  #  done
-  #  sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
-  #fi
+  case $DIST in
+    Debian)
+      if [[ ! -f /etc/apt/sources.list.orig ]]; then
+        sudo mv /etc/apt/sources.list /etc/apt/sources.list.orig 2>/dev/null
+      fi
+      sudo cp ${FILESDIR}/debian/apt/sources.list /etc/apt/sources.list
+      sudo cp ${FILESDIR}/debian/apt/virtualbox.list /etc/apt/sources.list.d/virtualbox.list
 
-  # remove when the dependency hell above is repaired
-  sudo cp ${FILESDIR}/xfce/apt/sources.list /etc/apt/sources.list
-  sudo cp ${FILESDIR}/xfce/apt/virtualbox.list /etc/apt/sources.list.d/virtualbox.list
+      PKGS="$GEN_PKGS $DEB_PKGS"
+      ;;
+    Ubuntu)
+      if [[ ! -f /etc/apt/sources.list.orig ]]; then
+        sudo mv /etc/apt/sources.list /etc/apt/sources.list.orig 2>/dev/null
+      fi
+      sudo cp ${FILESDIR}/ubuntu/apt/sources.list /etc/apt/sources.list
+      #TODO: avoid doing this if they are already there
+      sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
+      wget -q https://dl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
+      wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc -O- | sudo apt-key add -
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 883E8688397576B6C509DF495A9A06AEF9CB8DB0
+
+      PKGS="$GEN_PKGS $UBU_PKGS"
+      ;;
+  esac
+
   echo -e "${LGR}installing packages${NC}"
   sudo apt update && sudo apt install ${PKGS}
 }
@@ -120,11 +87,19 @@ secrets(){
   echo -e "${LGR}installing keys and passwords${NC}"
   echo -e "${LBL}Press <Intro> when you are ready...${NC}"
   read confirm
-  ${GITDIR}/scripts/xfce_secrets.sh install
+  case $DIST in
+    Debian)
+      ${GITDIR}/scripts/debian_secrets.sh install
+      ;;
+    Ubuntu)
+      ${GITDIR}/scripts/ubuntu_secrets.sh install
+      ;;
+  esac
 }
 
 
 vimcompile(){
+  #TODO: Move these checks to the script itself
   COMPILER=$(vim --version 2>/dev/null| grep "Compiled by" | awk '{print $3}')
   REAL=${USER}@${HOSTNAME}
 
@@ -435,8 +410,17 @@ echo -e "${LBL} Then restart! ${NC}"
 
 cleanup(){
 # Remove directories that were created for the installation
-rm -r ${TMPDIR}
+rm -r ${TMPDIR} 2>/dev/null
 }
+
+# Find out the distro you are on
+if [[ $(uname -a) == *"Debian"* ]]; then
+  DIST="Debian"
+elif [[ $(uname -a) == *"buntu"* ]]; then
+  DIST="Ubuntu"
+else
+  DIST="Other"
+fi
 
 AMISUDO=$(sudo -v 2>/dev/null; echo $?)
 if [ $AMISUDO -ne 0 ]; then
@@ -464,6 +448,7 @@ else
   else
     case $1 in
       remove)
+        echo "Not yet supported. Sorry"
         ;;
       packages)
         packages

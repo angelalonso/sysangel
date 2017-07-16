@@ -1,0 +1,15 @@
+#
+
+# deb cdrom:[Debian GNU/Linux 8.7.1 _Jessie_ - Official i386 xfce-CD Binary-1 20170116-10:08]/ jessie main
+
+#deb cdrom:[Debian GNU/Linux 8.7.1 _Jessie_ - Official i386 xfce-CD Binary-1 20170116-10:08]/ jessie main
+
+deb http://mirror.nforce.com/debian/ testing main non-free
+deb-src http://mirror.nforce.com/debian/ testing main non-free
+
+# deb http://security.debian.org/ jessie/updates main
+# deb-src http://security.debian.org/ jessie/updates main
+
+# jessie-updates, previously known as 'volatile'
+# deb http://ftp.de.debian.org/debian/ jessie-updates main
+# deb-src http://ftp.de.debian.org/debian/ jessie-updates main
