@@ -23,7 +23,7 @@ python python-pip python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
 
 DEB_PKGS="chromium"
-UBU_PKGS="google-chrome-stable indicator-multiload"
+UBU_PKGS="compizconfig-settings-manager google-chrome-stable indicator-multiload"
 
 # Bash colors
 BLU='\033[0;34m'
