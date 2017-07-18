@@ -393,7 +393,7 @@ to_do(){
   if [[ $DIST == "Ubuntu" ]]; then
     echo -e "${RED} Further Manual Steps for UBUNTU users:"
     echo
-    echo -e "${LBL} - USE FAENZY ICONS:"
+    echo -e "${LBL} - USE FAENZA ICONS:"
     echo -e "${LGL} Open gnome-tweak-tool > Appearance > Icons"
     echo -e "${LGR} Choose Faenza-Ambiance"
     echo
@@ -411,7 +411,9 @@ to_do(){
     echo -e "${LBL} - SIMULATE MAC COMMAND RUN:"
     echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
     echo -e "${LGL} Ubuntu Unity Plugin > General"
-    echo -e "${LGR} Key to execute a command > <Shift><Control>XF86PowerOff"
+    echo -e "${LGR} Key to execute a command > <Super><Space>"
+    echo -e "${LGL} Open System Setings > Keyboard > Shortcuts > Typing"
+    echo -e "${LGR} Change or disable Switch to next (maybe also previous) Source"
     echo
     echo -e "${LBL} - SIMULATE MAC SWITCHER COMBO:"
     echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
