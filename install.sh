@@ -23,8 +23,8 @@ python python-pip python-pip seahorse sudo tcptraceroute terminator \
 unzip xbindkeys xvkbd zim zip zsh"
 
 DEB_PKGS="chromium"
-UBU_PKGS="compizconfig-settings-manager gnome-tweak-tool google-chrome-stable \
-indicator-multiload ppa-purge"
+UBU_PKGS="caffeine compizconfig-settings-manager gnome-tweak-tool \
+google-chrome-stable indicator-multiload ppa-purge"
 
 # Bash colors
 BLU='\033[0;34m'
