@@ -170,3 +170,5 @@ alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
 alias hhasst="KUBECONFIG=$KUBECONFIG_STAGING_ASIA helm"
 alias hhasqa="KUBECONFIG=$KUBECONFIG_QA_ASIA helm"
 
+dateprompt='%{$fg_bold[blue]%}%*'
+PROMPT=$dateprompt$PROMPT
