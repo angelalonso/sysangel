@@ -1,0 +1,2 @@
+git passwd tcptraceroute
+encfs python-boto3 curl exfat-fuse exfat-utils expect fabric iotop jq nmap openssh-client passwd pdftk pwgen python python-pip python3 python3-pip tcptraceroute unzip zsh
