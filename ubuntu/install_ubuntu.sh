@@ -73,7 +73,9 @@ secrets() {
   ./scripts/secrets_config.sh install
   # mount private folder
   ./scripts/privatemount.sh
+  ./scripts/privmount.sh
   # link secrets
+  # TODO change to priv
   ./scripts/priv_data.sh
 
 }
@@ -139,7 +141,7 @@ testing() {
 #pip_packages
 #ohmyzsh
 secrets
-vim_config
+#vim_config
 #chrome_deb
 #awscli_pip
 #kubectl_install

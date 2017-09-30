@@ -47,6 +47,15 @@ install(){
   mkdir -p ${HOME}/.vim/colors
   wget -O ${HOME}/.vim/colors/vimbrant.vim https://raw.githubusercontent.com/chrishunt/color-schemes/master/thayer/vimbrant.vim
 
+
+  echo "installing fonts, NOTE: these should also be configure for the terminal"
+  # Thanks to https://github.com/belluzj/fantasque-sans
+  # I already compiled my own, I'd rather just copy it
+  sudo mkdir -p /usr/local/share/fonts/f
+  sudo cp ./files/FantasqueSansMono_Regular.ttf /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+  sudo chmod 644 /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+  sudo chown root:staff /usr/local/share/fonts/f/FantasqueSansMono_Regular.ttf
+
 }
 
 install_plugins(){
@@ -60,8 +69,12 @@ install_plugins(){
   ln -s ${GITDIR}/files/vimrc_home ${HOME}/.vimrc
 
   mkdir -p ${HOME}/.vim/autoload ${HOME}/.vim/bundle
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  if [ -d "~/.vim/bundle/Vundle.vim" ]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  fi
+  if [ -d "~/.vim/bundle/Vundle.vim" ]; then
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  fi
 
   vim +PluginInstall +qall
 

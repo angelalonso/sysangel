@@ -23,6 +23,8 @@ NC='\033[0m' # No Color
 install_encfs(){
   echo "configuring encfs mountpoint"
   mkdir -p $HOME/Private
+  echo "configuring cryfs mountpoint"
+  mkdir -p $HOME/Priv
 
   echo "generating bridge keys"
   mkdir -p ${KEYSDIR}
@@ -49,11 +51,36 @@ install_encfs(){
   echo
   echo "${password}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/main_encfs.pass
 
+  echo "Enter Password for Cryfs:"
+  # http://stackoverflow.com/questions/1923435/how-do-i-echo-stars-when-reading-password-with-read#1923503
+  while IFS= read -p "$prompt" -r -s -n 1 char
+  do
+      # Enter - accept password
+      if [[ $char == $'\0' ]] ; then
+          break
+      fi
+      # Backspace
+      if [[ $char == $'\177' ]] ; then
+          prompt=$'\b \b'
+          pass="${pass%?}"
+      else
+          prompt='*'
+          pass+="$char"
+      fi
+  done
+  echo
+  echo "${pass}" | openssl rsautl -inkey  ${KEYSDIR}/pub.key -pubin -encrypt >  ${KEYSDIR}/cryfs.pass
+
   case "${DIST}" in
     ubuntu|Ubuntu|debian|Debian)
+      # ENCFS
       sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/xfce_profile_encfs.sh >> /etc/profile.d/privatemount.sh' && \
         sudo chown root:root /etc/profile.d/privatemount.sh && \
         sudo chmod 755 /etc/profile.d/privatemount.sh
+      # CRYFS
+      sudo -i env DIR="${SCRIPTSDIR}" sh -c 'cat ${DIR}/profile_cryfs.sh >> /etc/profile.d/privmount.sh' && \
+        sudo chown root:root /etc/profile.d/privmount.sh && \
+        sudo chmod 755 /etc/profile.d/privmount.sh
       #TODO:
       # Automate mount after dropbox got all data
       # Create a mount/unmount script/button
