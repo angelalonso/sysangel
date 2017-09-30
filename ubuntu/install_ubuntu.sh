@@ -9,7 +9,6 @@ sudo apt-get remove --purge vim*
 
 sudo apt-get install \
 curl \
-encfs \
 exfat-fuse \
 exfat-utils \
 expect \
@@ -51,17 +50,32 @@ sudo pip3 install \
 flake8
 }
 
-cryfs_deb() {
-# Cryfs installation
-wget https://s3-eu-west-1.amazonaws.com/apt.cryfs.org/ubuntu/pool/main/c/cryfs/cryfs_0.9.7_ubuntu-16.04-x64.deb
-sudo dpkg -i --force-depends cryfs_0.9.7_ubuntu-16.04-x64.deb
-sudo apt-get -f install
-}
-
 ohmyzsh(){
   echo -e "${LGR}installing ohmyszh${NC}"
   /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
   ./scripts/ohmyzsh.sh install
+}
+
+secrets() {
+  # Encfs installation
+  sudo apt-get update && sudo apt-get install encfs
+  # Cryfs installation
+  wget https://s3-eu-west-1.amazonaws.com/apt.cryfs.org/ubuntu/pool/main/c/cryfs/cryfs_0.9.7_ubuntu-16.04-x64.deb
+  sudo dpkg -i --force-depends cryfs_0.9.7_ubuntu-16.04-x64.deb
+  sudo apt-get -f install
+  rm cryfs_0.9.7_ubuntu-16.04-x64.deb
+  # Dropbox installation
+  wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+  sudo dpkg -i --force-depends dropbox.deb && sudo apt-get -f install
+  dropbox start -i
+  # TODO: correct, add cryfs, remove encfs
+  # Config keys, passwords and mountpoints
+  ./scripts/secrets_config.sh install
+  # mount private folder
+  ./scripts/privatemount.sh
+  # link secrets
+  ./scripts/priv_data.sh
+
 }
 
 vim_config() {
@@ -75,13 +89,6 @@ sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
 sudo apt-get -f install
 }
 
-dropbox_deb() {
-# Dropbox installation
-wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
-sudo dpkg -i --force-depends dropbox.deb && sudo apt-get -f install
-dropbox start -i
-}
-
 awscli_pip() {
 # AWSCLI installation
   pip install awscli --upgrade --user
@@ -89,7 +96,7 @@ awscli_pip() {
 
 kubectl_install() {
 # Kubectl installation
-./scripts/kubectl_config.sh 
+./scripts/kubectl_config.sh
 }
 
 terraform_install() {
@@ -123,18 +130,17 @@ testing() {
 # vim cfg
 #...
 
- echo 
+ echo
 
 }
 
 #packages_cli
 #packages_x
 #pip_packages
-#cryfs_deb
 #ohmyzsh
+secrets
 vim_config
 #chrome_deb
-#dropbox_deb
 #awscli_pip
 #kubectl_install
 #terraform_install
