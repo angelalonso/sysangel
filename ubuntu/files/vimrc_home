@@ -1,0 +1,268 @@
+filetype off
+
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'vimwiki/vimwiki'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'tpope/vim-surround'
+Bundle 'ervandew/supertab'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'ajh17/VimCompletesMe'
+Plugin 'Shougo/neocomplete.vim'
+"Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+"Plugin 'wincent/command-t'
+Plugin 'scrooloose/syntastic'
+"Plugin 'puppetlabs/puppet-syntax-vim'
+"Plugin 'rodjek/vim-puppet'
+Plugin 'godlygeek/tabular'
+"Plugin 'Yggdroot/indentLine'
+Plugin 'mileszs/ack.vim'
+Plugin 'elzr/vim-json'
+Plugin 'hashivim/vim-terraform'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'christoomey/vim-tmux-navigator'
+
+
+"Plugin 'vim-ruby/vim-ruby'
+"Plugin 'https://github.com/tristen/vim-sparkup' "obsolete, see README on github
+"Plugin 'shinzui/vim-idleFingers'
+"Plugin 'rizzatti/dash.vim'
+
+" To install:
+" :PluginInstall
+" vim +PluginInstall +qall
+" all plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on " required
+
+let g:neocomplete#enable_at_startup = 1
+
+" ####  FUNCTIONS
+
+" Thanks https://github.com/tpope/vim-unimpaired but I just needed this
+function! s:setup_paste() abort
+  let s:paste = &paste
+  let s:mouse = &mouse
+  set paste
+  set mouse=
+  augroup unimpaired_paste
+    autocmd!
+    autocmd InsertLeave *
+          \ if exists('s:paste') |
+          \   let &paste = s:paste |
+          \   let &mouse = s:mouse |
+          \   unlet s:paste |
+          \   unlet s:mouse |
+          \ endif |
+          \ autocmd! unimpaired_paste
+  augroup END
+endfunction
+
+" ####  COLORS
+
+set t_Co=256
+" colorscheme distinguished
+colorscheme vimbrant
+
+
+" ####  IDE
+
+syntax on
+
+set autoindent
+"set smartindent
+
+" show line numbers
+""set number
+
+" show matching brackets
+set showmatch
+
+" ####  ENCODING
+
+set encoding=utf-8
+
+" make backspace work as expected
+set backspace=2
+
+" set tab indenting
+set tabstop=2
+set shiftwidth=2
+" make spaces feel like tabs
+set softtabstop=2
+" expand tabs to spaces
+set expandtab
+
+set nowrap " long lines stay long
+
+" show line number and column number of caret
+set ruler
+
+set laststatus=2
+
+set showcmd
+
+
+" ####  SEARCH
+
+" disregard case during search
+set ignorecase
+
+" highlight search results
+set hlsearch
+
+" wrap search
+set wrapscan
+
+" highlight line containing caret
+set cursorline
+set cursorcolumn
+
+
+" #### VIMWIKI
+
+let g:vimwiki_list = [{'path': '/home/aaf/Private/Vimwiki'}]
+
+" ####  MAP KEYS
+
+" remap leader key
+let mapleader =","
+" map ctrl tab to tabnext
+map <C-tab> :tabnext<cr>
+" ATTENTION! This is a change from the original, meant to NOT compete with
+" CTRL-V
+" remap visual because:
+" - I want to better use mac-like bindings
+" - I use line and block select more often
+"   ATTENTION 2: I decided not to use this
+"nnoremap v V
+"nnoremap <C-V> v
+"nnoremap V <C-v>
+
+
+" unimpaired mapping for set paste
+nnoremap <silent> yo  :call <SID>setup_paste()<CR>o
+nnoremap <silent> yO :call <SID>setup_paste()<CR>O
+nnoremap <silent> yi  :call <SID>setup_paste()<CR>i
+nnoremap <silent> yI :call <SID>setup_paste()<CR>I
+nnoremap <silent> ya  :call <SID>setup_paste()<CR>a
+nnoremap <silent> yA :call <SID>setup_paste()<CR>A
+
+nmap <leader>r :NERDTreeToggle<cr>
+
+" \w open a new vertical split and switch over to it. Because really, how
+" often
+" do you split your window and not want to do something in the new split?
+nnoremap <leader>w <C-w>v<C-w>l
+
+" These are my 'quick movement' combos for Splitted Windows
+"  To be changed if a conflict is found...
+"  Original had <C-W>_ as follows but it seems not needed
+nnoremap <C-h> <C-W>h<C-W>_
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+
+" No arrows
+nnoremap <Left> :echo "No left for you!"<CR>
+vnoremap <Left> :<C-u>echo "No left for you!"<CR>
+nnoremap <Right> :echo "No Right for you!"<CR>
+vnoremap <Right> :<C-u>echo "No Right for you!"<CR>
+nnoremap <Up> :echo "No Up for you!"<CR>
+vnoremap <Up> :<C-u>echo "No Up for you!"<CR>
+nnoremap <Down> :echo "No Down for you!"<CR>
+vnoremap <Down> :<C-u>echo "No Down for you!"<CR>
+
+" Exit insert mode on the correct character (not confusing i and a)
+"http://stackoverflow.com/questions/2295410/prevent-cursor-from-moving-back-one-character-on-insert-mode-exit
+:inoremap <silent> <Esc> <Esc>`^
+
+"###########################
+"
+
+""set listchars=tab:â–¸\ ,eol:Â¬
+
+" move location of tmp and swapfiles
+set backupdir=~/.vim/tmp,.
+set directory=~/.vim/tmp,.
+set swapfile
+set dir=~/.vim/tmp,.
+
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"
+
+set guioptions-=L
+runtime macros/matchit.vim
+"
+" ####  syntastic related
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+
+" disable folding in markdown
+let g:vim_markdown_folding_disabled=1
+
+"let g:ycm_filetype_blacklist = {}
+"" make YCM compatible with Vimwiki (using supertab)
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" make vim-table-mode markdown compatible
+let g:table_mode_corner="|"
+
+let g:syntastic_eruby_ruby_quiet_messages =
+    \ {'regex': ['possibly useless use of a variable in void context']}
+
+let g:syntastic_quiet_messages =
+      \ { 'regex': ['class inheriting from params class'] }
+
+
+let g:syntastic_puppet_puppetlint_args="--no-80chars-check --no-140chars-check"
+
+let g:NERDTreeShowLineNumbers = 1
+
+au BufWritePre * :%s/\s\+$//e
+
+
+if &term =~ "xterm" || &term =~ "screen"
+  let g:CommandTCancelMap = ['<ESC>', '<C-c>']
+endif
+
+
+" Powerline fonts for airline
+let g:airline_powerline_fonts = 1
+
+set diffopt+=vertical
+
+"let g:indentLine_noConcealCursor=""
+let g:vim_json_syntax_conceal = 0
+
+execute pathogen#infect()
