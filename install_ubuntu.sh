@@ -133,6 +133,23 @@ docker_install() {
 ./scripts/docker.sh install
 }
 
+helm_install() {
+  wget -O helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-linux-amd64.tar.gz
+  tar -zxvf helm.tar.gz
+  sudo mv linux-amd64/helm /usr/local/bin/helm
+  rm helm.tar.gz
+  rm -rf linux-amd64
+  helm init --upgrade
+
+}
+
+kops_install() {
+  wget https://github.com/kubernetes/kops/releases/download/1.7.0/kops-linux-amd64
+  chmod +x kops-linux-amd64
+  sudo mv kops-linux-amd64 /usr/local/bin/kops
+
+}
+
 testing() {
 # rambox
 # terminator cfg
@@ -149,11 +166,13 @@ testing() {
 #ohmyzsh
 #secrets
 #vim_config
-configs
+#configs
 #chrome_deb
 #awscli_pip
 #kubectl_install
 #terraform_install
 #docker_install
+#helm_install
+kops_install
 
 #testing
