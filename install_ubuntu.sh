@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 ARCH=$(uname -m)
+GITDIR=$(pwd)
 
 
 packages_cli() {
@@ -93,8 +94,11 @@ sudo apt-get -f install
 
 configs() {
   # terminator config
-  rm ~/.config/terminator/config
-  ln -s ./files/terminator_config ~/.config/terminator/config
+  rm ~/.config/terminator/config 2>/dev/null
+  ln -s ${GITDIR}/files/terminator_config ~/.config/terminator/config
+  # map CAPS lock to be another ESC
+  rm ${HOME}.config/autostart/capstoesc.desktop 2>/dev/null
+  cp ${GITDIR}/files/capstoesc.desktop ${HOME}/.config/autostart/capstoesc.desktop
 
 }
 
@@ -179,7 +183,7 @@ testing() {
 #ohmyzsh
 #secrets
 #vim_config
-#configs
+configs
 #chrome_deb
 #awscli_pip
 #kubectl_install
