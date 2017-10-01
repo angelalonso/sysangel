@@ -1,416 +1,528 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# TODO: 
-##
-## INSTALL OF PACKAGES
-### other
-# pwgen
-# dropbox
-# guake/yakuake AND CONFIG
-#
-### yakuake integration with dolphin
-# sudo wget -O /usr/local/bin/yakuake-session https://raw.githubusercontent.com/nextgenthemes/yakuake-session/master/yakuake-session
-# sudo apt-get install nautilus-actions
-# nautilus-actions-config-tool -> trigger yakuake as in http://askubuntu.com/questions/76712/setting-nautilus-open-terminal-to-launch-terminator-rather-than-gnome-terminal/76747#76747
-#-
-### Screen on for videos
-# sudo apt-get install caffeine
-# -> also configure for autostart
-#
-# eeepc
-# kali-linux-full xserver-xorg-input-synaptics
-# echo "options ath9k nohwcrypt=1" > /etc/modprobe.d/ath9k.conf
+# TODO: Pipefail exits also if I choose not to install something.
+#       Obviously response handling is wrong
+#set -eo pipefail
+# Vars
+
+ARCH=$(uname -m)
+USR=$(whoami)
+HOME="/home/${USR}"
+INSTALLDIR="${HOME}/.sysangel"
+TMPDIR="${INSTALLDIR}/tmp"
+KEYSDIR="${INSTALLDIR}/keys"
+GITDIR="${HOME}/sysangel"
+FILESDIR="${GITDIR}/files"
 
 
-# binaries
-load_paths() {
-OPENSSL=$(which openssl)
-PYTHON=$(which python)
-WGET=$(which wget)
+GEN_PKGS="autokey-gtk python-boto3 curl \
+encfs exfat-fuse exfat-utils expect \
+fabric faenza-icon-theme git gtk2-engines-murrine gtk3-engines-xfce \
+iotop jq keepassx mtr nmap openssh-client passwd pdftk pwgen \
+python python-pip python-pip seahorse sudo tcptraceroute terminator \
+unzip xbindkeys xvkbd zim zip zsh"
+
+DEB_PKGS="chromium"
+UBU_PKGS="caffeine compizconfig-settings-manager gnome-tweak-tool \
+google-chrome-stable indicator-multiload ppa-purge"
+
+# Bash colors
+BLU='\033[0;34m'
+LGR='\033[1;32m'
+LBL='\033[1;34m'
+ORN='\033[0;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+
+preparation(){
+  echo -e "${LBL} Before we start, bear in mind that you will need the following:"
+  echo -e "${LGR}- Your Encrypted Dropbox folder's password"
+  echo -e "${LGR}- Your Dropbox username and password"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
+
+  # BEFORE STARTING, create directories needed for the future
+  mkdir -p ${INSTALLDIR}
+  mkdir -p ${KEYSDIR}
+  mkdir -p ${HOME}/Private
+  mkdir -p ${HOME}/Private_offline
+  # Create directories only for the installation
+  mkdir -p ${TMPDIR}
+  # , then continue to the next steps...
 }
 
-# constants
-USER=$(whoami)
-HOSTNAME=$(hostname)
-FOLDRHOME="/home/$USER"
-FOLDRCONFIG="$FOLDRHOME/.sysangel"
-FOLDRROLES="$FOLDRCONFIG/ROLES"
-VERSIONFILE="${FOLDRCONFIG}/VERSION.TXT"
-CFGFILE="${FOLDRCONFIG}/CONFIG.TXT"
-FOLDRKEYS="${FOLDRCONFIG}/KEYS"
-PUBK="${FOLDRKEYS}/pub.key"
-PRIVK="${FOLDRKEYS}/priv.key"
-ENCFSPASS="${FOLDRKEYS}/encfs.pass"
-FOLDRDBOX="${FOLDRHOME}/Dropbox"
-FOLDRDBOX_ENC="${FOLDRDBOX}/.${USER}.encfs"
-FOLDRDBOX_DEC="${FOLDRCONFIG}/${USER}.private"
-FOLDRROLESPRIV="${FOLDRDBOX_DEC}/ROLES"
-FOLDRBIN=$(pwd)
-FOLDRSCRIPTS="$FOLDRBIN/SCRIPTS"
 
-ROLES_system=( desktop server other )
-ROLES_desktop=( kde other )
-ROLES_user=( sysadmin other )
-
-NEEDED_PACKAGES="git openssl python python-gpgme python-gtk2 wget" 
-
-title_msg() {
-  COLUMNS=$(tput cols)
-  printf "%*s\n" $(((${#title}+$COLUMNS)/2)) "$1 - (Press a Key to Continue)"
-
-  read cntinue
-
-}
-
-key_generation() {
-  echo "FIRST STEP: SECURITY"
-  echo 
-  echo "We are going to use a key pair to encrypt any password you might need"
-  key_needed="true"
-  if [ -f ${PRIVK} ]; then
-    echo "A private key already exists!"
-    echo " Do you want to keep using it? [Y/N] (default Y)"
-    read opt
-    case $opt in
-      n*|N*)
-        echo "NO"
-        ;;
-      y*|Y*|s*|S*|j*|J*|*)
-        echo "YES"
-        key_needed="false"
-        ;;
-    esac
-  fi
-
-  if ${key_needed}; then
-    echo "CREATING A NEW KEY"
-    ${OPENSSL} genrsa -out ${PRIVK} 4096 
-  fi
-  
-  #Independently on whether we have it or not, we recreate the public key, to check the private one is OK
-  ${OPENSSL} rsa -in ${PRIVK} -pubout > ${PUBK}
-}
-
-encfs_paths() {
-  while [ "${ENCOK}" != "ok" ]; do
-    if [ -d ${FOLDRDBOX_ENC} ]; then
-      shopt -s nullglob dotglob; files=(${FOLDRDBOX_ENC}/*)
-      if [ ${#files[@]} -gt 0 ]; then
-        echo "${FOLDRDBOX_ENC} exists and HAS DATA, do you want to [O]verwrite it, [R]euse it or [C]hoose a different one?"
-        while true; do read -r -n 1 -p "${1:-} [o/r/c]: " REPLY
-          case $REPLY in
-            [oO]) echo ; 
-              rm -rf ${FOLDRDBOX_ENC}; mkdir ${FOLDRDBOX_ENC} 
-              return 0 ;;
-            [rR])  
-              #read -r -n 1 -p "Enter the Password for this volume" NEWPASS
-              echo; echo -n "Enter the Password for this volume:"
-              read -s  NEWPASS; echo
-              echo "${NEWPASS}" | openssl rsautl -inkey ${PUBK} -pubin -encrypt > ${ENCFSPASS}
-              mount_encfs
-              ENCOK=$(cat ${FOLDRDBOX_ENC}/test.io)
-              return 0;;
-            [cC]) 
-							FOLDEROK=1
-							while [ ${FOLDEROK} -eq 1 ]; do
-								echo; echo -n "Enter the New Encrypted Folder name (under ${FOLDRDBOX}/) - "
-								read NEWFOLDRDBOX_ENC; echo
-								mkdir ${FOLDRDBOX}/${NEWFOLDRDBOX_ENC}; FOLDEROK=$?
-							done; FOLDRDBOX_ENC="${FOLDRDBOX}/${NEWFOLDRDBOX_ENC}"
-              return 0 ;;
-            *) printf " \033[31m %s \n\033[0m" "invalid input"
-          esac 
-        done
-      else
-        ENCOK="ok" 
+packages(){
+  case $DIST in
+    Debian)
+      if [[ ! -f /etc/apt/sources.list.orig ]]; then
+        sudo mv /etc/apt/sources.list /etc/apt/sources.list.orig 2>/dev/null
       fi
-    else
-      mkdir -p ${FOLDRDBOX_ENC}
-      echo "${FOLDRDBOX_ENC} folder created"
-      ENCOK="ok"
-    fi
+      sudo cp ${FILESDIR}/debian/apt/sources.list /etc/apt/sources.list
+      sudo cp ${FILESDIR}/debian/apt/virtualbox.list /etc/apt/sources.list.d/virtualbox.list
 
-    if [ -d ${FOLDRDBOX_DEC} ]; then
-			shopt -s nullglob dotglob; files=(${FOLDRDBOX_DEC}/*)
-			if [ ${#files[@]} -gt 0 ]; then
-				echo "${FOLDRDBOX_DEC} exists and HAS DATA, do you want to [O]verwrite it, or [C]hoose a different one?"
-				while true; do read -r -n 1 -p "${1:-} [o/c]: " REPLY
-					case $REPLY in
-						[oO]) echo ; 
-							rm -rf ${FOLDRDBOX_DEC}; mkdir ${FOLDRDBOX_DEC} 
-							return 0 ;;
-						[cC]) echo ; 
-							FOLDEROK=1
-							while [ ${FOLDEROK} -eq 1 ]; do
-								echo; echo -n "Enter the New Decrypted folder name (under ${FOLDRDBOX}/) - "
-								read NEWFOLDRDBOX_DEC; echo
-								mkdir ${FOLDRDBOX}/${NEWFOLDRDBOX_DEC}; FOLDEROK=$?
-							done; FOLDRDBOX_DEC="${FOLDRDBOX}/${NEWFOLDRDBOX_DEC}"
-							return 0 ;;
-						*) printf " \033[31m %s \n\033[0m" "invalid input"
-					esac 
-				done
-			fi
-		else
-			mkdir -p ${FOLDRDBOX_DEC}
-			echo "${FOLDRDBOX_DEC} folder created"
-		fi
-	done
-
-}
-
-config_encfs() {
-  echo -n " - Please, indicate a Password for your encrypted folder:"
-  read -s encfs_pass
-  echo
-
-  expect <<- DONE
-    set timeout 5
-    spawn encfs ${FOLDRDBOX_ENC} ${FOLDRDBOX_DEC}
-    match_max 100000000
-    expect  "?>"
-    send    "p\n"
-    expect  "New Encfs Password:"
-    send    "$encfs_pass\n"
-    expect  "Verify Encfs Password:"
-    send    "$encfs_pass\n"
-    expect eof
-DONE
-
-  title_msg "writing into the folder"
-  echo "ok" > ${FOLDRDBOX_DEC}/test.io
-
-  echo "${encfs_pass}" | openssl rsautl -inkey ${PUBK} -pubin -encrypt > ${ENCFSPASS}
-
-  title_msg "unmounting the volume"
-  sudo umount ${FOLDRDBOX_DEC}
-}
-
-
-mount_encfs() {
-  encfs_read_pass=$(openssl rsautl -inkey ${PRIVK} -decrypt < ${ENCFSPASS})
-  echo ${encfs_read_pass}
-  title_msg "mounting it back automatically (no need to type pass!)"
-  expect <<- DONE
-    set timeout 5
-    spawn encfs ${FOLDRDBOX_ENC} ${FOLDRDBOX_DEC}
-    match_max 100000000
-    expect  "Encfs Password:"
-    send    "$encfs_read_pass\n"
-    expect eof
-DONE
-
-  title_msg "testing the mount"
-  cat ${FOLDRDBOX_DEC}/test.io
-}
-
-
-cloudconfig() {
-  # Is Dropbox Installed?
-  DBOXINSTALLED=$(apt-cache policy dropbox | grep Installed | grep -v "none" | wc -l)
-  if [ ${DBOXINSTALLED} -eq 0 ]; then
+      PKGS="$GEN_PKGS $DEB_PKGS"
+      ;;
+    Ubuntu)
+      if [[ ! -f /etc/apt/sources.list.orig ]]; then
+        sudo mv /etc/apt/sources.list /etc/apt/sources.list.orig 2>/dev/null
+      fi
+      sudo cp ${FILESDIR}/ubuntu/apt/sources.list /etc/apt/sources.list
+      #TODO: avoid doing this if they are already there
       sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
-      sudo apt-get update && sudo apt-get install dropbox
-  fi
+      wget -q https://dl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
+      wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc -O- | sudo apt-key add -
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 883E8688397576B6C509DF495A9A06AEF9CB8DB0
 
-  # Is the Dropbox Python controller installed?
-  if [ ! -f ${FOLDRSCRIPTS}/dropbox.py ]; then
-    ${WGET} -O ${FOLDRSCRIPTS}/dropbox.py "https://www.dropbox.com/download?dl=packages/dropbox.py"
-  fi
+      PKGS="$GEN_PKGS $UBU_PKGS"
+      ;;
+  esac
 
-  # Is Dropbox Running?
-  DBOXRUNS=$(${PYTHON} ${FOLDRSCRIPTS}/dropbox.py status | grep "Dropbox isn't running" | wc -l)
-  if [ ${DBOXRUNS} -eq 1 ]; then
-    ${PYTHON} ${FOLDRSCRIPTS}/dropbox.py autostart y
-    ${PYTHON} ${FOLDRSCRIPTS}/dropbox.py start -i
-  fi
-  
-  #Is the folder in Dropbox created? if not, create it!
-  if [ ! -d ${FOLDRDBOX} ]
-  then
-    mkdir ${FOLDRDBOX}
-  fi
-
-  encfs_paths
-  config_encfs
-  mount_encfs
-
+  echo -e "${LGR}installing packages${NC}"
+  sudo apt update && sudo apt install ${PKGS}
 }
 
 
-  # This has to go after the user has configured its own encrypted filesystem
-#echo "$PASSPHRASE" | openssl rsautl -inkey $FOLDRCONFIG/public.key -pubin -encrypt > $FOLDRCONFIG/pass.bin
-#openssl rsautl -inkey $FOLDRCONFIG/private.key -decrypt < $FOLDRCONFIG/pass.bin
-
-role_selection() {
-  # Add roles for this machine
-  echo "# Configuration roles for this machine, feel free to modify" > ${FOLDRCONFIG}/${MACHINE}.roles
-  echo "#   But bear in mind they will be used in strict order, last overwrites previous" >> ${FOLDRCONFIG}/${MACHINE}.roles
-  echo "ROLES:" >> ${FOLDRCONFIG}/${MACHINE}.roles
-
-  # Default role, always added.
-  role="common"
-  echo "  - ${role}" >> ${FOLDRCONFIG}/${MACHINE}.roles
-  ln -s ${FOLDRBIN}/ROLES/${role}.yaml ${FOLDRROLES}/${role}.yaml 2>/dev/null
-  echo "    - role ${role} added!"
-
-	# Download the definitions for the first time
-	#  and add them to the list
-	PS3='Please enter your system type: '
-	select opt in "${ROLES_system[@]}"
-	do
-		case $opt in
-			"desktop")
-        role=${opt}
-        echo "  - ${role}" >> ${FOLDRCONFIG}/${MACHINE}.roles
-        ln -s ${FOLDRBIN}/ROLES/${role}.yaml ${FOLDRROLES}/${role}.yaml 2>/dev/null
-        echo "    - role ${role} added!"
-
-        PS3='Please enter your desktop: '
-				select opt in "${ROLES_desktop[@]}"
-				do
-					case $opt in
-						"kde")
-              role=${opt}
-              echo "  - ${role}" >> ${FOLDRCONFIG}/${MACHINE}.roles
-              ln -s ${FOLDRBIN}/ROLES/${role}.yaml ${FOLDRROLES}/${role}.yaml 2>/dev/null
-              echo "    - role ${role} added!"
-							echo "you chose choice 1"
-              break 2
-							;;
-						"other")
-							break 2
-							;;
-						*) echo invalid option;;
-					esac
-				done
-				;;
-			"server")
-        role=${opt}
-        echo "  - ${role}" >> ${FOLDRCONFIG}/${MACHINE}.roles
-        ln -s ${FOLDRBIN}/ROLES/${role}.yaml ${FOLDRROLES}/${role}.yaml 2>/dev/null
-        echo "    - role ${role} added!"
-				break
-				;;
-			"other")
-				break
-				;;
-			*) echo invalid option;;
-		esac
-	done
-
-	PS3='Please enter your user type: '
-	select opt in "${ROLES_user[@]}"
-	do
-		case $opt in
-			"sysadmin")
-        role=${opt}
-				echo "sysadmin"
-        break
-				;;
-			"other")
-				break
-				;;
-			*) echo invalid option;;
-		esac
-	done
-
+secrets(){
+  echo -e "${LGR}installing keys and passwords${NC}"
+  echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+  read confirm
+  case $DIST in
+    Debian)
+      ${GITDIR}/scripts/debian_secrets.sh install
+      ;;
+    Ubuntu)
+      ${GITDIR}/scripts/ubuntu_secrets.sh install
+      ;;
+  esac
 }
 
-configfile() {
-  echo "installdir = "${FOLDRBIN} > ${CFGFILE}
 
-  read -p "- Please, indicate name for this machine ["${HOSTNAME}"] " answer
-  if [ "${answer}" = "" ]; then MACHINE=${HOSTNAME}
-  else MACHINE=${answer}; fi
-  echo "  - From now on we will refer to this machine as ${MACHINE}"
+vimcompile(){
+  #TODO: Move these checks to the script itself
+  COMPILER=$(vim --version 2>/dev/null| grep "Compiled by" | awk '{print $3}')
+  REAL=${USER}@${HOSTNAME}
 
-  echo "machinename = "${MACHINE} >> ${CFGFILE}
-
-  role_selection
-
-  echo "  - "${MACHINE} >> ${FOLDRCONFIG}/${MACHINE}.roles
-  # For this machine's one we have to be more careful
-  echo "- Creating definition for '${MACHINE}'"
-  if [ -e "${FOLDRROLESPRIV}/${MACHINE}.yaml" ]; then
-    echo "${FOLDRROLESPRIV}/${MACHINE}.yaml exists"
-    while true; do
-      read -p "Do you want to overwrite?[y/n] " answer
-      case $answer in
-        [yY]* ) echo "INSTALL:" > ${FOLDRROLESPRIV}/${MACHINE}.yaml
-          ln -s ${FOLDRROLESPRIV}/${MACHINE}.yaml ${FOLDRROLES}/${MACHINE}.yaml 2>/dev/null
-          break;;
-        [nN]* ) break;;
-        * )     echo "Dude, just enter Y or N, please.";;
+  if [[ "${COMPILER}" == "${REAL}" ]]; then
+    echo -e "${RED}Another compiled vim exists!${NC}"
+    LOOP=true
+    while [[ $LOOP == true ]] ; do
+      read -r -n 1 -p "${1:-Do you want to RECOMPILE?} [y/n]: " REPLY
+      case $REPLY in
+        [yY])
+          echo
+          echo -e "${LGR}compiling vim${NC}"
+          ${GITDIR}/scripts/vim_compile.sh install
+          LOOP=false
+          ;;
+        [nN])
+          echo
+          LOOP=false
+          ;;
+        *) printf " \033[31m %s \n\033[0m" "invalid input"
       esac
     done
   else
-    echo "INSTALL:" >> ${FOLDRROLESPRIV}/${MACHINE}.yaml
-    ln -s ${FOLDRROLESPRIV}/${MACHINE}.yaml ${FOLDRROLES}/${MACHINE}.yaml 2>/dev/null
+    echo -e "${LGR}compiling vim${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    ${GITDIR}/scripts/vim_compile.sh install
   fi
-  echo >> ${FOLDRROLES}/${MACHINE}.yaml
-  
-  echo "  DONE"
+}
 
 
+# Dependencies
+otherpackages(){
+  # Let's count python's pip as packages as well
+  PIP3_PACKS="flake8"
+  sudo pip3 install ${PIP3_PACKS}
 
-  # Add some characteristics of this machine
-  echo "# Attention! These Facts are not meant to be changed manually" >> ${FOLDRCONFIG}/${MACHINE}.roles
-  echo "FACTS:" >> ${FOLDRCONFIG}/${MACHINE}.roles
-  # First the Distro and codename
-  DISTRO=$(${PYTHON} ${FOLDRBIN}/sysangel.py get-distro)
-  DIST=$(echo ${DISTRO} | awk -F "," '/1/ {print $1}')
-  CODENAME=$(echo ${DISTRO} | awk -F "," '/1/ {print $3}')
-  echo "  distro:" >> ${FOLDRCONFIG}/${MACHINE}.roles
-  echo "    "${DIST} >> ${FOLDRCONFIG}/${MACHINE}.roles
-  echo "  codename:" >> ${FOLDRCONFIG}/${MACHINE}.roles
-  echo "    "${CODENAME} >> ${FOLDRCONFIG}/${MACHINE}.roles
 
-  git ls-remote https://github.com/angelalonso/sysangel | sed -n 2p | cut -f1 > ${VERSIONFILE}
+  KUBEEXE=$(which kubectl)
+  if [[ ${KUBEEXE} == "" ]]; then
+    echo -e "${LGR}installing Kubectl${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    ${GITDIR}/scripts/kubectl_config.sh install
+  else
+    echo -e "${RED}Kubectl is already installed!${NC}"
+    LOOP=true
+    while [[ $LOOP == true ]] ; do
+      read -r -n 1 -p "${1:-Do you want to REINSTALL?} [y/n]: " REPLY
+      case $REPLY in
+        [yY])
+          echo
+          echo -e "${LGR}Reinstalling Kubectl${NC}"
+          ${GITDIR}/scripts/kubectl_config.sh install
+          LOOP=false
+          ;;
+        [nN])
+          echo
+          LOOP=false
+          ;;
+        *) printf " \033[31m %s \n\033[0m" "invalid input"
+      esac
+    done
+  fi
+
+  # Needed: firefox for debian (compile from source?)
+
+
+  # Franz
+  # Taken from https://gist.github.com/ruebenramirez/22234da93f08be65125cc45fc386c1cd
+  FRANZEXE=$(which Franz)
+  if [[ ${FRANZEXE} == "" ]]; then
+    sudo rm -fr /opt/franz
+    sudo rm -fr /usr/share/applications/franz.desktop
+    # create installation dir
+    sudo mkdir -p /opt/franz
+    if test "${ARCH#*"64"}" != "$ARCH"; then
+      wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | sudo tar xvz -C /opt/franz/
+    else
+      wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-ia32-4.0.4.tgz | sudo tar xvz -C /opt/franz/
+    fi
+    sudo ln -s /opt/franz/Franz /usr/bin/Franz
+    # add app icon
+    sudo wget "https://cdn-images-1.medium.com/max/360/1*v86tTomtFZIdqzMNpvwIZw.png" -O /opt/franz/franz-icon.png
+    # configure app for desktop use
+    sudo bash -c "cat <<EOF > /usr/share/applications/franz.desktop
+    [Desktop Entry]
+    Name=Franz
+    Comment=
+    Exec=/opt/franz/Franz
+    Icon=/opt/franz/franz-icon.png
+    Terminal=false
+    Type=Application
+    Categories=Messaging,Internet
+    EOF"
+  else
+    echo "Franz already installed"
+  fi
+
+  # Terraform
+  TFEXE=$(which terraform)
+  if [[ ${TFEXE} == "" ]]; then
+    if test "${ARCH#*"64"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_amd64.zip
+    elif test "${ARCH#*"86"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_386.zip
+    elif test "${ARCH#*"arm"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_arm.zip
+    fi
+    unzip terraform_*
+    sudo mv terraform /usr/local/bin/
+    rm terraform_*
+  else
+    echo "Terraform already installed"
+  fi
+
+  # Vagrant
+  VGEXE=$(which vagrant)
+  if [[ ${VGEXE} == "" ]]; then
+    if test "${ARCH#*"64"}" != "$ARCH"; then
+      wget https://releases.hashicorp.com/vagrant/1.9.5/vagrant_1.9.5_x86_64.deb
+    else
+      wget https://releases.hashicorp.com/vagrant/1.9.5/vagrant_1.9.5_i686.deb
+    fi
+    sudo dpkg -i vagrant_*
+    rm vagrant_*
+  else
+    echo "Vagrant already installed"
+  fi
 
 }
 
-presentation() {
-  echo "_..~\`  {\\SYSANGEL/}  \`~.._"
-  echo "####   Installation   ####"
+
+ohmyzsh(){
+  if [[ -d ${HOME}/.oh-my-zsh ]]; then
+    echo -e "${RED}Oh my Zsh is already installed!${NC}"
+    LOOP=true
+    while [[ $LOOP == true ]] ; do
+      read -r -n 1 -p "${1:-Do you want to REINSTALL?} [y/n]: " REPLY
+      case $REPLY in
+        [yY])
+          echo
+          /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+          echo -e "${LGR}Reinstalling ohmyszh${NC}"
+          ${GITDIR}/scripts/ohmyzsh.sh install
+          LOOP=false
+          ;;
+        [nN])
+          echo
+          LOOP=false
+          ;;
+        *) printf " \033[31m %s \n\033[0m" "invalid input"
+      esac
+    done
+  else
+    echo -e "${LGR}installing ohmyszh${NC}"
+    echo -e "${LBL}Press <Intro> when you are ready...${NC}"
+    read confirm
+    /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
+    ${GITDIR}/scripts/ohmyzsh.sh install
+  fi
+}
+
+additional(){
+  echo -e "${LBL} The following packages are not installed by default,"
+  echo -e " Please confirm that you want to install each of them."
+
+  #Docker
+  echo -e "${RED}Docker is going to be installed!${NC}"
+  LOOP=true
+  while [[ $LOOP == true ]] ; do
+    read -r -n 1 -p "${1:-DOCKER, do you want to INSTALL it?} [y/n]: " REPLY
+    case $REPLY in
+      [yY])
+        echo
+        # ONLY AVAILABLE FOR ARM AND AMD64, TODO: check this is the case or skip and ALERT
+        echo -e "${LGR}installing DOCKER${NC}"
+        ${GITDIR}/scripts/docker.sh install
+        LOOP=false
+        ;;
+      [nN])
+        echo
+        LOOP=false
+        ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid input"
+    esac
+  done
+  # Virtualbox
+  echo -e "${RED}Virtualbox is going to be installed!${NC}"
+  LOOP=true
+  while [[ $LOOP == true ]] ; do
+    read -r -n 1 -p "${1:-VIRTUALBOX, do you REALLY want to INSTALL it?} [y/n]: " REPLY
+    case $REPLY in
+      [yY])
+        echo
+        echo -e "${LGR}Installing Virtualbox${NC}"
+        curl -O https://www.virtualbox.org/download/oracle_vbox_2016.asc
+        sudo apt-key add oracle_vbox_2016.asc
+        sudo apt update
+        sudo apt install virtualbox-5.1
+        LOOP=false
+        ;;
+      [nN])
+        echo
+        LOOP=false
+        ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid input"
+    esac
+  done
+  #AWSCLI
+  echo -e "${RED}AWSCLI is going to be installed!${NC}"
+  LOOP=true
+  while [[ $LOOP == true ]] ; do
+    read -r -n 1 -p "${1:-AWSCLI, do you want to INSTALL it?} [y/n]: " REPLY
+    case $REPLY in
+      [yY])
+        echo
+        echo -e "${LGR}installing AWSCLI${NC}"
+        pip install awscli --upgrade --user
+        LOOP=false
+        ;;
+      [nN])
+        echo
+        LOOP=false
+        ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid input"
+    esac
+  done
+
+
+
+}
+
+
+# Configs
+configs(){
+
+  ${GITDIR}/scripts/xfce_configs.sh install
+  # Needed to improve terminator's tabs
+  if [[ ! -f ${HOME}/.config/gtk-3.0/gtk.css.orig ]]; then
+    mv ${HOME}/.config/gtk-3.0/gtk.css ${HOME}/.config/gtk-3.0/gtk.css.orig 2>/dev/null
+  fi
+  cp ${FILESDIR}/xfce/gtk-3.0_gtk.css ${HOME}/.config/gtk-3.0/gtk.css
+
+}
+
+# Private Configs
+private_configs(){
+
+# We mount to Private_offline by default.
+#   , but it will be re-linked to the Private one, when it gets mounted
+
+# Install SSH keys
+echo -e "${LGR}installing ssh keys${NC}"
+
+if [[ ! -f ${HOME}/.ssh.orig ]]; then
+  mv ${HOME}/.ssh ${HOME}/.ssh.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.ssh 2>/dev/null
+fi
+ln -s ${HOME}/Private_offline/config_secret/.ssh ${HOME}/.ssh
+for i in $(ls ${HOME}/.ssh/ | grep -v "pub\|cer\|config\|known" ); do chmod 0600 ${HOME}/.ssh/$i; ssh-add ${HOME}/.ssh/$i ; done
+
+
+# Install AWS keys
+echo -e "${LGR}installing aws keys${NC}"
+
+if [[ ! -f ${HOME}/.aws.orig ]]; then
+  mv ${HOME}/.aws ${HOME}/.aws.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.aws 2>/dev/null
+fi
+ln -s ${HOME}/Private_offline/config_secret/.aws ${HOME}/.aws
+
+# Install Kubectl keys
+echo -e "${LGR}installing Kubectl keys${NC}"
+
+if [[ ! -f ${HOME}/.kube.orig ]]; then
+  mv ${HOME}/.kube ${HOME}/.kube.orig 2>/dev/null
+else
+  rm -rf ${HOME}/.kube 2>/dev/null
+fi
+ln -s ${HOME}/Private_offline/config_secret/.kube ${HOME}/.kube
+
+# check the mount of Private again, solve links situation
+${GITDIR}/scripts/privatemount.sh
+}
+
+to_do(){
+  if [[ $DIST == "Ubuntu" ]]; then
+    echo -e "${RED} Further Manual Steps for UBUNTU users:"
+    echo
+    echo -e "${LBL} - USE FAENZA ICONS:"
+    echo -e "${LGL} Open gnome-tweak-tool > Appearance > Icons"
+    echo -e "${LGR} Choose Faenza-Ambiance"
+    echo
+    echo -e "${LBL} - MAKE CAPS LOCK ANOTHER ESC:"
+    echo -e "${LGL} Open gnome-tweak-tool > Typing > Caps Lock key behavior"
+    echo -e "${LGR} Make Caps Lock an additional ESC"
+    echo
+    echo -e "${LBL} - AVOID COLLISION WITH <SUPER> KEY:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > Launcher"
+    echo -e "${LGR} Key to show the Dash... > <Alt><Super>"
+    echo -e "${LGR} Key to start the Application switcher > Disabled"
+    echo -e "${LGR} Key to start the App... in reverse > Disabled"
+    echo
+    echo -e "${LBL} - SIMULATE MAC COMMAND RUN:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > General"
+    echo -e "${LGR} Key to execute a command > <Super><Space>"
+    echo -e "${LGL} Open System Setings > Keyboard > Shortcuts > Typing"
+    echo -e "${LGR} Change or disable Switch to next (maybe also previous) Source"
+    echo
+    echo -e "${LBL} - SIMULATE MAC SWITCHER COMBO:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > Switcher"
+    echo -e "${LGR} Key to Start the Switcher > <Super>Tab"
+    echo -e "${LGR} Key to Switch to the previous... > <Shift><Super>Tab"
+    echo
+    echo -e "${LBL} - SIMULATE MAC SCREEN LOCK COMBO:"
+    echo -e "${LGL} Open compizconfig-settings-manager or /usr/bin/python /usr/bin/ccsm"
+    echo -e "${LGL} Ubuntu Unity Plugin > General"
+    echo -e "${LGR} Key to lock the screen > <Shift><Control>XF86PowerOff"
+    echo
+  fi
+
+  echo -e "${RED} Further Manual Steps needed:"
   echo
+  echo -e "${LBL} Install the following packages if the system is big enough:"
+  echo -e "${LGR} sudo apt install \\"
+  echo -e "${LGR} inkscape gimp libreoffice "
+  echo
+  echo -e "${LBL} Install the following packages if the system has BLUETOOTH:"
+  echo -e "${LGR} sudo apt install \\"
+  echo -e "${LGR} blueman firmware-atheros"
+  echo
+  echo -e "${LBL} If you are using an SSD Drive:"
+  echo -e "${LGR} sudo vim /etc/fstab "
+  echo -e "${LBL} , then add noatime to all \(root, home\) mountpoints EXCEPT the RAM one!"
+  echo -e "${LBL} https://sites.google.com/site/easylinuxtipsproject/ssd#TOC-Avoid-exaggerated-measures"
+  echo
+  echo -e "${LBL} Then restart! ${NC}"
+
 }
 
-main() {
-
-  # TODO: function to show ERROR or OK messages
-  ## maybe also to ask for input
-  title_msg "_..~\`  {\\SYSANGEL/}  \`~.._"
-
-
-  title_msg "Installing needed packages..."
-  sudo apt-get -y install ${NEEDED_PACKAGES}
-
-  title_msg "Loading paths..."
-  load_paths
-
-  title_msg "Installing config directory..."
-  mkdir -p ${FOLDRCONFIG} &> /dev/null
-  mkdir -p ${FOLDRROLES} &>/dev/null
-  echo "  DONE"
-
-  title_msg "Generating keys..."
-  key_generation
-
-  title_msg "Configuring cloud encrypted folder..."
-  cloudconfig
-  title_msg "Installing cloud automount Profile.d script..."
-  sudo cp ${FOLDRSCRIPTS}/profile_sysangel_priv.sh /etc/profile.d/sysangel_priv.sh
-  echo "  DONE"
-
-  title_msg "Configuring files..."
-  configfile
-  ## TODO:
-  ## only do this when it makes sense (cancel? something failed that is needed?)
-  title_msg "Installing autorun on startup Profile.d script..."
-  sudo cp ${FOLDRSCRIPTS}/profile_sysangel.sh /etc/profile.d/sysangel.sh
-  echo "  DONE"
+cleanup(){
+# Remove directories that were created for the installation
+rm -r ${TMPDIR} 2>/dev/null
 }
 
-main
+# Find out the distro you are on
+if [[ $(uname -a) == *"Debian"* ]]; then
+  DIST="Debian"
+elif [[ $(uname -a) == *"buntu"* ]]; then
+  DIST="Ubuntu"
+else
+  DIST="Other"
+fi
 
+AMISUDO=$(sudo -v 2>/dev/null; echo $?)
+if [ $AMISUDO -ne 0 ]; then
+  echo -e "${RED} Your user is NOT in the SUDOERS LIST!${NC}"
+  echo " Please add it with:"
+  echo -e "${ORN}su -l root"
+  echo -e "visudo"
+  echo -e "${NC}, then add something like the following line: ${ORN}"
+  echo -e "${USR} ALL=(ALL:ALL) ALL${NC}"
+  exit 2
+else
+
+  if [ "$#" -ne 1 ]; then
+    preparation
+    packages
+    secrets
+    vimcompile
+    otherpackages
+    ohmyzsh
+    additional
+    configs
+    private_configs
+    to_do
+    cleanup
+  else
+    case $1 in
+      remove)
+        echo "Not yet supported. Sorry"
+        ;;
+      packages)
+        packages
+        ;;
+      secrets)
+        secrets
+        ;;
+      vimcompile)
+        vimcompile
+        ;;
+      otherpackages)
+        otherpackages
+        ;;
+      ohmyzsh)
+        ohmyzsh
+        ;;
+      additional)
+        additional
+        ;;
+      configs)
+        configs
+        ;;
+      private_configs)
+        private_configs
+        ;;
+      to_do)
+        to_do
+        ;;
+      cleanup)
+        cleanup
+        ;;
+      *)
+        echo "Usage: $0 [remove|packages|secrets|vimcompile|otherpackages|ohmyszh|configs|private_configs|to_do|additional|cleanup]"
+        ;;
+    esac
+
+  fi
+fi
