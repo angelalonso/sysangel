@@ -5,7 +5,7 @@ ARCH=$(uname -m)
 
 packages_cli() {
 # Packages to install for cli-only systems
-sudo apt-get remove --purge vim*
+sudo apt-get remove --purge vim* indicator-messages
 
 sudo apt-get install \
 curl \
@@ -150,6 +150,19 @@ kops_install() {
 
 }
 
+rambox_install() {
+  # TO BE DONE
+  #wget -O rambox.tar.gz https://getrambox.herokuapp.com/download/linux_64?filetype=deb
+  #mkdir -p ~/Rambox
+  #TODO: problem is: how to control the directory this creates? I want Rambox instead of Rambox-05.12
+  #tar -zxvf rambox.tar.gz -C ~
+  #chmod +x ~/Rambox/rambox
+  #ln -s /usr/local/bin/rambox
+  #sudo apt-get update && sudo apt-get install libappindicator1
+  echo "not yet ready"
+
+}
+
 testing() {
 # rambox
 # terminator cfg
@@ -173,6 +186,7 @@ testing() {
 #terraform_install
 #docker_install
 #helm_install
-kops_install
+#kops_install
+#rambox_install
 
 #testing
