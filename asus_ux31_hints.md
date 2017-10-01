@@ -6,3 +6,10 @@ sudo vim /etc/default/grub
 
 change to
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash i915.i915_enable_rc6=1"
+
+sudo update-grub
+
+# SSD
+https://help.ubuntu.com/community/AsusZenbook#SSD
+
+
