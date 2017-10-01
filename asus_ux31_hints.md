@@ -12,4 +12,13 @@ sudo update-grub
 # SSD
 https://help.ubuntu.com/community/AsusZenbook#SSD
 
+change to
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /               ext4    discard,noatime,errors=remount-ro 0       1
 
+# Suspend to RAM
+https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX31E#Suspend_to_RAM
+
+sudo vim /etc/pm/config.d/unload_module
+
+add
+SUSPEND_MODULES="xhci_hcd ehci_hcd uhci_hcd"
