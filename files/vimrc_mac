@@ -1,5 +1,5 @@
 filetype off
-
+set nocompatible
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -11,6 +11,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'tpope/vim-surround'
 Bundle 'ervandew/supertab'
 Plugin 'dominikduda/vim_current_word'
+"Plugin 'bagrat/vim-workspace'
 "Plugin 'tpope/vim-fugitive'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
@@ -21,8 +22,8 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 "Plugin 'wincent/command-t'
 Plugin 'scrooloose/syntastic'
-Plugin 'puppetlabs/puppet-syntax-vim'
-Plugin 'rodjek/vim-puppet'
+"Plugin 'puppetlabs/puppet-syntax-vim'
+"Plugin 'rodjek/vim-puppet'
 Plugin 'godlygeek/tabular'
 "Plugin 'Yggdroot/indentLine'
 Plugin 'mileszs/ack.vim'
@@ -245,7 +246,7 @@ let g:syntastic_puppet_puppetlint_args="--no-80chars-check --no-140chars-check"
 
 let g:NERDTreeShowLineNumbers = 1
 
-au BufWritePre * :%s/\s\+$//e
+"TODO: is this needed? au BufWritePre * :%s/\s\+$//e
 
 
 if &term =~ "xterm" || &term =~ "screen"

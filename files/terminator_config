@@ -1,0 +1,50 @@
+[global_config]
+  suppress_multiple_term_dialog = True
+  title_font = Fantasque Sans Mono 11
+  title_use_system_font = False
+  window_state = maximise
+[keybindings]
+  close_term = <Super>w
+  close_window = <Super>q
+  copy = <Super>c
+  go_down = <Alt><Super>Down
+  go_left = <Alt><Super>Left
+  go_next = None
+  go_prev = None
+  go_right = <Alt><Super>Right
+  go_up = <Alt><Super>Up
+  move_tab_left = <Shift><Super>Left
+  move_tab_right = <Shift><Super>Right
+  new_tab = <Super>t
+  next_tab = <Super>Right
+  paste = <Super>v
+  prev_tab = <Super>Left
+  resize_down = <Primary><Super>Down
+  resize_left = <Primary><Super>Left
+  resize_right = <Primary><Super>Right
+  resize_up = <Primary><Super>Up
+  split_horiz = <Shift><Super>d
+  split_vert = <Primary><Shift>d
+  switch_to_tab_1 = <Super>1
+  switch_to_tab_10 = None
+  switch_to_tab_2 = <Super>2
+  switch_to_tab_3 = <Super>3
+  switch_to_tab_4 = <Super>4
+  switch_to_tab_5 = None
+  switch_to_tab_6 = None
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_image = None
+    copy_on_selection = True
+    font = Fantasque Sans Mono 11
+    scrollback_infinite = True
+    use_system_font = False

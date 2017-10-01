@@ -91,6 +91,13 @@ sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
 sudo apt-get -f install
 }
 
+configs() {
+  # terminator config
+  rm ~/.config/terminator/config
+  ln -s ./files/terminator_config ~/.config/terminator/config
+
+}
+
 awscli_pip() {
 # AWSCLI installation
   pip install awscli --upgrade --user
@@ -140,8 +147,9 @@ testing() {
 #packages_x
 #pip_packages
 #ohmyzsh
-secrets
+#secrets
 #vim_config
+configs
 #chrome_deb
 #awscli_pip
 #kubectl_install

@@ -138,6 +138,7 @@ let g:vimwiki_list = [{'path': '/home/aaf/Private/Vimwiki'}]
 let mapleader =","
 " map ctrl tab to tabnext
 map <C-tab> :tabnext<cr>
+
 " ATTENTION! This is a change from the original, meant to NOT compete with
 " CTRL-V
 " remap visual because:
@@ -147,7 +148,6 @@ map <C-tab> :tabnext<cr>
 "nnoremap v V
 "nnoremap <C-V> v
 "nnoremap V <C-v>
-
 
 " unimpaired mapping for set paste
 nnoremap <silent> yo  :call <SID>setup_paste()<CR>o
