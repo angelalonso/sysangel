@@ -9,11 +9,13 @@ RUN apt-get update \
 bash \
 htop \
 netcat \
+procps \
 python \
 python-pip \
 tcpdump \
+telnet \
 vim \
 && apt-get clean \
 && pip install awscli
 
-CMD ['/bin/bash']
+CMD [ "sh", "-c", "service ssh start; bash"]
