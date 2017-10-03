@@ -46,5 +46,6 @@
     background_image = None
     copy_on_selection = True
     font = Fantasque Sans Mono 11
+    foreground_color = "#ffffff"
     scrollback_infinite = True
     use_system_font = False

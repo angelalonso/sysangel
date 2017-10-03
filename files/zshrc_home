@@ -55,7 +55,7 @@ zs() {
   grep $1 -R -T /home/aaf/Priv/Notes/*
 }
 
-alias gog='cd /home/aaf/Software/foodpanda'
+alias gog='cd /home/aaf/Software/Work'
 alias gop='cd /home/aaf/Software/foodpanda/puppet'
 alias got='cd /home/aaf/Software/foodpanda/tools'
 alias goa='cd /home/aaf/Software/foodpanda/aws'
