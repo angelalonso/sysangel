@@ -5,7 +5,6 @@ Type=Application
 Name=capstoesc
 Comment=
 Exec=xmodmap /home/aaf/Software/Dev/sysangel/files/capstoesc.txt
-OnlyShowIn=XFCE;
 StartupNotify=false
 Terminal=false
 Hidden=false
