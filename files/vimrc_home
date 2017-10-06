@@ -71,7 +71,8 @@ endfunction
 
 set t_Co=256
 " colorscheme distinguished
-colorscheme vimbrant
+" colorscheme vimbrant
+colorscheme atom-dark-256
 
 
 " ####  IDE

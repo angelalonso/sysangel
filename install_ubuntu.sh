@@ -167,6 +167,13 @@ rambox_install() {
 
 }
 
+atom_install() {
+  wget https://github.com/atom/atom/releases/download/v1.21.0/atom-amd64.deb
+  sudo dpkg --install atom-amd64.deb
+  rm atom-amd64.deb
+
+}
+
 testing() {
 # rambox
 # terminator cfg
@@ -183,7 +190,7 @@ testing() {
 #ohmyzsh
 #secrets
 #vim_config
-configs
+#configs
 #chrome_deb
 #awscli_pip
 #kubectl_install
@@ -192,5 +199,6 @@ configs
 #helm_install
 #kops_install
 #rambox_install
+atom_install
 
 #testing
