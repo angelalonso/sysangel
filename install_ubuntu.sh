@@ -171,13 +171,12 @@ atom_install() {
   wget https://github.com/atom/atom/releases/download/v1.21.0/atom-amd64.deb
   sudo dpkg --install atom-amd64.deb
   rm atom-amd64.deb
+  apm install vim-mode-plus ex-mode
 
 }
 
 testing() {
-# rambox
 # terminator cfg
-# vim cfg
 #...
 
  echo

@@ -70,7 +70,6 @@ endfunction
 " ####  COLORS
 
 set t_Co=256
-" colorscheme distinguished
 " colorscheme vimbrant
 colorscheme atom-dark-256
 

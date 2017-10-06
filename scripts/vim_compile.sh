@@ -46,6 +46,7 @@ install(){
   # Add vimbrant colorscheme
   mkdir -p ${HOME}/.vim/colors
   wget -O ${HOME}/.vim/colors/vimbrant.vim https://raw.githubusercontent.com/chrishunt/color-schemes/master/thayer/vimbrant.vim
+  wget -O ${HOME}/.vim/colors/atom-dark-256.vim https://raw.githubusercontent.com/gosukiwi/vim-atom-dark/master/colors/atom-dark-256.vim
 
 
   echo "installing fonts, NOTE: these should also be configure for the terminal"
