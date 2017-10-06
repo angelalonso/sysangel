@@ -68,12 +68,12 @@ zs() {
 }
 
 # Repos
-alias goa='cd /Users/angel.fonseca/Software/foodpanda/aws'
-alias gog='cd /Users/angel.fonseca/Software/foodpanda'
-alias goh='cd /Users/angel.fonseca/Software/foodpanda/consumer-content-feed'
-alias gok='cd /Users/angel.fonseca/Software/foodpanda/k8s-terraform'
-alias gop='cd /Users/angel.fonseca/Software/foodpanda/puppet'
-alias got='cd /Users/angel.fonseca/Software/foodpanda/tools'
+alias goa='cd /Users/angel.fonseca/Software/Work/aws'
+alias gog='cd /Users/angel.fonseca/Software/Work'
+alias goh='cd /Users/angel.fonseca/Software/Work/consumer-content-feed'
+alias gok='cd /Users/angel.fonseca/Software/Work/k8s-terraform'
+alias gop='cd /Users/angel.fonseca/Software/Work/puppet'
+alias got='cd /Users/angel.fonseca/Software/Work/tools'
 
 
 # Kill all running containers.
@@ -122,7 +122,7 @@ alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
 alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 
 #Helm
-export HELM_HOME=/Users/angel.fonseca/Software/foodpanda/pfm-tools/helm-home
+export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
 
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm"
 alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_EU helm"
