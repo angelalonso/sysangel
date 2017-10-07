@@ -172,6 +172,8 @@ atom_install() {
   sudo dpkg --install atom-amd64.deb
   rm atom-amd64.deb
   apm install vim-mode-plus ex-mode
+  rm ~/.atom/config.cson 2>/dev/null
+  ln -s ${GITDIR}/files/atom_config.cson ~/.atom/config.cson
 
 }
 
