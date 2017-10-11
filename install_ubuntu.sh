@@ -97,8 +97,10 @@ configs() {
   rm ~/.config/terminator/config 2>/dev/null
   ln -s ${GITDIR}/files/terminator_config ~/.config/terminator/config
   # map CAPS lock to be another ESC
-  rm ${HOME}.config/autostart/capstoesc.desktop 2>/dev/null
-  cp ${GITDIR}/files/capstoesc.desktop ${HOME}/.config/autostart/capstoesc.desktop
+  ## This does not work on ubuntu:
+  ##  rm ${HOME}.config/autostart/capstoesc.desktop 2>/dev/null
+  ##  cp ${GITDIR}/files/capstoesc.desktop ${HOME}/.config/autostart/capstoesc.desktop
+  sudo cp ${GITDIR}/files/capstoesc.sh /etc/profile.d/capstoesc.sh
 
 }
 
