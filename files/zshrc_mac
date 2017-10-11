@@ -68,8 +68,9 @@ zs() {
 }
 
 # Repos
-alias goa='cd /Users/angel.fonseca/Software/Work/aws'
+alias gos='cd /Users/angel.fonseca/Software'
 alias gog='cd /Users/angel.fonseca/Software/Work'
+alias goa='cd /Users/angel.fonseca/Software/Work/aws'
 alias goh='cd /Users/angel.fonseca/Software/Work/consumer-content-feed'
 alias gok='cd /Users/angel.fonseca/Software/Work/k8s-terraform'
 alias gop='cd /Users/angel.fonseca/Software/Work/puppet'
