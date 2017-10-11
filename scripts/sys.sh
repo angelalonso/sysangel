@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 DOCKER="sudo docker"
-MACH="sysadmin"
+NAME="sysadmin"
+IMG="angelalonso/sysadmin:v0.02"
 
 run_n_enter() {
-  $DOCKER run --rm -ti $MACH bash
+  $DOCKER run -d \
+    --name $NAME \
+    -v ${HOME}/.aws:/root/.aws \
+    $IMG 
+
+  $DOCKER exec \
+    $NAME \
+    bash
+#     -v ${HOME}/.ssh:/root/.ssh \
+#     -v ${HOME}/.kube:/root/.kube \
+
 # export TERRAFORM_BINARY="docker run --rm -ti -e TF_LOG \
 #           -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION \
 #           -v ${HOME}/.aws:/root/.aws -v ${PWD}:/go \
@@ -15,9 +26,10 @@ run_n_enter() {
 # destroy
 cleanup() {
   echo "cleaning up"
-  $DOCKER stop $MACH
+  $DOCKER stop $NAME
+  $DOCKER rm $NAME
 
 }
 
 run_n_enter
-cleanup
+#cleanup
