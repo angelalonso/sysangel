@@ -9,6 +9,7 @@ RUN apt-get update \
 bash \
 htop \
 netcat \
+openssh-client \
 procps \
 python \
 python-pip \
