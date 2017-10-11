@@ -71,12 +71,6 @@ filetype plugin indent on " required
 "-"   augroup END
 "-" endfunction
 "-" 
-"-" " ####  COLORS
-"-" 
-"-" " colorscheme distinguished
-"-" colorscheme vimbrant
-"-" 
-"-" 
 "-" " ####  IDE
 "-" 
 syntax on
@@ -133,7 +127,7 @@ syntax on
 "-" 
 "-" " #### VIMWIKI
 "-" 
-let g:vimwiki_list = [{'path': '/Users/angel.fonseca/Priv/Vimwiki'}]
+let g:vimwiki_list = [{'path': '$HOME/Priv/Vimwiki'}]
 "-" 
 "-" " ####  MAP KEYS
 "-" 
