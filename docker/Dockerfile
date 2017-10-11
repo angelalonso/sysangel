@@ -16,6 +16,6 @@ tcpdump \
 telnet \
 vim \
 && apt-get clean \
-&& pip install awscli
+&& pip install awscli boto3
 
 CMD [ "sh", "-c", "service ssh start; bash"]
