@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 #DOCKER="docker"
+# TODO:
+# Check why it does not work on linux
+# Add "everything else" as a parameter to run on the machine
 DOCKER="sudo docker"
 NAME="sysadmin"
 IMG="angelalonso/sysadmin:v0.03"
@@ -24,9 +27,10 @@ if [[ -L $TESTDIR ]]; then
 else
   KUBEDIR=$TESTDIR
 fi
+
 run_n_enter() {
-#  $DOCKER run -it -v ${HOME}/.aws:/root/.aws -v ${SSHDIR}:/root/.ssh -v ${HOME}/.kube:/root/.kube --name $NAME $IMG bash
-$DOCKER run -it -v $(pwd)/ssh:/root/.ssh --name $NAME $IMG bash
+  $DOCKER run -it -v ${AWSDIR}:/root/.aws -v ${SSHDIR}:/root/.ssh -v ${KUBEDIR}:/root/.kube --name $NAME $IMG bash
+#$DOCKER run -it -v $SSHDIR:/root/.ssh --name $NAME $IMG bash
 
 }
 
@@ -35,8 +39,6 @@ cleanup() {
   echo "cleaning up"
   $DOCKER stop $NAME
   $DOCKER rm $NAME
-
-  rm -r $(pwd)/ssh
 
 }
 
