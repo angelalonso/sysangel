@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
+#DOCKER="docker"
 DOCKER="sudo docker"
 NAME="sysadmin"
-IMG="angelalonso/sysadmin:v0.02"
+IMG="angelalonso/sysadmin:v0.03"
 
+TESTDIR="$HOME/.ssh"
+if [[ -L $TESTDIR ]]; then
+  SSHDIR=$(readlink $TESTDIR)
+else
+  SSHDIR=$TESTDIR
+fi
+
+TESTDIR="$HOME/.aws"
+if [[ -L $TESTDIR ]]; then
+  AWSDIR=$(readlink $TESTDIR)
+else
+  AWSDIR=$TESTDIR
+fi
+
+TESTDIR="$HOME/.kube"
+if [[ -L $TESTDIR ]]; then
+  KUBEDIR=$(readlink $TESTDIR)
+else
+  KUBEDIR=$TESTDIR
+fi
 run_n_enter() {
-  $DOCKER run -d \
-    --name $NAME \
-    -v ${HOME}/.aws:/root/.aws \
-    $IMG 
-
-  $DOCKER exec \
-    $NAME \
-    bash
-#     -v ${HOME}/.ssh:/root/.ssh \
-#     -v ${HOME}/.kube:/root/.kube \
-
-# export TERRAFORM_BINARY="docker run --rm -ti -e TF_LOG \
-#           -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION \
-#           -v ${HOME}/.aws:/root/.aws -v ${PWD}:/go \
-#           --workdir "/go" hashicorp/terraform:${TERRAFORM_VERSION}"
-
+#  $DOCKER run -it -v ${HOME}/.aws:/root/.aws -v ${SSHDIR}:/root/.ssh -v ${HOME}/.kube:/root/.kube --name $NAME $IMG bash
+$DOCKER run -it -v $(pwd)/ssh:/root/.ssh --name $NAME $IMG bash
 
 }
 
@@ -29,7 +36,9 @@ cleanup() {
   $DOCKER stop $NAME
   $DOCKER rm $NAME
 
+  rm -r $(pwd)/ssh
+
 }
 
 run_n_enter
-#cleanup
+cleanup

@@ -4,12 +4,15 @@ FROM debian
 
 MAINTAINER angelalonso <alonsofonseca.angel@gmail.com>
 
+ENV HOME /root
+
 RUN apt-get update \
 && apt-get install -y \
 bash \
 htop \
 netcat \
 openssh-client \
+openssh-server \
 procps \
 python \
 python-pip \
@@ -19,4 +22,6 @@ vim \
 && apt-get clean \
 && pip install awscli boto3
 
-CMD [ "sh", "-c", "service ssh start; bash"]
+WORKDIR /root
+
+CMD [ "bash" ]
