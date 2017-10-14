@@ -5,7 +5,8 @@
 # Add "everything else" as a parameter to run on the machine
 DOCKER="sudo docker"
 NAME="sysadmin"
-IMG="angelalonso/sysadmin:v0.03"
+IMG="angelalonso/sysadmin:v0.04"
+
 
 TESTDIR="$HOME/.ssh"
 if [[ -L $TESTDIR ]]; then
@@ -29,8 +30,8 @@ else
 fi
 
 run_n_enter() {
-  $DOCKER run -it -v ${AWSDIR}:/root/.aws -v ${SSHDIR}:/root/.ssh -v ${KUBEDIR}:/root/.kube --name $NAME $IMG bash
-#$DOCKER run -it -v $SSHDIR:/root/.ssh --name $NAME $IMG bash
+
+  $DOCKER run -it --name $NAME $IMG bash
 
 }
 
@@ -39,7 +40,34 @@ cleanup() {
   echo "cleaning up"
   $DOCKER stop $NAME
   $DOCKER rm $NAME
+}
 
+sync_run_n_enter() {
+  TMPSSH="$(pwd)/ssh"
+  TMPAWS="$(pwd)/aws"
+  TMPKUBE="$(pwd)/kube"
+  rsync -r $SSHDIR/ $TMPSSH
+  rsync -r $AWSDIR/ $TMPAWS
+  rsync -r $KUBEDIR/ $TMPKUBE
+
+  $DOCKER run -it -v ${TMPAWS}:/root/.aws -v ${TMPSSH}:/root/.ssh -v ${TMPKUBE}:/root/.kube --name $NAME $IMG bash
+
+}
+
+# destroy
+sync_n_cleanup() {
+  echo "cleaning up"
+  $DOCKER stop $NAME
+  $DOCKER rm $NAME
+  
+  # TODO: Use a different user as root, maybe?
+  chown -R aaf. $TMPSSH
+  chown -R aaf. $TMPAWS
+  chown -R aaf. $TMPKUBE
+
+  rsync -r $TMPSSH/ $SSHDIR
+  rsync -r $TMPAWS/ $AWSDIR 
+  rsync -r $TMPKUBE/ $KUBEDIR  
 }
 
 run_n_enter

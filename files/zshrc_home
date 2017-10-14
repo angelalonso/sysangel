@@ -56,7 +56,8 @@ zs() {
 }
 
 alias gos='cd /home/aaf/Software'
-alias gog='cd /home/aaf/Software/Work'
+alias god='cd /home/aaf/Software/Dev'
+alias gow='cd /home/aaf/Software/Work'
 alias gop='cd /home/aaf/Software/Work/puppet'
 alias got='cd /home/aaf/Software/Work/pfm-tools'
 alias goc='cd /home/aaf/Software/Work/pfm-tools/pfm-config'
