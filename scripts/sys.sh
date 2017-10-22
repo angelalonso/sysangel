@@ -31,7 +31,7 @@ fi
 
 run_n_enter() {
 
-  $DOCKER run -it --name $NAME $IMG bash
+  $DOCKER run -it --privileged=true --name $NAME $IMG bash
 
 }
 
