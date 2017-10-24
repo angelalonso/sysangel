@@ -127,7 +127,7 @@ set cursorcolumn
 "-" 
 "-" " #### VIMWIKI
 "-" 
-let g:vimwiki_list = [{'path': '$HOME/Priv/Vimwiki'}]
+let g:vimwiki_list = [{'path': '$HOME/Privnew/Vimwiki'}]
 "-" 
 "-" " ####  MAP KEYS
 "-" 
