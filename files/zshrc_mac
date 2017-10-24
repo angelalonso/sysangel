@@ -60,11 +60,11 @@ alias wk='vim -c VimwikiIndex'
 
 # TODO: Mac's version of grep does not have -T for better formatting
 ws() {
-  grep $1 -R /Users/angel.fonseca/Priv/Vimwiki/*
+  grep $1 -R /Users/angel.fonseca/Privnew/Vimwiki/*
 }
 
 zs() {
-  grep $1 -R /Users/angel.fonseca/Priv/Notes/*
+  grep $1 -R /Users/angel.fonseca/Privnew/Notes/*
 }
 
 # Repos

@@ -4,9 +4,6 @@ FROM debian
 
 MAINTAINER angelalonso <alonsofonseca.angel@gmail.com>
 
-ENV HOME /home/aaf
-#ENV HOME /root
-
 RUN apt-get update \
 && apt-get install -y \
 bash \
@@ -27,14 +24,13 @@ zsh \
 && pip install awscli boto3 \
 && useradd -ms /bin/zsh aaf \
 && passwd -d aaf \
-&& usermod -aG sudo aaf
-
-
+&& usermod -aG sudo aaf \
+&& chown -R aaf:aaf /home/aaf
 
 USER aaf
-#USER root
+
+ENV HOME /home/aaf
 
 WORKDIR /home/aaf
-#WORKDIR /root
 
 CMD [ "bash" ]
