@@ -31,8 +31,9 @@ fi
 
 run_n_enter() {
 
+  SSHDIR="/home/aaf/Software/Dev/sysangel/.test"
 #  $DOCKER run -it --privileged=true --name $NAME $IMG bash
-  $DOCKER run -it --privileged=true -v ${SSHDIR}:/root/.ssh --name $NAME $IMG bash
+  $DOCKER run -it --privileged=true -v ${SSHDIR}:/home/aaf/.ssh --name $NAME $IMG bash
 
 }
 

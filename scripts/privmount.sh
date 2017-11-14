@@ -15,27 +15,24 @@ FOLDRCONFIG="$HOME/.sysangel"
 FOLDRKEYS="$FOLDRCONFIG/keys"
 FLD_ENC_ORIG="$HOME/Dropbox/data/.enc"
 FLD_ENC_DEST="$HOME/Priv"
-FLD_BACKUP="$HOME/Priv_offline"
-GITDIR="${HOME}/sysangel"
+FLD_ORIG_A="/home/aaf/Dropbox/.enc_a"
+FLD_ORIG_B="/home/aaf/Dropbox/.enc_b"
+FLD_DEST="/home/aaf/Private"
+FLD_DEST_BCK="/home/aaf/Private.bck"
+
+TERM=$(which xterm)
 
 ### Functions
 
-sync_priv(){
-  if [ "$(ls -A "$FLD_ENC_DEST" 2> /dev/null)" != "" ]; then
-    rsync -rtvu ${FLD_ENC_DEST}/ ${FLD_BACKUP}/ 2>/dev/null
-  fi
-}
-
 # Mount the encfs folder
-mount_encfs(){
+mount_cryfs(){
   PASS_ENCFS=$(/usr/bin/openssl rsautl -inkey $FOLDRKEYS/priv.key -decrypt < $FOLDRKEYS/cryfs.pass)
 
   CRYFS_FRONTEND=noninteractive echo "$PASS_ENCFS" | cryfs $FLD_ENC_ORIG $FLD_ENC_DEST
 
-  sync_priv
-  ${GITDIR}/scripts/priv_data.sh
-
+  CRYFS_A=noninteractive echo "$PASS_ENCFS" | cryfs $FLD_ORIG_A $FLD_DEST
+  CRYFS_B=noninteractive echo "$PASS_ENCFS" | cryfs $FLD_ORIG_B $FLD_DEST_BCK
 }
 
 # Call the mount function
-if [ "${USER}" = "aaf" ] ;then mount_encfs; fi
+if [ "${USER}" = "aaf" ] ;then mount_cryfs; fi
