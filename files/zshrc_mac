@@ -95,7 +95,7 @@ alias dockerclean='dockercleanc || true && dockercleani'
 # Kubernetes
 export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.kops
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.kops
-export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
+export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.kops
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
 
 ## Europe
