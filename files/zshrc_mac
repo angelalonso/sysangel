@@ -97,6 +97,7 @@ export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.kops
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.kops
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.kops
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
+export KUBECONFIG_PROD_ASIA_KOPS=$HOME/.kube/config.prod.asia.kops
 
 ## Europe
 alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
@@ -121,6 +122,7 @@ alias kkasqa2="kkasqa --namespace qa2"
 alias kkasqa3="kkasqa --namespace qa3"
 alias kkasqa4="kkasqa --namespace qa4"
 alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
+alias kkasko="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA_KOPS"
 
 #Testing
 alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
