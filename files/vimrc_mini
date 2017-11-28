@@ -47,6 +47,12 @@ Plugin 'vimwiki/vimwiki'
 "-" " all plugins must be added before the following line
 call vundle#end()
 filetype plugin indent on " required
+" show existing tab with 4 spaces width
+set tabstop=2
+" " when indenting with '>', use 4 spaces width
+set shiftwidth=2
+" " On pressing tab, insert 4 spaces
+set expandtab
 "-" 
 "-" let g:neocomplete#enable_at_startup = 1
 "-" 
