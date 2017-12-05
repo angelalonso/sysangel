@@ -59,15 +59,16 @@ export GOPATH="$HOME/go"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # My Tools aliases
-alias wk='vim -c VimwikiIndex'
+alias wv='vim -c VimwikiIndex'
+alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
 
 # TODO: Mac's version of grep does not have -T for better formatting
 ws() {
-  grep $1 -R /Users/angel.fonseca/Private/Vimwiki/*
+  grep $1 -R $HOME/Dropbox/data/Vimwiki/*
 }
 
 zs() {
-  grep $1 -R /Users/angel.fonseca/Private/Notes/*
+  grep $1 -R $HOME/Dropbox/data/Notes/*
 }
 
 # Repos
