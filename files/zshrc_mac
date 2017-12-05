@@ -64,7 +64,7 @@ alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
 
 # TODO: Mac's version of grep does not have -T for better formatting
 ws() {
-  grep $1 -R $HOME/Dropbox/data/Vimwiki/*
+  grep $1 -R $HOME/Dropbox/data/Vimwiki/* $HOME/Software/Dev/wiki/*
 }
 
 zs() {

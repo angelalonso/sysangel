@@ -45,15 +45,15 @@ bindkey "\e[1;3D" backward-word
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; sleep 1; done"
-alias wk='vim -c VimwikiIndex'
-alias wiki='vim ~/Software/Dev/wiki/index.wiki'
+alias wv='vim -c VimwikiIndex'
+alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
 
 ws() {
-  grep $1 -R -T /home/aaf/Priv/Vimwiki/* /home/aaf/Software/foodpanda/pandora/*
+  grep $1 -R -T $HOME/Dropbox/data/Vimwiki/* $HOME/Software/Dev/wiki/*
 }
 
 zs() {
-  grep $1 -R -T /home/aaf/Priv/Notes/*
+  grep $1 -R -T $HOME/Dropbox/data/Notes/*
 }
 
 alias gos='cd /home/aaf/Software'
