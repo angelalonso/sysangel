@@ -94,11 +94,10 @@ alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docke
 alias dockerclean='dockercleanc || true && dockercleani'
 
 # Kubernetes
-export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.kops
-export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.kops
-export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.kops
+export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.eu
+export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
+export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
-export KUBECONFIG_PROD_ASIA_KOPS=$HOME/.kube/config.prod.asia.kops
 
 ## Europe
 alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
@@ -123,7 +122,6 @@ alias kkasqa2="kkasqa --namespace qa2"
 alias kkasqa3="kkasqa --namespace qa3"
 alias kkasqa4="kkasqa --namespace qa4"
 alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
-alias kkasko="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA_KOPS"
 
 #Testing
 alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
@@ -132,6 +130,7 @@ alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
 
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm"
+alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
 alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
 alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
 alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
