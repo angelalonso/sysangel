@@ -17,6 +17,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # This does not go in openbox/autostart! otherwise ssh-agent remains as SSH_AUTH_SOCK
 # TESTED AND WORKING: just need to use each key once
+# Uncomment this on openbox only
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 #export SSH_AUTH_SOCK
 #SSH_AGENT_PID=$(pidof gnome-keyring-daemon)
