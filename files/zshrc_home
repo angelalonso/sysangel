@@ -17,6 +17,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # This does not go in openbox/autostart! otherwise ssh-agent remains as SSH_AUTH_SOCK
 # TESTED AND WORKING: just need to use each key once
+# Uncomment this on openbox only
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 #export SSH_AUTH_SOCK
 #SSH_AGENT_PID=$(pidof gnome-keyring-daemon)
@@ -45,16 +46,21 @@ bindkey "\e[1;3D" backward-word
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; sleep 1; done"
-alias wk='vim -c VimwikiIndex'
-alias wiki='vim ~/Software/Dev/wiki/index.wiki'
+alias wv='vim -c VimwikiIndex'
+alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
 
 ws() {
-  grep $1 -R -T /home/aaf/Priv/Vimwiki/* /home/aaf/Software/foodpanda/pandora/*
+  grep $1 -R -T $HOME/Dropbox/data/Vimwiki/* $HOME/Software/Dev/wiki/*
 }
 
 zs() {
-  grep $1 -R -T /home/aaf/Priv/Notes/*
+  grep $1 -R -T $HOME/Dropbox/data/Notes/*
 }
+
+if [[ $(uname) == "Linux" ]]; then
+  USBPATH="/media/$USER/1G"
+fi
+alias go1='cd ${USBPATH}'
 
 alias gos='cd /home/aaf/Software'
 alias god='cd /home/aaf/Software/Dev'
@@ -80,9 +86,9 @@ alias dockerclean='dockercleanc || true && dockercleani'
 
 
 # Kubernetes
-export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.kops
-export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.kops
-export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.kops
+export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.eu
+export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
+export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
 
 ## Europe
@@ -116,13 +122,13 @@ alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
 
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm"
+alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
 alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
 alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
 alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
 alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
 alias hhasst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
 alias hhasqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
-
 
 dateprompt='%{$fg_bold[blue]%}%*'
 PROMPT=$dateprompt$PROMPT
