@@ -8,5 +8,26 @@ set -euf -o pipefail
 
 
 #-# Update system
+# apt-get update && apt-get upgrade
+
 #-# Install packages (apt, pip, other manual)
+# chrome_deb, firefox developer sync
+# rambox
+# atom
+# dropbox
+
 #-# Configure (programs, keys)
+# ohmyzsh
+# vim
+# firefox developer sync
+# thunderbird copy from HDD
+# terminator
+# fonts
+# caps2esc
+# awscli
+# kubectl
+# terraform
+# docker
+# helm
+# kops
+# privd
