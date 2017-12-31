@@ -1,8 +1,18 @@
 # Sysangel v.whatever
 
 Script to get my laptops up and running with as little manual effort as possible
-NOTE: previous failures can be found under OLD/
-NOTE2: as much as I'd like to improve this, I'm starting with support only for XFCE (yeah, I'm that mediocre!)
+
+
+# TL;DR
+
+## Ubuntu tested:
+
+sudo apt-get install git
+
+cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install_ubuntu.sh
+
+IMPORTANT: it MUST be installed on your HOME directory to work properly
+
 
 ## Background
 
@@ -65,13 +75,5 @@ sysangel.py
 
 - sudo<br>
 - git
-
-# TL;DR
-
-## Installation
-
-cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash xfceinstall.sh
-
-IMPORTANT: it MUST be installed on your HOME directory to work properly
 
 
