@@ -1,20 +1,12 @@
-# Sysangel v.whatever
+# Sysangel
 
 Script to get my laptops up and running with as little manual effort as possible
 
+# Status
 
-# TL;DR
+Being rewritten into separated scripts, to make it more sustainable
 
-## Ubuntu tested:
-
-sudo apt-get install git
-
-cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel && bash install_ubuntu.sh
-
-IMPORTANT: it MUST be installed on your HOME directory to work properly
-
-
-## Background
+# References for myself
 
 What I need now is a script that simply gets me up and running with all things I use in a regular basis:
 - For the main use this will suffice:
@@ -27,9 +19,6 @@ What I need now is a script that simply gets me up and running with all things I
   - Any minimal package that I found I needed at the msot inconvenient time
   - Unified configuration of tools, mainly keybindings (probably mirroring Mac's ones to XFCE)
 ...
-
-# Personal Goals
-
 - One script that sets up everything after a fresh install.
 - On a first phase, it installs all straightforward packages needed.
   - Chrome and Firefox, which I then sync afterwards
@@ -54,26 +43,4 @@ What I need now is a script that simply gets me up and running with all things I
   - Firefox Sync
 
 - On a future phase, it also is capable of cleaning up what it did
-
-## How it should work
-
-install.sh
-- Installs all dependencies for sysangel.py to work
-- Calls the actual sysangel.py script with "install" as parameter
-
-sysangel.py
-- on install mode:
-  - Installs all required packages - WIP
-  - Installs Dropbox - DONE
-    - Would need error handling
-  - Sets up shared encrypted volume - TBD
-- on update mode:
-  - Installs required packages - TBD
-  - Accepts parameters to only update one part - TBD
-
-### Prerequisites
-
-- sudo<br>
-- git
-
 
