@@ -5,15 +5,36 @@
 #Disable filename expansion (globbing) upon seeing *, ?, etc..
 #Produce a failure return code if any command errors
 set -euf -o pipefail
-
-FLDR_MAIN=$(dirname $0)
-FLDR_SCRIPTS="$FLDR_MAIN/scripts"
-
-
-bash $FLDR_SCRIPTS/install_packages.sh
-
+ 
+DEBIAN_FRONTEND=noninteractive
+PKGS="\
+curl \
+exfat-fuse \
+exfat-utils \
+expect \
+fabric \
+git \
+iotop \
+jq \
+mtr \
+nmap \
+openssh-client \
+passwd \
+pwgen \
+python \
+python-pip \
+python-boto3 \
+python3 \
+python3-pip \
+tcptraceroute \
+ubuntu-minimal \
+unzip \
+vim-gtk \
+zip \
+zsh \
+"
 #-# Update system
-# apt-get update && apt-get upgrade
+sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq
 
 #-# Install packages (apt, pip, other manual)
 # chrome_deb, firefox developer sync
@@ -21,18 +42,3 @@ bash $FLDR_SCRIPTS/install_packages.sh
 # atom
 # dropbox
 
-#-# Configure (programs, keys)
-# ohmyzsh
-# vim
-# firefox developer sync
-# thunderbird copy from HDD
-# terminator
-# fonts
-# caps2esc
-# awscli
-# kubectl
-# terraform
-# docker
-# helm
-# kops
-# privd
