@@ -3,14 +3,13 @@
 
 
 install(){
-  echo "installing Kubectl"
   if [ "$(uname -m)" == "i686" ]; then
     VERS="386"
   else
     VERS="amd64"
   fi
 
-  echo $VERS
+  echo "installing kubectl version for "$VERS
   curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/$VERS/kubectl
 
   chmod +x ./kubectl
