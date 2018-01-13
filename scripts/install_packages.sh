@@ -7,6 +7,8 @@
 set -euf -o pipefail
 
 CURR_DIR=$(dirname $0)
+ARCH=$(uname -m)
+
 # Bash colors
 BLU='\033[0;34m'
 LGR='\033[1;32m'
