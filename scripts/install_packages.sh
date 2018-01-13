@@ -48,8 +48,8 @@ pkgs-aptget() {
   "
   
   sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq
-
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ${PKGS}
+
 }
 
 pkgs-pip3() {
@@ -125,7 +125,7 @@ manual-ohmyzsh(){
           echo
           /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
           echo -e "${LGR}Reinstalling ohmyszh${NC}"
-          ${GITDIR}/scripts/ohmyzsh.sh install
+          ${CURR_DIR}/scripts/ohmyzsh.sh install
           LOOP=false
           ;;
         [nN])
@@ -140,7 +140,7 @@ manual-ohmyzsh(){
     echo -e "${LBL}Press <Intro> when you are ready...${NC}"
     read confirm
     /usr/bin/xterm -e "echo 'IMPORTANT: \n when installation finishes, enter exit ON THE MAIN TERMINAL to continue'; read answer" &
-    ${GITDIR}/scripts/ohmyzsh.sh install
+    ${CURR_DIR}/scripts/ohmyzsh.sh install
   fi
 
 }
