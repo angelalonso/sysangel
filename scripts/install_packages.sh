@@ -6,6 +6,7 @@
 #Produce a failure return code if any command errors
 set -euf -o pipefail
 
+CURR_DIR=$(dirname $0)
 # Bash colors
 BLU='\033[0;34m'
 LGR='\033[1;32m'
@@ -65,7 +66,7 @@ manual-kubectl() {
     echo -e "${LGR}installing Kubectl${NC}"
     echo -e "${LBL}Press <Intro> when you are ready...${NC}"
     read confirm
-    ./kubectl_config.sh install
+    ${CURR_DIR}/kubectl_config.sh install
   else
     echo -e "${RED}Kubectl is already installed!${NC}"
     LOOP=true
@@ -75,7 +76,7 @@ manual-kubectl() {
         [yY])
           echo
           echo -e "${LGR}Reinstalling Kubectl${NC}"
-          ./kubectl_config.sh install
+          ${CURR_DIR}/kubectl_config.sh install
           LOOP=false
           ;;
         [nN])
