@@ -13,14 +13,7 @@ FLDR_SCRIPTS="$FLDR_MAIN/scripts"
 bash $FLDR_SCRIPTS/install_packages.sh
 echo "Packages installed"
 
-#-# Update system
-# apt-get update && apt-get upgrade
-
-#-# Install packages (apt, pip, other manual)
-# chrome_deb, firefox developer sync
-# rambox
-# atom
-# dropbox
+#-# Make dirs needed? Only if it does not belong anywhere else or it belongs in several scripts
 
 #-# Configure (programs, keys)
 # ohmyzsh
