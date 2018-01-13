@@ -5,6 +5,14 @@
 #Disable filename expansion (globbing) upon seeing *, ?, etc..
 #Produce a failure return code if any command errors
 set -euf -o pipefail
+
+# Bash colors
+BLU='\033[0;34m'
+LGR='\033[1;32m'
+LBL='\033[1;34m'
+ORN='\033[0;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
  
 pkgs-aptget() {
 
@@ -43,11 +51,10 @@ pkgs-aptget() {
 
 pkgs-pip3() {
 
-  PIP3_PACKS="flake8"                                                                                                                                                                           
+  PIP3_PACKS="flake8"
 
-  # TODO: is this needed "extra" for pip3?
-  pip install --upgrade pip
-  pip3 install ${PIP3_PACKS}
+  # otherwise it complains about pip version
+  pip3 install ${PIP3_PACKS} 2>/dev/null 
 
 }
 
