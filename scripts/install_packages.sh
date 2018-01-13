@@ -17,6 +17,7 @@ pkgs-aptget() {
   git \
   iotop \
   jq \
+  keepassx \
   mtr \
   nmap \
   openssh-client \
