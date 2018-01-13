@@ -93,7 +93,7 @@ manual-kubectl() {
 manual-terraform() {
 
   # Terraform
-  TFEXE=$(which terraform)
+  TFEXE=$(which terraform || true)
   if [[ ${TFEXE} == "" ]]; then
     if test "${ARCH#*"64"}" != "$ARCH"; then
       wget https://releases.hashicorp.com/terraform/0.9.6/terraform_0.9.6_linux_amd64.zip
