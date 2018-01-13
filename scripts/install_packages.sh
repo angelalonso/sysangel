@@ -45,7 +45,8 @@ pkgs-pip3() {
 
   PIP3_PACKS="flake8"                                                                                                                                                                           
 
-  pip3 install --upgrade pip3
+  # TODO: is this needed "extra" for pip3?
+  pip install --upgrade pip
   pip3 install ${PIP3_PACKS}
 
 }
