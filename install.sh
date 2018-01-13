@@ -11,6 +11,7 @@ FLDR_SCRIPTS="$FLDR_MAIN/scripts"
 
 
 bash $FLDR_SCRIPTS/install_packages.sh
+echo "Packages installed"
 
 #-# Update system
 # apt-get update && apt-get upgrade

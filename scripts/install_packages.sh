@@ -36,6 +36,8 @@ zsh \
 #-# Update system
 sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq
 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ${PKGS}
+
 #-# Install packages (apt, pip, other manual)
 # chrome_deb, firefox developer sync
 # rambox
