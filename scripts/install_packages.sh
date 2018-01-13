@@ -54,18 +54,18 @@ pkgs-pip3() {
   PIP3_PACKS="flake8"
 
   # otherwise it complains about pip version
-  pip3 install ${PIP3_PACKS} 2>/dev/null 
+  pip3 install ${PIP3_PACKS}
 
 }
 
 manual-kubectl() {
 
-  KUBEEXE=$(which kubectl)
+  KUBEEXE=$(which kubectl || true)
   if [[ ${KUBEEXE} == "" ]]; then
     echo -e "${LGR}installing Kubectl${NC}"
     echo -e "${LBL}Press <Intro> when you are ready...${NC}"
     read confirm
-    ${GITDIR}/scripts/kubectl_config.sh install
+    ./kubectl_config.sh install
   else
     echo -e "${RED}Kubectl is already installed!${NC}"
     LOOP=true
@@ -75,7 +75,7 @@ manual-kubectl() {
         [yY])
           echo
           echo -e "${LGR}Reinstalling Kubectl${NC}"
-          ${GITDIR}/scripts/kubectl_config.sh install
+          ./kubectl_config.sh install
           LOOP=false
           ;;
         [nN])
