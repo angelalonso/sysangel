@@ -106,7 +106,7 @@ manual-terraform() {
     fi
     unzip terraform_*
     sudo mv terraform /usr/local/bin/
-    rm terraform_*
+    rm terraform_0.9.6_linux_amd64.zip terraform_0.9.6_linux_386.zip terraform_0.9.6_linux_arm.zip 2>/dev/null
   else
     echo "Terraform already installed"
   fi
