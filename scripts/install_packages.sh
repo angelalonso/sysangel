@@ -155,7 +155,7 @@ manual-docker() {
         echo
         # ONLY AVAILABLE FOR ARM AND AMD64, TODO: check this is the case or skip and ALERT
         echo -e "${LGR}installing DOCKER${NC}"
-        ${GITDIR}/scripts/docker.sh install
+        ${CURR_DIR}/docker.sh install
         LOOP=false
         ;;
       [nN])
