@@ -68,7 +68,7 @@ manual-kubectl() {
     echo -e "${LGR}installing Kubectl${NC}"
     echo -e "${LBL}Press <Intro> when you are ready...${NC}"
     read confirm
-    ${CURR_DIR}/kubectl_config.sh install
+    ${CURR_DIR}/kubectl.sh install
   else
     echo -e "${RED}Kubectl is already installed!${NC}"
     LOOP=true
@@ -78,7 +78,7 @@ manual-kubectl() {
         [yY])
           echo
           echo -e "${LGR}Reinstalling Kubectl${NC}"
-          ${CURR_DIR}/kubectl_config.sh install
+          ${CURR_DIR}/kubectl.sh install
           LOOP=false
           ;;
         [nN])
@@ -93,6 +93,7 @@ manual-kubectl() {
 }
 
 manual-terraform() {
+  # TODO: Move this to its own script
 
   # Terraform
   TFEXE=$(which terraform || true)
