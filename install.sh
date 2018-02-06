@@ -6,15 +6,14 @@
 #Produce a failure return code if any command errors
 set -euf -o pipefail
 
+FLDR_MAIN=$(dirname $0)
+FLDR_SCRIPTS="$FLDR_MAIN/scripts"
 
-#-# Update system
-# apt-get update && apt-get upgrade
 
-#-# Install packages (apt, pip, other manual)
-# chrome_deb, firefox developer sync
-# rambox
-# atom
-# dropbox
+bash $FLDR_SCRIPTS/install_packages.sh
+echo "Packages installed"
+
+#-# Make dirs needed? Only if it does not belong anywhere else or it belongs in several scripts
 
 #-# Configure (programs, keys)
 # ohmyzsh

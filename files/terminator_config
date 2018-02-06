@@ -4,9 +4,9 @@
   title_use_system_font = False
   window_state = maximise
 [keybindings]
-  close_term = <Super>w
+  close_term = None
   close_window = <Super>q
-  copy = <Super>c
+  copy = <Primary><Shift>c
   go_down = <Alt><Super>Down
   go_left = <Alt><Super>Left
   go_next = None
@@ -16,9 +16,9 @@
   move_tab_left = <Shift><Super>Left
   move_tab_right = <Shift><Super>Right
   new_tab = <Super>t
-  next_tab = <Super>Right
+  next_tab = <Primary><Shift>Right
   paste = <Super>v
-  prev_tab = <Super>Left
+  prev_tab = <Primary><Shift>Left
   resize_down = <Primary><Super>Down
   resize_left = <Primary><Super>Left
   resize_right = <Primary><Super>Right
