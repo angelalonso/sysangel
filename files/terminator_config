@@ -17,7 +17,7 @@
   move_tab_right = <Shift><Super>Right
   new_tab = <Super>t
   next_tab = <Primary><Shift>Right
-  paste = <Super>v
+  paste = <Primary><Shift>v
   prev_tab = <Primary><Shift>Left
   resize_down = <Primary><Super>Down
   resize_left = <Primary><Super>Left
