@@ -23,7 +23,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 #PYTHON_PATH="/Users/angel.fonseca/Library/Python/2.7/bin"
 #export PATH=$PYTHON_PATH:$PATH
-alias python="/usr/local/bin/python2"
+alias python="/usr/local/bin/python3"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -80,6 +80,7 @@ alias gok='cd /Users/angel.fonseca/Software/Work/k8s-terraform'
 alias gop='cd /Users/angel.fonseca/Software/Work/puppet'
 alias got='cd /Users/angel.fonseca/Software/Work/tools'
 
+alias aws_profile="/Users/angel.fonseca/Software/Work/infra-services/scripts/aws_user/aws-profile.sh"
 
 # Kill all running containers.
 alias dockerkillall='d kill $(docker ps -q)'
@@ -94,15 +95,21 @@ alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docke
 alias dockerclean='dockercleanc || true && dockercleani'
 
 # Kubernetes
+export KUBECONFIG_TEST=$HOME/.kube/config.test
+export KUBECONFIG_EKS=$HOME/.kube/config.eks
 export KUBECONFIG_TA_KOPS=$HOME/.kube/config.ta.eu
-export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.eu
+export KUBECONFIG_QA_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
 
+## Test
+alias kk="kubectl --kubeconfig $KUBECONFIG_TEST"
+alias kks="AWS_PROFILE=eks keks --kubeconfig $KUBECONFIG_EKS"
+alias hh="KUBECONFIG=$KUBECONFIG_TEST helm"
 ## Europe
 alias kkta="kubectl --kubeconfig $KUBECONFIG_TA_KOPS"
-alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
+#alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
 alias kkqa1="kkqa --namespace qa1"
 alias kkqa2="kkqa --namespace qa2"
 alias kkqa3="kkqa --namespace qa3"

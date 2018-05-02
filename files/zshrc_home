@@ -70,6 +70,8 @@ alias got='cd /home/aaf/Software/Work/pfm-tools'
 alias goc='cd /home/aaf/Software/Work/pfm-tools/pfm-config'
 alias gok='cd /home/aaf/Software/Work/k8s-terraform'
 
+alias aws_profile="/home/aaf/Software/Work/infra-services/scripts/aws_user/aws-profile.sh"
+
 alias gk8='cd /home/aaf/Software/Dev/k8s-local'
 
 # Kill all running containers.
