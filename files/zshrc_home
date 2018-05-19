@@ -148,7 +148,7 @@ export KOPS_STATE_STORE_STAGING_EU=s3://foodora-staging-kops-k8s
 export KOPS_STATE_STORE_PROD_EU=s3://foodora-prod-kops-k8s
 export KOPS_STATE_STORE_ASIA_EU=s3://foodora-prod-kops-k8s
 export CLUSTER_QA_EU=qa.eu.fd-k8s.com
-export CLUSTER_STAGING_EU=staging.eu.fd-k8s.com
+export CLUSTER_STAGING_EU=v1-9.staging.eu.fd-k8s.com
 export CLUSTER_PROD_EU=prod.eu.fd-k8s.com
 export CLUSTER_PROD_ASIA=prod.asia.fd-k8s.com
 alias kops-qa-eu="EDITOR=vim AWS_PROFILE=$AWS_PROFILE_QA_EU KOPS_STATE_STORE=$KOPS_STATE_STORE_QA_EU kops --name $CLUSTER_QA_EU"
