@@ -103,6 +103,8 @@ export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
 
+export KUBECONFIG_STAGING_OLDS=$HOME/.kube/config.staging.eu.pre_20180517
+alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLDS"
 ## Test
 alias kk="kubectl --kubeconfig $KUBECONFIG_TEST"
 alias kks="AWS_PROFILE=eks keks --kubeconfig $KUBECONFIG_EKS"
@@ -138,9 +140,9 @@ alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 #Helm
 export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
 
-alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm"
+alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm-2.7"
 alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
-alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
+alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm-2.9"
 alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
 alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
 alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
