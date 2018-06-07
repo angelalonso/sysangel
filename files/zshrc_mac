@@ -98,7 +98,7 @@ alias dockerclean='dockercleanc || true && dockercleani'
 export KUBECONFIG_TEST=$HOME/.kube/config.test
 export KUBECONFIG_EKS=$HOME/.kube/config.eks
 export KUBECONFIG_TA_KOPS=$HOME/.kube/config.ta.eu
-export KUBECONFIG_TA_V1=$HOME/.kube/config.ta.v1
+export KUBECONFIG_TA_V19=$HOME/.kube/config.ta.v1-9
 export KUBECONFIG_QA_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
@@ -112,7 +112,7 @@ alias kks="AWS_PROFILE=eks keks --kubeconfig $KUBECONFIG_EKS"
 alias hh="KUBECONFIG=$KUBECONFIG_TEST helm"
 ## Europe
 alias kktaold="kubectl --kubeconfig $KUBECONFIG_TA_KOPS"
-alias kkta="kubectl --kubeconfig $KUBECONFIG_TA_V1"
+alias kkta="kubectl --kubeconfig $KUBECONFIG_TA_V19"
 #alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
 alias kkqa1="kkqa --namespace qa1"
 alias kkqa2="kkqa --namespace qa2"
@@ -142,7 +142,7 @@ alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 #Helm
 export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
 
-alias hhta="KUBECONFIG=$KUBECONFIG_TA_V1 helm-2.7"
+alias hhta="KUBECONFIG=$KUBECONFIG_TA_V19 helm-2.7"
 alias hhtaold="KUBECONFIG=$KUBECONFIG_TA_KOPS helm-2.7"
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm-2.7"
 alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
