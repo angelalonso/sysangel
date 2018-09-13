@@ -68,9 +68,21 @@ echo "FIREFOX"
 echo "https://www.mozilla.org/de/firefox/developer/"
 
 echo "VIRTUALBOX"
-echo "https://www.virtualbox.org/wiki/Linux_Downloads"
+wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian bionic non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list' 
+sudo apt-get update
+sudo apt-get install 
+echo "http://download.virtualbox.org/virtualbox/5.1.12/Oracle_VM_VirtualBox_Extension_Pack-5.1.12-112440.vbox-extpack"
 echo "https://askubuntu.com/questions/760671/could-not-load-vboxdrv-after-upgrade-to-ubuntu-16-04-and-i-want-to-keep-secur/768310#768310"
-echo "sudo apt-get install dkms build-essential linux-headers-`uname -r`"
+echo "openssl req -new -x509 -newkey rsa:2048 -keyout MOK.priv -outform DER -out MOK.der -nodes -days 36500 -subj "/CN=Descriptive common name/""
+echo "sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./MOK.priv ./MOK.der $(modinfo -n vboxdrv)"
+echo "ls $(dirname $(modinfo -n vboxdrv))/vbox*.ko"
+echo  "repeate sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./MOK.priv ./MOK.der $(modinfo -n vboxdrv)"
+echo "confirm with tail $(modinfo -n vboxdrv) | grep "Module signature appended""
+echo "register with sudo mokutil --import MOK.der AND SAVE THE PASSWORD"
+echo "Reboot > Enroll MOK > Continue > Enroll? yes > Password, enter it > Reboot"
+
+
 
 echo "CONFIG:"
 echo " - firefox"
@@ -103,3 +115,5 @@ fi
 
 vim +PluginInstall +qall
 
+pip3 install numpy --user
+pip3 install pygame --user

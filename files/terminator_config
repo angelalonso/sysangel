@@ -43,9 +43,9 @@
 [plugins]
 [profiles]
   [[default]]
-    background_image = None
     copy_on_selection = True
-    font = Fantasque Sans Mono 11
+    cursor_color = "#ffffff"
+    font = Fantasque Sans Mono 13
     foreground_color = "#ffffff"
     scrollback_infinite = True
     use_system_font = False
