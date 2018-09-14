@@ -100,18 +100,14 @@ mv ~/.config/terminator/config ~/.config/terminator/config_orig
 ln -s ~/Software/Dev/sysangel/files/terminator_config ~/.config/terminator/config
 
 mv .vimrc .vimrc_orig
-ln -s ~/Software/Dev/sysangel/files/vimrc_home ~/.zshrc
+ln -s ~/Software/Dev/sysangel/files/vimrc_mini ~/.vimrc
 
 mkdir -p ${HOME}/.vim/colors
 wget -O ${HOME}/.vim/colors/atom-dark-256.vim https://raw.githubusercontent.com/gosukiwi/vim-atom-dark/master/colors/atom-dark-256.vim
 
 mkdir -p ${HOME}/.vim/autoload ${HOME}/.vim/bundle
-if [ -d "~/.vim/bundle/Vundle.vim" ]; then
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-if [ -d "~/.vim/bundle/Vundle.vim" ]; then
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-fi
 
 vim +PluginInstall +qall
 
