@@ -15,6 +15,7 @@ sudo apt-get upgrade
 sudo apt-get install \
 curl \
 cryfs \
+dconf-editor \
 exfat-fuse \
 exfat-utils \
 expect \
