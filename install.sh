@@ -136,3 +136,12 @@ sudo apt-get update
 echo "TERRAFORM:"
 echo "https://www.terraform.io/downloads.html"
 sudo apt-get install docker-ce
+
+echo "AWSCLI"
+pip install awscli --user
+
+echo "AWS-GOOGLE_AUTH"
+sudo apt-get install libudev-dev libusb-1.0-0-dev
+# can this be run as user too?
+sudo pip install "aws-google-auth[u2f]"
+pip install python-u2flib-host --user
