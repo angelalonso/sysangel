@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/angel.fonseca/.oh-my-zsh
+export ZSH=/Users/a.fonseca/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -19,9 +19,9 @@ source $ZSH/oh-my-zsh.sh
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # added by travis gem
-[ -f /Users/angel.fonseca/.travis/travis.sh ] && source /Users/angel.fonseca/.travis/travis.sh
+[ -f /Users/a.fonseca/.travis/travis.sh ] && source /Users/a.fonseca/.travis/travis.sh
 
-#PYTHON_PATH="/Users/angel.fonseca/Library/Python/2.7/bin"
+#PYTHON_PATH="/Users/a.fonseca/Library/Python/2.7/bin"
 #export PATH=$PYTHON_PATH:$PATH
 alias python="/usr/local/bin/python3"
 
@@ -70,17 +70,19 @@ ws() {
 zs() {
   grep $1 -R $HOME/Dropbox/data/Notes/*
 }
+#mesodumb
+alias rgrep='grep -r'
 
 # Repos
-alias gos='cd /Users/angel.fonseca/Software'
-alias god='cd /Users/angel.fonseca/Software/Dev'
-alias gow='cd /Users/angel.fonseca/Software/Work'
-alias goa='cd /Users/angel.fonseca/Software/Work/aws'
-alias gok='cd /Users/angel.fonseca/Software/Work/k8s-terraform'
-alias gop='cd /Users/angel.fonseca/Software/Work/puppet'
-alias got='cd /Users/angel.fonseca/Software/Work/tools'
+alias gos='cd /Users/a.fonseca/Software'
+alias god='cd /Users/a.fonseca/Software/Dev'
+alias gow='cd /Users/a.fonseca/Software/Work'
+alias goa='cd /Users/a.fonseca/Software/Work/aws'
+alias gok='cd /Users/a.fonseca/Software/Work/k8s-terraform'
+alias gop='cd /Users/a.fonseca/Software/Work/puppet'
+alias got='cd /Users/a.fonseca/Software/Work/tools'
 
-alias aws_profile="/Users/angel.fonseca/Software/Work/infra-services/scripts/aws_user/aws-profile.sh"
+alias aws_profile="/Users/a.fonseca/Software/Work/infra-services/scripts/aws_user/aws-profile.sh"
 
 # Kill all running containers.
 alias dockerkillall='d kill $(docker ps -q)'
@@ -95,7 +97,7 @@ alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docke
 alias dockerclean='dockercleanc || true && dockercleani'
 
 # Kubernetes
-export KUBECONFIG_TEST=$HOME/.kube/config.test
+export KUBECONFIG_TEST=$HOME/.kube/config.testing.eu
 export KUBECONFIG_EKS=$HOME/.kube/config.eks
 export KUBECONFIG_TA_KOPS=$HOME/.kube/config.ta.eu
 export KUBECONFIG_TA_V19=$HOME/.kube/config.ta.v1-9
@@ -103,17 +105,18 @@ export KUBECONFIG_QA_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
+export KUBECONFIG_PROD_ASIA_v1_8=$HOME/.kube/config.prod.asia.v1-8
 
 export KUBECONFIG_STAGING_OLDS=$HOME/.kube/config.staging.eu.pre_20180517
 alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLDS"
 ## Test
-alias kk="kubectl --kubeconfig $KUBECONFIG_TEST"
+alias kktt="kubectl --kubeconfig $KUBECONFIG_TEST"
 alias kks="AWS_PROFILE=eks keks --kubeconfig $KUBECONFIG_EKS"
-alias hh="KUBECONFIG=$KUBECONFIG_TEST helm"
+alias hhtt="KUBECONFIG=$KUBECONFIG_TEST helm"
 ## Europe
 alias kktaold="kubectl --kubeconfig $KUBECONFIG_TA_KOPS"
 alias kkta="kubectl --kubeconfig $KUBECONFIG_TA_V19"
-#alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
+alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
 alias kkqa1="kkqa --namespace qa1"
 alias kkqa2="kkqa --namespace qa2"
 alias kkqa3="kkqa --namespace qa3"
@@ -134,22 +137,22 @@ alias kkasqa1="kkasqa --namespace qa1"
 alias kkasqa2="kkasqa --namespace qa2"
 alias kkasqa3="kkasqa --namespace qa3"
 alias kkasqa4="kkasqa --namespace qa4"
-alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
+alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA_v1_8"
+
 
 #Testing
 alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
 
 #Helm
-export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
+export HELM_HOME=/Users/a.fonseca/Software/Work/pfm-tools/helm-home
 
 alias hhta="KUBECONFIG=$KUBECONFIG_TA_V19 helm-2.7"
 alias hhtaold="KUBECONFIG=$KUBECONFIG_TA_KOPS helm-2.7"
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm-2.7"
-alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
 alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm-2.9"
 alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
 alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
-alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
+alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA_v1_8 helm"
 alias hhasst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
 alias hhasqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
 
