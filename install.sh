@@ -13,8 +13,12 @@ mkdir -p ~/.kube
 sudo apt-get update 
 sudo apt-get upgrade
 sudo apt-get install \
-curl \
+apt-transport-https \
+ca-certificates \
 cryfs \
+curl \
+curl \
+dconf-editor \
 exfat-fuse \
 exfat-utils \
 expect \
@@ -37,6 +41,7 @@ python-boto3 \
 python-pip \
 python3 \
 python3-pip \
+software-properties-common \
 tcptraceroute \
 terminator \
 unzip \
@@ -82,6 +87,8 @@ echo "confirm with tail $(modinfo -n vboxdrv) | grep "Module signature appended"
 echo "register with sudo mokutil --import MOK.der AND SAVE THE PASSWORD"
 echo "Reboot > Enroll MOK > Continue > Enroll? yes > Password, enter it > Reboot"
 
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd
 
 
 echo "CONFIG:"
@@ -113,3 +120,24 @@ vim +PluginInstall +qall
 
 pip3 install numpy --user
 pip3 install pygame --user
+
+echo "DOCKER"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+udo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+
+echo "TERRAFORM:"
+echo "https://www.terraform.io/downloads.html"
+sudo apt-get install docker-ce
+
+echo "AWSCLI"
+pip install awscli --user
+
+echo "AWS-GOOGLE_AUTH"
+sudo apt-get install libudev-dev libusb-1.0-0-dev
+# can this be run as user too?
+sudo pip install "aws-google-auth[u2f]"
+pip install python-u2flib-host --user
