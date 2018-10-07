@@ -47,6 +47,7 @@ terminator \
 unzip \
 vim \
 vim-gtk \
+vlc \
 wine-stable \
 zip \
 zsh \
