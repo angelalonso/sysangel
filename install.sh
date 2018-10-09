@@ -32,6 +32,7 @@ iotop \
 jq \
 keepassx \
 mtr \
+net-tools \
 nmap \
 openssh-client \
 passwd \
