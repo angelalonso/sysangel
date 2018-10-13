@@ -14,6 +14,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install \
 apt-transport-https \
+arp-scan \
 ca-certificates \
 cryfs \
 curl \
