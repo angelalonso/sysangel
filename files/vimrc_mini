@@ -15,6 +15,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'fatih/vim-go'
 "-" 
 "-" " To install:
 "-" " :PluginInstall
