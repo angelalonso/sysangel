@@ -97,6 +97,7 @@ alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docke
 alias dockerclean='dockercleanc || true && dockercleani'
 
 # Kubernetes
+export KUBECONFIG_VAGRANT=$HOME/.kube/config.vagrant
 export KUBECONFIG_TEST=$HOME/.kube/config.testing.eu
 export KUBECONFIG_EKS=$HOME/.kube/config.eks
 export KUBECONFIG_TA_KOPS=$HOME/.kube/config.ta.eu
@@ -110,6 +111,7 @@ export KUBECONFIG_PROD_ASIA_v1_8=$HOME/.kube/config.prod.asia.v1-8
 export KUBECONFIG_STAGING_OLDS=$HOME/.kube/config.staging.eu.pre_20180517
 alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLDS"
 ## Test
+alias kkvv="kubectl --kubeconfig $KUBECONFIG_VAGRANT"
 alias kktt="kubectl --kubeconfig $KUBECONFIG_TEST"
 alias kks="AWS_PROFILE=eks keks --kubeconfig $KUBECONFIG_EKS"
 alias hhtt="KUBECONFIG=$KUBECONFIG_TEST helm"
@@ -137,7 +139,7 @@ alias kkasqa1="kkasqa --namespace qa1"
 alias kkasqa2="kkasqa --namespace qa2"
 alias kkasqa3="kkasqa --namespace qa3"
 alias kkasqa4="kkasqa --namespace qa4"
-alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA_v1_8"
+alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
 
 
 #Testing
