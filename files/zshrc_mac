@@ -151,7 +151,7 @@ export HELM_HOME=/Users/a.fonseca/Software/Work/pfm-tools/helm-home
 alias hhta="KUBECONFIG=$KUBECONFIG_TA_V19 helm-2.7"
 alias hhtaold="KUBECONFIG=$KUBECONFIG_TA_KOPS helm-2.7"
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm-2.7"
-alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm-2.9"
+alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm-2.10"
 alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
 alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
 alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA_v1_8 helm"
