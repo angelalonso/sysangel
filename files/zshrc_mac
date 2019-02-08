@@ -28,7 +28,11 @@ alias python="/usr/local/bin/python3"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-export GOPATH="$HOME/go"
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin:/Users/a.fonseca/bin"
+test -d "${GOPATH}" || mkdir "${GOPATH}"
+test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -102,7 +106,7 @@ export KUBECONFIG_TEST=$HOME/.kube/config.testing.eu
 export KUBECONFIG_EKS=$HOME/.kube/config.eks
 export KUBECONFIG_TA_KOPS=$HOME/.kube/config.ta.eu
 export KUBECONFIG_TA_V19=$HOME/.kube/config.ta.v1-9
-export KUBECONFIG_QA_KOPS=$HOME/.kube/config.staging.eu
+export KUBECONFIG_QA=$HOME/.kube/config.qa.eu
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
@@ -118,7 +122,7 @@ alias hhtt="KUBECONFIG=$KUBECONFIG_TEST helm"
 ## Europe
 alias kktaold="kubectl --kubeconfig $KUBECONFIG_TA_KOPS"
 alias kkta="kubectl --kubeconfig $KUBECONFIG_TA_V19"
-alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
+alias kkqa="kubectl --kubeconfig $KUBECONFIG_QA"
 alias kkqa1="kkqa --namespace qa1"
 alias kkqa2="kkqa --namespace qa2"
 alias kkqa3="kkqa --namespace qa3"
