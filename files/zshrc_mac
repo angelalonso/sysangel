@@ -29,10 +29,12 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 export GOPATH="${HOME}/.go"
-export GOROOT="$(brew --prefix golang)/libexec"
+export GOROOT="/usr/local/opt/go/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin:/Users/a.fonseca/bin"
-test -d "${GOPATH}" || mkdir "${GOPATH}"
-test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
+#test -d "${GOPATH}" || mkdir "${GOPATH}"
+#test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
+
+export GITHUB_TOKEN="1c27763b070e051e84cb5c1836bb00e6e0f43ea7"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -81,10 +83,6 @@ alias rgrep='grep -r'
 alias gos='cd /Users/a.fonseca/Software'
 alias god='cd /Users/a.fonseca/Software/Dev'
 alias gow='cd /Users/a.fonseca/Software/Work'
-alias goa='cd /Users/a.fonseca/Software/Work/aws'
-alias gok='cd /Users/a.fonseca/Software/Work/k8s-terraform'
-alias gop='cd /Users/a.fonseca/Software/Work/puppet'
-alias got='cd /Users/a.fonseca/Software/Work/tools'
 
 alias aws_profile="/Users/a.fonseca/Software/Work/infra-services/scripts/aws_user/aws-profile.sh"
 
@@ -108,12 +106,12 @@ export KUBECONFIG_TA_KOPS=$HOME/.kube/config.ta.eu
 export KUBECONFIG_TA_V19=$HOME/.kube/config.ta.v1-9
 export KUBECONFIG_QA=$HOME/.kube/config.qa.eu
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
+export KUBECONFIG_STAGING_OLD=$HOME/.kube/config.staging.eu-v1-10-6
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
 export KUBECONFIG_PROD_ASIA_v1_8=$HOME/.kube/config.prod.asia.v1-8
 
-export KUBECONFIG_STAGING_OLDS=$HOME/.kube/config.staging.eu.pre_20180517
-alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLDS"
+alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLD"
 ## Test
 alias kkvv="kubectl --kubeconfig $KUBECONFIG_VAGRANT"
 alias kktt="kubectl --kubeconfig $KUBECONFIG_TEST"
@@ -156,8 +154,9 @@ alias hhta="KUBECONFIG=$KUBECONFIG_TA_V19 helm-2.7"
 alias hhtaold="KUBECONFIG=$KUBECONFIG_TA_KOPS helm-2.7"
 alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm-2.7"
 alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm-2.10"
-alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
-alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
+alias hhqa="KUBECONFIG=$KUBECONFIG_QA helm"
+alias hhqa3="KUBECONFIG=$KUBECONFIG_QA --namespace qa3 helm"
+alias hhqa4="KUBECONFIG=$KUBECONFIG_QA --namespace qa4 helm"
 alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA_v1_8 helm"
 alias hhasst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
 alias hhasqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
