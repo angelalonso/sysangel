@@ -1,30 +1,62 @@
 set nocompatible
 set t_Co=256
-colorscheme atom-dark-256
+"-""colorscheme atom-dark-256
 
 filetype off
 "-" 
+call plug#begin('~/.vim/plugged')
+" Make sure you use single quotes
+
+Plug 'vimwiki/vimwiki'
+Plug 'flazz/vim-colorschemes'
+Plug 'Shougo/neocomplete.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-fugitive'
+Plug 'jreybert/vimagit'
+Plug 'junegunn/fzf'
+Plug 'BurntSushi/ripgrep'
+"-""Plug 'neoclide/coc.nvim'
+Plug 'scrooloose/nerdtree'
+Plug 'jiangmiao/auto-pairs'
+"-""Plug 'ryanoasis/vim-devicons'
+Plug 'prettier/vim-prettier'
+
+call plug#end()"-" 
+"-"  " To install:
+"-"  " :PluginInstall
+"-"  " vim +PluginInstall +qall
+
+
+"-" Vundle is deprecated
+"-" set rtp+=~/.vim/bundle/Vundle.vim
+"-" call vundle#begin()
 "-" 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"-" Plugin 'gmarik/Vundle.vim'
 "-" 
-Plugin 'gmarik/Vundle.vim'
+"-" Plugin 'vimwiki/vimwiki'
+"-" Plugin 'flazz/vim-colorschemes'
+"-" Plugin 'Shougo/neocomplete.vim'
+"-" Plugin 'vim-airline/vim-airline'
+"-" Plugin 'vim-airline/vim-airline-themes'
+"-" Plugin 'fatih/vim-go'
+"-" Plugin 'tpope/vim-fugitive'
+"-" Plugin 'jreybert/vimagit'
+"-" Plugin 'tclem/vim-arduino.git'
 "-" 
-Plugin 'vimwiki/vimwiki'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'fatih/vim-go'
-Plugin 'tpope/vim-fugitive'
-Plugin 'jreybert/vimagit'
-"-" 
-"-" " To install:
-"-" " :PluginInstall
-"-" " vim +PluginInstall +qall
-"-" " all plugins must be added before the following line
-call vundle#end()
+"-"  " To install:
+"-"  " :PluginInstall
+"-"  " vim +PluginInstall +qall
+"-"  " all plugins must be added before the following line
+"-" call vundle#end()
+
 filetype plugin indent on " required
+"-"execute pathogen#infect() 
+"-""-" ARDUINO#
+"-"let g:vim_arduino_library_path = "/home/aaf/arduino-1.8.10"
+"-"let g:vim_arduino_serial_port = "/dev/ttyUSB0"
+
 let g:neocomplete#enable_at_startup = 1
 "-" 
 "-" " ####  FUNCTIONS
