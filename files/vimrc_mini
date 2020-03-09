@@ -2,6 +2,13 @@ set nocompatible
 set t_Co=256
 "-""colorscheme atom-dark-256
 
+"-"  install vim-gitgutter
+" mkdir -p ~/.vim/pack/airblade/start
+" cd ~/.vim/pack/airblade/start
+" git clone https://github.com/airblade/vim-gitgutter.git
+" vim -u NONE -c "helptags vim-gitgutter/doc" -c q
+""
+
 filetype off
 "-" 
 call plug#begin('~/.vim/plugged')
