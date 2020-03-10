@@ -27,6 +27,7 @@ fabric \
 gimp \
 git \
 git \
+gnome-font-viewer \
 htop \
 inkscape \
 iotop \
@@ -98,6 +99,7 @@ echo "CONFIG:"
 echo " - firefox"
 echo " - keepassx"
 echo " - manually install fantasque font from sysangel repo, files"
+echo " Click on it, install with gnome-font-viewer "
 
 cd ~/Software/Dev
 git clone https://github.com/angelalonso/sysangel
