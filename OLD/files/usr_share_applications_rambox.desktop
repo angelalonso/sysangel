@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=Rambox
-Comment=
-Exec=/home/aaf/.local/bin/rambox
-Terminal=false
-Type=Application
-Categories=Messaging,Internet

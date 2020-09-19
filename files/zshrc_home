@@ -47,12 +47,13 @@ bindkey "\e[1;3D" backward-word
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias watch="watch "
 alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; sleep 1; done"
 alias wv='vim -c VimwikiIndex'
 alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
 
 ws() {
-  grep $1 -R -T $HOME/Dropbox/data/Vimwiki/* $HOME/Software/Dev/wiki/*
+  grep $1 -R -T $HOME/Software/Dev/wiki/*
 }
 
 zs() {
@@ -89,12 +90,7 @@ alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docke
 alias dockerclean='dockercleanc || true && dockercleani'
 
 
-export KUBECONFIG_TEST=$HOME/.kube/config.test
-export KUBECONFIG_IDIR=$HOME/.kube/config.idir
-export KUBECONFIG_MINIKUBE=$HOME/.kube/config.minikube
-export KUBECONFIG_EKS=$HOME/.kube/config.eks
 # Kubernetes
-export KUBECONFIG_QA_KOPS=$HOME/.kube/config.qa.eu
 export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
 export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
 export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
@@ -102,19 +98,8 @@ export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
 export KUBECONFIG_STAGING_OLD=$HOME/.kube/config.staging.eu.20180519
 alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLD"
 
-alias kk="kubectl --kubeconfig $KUBECONFIG_TEST"
-alias kki="kubectl --kubeconfig $KUBECONFIG_IDIR"
-alias kkm="kubectl --kubeconfig $KUBECONFIG_MINIKUBE"
-alias kks="AWS_PROFILE=eks keks --kubeconfig $KUBECONFIG_EKS"
 ## Europe
 alias kkst="kubectl --kubeconfig $KUBECONFIG_STAGING_KOPS"
-alias kkqa1="kkst --namespace qa1"
-alias kkqa2="kkst --namespace qa2"
-alias kkqa3="kkst --namespace qa3"
-alias kkqa4="kkst --namespace qa4"
-alias kkqa5="kkst --namespace qa5"
-alias kkqa6="kkst --namespace qa6"
-alias kkqa7="kkst --namespace qa7"
 alias kkpr="kubectl --kubeconfig $KUBECONFIG_PROD_EU"
 alias kkprks="kkpr --namespace=kube-system"
 alias curlkkqa='curl https://master.qa.foodora.tech -k'
@@ -122,11 +107,6 @@ alias curlkkst='curl https://master.staging.foodora.tech -k'
 
 ## Asia
 alias kkasst="kubectl --kubeconfig $KUBECONFIG_STAGING_KOPS"
-alias kkasqa="kubectl --kubeconfig $KUBECONFIG_QA_KOPS"
-alias kkasqa1="kkasqa --namespace qa1"
-alias kkasqa2="kkasqa --namespace qa2"
-alias kkasqa3="kkasqa --namespace qa3"
-alias kkasqa4="kkasqa --namespace qa4"
 alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
 
 #Testing

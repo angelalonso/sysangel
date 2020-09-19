@@ -1,8 +1,0 @@
-# Ubuntu unity:
-sudo apt-get install dconf-tools
-dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
-
-# Openbox
-vim .config/openbox/autostart
-
-setxkbmap -option caps:escape &
