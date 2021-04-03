@@ -57,6 +57,10 @@ apt_install() {
   chromium-browser \
   cryfs \
   curl \
+  exfat-fuse \
+  exfat-utils \
+  expect \
+  fabric \
   gimp \
   git \
   htop \
@@ -67,10 +71,14 @@ apt_install() {
   mtr \
   net-tools \
   nmap \
+  openssh-client \
+  passwd \
   pwgen \
+  tcptraceroute \
   terminator \
   unzip \
   vim \
+  vim-gtk \
   vlc \
   zip \
   zsh
@@ -81,9 +89,39 @@ apt_install() {
   fi
 }
 
+install_scripts() {
+  # Python
+  FUNC="Installing Python"
+  log_txt a "$FUNC"
+  ./scripts/python.sh
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+  # Firefox Dev Edition
+  # Rambox
+  # Etcher
+  # Arduino IDE
+  # Docker
+  # Dropbox
+  # Wine -> Trackmania
+  # Steam
+  ####
+  # Golang
+  # Rust
+  # Virtualbox
+  # VPN
+  # Saml2aws
+  # awscli
+  # terraform
+  # kubectl
+}
+
+
 create_dirs
 apt_install
-# install_scripts
+install_scripts
 # config_scripts
 #   vimrc
 #   terminator config

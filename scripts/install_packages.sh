@@ -17,49 +17,6 @@ ORN='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
  
-pkgs-aptget() {
-
-  PKGS="\
-  curl \
-  exfat-fuse \
-  exfat-utils \
-  expect \
-  fabric \
-  git \
-  iotop \
-  jq \
-  keepassx \
-  mtr \
-  nmap \
-  openssh-client \
-  passwd \
-  pwgen \
-  python \
-  python-pip \
-  python-boto3 \
-  python3 \
-  python3-pip \
-  tcptraceroute \
-  ubuntu-minimal \
-  unzip \
-  vim-gtk \
-  zip \
-  zsh \
-  "
-  
-  sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ${PKGS}
-
-}
-
-pkgs-pip3() {
-
-  PIP3_PACKS="flake8"
-
-  # otherwise it complains about pip version
-  pip3 install ${PIP3_PACKS}
-
-}
 
 manual-kubectl() {
 
@@ -196,12 +153,10 @@ pending() {
   echo "You still need to install:"
   echo "firefox developer edition"
   echo "rambox"
-  echo "atom"
   echo "dropbox"
 
 }
 
-pkgs-aptget
 pkgs-pip3
 manual-kubectl
 manual-terraform
