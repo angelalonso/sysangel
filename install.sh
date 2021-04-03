@@ -3,12 +3,15 @@
 log_txt() {
   BLUE="\e[33m"
   GREEN="\e[32m"
+  GREEN="\e[95m"
   RED="\e[31m"
   YELLOW="\e[34m"
 
   OK="\e[1;32m"
   A="\e[3;44m"
   ERROR="\e[5;31m"
+  WARN="\e[1;95m"
+  WARNLIST="\e[1;95m"
   ENDCOLOR="\e[0m"
 
   case $1 in
@@ -24,6 +27,15 @@ log_txt() {
       ;;
     b)
       echo -e "${ENDCOLOR}  - ${2}${ENDCOLOR}"
+      ;;
+    warn)
+      echo -e "${ENDCOLOR}${WARN}  ${2}${ENDCOLOR}"
+      ;;
+    warnlista)
+      echo -e "${ENDCOLOR}${WARNLIST}  - ${2}${ENDCOLOR}"
+      ;;
+    warnlistb)
+      echo -e "${ENDCOLOR}${WARNLIST}    - ${2}${ENDCOLOR}"
       ;;
     *)
       echo "${2}"
@@ -90,6 +102,17 @@ apt_install() {
 }
 
 install_scripts() {
+############################
+  # OhMyZsh
+  FUNC="Installing OH My ZSH"
+  log_txt a "$FUNC"
+  ./scripts/ohmyzsh.sh
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Python
   FUNC="Installing Python"
   log_txt a "$FUNC"
@@ -99,15 +122,76 @@ install_scripts() {
   else
     log_txt aok "$FUNC"
   fi
+############################
   # Firefox Dev Edition
-## https://www.mozilla.org/en-US/firefox/developer/
+  FUNC="Installing Firefox Developer Edition"
+  log_txt a "$FUNC"
+  ./scripts/firefox.sh
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Rambox
-## https://rambox.pro/#ce
+  FUNC="Installing Rambox"
+  log_txt a "$FUNC"
+  sudo snap install rambox
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Etcher
+  FUNC="Installing Etcher"
+  log_txt a "$FUNC"
+  ./scripts/etcher.sh
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Arduino IDE
+  FUNC="Installing Arduino IDE"
+  log_txt a "$FUNC"
+  sudo snap install arduino
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Docker
+  FUNC="Installing Docker"
+  log_txt a "$FUNC"
+  sudo snap install docker
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Dropbox
+  FUNC="Installing Dropbox"
+  log_txt a "$FUNC"
+  ./scripts/dropbox.sh
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Wine -> Trackmania
+  FUNC="Installing Wine with trackmania Nations Forever"
+  log_txt a "$FUNC"
+  sudo snap install tmnationsforever
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
   # Rust
   ####
   # Steam
@@ -123,6 +207,17 @@ install_scripts() {
   # kubectl
 }
 
+latest_considerations() {
+  log_txt warn "REMEMBER TO NOW DO THE FOLLOWING:"
+  log_txt warnlista "Firefox"
+  log_txt warnlistb "Import your GPG Keys to Mailvelope"
+  log_txt warnlista "Rambox"
+  log_txt warnlistb "Configure your accounts"
+  log_txt warnlista "Dropbox"
+  log_txt warnlistb "Configure your accounts"
+  log_txt warnlistb "Configure autolaunch"
+}
+
 
 create_dirs
 apt_install
@@ -130,4 +225,4 @@ install_scripts
 # config_scripts
 #   vimrc
 #   terminator config
-
+latest_considerations
