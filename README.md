@@ -1,15 +1,37 @@
 # Sysangel
 
-Script to get my laptops up and running with as little manual effort as possible
+Scripts to get my computers up and running with as little manual effort as possible
 
-# Installation
+# Installation Script
 
-## Ubuntu - tested
-apt-get install git
+Installs minimum programs I require after a fresh OS install.
+Feel free to modify it to your liking.
+
+## How to run it
+Tested for Ubuntu:
+```apt-get install git
 cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel
 bash install.sh
+```
 
-# Status
-
+## Status
 Being rewritten to the bare minimum
+
+# Backup Scripts
+
+Copies over a list of folders from my computer to a mounted drive.
+
+## Requirements
+- This thing runs on Linux
+- You'll need rsync installed
+- Copy over backup.list to the root of your mounted drive (the one you want to save your backups to)
+  - Modify the list to your likings
+- Modify backup.sh and backup_wrapped.sh, for instance, if the drive you backup to is not mounted under /media
+
+## How to run it
+```
+./backup.sh <MOUNT_FOLDER>
+```
+, where FOLDER_NAME is the name of the folder below /media/$USER where the drive to backup to is mounted (E.g.: /media/user/MYHDD would be used with ./backup.sh MYHDD)
+
 
