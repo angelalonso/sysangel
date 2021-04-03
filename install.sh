@@ -100,20 +100,25 @@ install_scripts() {
     log_txt aok "$FUNC"
   fi
   # Firefox Dev Edition
+## https://www.mozilla.org/en-US/firefox/developer/
   # Rambox
+## https://rambox.pro/#ce
   # Etcher
   # Arduino IDE
   # Docker
   # Dropbox
   # Wine -> Trackmania
-  # Steam
-  ####
-  # Golang
   # Rust
+  ####
+  # Steam
+  # Golang
   # Virtualbox
   # VPN
   # Saml2aws
   # awscli
+##    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+##    unzip awscliv2.zip
+##    sudo ./aws/install
   # terraform
   # kubectl
 }
