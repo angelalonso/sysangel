@@ -113,6 +113,16 @@ install_scripts() {
     log_txt aok "$FUNC"
   fi
 ############################
+  # Rust
+  FUNC="Installing Rust"
+  log_txt a "$FUNC"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Python
   FUNC="Installing Python"
   log_txt a "$FUNC"
@@ -192,7 +202,6 @@ install_scripts() {
   else
     log_txt aok "$FUNC"
   fi
-  # Rust
   ####
   # Steam
   # Golang
