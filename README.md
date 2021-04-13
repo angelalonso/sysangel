@@ -11,6 +11,7 @@ Feel free to modify it to your liking.
 Tested for Ubuntu:
 ```sudo apt update
 sudo apt upgrade 
+sudo apt autoremove
 sudo apt install git
 cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel
 bash install.sh
