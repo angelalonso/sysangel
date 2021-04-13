@@ -7,15 +7,17 @@ Scripts to get my computers up and running with as little manual effort as possi
 Installs minimum programs I require after a fresh OS install.
 Feel free to modify it to your liking.
 
-## How to run it
+## Rpeparations and running it
 Tested for Ubuntu:
-```apt-get install git
+```sudo apt update
+sudo apt upgrade 
+sudo apt install git
 cd ~ && git clone https://github.com/angelalonso/sysangel && cd sysangel
 bash install.sh
 ```
 
 ## Status
-Being rewritten to the bare minimum
+A first proper draft is being tested right now
 
 # Backup Scripts
 
