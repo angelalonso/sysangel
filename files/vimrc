@@ -38,28 +38,6 @@ call plug#end()"-"
 "-"  " :PlugInstall
 "-"  " vim +PluginInstall +qall
 
-
-"-" Vundle is deprecated
-"-" set rtp+=~/.vim/bundle/Vundle.vim
-"-" call vundle#begin()
-"-" 
-"-" Plugin 'gmarik/Vundle.vim'
-"-" 
-"-" Plugin 'vimwiki/vimwiki'
-"-" Plugin 'flazz/vim-colorschemes'
-"-" Plugin 'Shougo/neocomplete.vim'
-"-" Plugin 'vim-airline/vim-airline'
-"-" Plugin 'vim-airline/vim-airline-themes'
-"-" Plugin 'tpope/vim-fugitive'
-"-" Plugin 'jreybert/vimagit'
-"-" Plugin 'tclem/vim-arduino.git'
-"-" 
-"-"  " To install:
-"-"  " :PluginInstall
-"-"  " vim +PluginInstall +qall
-"-"  " all plugins must be added before the following line
-"-" call vundle#end()
-
 filetype plugin indent on " required
 "-"execute pathogen#infect() 
 "-""-" ARDUINO#

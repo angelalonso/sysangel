@@ -1,8 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Software/Dev/sysangel/scripts:$PATH
-# Adding GO
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Software/Dev/sysangel/scripts:/usr/local/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/aaf/.oh-my-zsh
@@ -68,14 +66,6 @@ alias go1='cd ${USBPATH}'
 alias gos='cd /home/aaf/Software'
 alias god='cd /home/aaf/Software/Dev'
 alias gow='cd /home/aaf/Software/Work'
-alias gop='cd /home/aaf/Software/Work/puppet'
-alias got='cd /home/aaf/Software/Work/pfm-tools'
-alias goc='cd /home/aaf/Software/Work/pfm-tools/pfm-config'
-alias gok='cd /home/aaf/Software/Work/k8s-terraform'
-
-alias aws_profile="/home/aaf/Software/Work/infra-services/scripts/aws_user/aws-profile.sh"
-
-alias gk8='cd /home/aaf/Software/Dev/k8s-local'
 
 # Kill all running containers.
 alias dockerkillall='d kill $(docker ps -q)'
@@ -88,60 +78,6 @@ alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docke
 
 # Delete all stopped containers and untagged images.
 alias dockerclean='dockercleanc || true && dockercleani'
-
-
-# Kubernetes
-export KUBECONFIG_STAGING_KOPS=$HOME/.kube/config.staging.eu
-export KUBECONFIG_PROD_EU=$HOME/.kube/config.prod.eu
-export KUBECONFIG_PROD_ASIA=$HOME/.kube/config.prod.asia
-
-export KUBECONFIG_STAGING_OLD=$HOME/.kube/config.staging.eu.20180519
-alias kko="kubectl --kubeconfig $KUBECONFIG_STAGING_OLD"
-
-## Europe
-alias kkst="kubectl --kubeconfig $KUBECONFIG_STAGING_KOPS"
-alias kkpr="kubectl --kubeconfig $KUBECONFIG_PROD_EU"
-alias kkprks="kkpr --namespace=kube-system"
-alias curlkkqa='curl https://master.qa.foodora.tech -k'
-alias curlkkst='curl https://master.staging.foodora.tech -k'
-
-## Asia
-alias kkasst="kubectl --kubeconfig $KUBECONFIG_STAGING_KOPS"
-alias kkas="kubectl --kubeconfig $KUBECONFIG_PROD_ASIA"
-
-#Testing
-alias kkte="kubectl --kubeconfig ~/.kube/config.testing"
-
-#Helm
-#export HELM_HOME=/Users/angel.fonseca/Software/Work/pfm-tools/helm-home
-export HELM_HOME="$HOME/.helm-home"
-
-alias hh="KUBECONFIG=$KUBECONFIG_TEST helm"
-alias hhpr="KUBECONFIG=$KUBECONFIG_PROD_EU helm"
-alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
-alias hhst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
-alias hhqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
-alias hhqa3="KUBECONFIG=$KUBECONFIG_QA_KOPS --namespace qa3 helm"
-alias hhas="KUBECONFIG=$KUBECONFIG_PROD_ASIA helm"
-alias hhasst="KUBECONFIG=$KUBECONFIG_STAGING_KOPS helm"
-alias hhasqa="KUBECONFIG=$KUBECONFIG_QA_KOPS helm"
-
-## Kops
-export AWS_PROFILE_QA_EU=foodora-qa
-export AWS_PROFILE_STAGING_EU=foodora-staging
-export AWS_PROFILE_PROD_EU=foodora-prod
-export KOPS_STATE_STORE_QA_EU=s3://foodora-qa-kops-k8s
-export KOPS_STATE_STORE_STAGING_EU=s3://foodora-staging-kops-k8s
-export KOPS_STATE_STORE_PROD_EU=s3://foodora-prod-kops-k8s
-export KOPS_STATE_STORE_ASIA_EU=s3://foodora-prod-kops-k8s
-export CLUSTER_QA_EU=qa.eu.fd-k8s.com
-export CLUSTER_STAGING_EU=v1-9.staging.eu.fd-k8s.com
-export CLUSTER_PROD_EU=prod.eu.fd-k8s.com
-export CLUSTER_PROD_ASIA=prod.asia.fd-k8s.com
-alias kops-qa-eu="EDITOR=vim AWS_PROFILE=$AWS_PROFILE_QA_EU KOPS_STATE_STORE=$KOPS_STATE_STORE_QA_EU kops --name $CLUSTER_QA_EU"
-alias kops-st-eu="EDITOR=vim AWS_PROFILE=$AWS_PROFILE_STAGING_EU KOPS_STATE_STORE=$KOPS_STATE_STORE_STAGING_EU kops --name $CLUSTER_STAGING_EU"
-alias kops-prod-eu="EDITOR=vim AWS_PROFILE=$AWS_PROFILE_PROD_EU KOPS_STATE_STORE=$KOPS_STATE_STORE_PROD_EU kops --name $CLUSTER_PROD_EU"
-alias kops-prod-asia="EDITOR=vim AWS_PROFILE=$AWS_PROFILE_ASIA_EU KOPS_STATE_STORE=$KOPS_STATE_STORE_ASIA_EU kops --name $CLUSTER_PROD_ASIA"
 
 
 dateprompt='%{$fg_bold[blue]%}%*'
