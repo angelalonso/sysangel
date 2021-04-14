@@ -85,6 +85,7 @@ apt_install() {
   nmap \
   openssh-client \
   passwd \
+  pcsxr \
   pwgen \
   tcptraceroute \
   terminator \
@@ -172,7 +173,8 @@ install_scripts() {
   # Arduino IDE
   FUNC="Installing Arduino IDE"
   log_txt a "$FUNC"
-  sudo snap install arduino
+  sudo snap install arduino && \
+  sudo usermod -a -G dialout $USER
   if [ $? != 0 ]; then
     log_txt aerr "$FUNC"
   else
