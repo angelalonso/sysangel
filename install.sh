@@ -114,11 +114,17 @@ install_scripts() {
   fi
 ############################
   # Rust
+  # TODO: dont do this if rust is
   FUNC="Installing Rust"
   log_txt a "$FUNC"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  which rustc > /dev/null 
   if [ $? != 0 ]; then
-    log_txt aerr "$FUNC"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    if [ $? != 0 ]; then
+      log_txt aerr "$FUNC"
+    else
+      log_txt aok "$FUNC"
+    fi
   else
     log_txt aok "$FUNC"
   fi
@@ -236,30 +242,89 @@ latest_considerations() {
 
 config_scripts() {
 
-# zshrc
-# TODO: check if current is a link and it's correct, then uncomment this:
-#mv $HOME/.zshrc $HOME/.zshrc.orig
-#ln -s $(pwd)/files/zshrc_home $HOME/.zshrc
+  # zshrc
+  FUNC="Configuring Zshrc (exit new session to continue)"
+  FUNC_OK=true
+  log_txt a "$FUNC"
+  if [ -f $HOME/.zshrc ]; then
+    if [ $(grep "SYSANGEL VERSION" $HOME/.zshrc | wc -l) -le 0 ]; then
+      mv $HOME/.zshrc $HOME/.zshrc.orig && \
+      ln -s $(pwd)/files/zshrc_home $HOME/.zshrc
+      if [ $? != 0 ]; then
+        FUNC_OK=false
+      fi
+    fi
+  fi
+  if [[ "$FUNC_OK" != true ]]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
 
-# Fonts
-# TODO: check if folder exists first
-#sudo mkdir -p /usr/share/fonts/truetype/fantasque
-# TODO: check if file exists first
-#sudo cp files/FantasqueSansMono_Regular.ttf /usr/share/fonts/truetype/fantasque/
+  # Fonts
+  FUNC="Adding new font: Fantasque"
+  FUNC_OK="true"
+  log_txt a "$FUNC"
+  if [ ! -d /usr/share/fonts/truetype/fantasque ]; then
+    sudo mkdir -p /usr/share/fonts/truetype/fantasque && \
+    sudo cp files/FantasqueSansMono_Regular.ttf /usr/share/fonts/truetype/fantasque/
+    if [ $? != 0 ]; then
+      FUNC_OK="false"
+    fi
+  else
+    if [ ! -f /usr/share/fonts/truetype/fantasque/FantasqueSansMono_Regular.ttf ]; then
+      sudo cp files/FantasqueSansMono_Regular.ttf /usr/share/fonts/truetype/fantasque/
+      if [ $? != 0 ]; then
+        FUNC_OK="false"
+      fi
+    fi
+  fi
+  if [ "$FUNC_OK" != "true" ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
 
-# Terminator
-#mkdir $HOME/.config/terminator
-# TODO: check if current is a link and it's correct, then uncomment this:
-#mv $HOME/.config/terminator/config $HOME/.config/terminator/config.orig
-#ln -s $(pwd)/files/terminator_config ~/.config/terminator/config
+  # Terminator
+  FUNC="Configuring Terminator"
+  FUNC_OK="true"
+  log_txt a "$FUNC"
+  mkdir -p $HOME/.config/terminator
+  if [ ! -L $HOME/.config/terminator/config ]; then
+    mv $HOME/.config/terminator/config $HOME/.config/terminator/config.orig && \
+    ln -s $(pwd)/files/terminator_config ~/.config/terminator/config
+    if [ $? != 0 ]; then
+      FUNC_OK="false"
+    fi
+  fi
+  if [[ "$FUNC_OK" != "true" ]]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
 
-# Vim
-# TODO: install with Plug
-#ln -s $(pwd)/files/vimrc $HOME/.vimrc
+  # Vim
+  # Terminator
+  FUNC="Configuring Vim"
+  FUNC_OK="true"
+  log_txt a "$FUNC"
+  mkdir -p $HOME/.vim
+  if [ ! -L $HOME/.vimrc ]; then
+    mv $HOME/.vimrc $HOME/.vimrc.orig && \
+    ln -s $(pwd)/files/vimrc $HOME/.vimrc
+    if [ $? != 0 ]; then
+      FUNC_OK="false"
+    fi
+  fi
+  if [ "$FUNC_OK" != "true" ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
 }
 
-#create_dirs
-#apt_install
-#install_scripts
+create_dirs
+apt_install
+install_scripts
 config_scripts
 latest_considerations
