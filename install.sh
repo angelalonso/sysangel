@@ -87,6 +87,7 @@ apt_install() {
   passwd \
   pcsxr \
   pwgen \
+  supertuxkart \
   tcptraceroute \
   terminator \
   unzip \
