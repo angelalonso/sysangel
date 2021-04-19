@@ -186,7 +186,9 @@ install_scripts() {
   # Docker
   FUNC="Installing Docker"
   log_txt a "$FUNC"
-  sudo snap install docker
+  sudo snap install docker && \
+    sudo groupadd docker && \
+    sudo usermod -aG docker $USER
   if [ $? != 0 ]; then
     log_txt aerr "$FUNC"
   else
