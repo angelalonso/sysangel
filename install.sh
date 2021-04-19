@@ -193,6 +193,16 @@ install_scripts() {
     log_txt aok "$FUNC"
   fi
 ############################
+  # MicroK8s
+  FUNC="Installing MicroK8s"
+  log_txt a "$FUNC"
+  sudo snap install microk8s --classic
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
   # Dropbox
   FUNC="Installing Dropbox"
   log_txt a "$FUNC"
