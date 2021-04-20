@@ -72,10 +72,10 @@ alias gow='cd /home/aaf/Software/Work'
 alias dockerkillall='d kill $(docker ps -q)'
 
 # Delete all stopped containers.
-alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && d rm $(docker ps -a -q -f status=exited)'
+alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q -f status=exited)'
 
 # Delete all untagged images.
-alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && d rmi $(docker images -q -f dangling=true)'
+alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
 
 # Delete all stopped containers and untagged images.
 alias dockerclean='dockercleanc || true && dockercleani'

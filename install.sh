@@ -75,6 +75,7 @@ apt_install() {
   fabric \
   gimp \
   git \
+  gnupg2 \
   htop \
   inkscape \
   iotop \
@@ -187,7 +188,11 @@ install_scripts() {
   FUNC="Installing Docker"
   log_txt a "$FUNC"
   sudo snap install docker && \
-    sudo groupadd docker && \
+    if [ $(getent group docker) ]; then
+      echo "group docker exists."
+    else
+      sudo groupadd docker
+    fi && \
     sudo usermod -aG docker $USER
   if [ $? != 0 ]; then
     log_txt aerr "$FUNC"
@@ -219,6 +224,19 @@ install_scripts() {
   FUNC="Installing Wine with trackmania Nations Forever"
   log_txt a "$FUNC"
   sudo snap install tmnationsforever
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
+############################
+  # Node + React
+  FUNC="Installing NodeJS and React"
+  log_txt a "$FUNC"
+  curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - && \
+  sudo apt-get install nodejs -y && \
+  sudo npm install npm@latest -g && \
+  sudo npm install -g create-react-app
   if [ $? != 0 ]; then
     log_txt aerr "$FUNC"
   else
