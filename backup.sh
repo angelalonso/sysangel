@@ -12,7 +12,12 @@ SCRIPT="$WORK/backup_wrapped.sh"
 
 TERM=$(which xterm)
 
-if [ -e $LOCK ]; then
+if [ "$TERM" == "" ]; then
+  echo "ERROR: XTERM is not installed!"
+  exit 2
+fi
+
+if [[ -e $LOCK ]]; then
   $TERM -e "Please, clean up the lock file"
   read ans
   exit 1

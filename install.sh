@@ -96,6 +96,7 @@ apt_install() {
   vim-gtk \
   vlc \
   wine \
+  xterm \
   zip \
   zsh
   if [ $? != 0 ]; then
