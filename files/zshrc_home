@@ -46,10 +46,20 @@ bindkey "\e[1;3D" backward-word
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias xclip="xclip -selection c"
 alias watch="watch "
 alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; sleep 1; done"
 alias wv='vim -c VimwikiIndex'
+alias lvim='/home/aaf/.local/bin/lvim'
+alias lv='lvim'
 alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
+alias dupes='find -not -empty -type f -printf "%s\n" |sort -rn | uniq -d | xargs -I{} -n1  find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate'
+
+# Kubernetes
+alias kk="sudo k3s kubectl "
+alias k3s-stop="sudo systemctl stop k3s"
+alias k3s-start="sudo systemctl start k3s"
+alias k3s-status="sudo systemctl status k3s"
 
 ws() {
   grep $1 -R -T $HOME/Software/Dev/wiki/*
@@ -67,6 +77,8 @@ alias go1='cd ${USBPATH}'
 alias gos='cd /home/aaf/Software'
 alias god='cd /home/aaf/Software/Dev'
 alias gow='cd /home/aaf/Software/Work'
+alias gor='cd /home/aaf/Software/Dev/robot/brain'
+source /opt/ros/rolling/setup.zsh
 
 # Kill all running containers.
 alias dockerkillall='d kill $(docker ps -q)'

@@ -36,11 +36,14 @@
 [profiles]
   [[default]]
     cursor_color = "#ffffff"
-    font = Fantasque Sans Mono 13
+    font = FantasqueSansMono Nerd Font 13
     foreground_color = "#ffffff"
     scrollback_infinite = True
+    palette = "#2e3436:#ee0808:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#fa3636:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
     use_system_font = False
     copy_on_selection = True
+  [[mine]]
+    cursor_color = "#aaaaaa"
 [layouts]
   [[default]]
     [[[child1]]]

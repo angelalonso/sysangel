@@ -243,6 +243,19 @@ install_scripts() {
   else
     log_txt aok "$FUNC"
   fi
+############################
+  # Lunar Vim
+  FUNC="Installing Lunar Vim"
+  log_txt a "$FUNC"
+  sudo add-apt-repository ppa:neovim-ppa/stable
+  sudo apt-get update
+  sudo apt-get install neovim
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+  if [ $? != 0 ]; then
+    log_txt aerr "$FUNC"
+  else
+    log_txt aok "$FUNC"
+  fi
   ####
   # Steam
   # Golang
