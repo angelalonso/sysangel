@@ -315,13 +315,13 @@ config_scripts() {
   log_txt a "$FUNC"
   if [ ! -d /usr/share/fonts/truetype/fantasque ]; then
     sudo mkdir -p /usr/share/fonts/truetype/fantasque && \
-    sudo cp files/FantasqueSansMono_Regular.ttf /usr/share/fonts/truetype/fantasque/
+    sudo cp files/Fantasque_Sans_Mono_Regular_Nerd_Font_Complete_Mono.ttf /usr/share/fonts/truetype/fantasque/
     if [ $? != 0 ]; then
       FUNC_OK="false"
     fi
   else
     if [ ! -f /usr/share/fonts/truetype/fantasque/FantasqueSansMono_Regular.ttf ]; then
-      sudo cp files/FantasqueSansMono_Regular.ttf /usr/share/fonts/truetype/fantasque/
+      sudo cp files/Fantasque_Sans_Mono_Regular_Nerd_Font_Complete_Mono.ttf /usr/share/fonts/truetype/fantasque/
       if [ $? != 0 ]; then
         FUNC_OK="false"
       fi
