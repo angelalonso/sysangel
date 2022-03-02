@@ -66,9 +66,11 @@ apt_install() {
   sudo apt-get install -y \
   apt-transport-https \
   arp-scan \
+  bat \
   chromium-browser \
   cryfs \
   curl \
+  exa \
   exfat-fuse \
   exfat-utils \
   expect \
