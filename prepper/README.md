@@ -9,7 +9,7 @@ For this I use https://www.balena.io/etcher/
 ```
 $ touch /media/$USER/boot/ssh  
 $ echo 'mypassword' | openssl passwd -6 -stdin # copy the result
-$ vim /media/$USER/userconf # paste inside <username>:<the result from the previous command>
+$ vim /media/$USER/userconf.txt # paste inside <username>:<the result from the previous command>
 ```
 - Unmount the MicroSD card  
 - Insert it to the raspberry pi  
@@ -21,14 +21,9 @@ $ ./find_my_raspberry.sh # Script that does the same, also adapt the IP range
 ```
 
 ## SSH into it, give it a name, tweak raspbian
+- Let's make sure your keys dont get in the way when ssh'ing
 ```
-$ ssh ubuntu@\<IP\> # password is ubuntu, accept authenticity
-```
-- once in, change hostname to your liking  
-```
-$ sudo hostname \$HOSTNAME  
-$ sudo vim /etc/hosts # change raspberrypi to \$HOSTNAME  
-$ sudo vim /etc/hostname # change raspberrypi to \$HOSTNAME  
+$ ssh -o PasswordAuthentication=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no <user>@<ip>
 ```
 - tweak raspbian  
 ```
@@ -37,50 +32,9 @@ $ sudo raspi-config
 - \> Localisation Options > Change Locale > choose the Locales you need, hit OK  
 - \> Exit > Reboot  
 
-## Add your own admin user, remove user pi
-```
-$ sudo useradd -s /bin/bash -m -d /home/$NEWUSER $NEWUSER
-```
-- Give that user a strong password  
-```
-$ sudo passwd $NEWUSER
-```
-- Add your SSH key to log in  
-```
-$ sudo mkdir -p /home/$NEWUSER/.ssh  
-$ sudo vi /home/$NEWUSER/.ssh/authorized_keys # Here you should paste your public SSH key and save
-```
-- Add your user to the same groups as pi is in  
-```
-$ vigr
-```
-- (This can probably be achieved in some other way) Let you user manage GPIO
-```
-$ sudo adduser $NEWUSER dialout gpio
-```
-```
-:%s/:ubuntu/:ubuntu,$NEWUSER/g
-```
-- Make your NEW USER owner of its own environment  
-```
-$ sudo chmod 600 /home/$NEWUSER/.ssh/authorized_keys  
-$ sudo chown -R $NEWUSER:$NEWUSER /home/$NEWUSER 
-```
-- Log out, log in again
-```
-$ logout  
-$ ssh -i <PATH TO YOUR SSH KEY> $NEWUSER@<IP>  
-```
-- Get rid of pi  
-```
-$ sudo deluser -remove-home ubuntu
-```
-  
 ## Update, upgrade, install the basics
 ```
-$ sudo apt-get update  
-$ sudo apt-get upgrade  
-$ pip install flatdict flask
+$ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install vim git
 ```
   
 ## Strengthen SSH
@@ -93,6 +47,12 @@ UsePAM no
 PermitRootLogin no  
 Port $NEWPORT  
 ```
+- Add your public key
+```
+$ mkdir -p $HOME/.ssh && touch $HOME/.ssh/authorized_keys
+$ vim $HOME/.ssh/authorized_keys # copy here 
+```
+- Restart SSH
 ```
 $ sudo systemctl reload ssh  
 ```
@@ -123,15 +83,6 @@ $ sudo ufw allow ${SSH_PORT}
 $ sudo ufw enable  
 ```
 
-
-# Install some further packages
-
-```
-$ sudo apt-get update  
-$ sudo apt-get install vim git rpi.gpio-common python3-pigpio pigpio-tools # we'll need them later
-$ sudo reboot
-```
-
 # Make Raspberry connect to LAN through Wi-Fi
 Connect your Wifi dongle.  
 Read https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md  
@@ -141,17 +92,7 @@ $ sudo raspi-config
 \> Localisation Options > Change Wi-fi Country > Choose yours  
 \> Network Options > Wi-Fi > add the name of the WiFi network and the pass  
 
-# Make pigpio daemon run at boot
-- Copy files/pigpiod.service to /etc/systemd/system/
-```
-$ sudo systemctl enable pigpiod
-$ sudo systemctl start pigpiod
-```
 - 
-
-# Install ROS2
-
-Follow the Official Guide at https://docs.ros.org/en/galactic/Installation.html
 
 # Install Rust
 Follow the Official Guide at https://www.rust-lang.org/tools/install
