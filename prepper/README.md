@@ -8,6 +8,8 @@ For this I use https://www.balena.io/etcher/
 - In ubuntu:  
 ```
 $ touch /media/$USER/boot/ssh  
+$ echo 'mypassword' | openssl passwd -6 -stdin # copy the result
+$ vim /media/$USER/userconf # paste inside <username>:<the result from the previous command>
 ```
 - Unmount the MicroSD card  
 - Insert it to the raspberry pi  
