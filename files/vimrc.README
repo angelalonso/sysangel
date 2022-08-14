@@ -9,4 +9,6 @@ mkdir -p $HOME/.vim/colors
 ln -s $REPO/monokai_of_mine.vim /home/aaf/.vim/colors/monokai_of_mine.vim
 vim +PlugInstall
 
+, then, from inside Vim, run:
+:CocInstall coc-rust-analyzer (somehow it doesn't work automatically...)
 
