@@ -2,41 +2,37 @@ set nocompatible
 set t_Co=256
 " set termguicolors
 " set background=dark  
+" colorscheme base16-gruvbox-dark-hard
 " colorscheme kuroi
+" colorscheme atom-dark-256
+colorscheme monokai_of_mine
 
-"-""colorscheme atom-dark-256
-
-"-"  install vim-gitgutter
-" mkdir -p ~/.vim/pack/airblade/start
-" cd ~/.vim/pack/airblade/start
-" git clone https://github.com/airblade/vim-gitgutter.git
-" vim -u NONE -c "helptags vim-gitgutter/doc" -c q
-""
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-filetype off
-"-" 
+"-""filetype off
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
+Plug 'rust-lang/rust.vim'
 Plug 'BurntSushi/ripgrep'
-Plug 'Shougo/neocomplete.vim'
+Plug 'maxboisvert/vim-simple-complete'
 Plug 'flazz/vim-colorschemes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jreybert/vimagit'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'prettier/vim-prettier'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
 Plug 'pedrohdz/vim-yaml-folds'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()"-" 
 "-"  " To install:
@@ -44,12 +40,7 @@ call plug#end()"-"
 "-"  " vim +PluginInstall +qall
 
 filetype plugin indent on " required
-"-"execute pathogen#infect() 
-"-""-" ARDUINO#
-"-"let g:vim_arduino_library_path = "/home/aaf/arduino-1.8.10"
-"-"let g:vim_arduino_serial_port = "/dev/ttyUSB0"
 
-let g:neocomplete#enable_at_startup = 1
 "-" 
 "-" " ####  FUNCTIONS
 "-" 
@@ -79,7 +70,8 @@ syntax on
 set autoindent
 "-" 
 "-" " show line numbers
-"-" ""set number
+set number relativenumber
+set nu rnu
 "-" 
 "-" " show matching brackets
 set showmatch
@@ -98,6 +90,18 @@ set shiftwidth=2
 set softtabstop=2
 "-" " expand tabs to spaces
 set expandtab
+"-" " CoC 
+let b:coc_suggest_disable = 1
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+"-" " Rust
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
+
 "-" 
 "-" 
 "-" 
