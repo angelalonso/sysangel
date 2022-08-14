@@ -1,0 +1,10 @@
+# Requirements
+
+You need to install "FantasqueSansMono Nerd Font Mono Regular" from the related file on this folder.
+
+# Installation
+
+export REPO="/home/aaf/Software/Dev/sysangel/files"
+ln -s $REPO/terminator_config /home/aaf/.config/terminator/config
+
+
