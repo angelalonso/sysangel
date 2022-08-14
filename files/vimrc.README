@@ -1,0 +1,12 @@
+# Requirementes
+Upgrade to latest VIM
+sudo add-apt-repository ppa:jonathonf/vim && sudo apt update && sudo apt install vim
+
+# Installation
+
+export REPO="/home/aaf/Software/Dev/sysangel/files"
+mkdir -p $HOME/.vim/colors
+ln -s $REPO/monokai_of_mine.vim /home/aaf/.vim/colors/monokai_of_mine.vim
+vim +PlugInstall
+
+
