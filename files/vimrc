@@ -17,22 +17,26 @@ endif
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
-Plug 'rust-lang/rust.vim'
 Plug 'BurntSushi/ripgrep'
-Plug 'maxboisvert/vim-simple-complete'
 Plug 'flazz/vim-colorschemes'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+Plug 'maxboisvert/vim-simple-complete'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pedrohdz/vim-yaml-folds'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prettier/vim-prettier'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
-Plug 'pedrohdz/vim-yaml-folds'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()"-" 
 "-"  " To install:
@@ -40,7 +44,20 @@ call plug#end()"-"
 "-"  " vim +PluginInstall +qall
 
 "-" " #### COC Plugins
-let g:coc_global_extensions = ['coc-go', 'coc-json', 'coc-pyright', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-go', 'coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh']
+
+"-" for terraform:
+"   cd ~/.config/coc/extensions
+"   git clone https://github.com/juliosueiras/terraform-lsp && cd terraform-lsp
+"   GO111MODULE=on go mod download
+"   make && make copy DST="$HOME/.local/bin"
+if executable('terraform-lsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'terraform-lsp',
+        \ 'cmd': {server_info->['terraform-lsp', 'serve']},
+        \ 'whitelist': ['terraform'],
+        \ })
+endif
 
 filetype plugin indent on " required
 

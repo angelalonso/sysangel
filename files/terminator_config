@@ -35,12 +35,12 @@
   group_tab = <Primary>g
 [profiles]
   [[default]]
-    background_color = "#403e41"
+    background_color = "#292829"
     cursor_color = "#fcfcfa"
     cursor_color_fg = False
     font = FantasqueSansMono Nerd Font Mono 13
     foreground_color = "#fcfcfa"
-    palette = "#403e41:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa:#727072:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa"
+    palette = "#292829:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa:#727072:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa"
     use_system_font = False
     copy_on_selection = True
   [[prev-default]]
