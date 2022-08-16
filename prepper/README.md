@@ -127,6 +127,13 @@ sudo usermod -aG kismet $USER # include your user in the kismet group
 sudo reboot
 
 groups # test it worked
+
+sudo ip link set wlan0 down
+sudo iw wlan0 set monitor none
+sudo ip link set wlan0 up
+
+kismet -c wlan0
+
 ------------------ Reviewed until here
 Cannot open mailbox /var/mail/freeman: Permission denied
 
