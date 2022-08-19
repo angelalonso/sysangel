@@ -79,6 +79,8 @@ alias gos='cd /home/aaf/Software'
 alias god='cd /home/aaf/Software/Dev'
 alias gow='cd /home/aaf/Software/Work'
 alias gor='cd /home/aaf/Software/Dev/robot/brain'
+alias gox='cd /home/aaf/Software/Dev/Templates/Rust/tcprust'
+alias gom='cd /home/aaf/Documents/000_FINANZ/MÜLLROSE/'
 source /opt/ros/rolling/setup.zsh
 
 # Kill all running containers.

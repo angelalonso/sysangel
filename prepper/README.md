@@ -34,7 +34,26 @@ $ sudo raspi-config
 
 ## Update, upgrade, install the basics
 ```
-$ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install vim git
+$ sudo apt-get update && sudo apt-get upgrade && sudo apt-get install vim git unattended-upgrades mailutils
+```
+- Get your user to be notified
+```
+$ sudo vim /etc/apt/apt.conf.d/50unattended-upgrades # then uncomment and modify the following:
+Unattended-Upgrade::Mail "youruser";
+```
+- Set a periodic upgrade
+```
+$ sudo vim /etc/apt/apt.conf.d/02periodic # Then add the following:
+APT::Periodic::Enable "1";
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "1";
+APT::Periodic::Verbose "2";
+```
+- Test and debug with
+```
+$ sudo unattended-upgrades -d
 ```
   
 ## Strengthen SSH
@@ -75,13 +94,48 @@ $ sudo vim /etc/default/ufw
 ```
 IPV6=yes  
 ```  
+- Allow pinging 'out'
+```
+$ sudo vim /etc/ufw/before.rules # and add the following:
+
+# ok icmp codes for OUTPUT
+-A ufw-before-output -p icmp --icmp-type destination-unreachable -j ACCEPT
+-A ufw-before-output -p icmp --icmp-type time-exceeded -j ACCEPT
+-A ufw-before-output -p icmp --icmp-type parameter-problem -j ACCEPT
+-A ufw-before-output -p icmp --icmp-type echo-request -j ACCEPT
+```
 - Configure default config  
 ```
 $ sudo ufw default deny incoming  
-$ sudo ufw default allow outgoing  
+$ sudo ufw default deny outgoing  
 $ sudo ufw allow ${SSH_PORT}  
+$ sudo ufw allow out 53 # DNS
+$ sudo ufw allow out 80 # needed at least for apt updates
+$ sudo ufw allow out 443 # if 80 is open, we could as well open 443
 $ sudo ufw enable  
 ```
+
+## Kismet
+https://github.com/azmatt/chasing_your_tail/blob/main/prereqs.pdf
+
+sudo apt-get update && sudo apt-get upgrade
+wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
+echo "deb https://www.kismetwireless.net/repos/apt/release/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/kismet.list
+sudo apt-get update
+sudo apt-get install kismet
+sudo usermod -aG kismet $USER # include your user in the kismet group
+sudo reboot
+
+groups # test it worked
+
+sudo ip link set wlan0 down
+sudo iw wlan0 set monitor none
+sudo ip link set wlan0 up
+
+kismet -c wlan0
+
+------------------ Reviewed until here
+Cannot open mailbox /var/mail/freeman: Permission denied
 
 # Make Raspberry connect to LAN through Wi-Fi
 Connect your Wifi dongle.  
