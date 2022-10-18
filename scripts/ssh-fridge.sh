@@ -11,7 +11,7 @@ function enable-keys {
   if [ "$1" == "" ]; then
     echo " Which key do you want to enable?:"
     echo 
-    LIST=$(grep KEY $SSHFRIDGEPATH/* 2>/dev/null | awk -F":" '{print $1}' | sort | uniq)
+    LIST=$(grep -l KEY $SSHFRIDGEPATH/* 2>/dev/null | sort | uniq)
     for i in $LIST; do
       echo "$i"
     done
@@ -27,7 +27,8 @@ function enable-keys {
 
 function disable-all-keys {
   mkdir -p $SSHFRIDGEPATH
-  LIST=$(grep KEY $SSHPATH/* 2>/dev/null | awk -F":" '{print $1}' | sort | uniq)
+  #LIST=$(grep KEY $SSHPATH/* 2>/dev/null | awk -F":" '{print $1}' | sort | uniq)
+  LIST=$(grep -l KEY $SSHPATH/* 2>/dev/null | sort | uniq)
   for i in $LIST; do
     GREENED=False
     for j in $(cat $GREENLIST); do
