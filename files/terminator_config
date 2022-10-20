@@ -1,10 +1,17 @@
 [global_config]
-  window_state = maximise
+  window_state = fullscreen
+  borderless = True
+  extra_styling = False
+  tab_position = hidden
+  scroll_tabbar = True
+  homogeneous_tabbar = False
+  title_at_bottom = True
+  title_hide_sizetext = True
   suppress_multiple_term_dialog = True
   title_use_system_font = False
   title_font = Fantasque Sans Mono 11
 [keybindings]
-  new_tab = <Super>t
+  new_tab = None
   go_next = None
   go_prev = None
   go_up = <Alt><Super>Up
@@ -33,8 +40,11 @@
   switch_to_tab_6 = None
   switch_to_tab_10 = None
   group_tab = <Primary>g
+  layout_launcher = ""
 [profiles]
   [[default]]
+    show_titlebar = false
+    icon_bell = False
     background_color = "#292829"
     cursor_color = "#fcfcfa"
     cursor_color_fg = False
@@ -42,6 +52,8 @@
     foreground_color = "#fcfcfa"
     scrollback_infinite = True
     palette = "#292829:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa:#727072:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa"
+    use_custom_command = True
+    custom_command = /home/angel.alonso/Software/Dev/sysangel/scripts/tv
     use_system_font = False
     copy_on_selection = True
   [[prev-default]]

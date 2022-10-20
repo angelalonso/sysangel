@@ -114,11 +114,8 @@ set expandtab
 "-" " CoC 
 let b:coc_suggest_disable = 1
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-"-" " Rust
+inoremap <silent><expr> <TAB> coc#pum#visible() ?  coc#pum#confirm() : "\<C-n>"
+" " Rust
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0

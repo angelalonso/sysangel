@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+# check if there are open sessions and offer to join one
+PREV_SESSIONS=$(tmux ls &>/dev/null; echo $?)
+if [ $PREV_SESSIONS -eq 0 ]; then
+  tmux ls
+  echo "choose a session number to join, N to create a new one"
+  read;
+  echo $REPLY
+  tmux attach-session -t $REPLY || tmux new-session
+else
+  tmux new-session
+fi
 
-tmux new-session "vim $(pwd)/$1"
+#tmux new-session "vim $(pwd)/$1"
 
