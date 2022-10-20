@@ -146,6 +146,9 @@ let g:vimwiki_list = [{'path': '$HOME/Software/Dev/wiki'}]
 "-" " ####  MAP KEYS
 "-" 
 let mapleader = " " " map leader to Space
+"-" Splits
+set splitbelow
+set splitright
 "-" 
 map <leader>h :noh<CR>
 "-" 
