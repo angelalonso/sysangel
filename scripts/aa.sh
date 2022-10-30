@@ -8,9 +8,9 @@ function run_alarm {
   ./alarm.sh
 }
 
-fn[ssh]=run_ssh
-function run_ssh {
-  echo "ssh script TBD"
+fn[repo]=run_multirepo
+function run_multirepo {
+  ./multirepo.sh
 }
 
 fn[ssh]=run_ssh
