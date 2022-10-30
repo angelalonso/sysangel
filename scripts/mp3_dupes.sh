@@ -14,7 +14,7 @@ do
   else
     if [ -s $MP3FILENAME ]; then
       echo "- REMOVING $i, $MP3FILENAME exists"
-#      rm $i
+      rm $i
 #      echo -n ""
 #    else
 #      echo "- $MP3FILENAME size is ZERO"
