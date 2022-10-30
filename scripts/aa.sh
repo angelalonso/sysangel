@@ -10,7 +10,12 @@ function run_alarm {
 
 fn[ssh]=run_ssh
 function run_ssh {
-  echo "running ssh stuff"
+  echo "ssh script TBD"
+}
+
+fn[ssh]=run_ssh
+function run_ssh {
+  echo "ssh script TBD"
 }
 
 function check_fn {
