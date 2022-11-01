@@ -8,9 +8,10 @@ else
   REPOGREP=$1
 fi
 
+
 CWD=$(pwd)
 for i in $(ls $BASEPATH | grep $REPOGREP); do
-  printf "$i \t- "
+  printf "$BASEPATH/$i \t- "
   cd $BASEPATH/$i && git branch --show-current
   cd $CWD
 done
