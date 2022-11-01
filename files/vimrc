@@ -34,6 +34,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prettier/vim-prettier'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'vifm/vifm.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -184,6 +185,12 @@ vnoremap <Down> :<C-u>echo "No Down for you!"<CR>
 "-" "http://stackoverflow.com/questions/2295410/prevent-cursor-from-moving-back-one-character-on-insert-mode-exit
 :inoremap <silent> <Esc> <Esc>`^
 "-" 
+"-" Map vifm
+nmap <leader>f :Vifm<cr>
+let g:vifm_replace_netrw = 1
+let g:vifm_replace_netrw_cmd = "Vifm"
+let g:vifm_embed_term = 1
+let g:vifm_embed_split = 1"
 "-" 
 "-" " Powerline configs 
 let g:airline_powerline_fonts = 1
