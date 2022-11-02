@@ -17,7 +17,8 @@ declare -A hlp
 fn[alarm]=run_alarm
 hlp[alarm]="add an alarm at a given time of the day (HH:MM)"
 function run_alarm {
-  $CWD/alarm.sh
+  shift 1
+  $CWD/alarm.sh $@ 
 }
 
 fn[ip]=run_getip
@@ -26,25 +27,39 @@ function run_getip {
   curl curlmyip.net
 }
 
+fn[moon]=run_moon
+hlp[moon]="show moon phase"
+function run_moon {
+  curl https://wttr.in/Moon
+}
+
 fn[repo]=run_multirepo
 hlp[repo]="show the branches on a list of repos from a given work directory"
 function run_multirepo {
-  $CWD/multirepo.sh
+  shift 1
+  $CWD/multirepo.sh "$@"
 }
 
-fn[ssh]=run_ssh
+fn[test]=run_test
 hlp[ssh]="to be determined"
-function run_ssh {
-  echo "ssh script TBD"
+function run_test {
+  shift 1
+  echo parameters: "$@"
+}
+
+fn[weather]=run_weather
+hlp[weather]="show weather for Berlin"
+function run_weather {
+  curl https://wttr.in/Berlin,Germany
 }
 
 function check_fn {
-  ${fn[$1]}
+  ${fn[$1]} "$@"
 }
 
 function menu {
   chosen=$(for i in "${!fn[@]}"; do echo $i; done | fzf)
-  ${fn[$chosen]}
+  ${fn[$chosen]} 
 }
 
 function help {
@@ -59,7 +74,7 @@ function help {
 if [[ $# == 0 ]]; then
   menu
 else
-  check_fn $1
+  check_fn "$@"
 fi
 
 
