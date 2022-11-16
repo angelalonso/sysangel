@@ -98,6 +98,7 @@ apt_install() {
   vim-gtk \
   vlc \
   wine \
+  xsel \
   xterm \
   zip \
   zsh
