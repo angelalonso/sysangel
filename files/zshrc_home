@@ -35,8 +35,8 @@ bindkey "\e[1;3D" backward-word
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-export AWS_ACCESS_KEY_ID="AKIAUFSCD5SJ6ODW74QJ"
-export AWS_SECRET_ACCESS_KEY="Z7jwbGZtX8qZbWp1sse8F2du2GMSpfy7xpIG7WSC"
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
