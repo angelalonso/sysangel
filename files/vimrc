@@ -47,6 +47,8 @@ call plug#end()"-"
 "-"  " :PlugInstall
 "-"  " vim +PluginInstall +qall
 
+let g:asyncomplete_auto_popup = 0
+autocmd FileType * let b:coc_suggest_disable = 1
 "-" " #### COC Plugins
 let g:coc_global_extensions = ['coc-go', 'coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-markdownlint']
 
