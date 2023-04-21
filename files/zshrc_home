@@ -1,7 +1,7 @@
 # SYSANGEL VERSION
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Software/Dev/sysangel/scripts:/usr/local/go/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Software/Dev/sysangel/scripts:/usr/local/go/bin:$HOME/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/aaf/.oh-my-zsh
@@ -35,6 +35,8 @@ bindkey "\e[1;3D" backward-word
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+export AWS_ACCESS_KEY_ID="AKIAUFSCD5SJ6ODW74QJ"
+export AWS_SECRET_ACCESS_KEY="Z7jwbGZtX8qZbWp1sse8F2du2GMSpfy7xpIG7WSC"
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
@@ -46,21 +48,19 @@ bindkey "\e[1;3D" backward-word
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias lh="ls -lha"
 alias xclip="xclip -selection c"
 alias watch="watch "
 alias io="while true; do date; ps auxf | awk '{if(\$8==\"D\") print \$0;}'; sleep 1; done"
-alias wv='vim -c VimwikiIndex'
 alias lvim='/home/aaf/.local/bin/lvim'
 alias lv='lvim'
 alias oldvim='/usr/bin/vim'
 alias wk='vim $HOME/Dropbox/data/Vimwiki/index.wiki'
 alias dupes='find -not -empty -type f -printf "%s\n" |sort -rn | uniq -d | xargs -I{} -n1  find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate'
 
-# Kubernetes
-alias kk="sudo k3s kubectl "
-alias k3s-stop="sudo systemctl stop k3s"
-alias k3s-start="sudo systemctl start k3s"
-alias k3s-status="sudo systemctl status k3s"
+# K8s
+alias kk="minikube kubectl --"
+
 
 ws() {
   grep $1 -R -T $HOME/Software/Dev/wiki/*
@@ -70,21 +70,21 @@ zs() {
   grep $1 -R -T $HOME/Dropbox/data/Notes/*
 }
 
-if [[ $(uname) == "Linux" ]]; then
-  USBPATH="/media/$USER/1G"
-fi
-alias go1='cd ${USBPATH}'
-
-alias gos='cd /home/aaf/Software'
 alias god='cd /home/aaf/Software/Dev'
-alias gow='cd /home/aaf/Software/Work'
-alias gor='cd /home/aaf/Software/Dev/robot/brain'
-alias gox='cd /home/aaf/Software/Dev/robot/circuits'
+alias gog='cd /home/aaf/Software/Dev/Templates/golang/learn_go'
+alias goi='cd /home/aaf/Documents/000_JOBS/INTERVIEWS/'
 alias gom='cd /home/aaf/Documents/000_FINANZ/MÜLLROSE/'
+alias gor='cd /home/aaf/Software/Dev/robot'
+alias gos='cd /home/aaf/Software'
+alias got='cd /home/aaf/Software/Dev/terraform_aws/modules/kms/'
+alias gox='cd /home/aaf/Software/Dev/robot/circuits'
+
+alias wv='vim -c VimwikiIndex'
+alias gowv='cd /home/aaf/Software/Dev/wiki'
 source /opt/ros/rolling/setup.zsh
 
 # Kill all running containers.
-alias dockerkillall='d kill $(docker ps -q)'
+alias dockerkillall='docker kill $(docker ps -q)'
 
 # Delete all stopped containers.
 alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q -f status=exited)'

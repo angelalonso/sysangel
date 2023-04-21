@@ -44,14 +44,12 @@
 [profiles]
   [[default]]
     icon_bell = False
-    background_color = "#292829"
     cursor_color = "#fcfcfa"
     cursor_color_fg = False
     font = FantasqueSansMono Nerd Font Mono 13
-    foreground_color = "#fcfcfa"
     show_titlebar = False
     scrollback_infinite = True
-    palette = "#292829:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa:#727072:#ff6188:#a9dc76:#ffd866:#fc9867:#ab9df2:#78dce8:#fcfcfa"
+    palette = "#000000:#ef2929:#8ae234:#fcaf3e:#729fcf:#ad7fa8:#78dce8:#d3d7cf:#555753:#ff7f7f:#cbf0a6:#fce94f:#addbe2:#eca0f8:#97dfd6:#eeeeec"
     use_custom_command = True
     custom_command = $HOME/Software/Dev/sysangel/scripts/tv
     use_system_font = False
