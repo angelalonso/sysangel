@@ -32,3 +32,6 @@ else
       esac
   done
 fi
+echo 
+echo "DONE! Press <Enter> to close this window..."
+read ans
