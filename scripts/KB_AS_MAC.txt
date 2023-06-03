@@ -1,0 +1,12 @@
+- run kb_switch.sh
+id=$(xinput -list | grep 'Angel Alonso' | cut -f 2 | cut -d= -f 2)
+setxkbmap -device $id -layout de -variant nodeadkeys -option "altwin:swap_lalt_lwin" 
+- run import of all keybindings
+./get_keybindings_gnome.pl -i current_keys.csv
+  - to export current changes: ./get_keybindings_gnome.pl -e current_keys.csv
+- install autokey-gtk
+- Link to ./files/autokey-gtk
+ln -s ${HOME}/Software/Dev/sysangel/files/autokey-gtk ${HOME}/.config/autokey/data/My\ Phrases
+- Link terminator config to ./files/terminator_~/.config/terminator/config
+ln -s ${HOME}/Software/Dev/sysangel/files/terminator_config ${HOME}/.config/terminator/config
+

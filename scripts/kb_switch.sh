@@ -5,8 +5,10 @@ switch_to_int () {
     echo Setting $id MAIN
     # NOTE: I swap Left Alt and Left Win to make the layout mroe similar to Mac's
     setxkbmap -device $id -layout de -variant nodeadkeys -option "altwin:swap_lalt_lwin" 
-      #setxkbmap -device $id -layout de -option altwin:swap_lalt_lwin -option lv3:lalt_switch
-      #setxkbmap -device $id -layout de -option altwin:swap_alt_win
+    #setxkbmap -device $id -layout de -variant nodeadkeys -option "ctrl:swap_lwin_lctl" -option "altwin:swap_lalt_lwin" FAILS
+    #setxkbmap -device $id -layout de -variant nodeadkeys -option "ctrl:swap_lalt_lctl_lwin"
+    #setxkbmap -device $id -layout de -option altwin:swap_lalt_lwin -option lv3:lalt_switch
+    #setxkbmap -device $id -layout de -option altwin:swap_alt_win
   done
 }
 
@@ -15,6 +17,9 @@ switch_to_ext () {
     echo Setting $id EXT
     setxkbmap -device $id -layout us -variant mac
   done
+  echo 
+  echo "DONE! Press <Enter> to close this window..."
+  read ans
 }
 
 # NOTE: All this is because I cannot have two separate sets and work simultaneously (Eg: I switch Alt and Win for internal, and external has it swapped too)
@@ -32,6 +37,3 @@ else
       esac
   done
 fi
-echo 
-echo "DONE! Press <Enter> to close this window..."
-read ans
