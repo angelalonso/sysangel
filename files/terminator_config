@@ -35,7 +35,7 @@
   next_tab = None
   prev_tab = None
   switch_to_tab_1 = None
-  switch_to_tab_2 = None 
+  switch_to_tab_2 = None
   switch_to_tab_3 = None
   switch_to_tab_4 = None
   switch_to_tab_5 = None
@@ -44,6 +44,9 @@
   group_tab = None
   new_window = None
   new_terminator = None
+  broadcast_off = None
+  broadcast_group = None
+  broadcast_all = None
   edit_window_title = None
   layout_launcher = ""
 [profiles]

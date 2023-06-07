@@ -39,6 +39,7 @@ export AWS_ACCESS_KEY_ID=""
 export AWS_SECRET_ACCESS_KEY=""
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+export HAB_ORIGIN=aaf_trychefhabitat
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -75,8 +76,9 @@ alias gog='cd /home/aaf/Software/Dev/Templates/golang/learn_go'
 alias goi='cd /home/aaf/Documents/000_JOBS/INTERVIEWS/'
 alias gom='cd /home/aaf/Documents/000_FINANZ/MÜLLROSE/'
 alias gor='cd /home/aaf/Software/Dev/robot'
+alias goh='cd /home/aaf/Software/Dev/homelab/current'
 alias gos='cd /home/aaf/Software'
-alias got='cd /home/aaf/Software/Dev/terraform_aws/modules/kms/'
+alias goc='cd /home/aaf/Software/Dev/homelab/202304_cluster/000_prometheus-grafana/'
 alias gox='cd /home/aaf/Software/Dev/robot/circuits'
 
 alias wv='vim -c VimwikiIndex'

@@ -46,6 +46,8 @@ call plug#end()"-"
 "-"  " To install:
 "-"  " :PlugInstall
 "-"  " vim +PluginInstall +qall
+"-" " Splits master key
+:nnoremap <C-a> <C-w>
 
 let g:asyncomplete_auto_popup = 0
 autocmd FileType * let b:coc_suggest_disable = 1
