@@ -46,7 +46,10 @@ call plug#end()"-"
 "-"  " To install:
 "-"  " :PlugInstall
 "-"  " vim +PluginInstall +qall
-"-" " Splits master key
+"
+"-" " Splits master key are now ALT+a
+"-"    This is needed to map ALT+something correctly"
+"-"  execute "set <M-a>=\ea"
 :nnoremap <C-a> <C-w>
 
 let g:asyncomplete_auto_popup = 0

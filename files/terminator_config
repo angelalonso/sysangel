@@ -41,6 +41,8 @@
   switch_to_tab_5 = None
   switch_to_tab_6 = None
   switch_to_tab_10 = None
+  hide_window = None
+  group_all = None
   group_tab = None
   new_window = None
   new_terminator = None
@@ -48,6 +50,8 @@
   broadcast_group = None
   broadcast_all = None
   edit_window_title = None
+  edit_tab_title = None
+  edit_terminal_title = None
   layout_launcher = ""
 [profiles]
   [[default]]
