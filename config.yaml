@@ -1,1 +1,5 @@
-CHEF_PCKGS: 'vim'
+USER: 'Test'
+CHEF_PCKGS: 
+  - 'curl'
+  - 'git'
+  - 'zip'
