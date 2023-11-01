@@ -1,53 +1,63 @@
-apt_update 'Update the apt cache' do action end
+#apt_update 'Update the apt cache' do action end
+#
+#directory 'test' do
+#  owner 'aaf'
+#  group 'aaf'
+#  mode '0755'
+#  action :create
+#end
+#
+#package %w(
+#apt-transport-https
+#arp-scan
+#bat
+#chromium-browser
+#cryfs
+#curl
+#exa
+#exfat-fuse
+#exfatprogs
+#expect
+#fabric
+#gimp
+#git 
+#gnupg2
+#htop
+#inkscape
+#iotop
+#jq
+#mtr
+#net-tools
+#nmap
+#openssh-client
+#passwd
+#pcsxr
+#pwgen
+#supertuxkart
+#tcptraceroute
+#terminator
+#unzip
+#vim 
+#vim-gtk
+#vlc
+#xsel
+#xterm
+#zip
+#zsh
+#) do
+#    action :install
+#end
+require 'yaml'
+pwd = File.expand_path File.dirname(__FILE__)
+conf = YAML.load(File.read("#{pwd}/../config.yaml"))
+puts "----------------------------"
+puts conf['CHEF_PCKGS']
+puts "----------------------------"
 
-directory 'test' do
-  owner 'aaf'
-  group 'aaf'
-  mode '0755'
-  action :create
-end
-
-package %w(
-apt-transport-https
-arp-scan
-bat
-chromium-browser
-cryfs
-curl
-exa
-exfat-fuse
-exfatprogs
-expect
-fabric
-gimp
-git 
-gnupg2
-htop
-inkscape
-iotop
-jq
-mtr
-net-tools
-nmap
-openssh-client
-passwd
-pcsxr
-pwgen
-supertuxkart
-tcptraceroute
-terminator
-unzip
-vim 
-vim-gtk
-vlc
-xsel
-xterm
-zip
-zsh
-) do
-    action :install
-end
-
+#package %w(
+#) do
+#    action :install
+#end
 # variables locally (copy over with chef.sh)
 # Use those variables to create Folders
 # Secrets, keys...
