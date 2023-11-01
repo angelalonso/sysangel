@@ -157,16 +157,6 @@ install_scripts() {
     log_txt aok "$FUNC"
   fi
 ############################
-  # Rambox
-  FUNC="Installing Rambox"
-  log_txt a "$FUNC"
-  sudo snap install rambox
-  if [ $? != 0 ]; then
-    log_txt aerr "$FUNC"
-  else
-    log_txt aok "$FUNC"
-  fi
-############################
   # Etcher
   FUNC="Installing Etcher"
   log_txt a "$FUNC"
@@ -204,26 +194,6 @@ install_scripts() {
     log_txt aok "$FUNC"
   fi
 ############################
-  # MicroK8s
-  FUNC="Installing MicroK8s"
-  log_txt a "$FUNC"
-  sudo snap install microk8s --classic
-  if [ $? != 0 ]; then
-    log_txt aerr "$FUNC"
-  else
-    log_txt aok "$FUNC"
-  fi
-############################
-  # Dropbox
-  FUNC="Installing Dropbox"
-  log_txt a "$FUNC"
-  ./scripts/dropbox.sh
-  if [ $? != 0 ]; then
-    log_txt aerr "$FUNC"
-  else
-    log_txt aok "$FUNC"
-  fi
-############################
   # Wine -> Trackmania
   FUNC="Installing Wine with trackmania Nations Forever"
   log_txt a "$FUNC"
@@ -247,18 +217,48 @@ install_scripts() {
     log_txt aok "$FUNC"
   fi
 ############################
-  # Lunar Vim
-  FUNC="Installing Lunar Vim"
-  log_txt a "$FUNC"
-  sudo add-apt-repository ppa:neovim-ppa/stable
-  sudo apt-get update
-  sudo apt-get install neovim
-  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-  if [ $? != 0 ]; then
-    log_txt aerr "$FUNC"
-  else
-    log_txt aok "$FUNC"
-  fi
+ # # Rambox
+ # FUNC="Installing Rambox"
+ # log_txt a "$FUNC"
+ # sudo snap install rambox
+ # if [ $? != 0 ]; then
+ #   log_txt aerr "$FUNC"
+ # else
+ #   log_txt aok "$FUNC"
+ # fi
+############################
+ # # MicroK8s
+ # FUNC="Installing MicroK8s"
+ # log_txt a "$FUNC"
+ # sudo snap install microk8s --classic
+ # if [ $? != 0 ]; then
+ #   log_txt aerr "$FUNC"
+ # else
+ #   log_txt aok "$FUNC"
+ # fi
+############################
+ # # Dropbox
+ # FUNC="Installing Dropbox"
+ # log_txt a "$FUNC"
+ # ./scripts/dropbox.sh
+ # if [ $? != 0 ]; then
+ #   log_txt aerr "$FUNC"
+ # else
+ #   log_txt aok "$FUNC"
+ # fi
+############################
+  ## Lunar Vim
+  #FUNC="Installing Lunar Vim"
+  #log_txt a "$FUNC"
+  #sudo add-apt-repository ppa:neovim-ppa/stable
+  #sudo apt-get update
+  #sudo apt-get install neovim
+  #bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+  #if [ $? != 0 ]; then
+  #  log_txt aerr "$FUNC"
+  #else
+  #  log_txt aok "$FUNC"
+  #fi
   ####
   # Steam
   # Golang
@@ -279,11 +279,6 @@ latest_considerations() {
   log_txt warnlistb "Copy them over from your backups"
   log_txt warnlista "Firefox"
   log_txt warnlistb "Import your GPG Keys to Mailvelope"
-  log_txt warnlista "Rambox"
-  log_txt warnlistb "Configure your accounts"
-  log_txt warnlista "Dropbox"
-  log_txt warnlistb "Configure your accounts"
-  log_txt warnlistb "Configure autolaunch"
   log_txt warnlista "Gnome"
   log_txt warnlistb "Set CTRL-ALT-W to open Webbrowser"
   log_txt warnlistb "Set CTRL-ALT-F to open File browser"

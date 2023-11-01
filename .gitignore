@@ -5,3 +5,4 @@ TMP/
 *.swp
 *.pyc
 files/xfce/xfce4/desktop/icons.screen*
+nodes/
