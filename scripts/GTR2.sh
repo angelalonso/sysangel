@@ -1,0 +1,1 @@
+/home/aaf/Software/Dev/linux_simracing/GTR2/GTR2.sh

@@ -1,5 +1,5 @@
 [global_config]
-  window_state = maximise
+  window_state = fullscreen
   borderless = True
   extra_styling = False
   scroll_tabbar = True
