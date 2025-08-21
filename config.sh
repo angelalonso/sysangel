@@ -11,4 +11,7 @@
 # mkdir -p ~/.config/nvim
 # # CONFIG
 # cp -R cfgfiles/nvim/* ~/.config/nvim/
+wget https://github.com/LuaLS/lua-language-server/releases/download/3.15.0/lua-language-server-3.15.0-linux-x64.tar.gz
+tar -xzf lua-language-server-3.15.0-linux-x64.tar.gz -C $HOME/Software/lua-language-server
+cp ./00_files/usr_local_bin_lua-language-server $HOME/.local/bin/lua-language-server
 
