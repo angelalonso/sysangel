@@ -1,0 +1,4 @@
+install dconf-editor
+run it, get to /org/gnome/shell/keybindings/ and make the keys []
+remove gnome-shell-extension-ubuntu-dock
+gsettings set org.gnome.mutter overlay-key 'Super_R'

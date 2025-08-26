@@ -1,0 +1,33 @@
+MOD SHIFT e - Logout
+MOD Shift c - reload the configuration file
+MOD Shift r - restart i3 inplace
+MOD Shift e - exit i3
+
+MOD d - open application launcher (dmenu)
+MOD Shift q - kill a window
+MOD Enter - New Terminal
+
+MOD j - focus left
+MOD k - focus down
+MOD l - focus up
+MOD ; - focus right
+MOD a - focus parent
+MOD Space - toggle focus mode
+
+MOD Shift j - move window left
+MOD Shift k - move window down
+MOD Shift l - move window up
+MOD Shift ; - move window right
+
+MOD f - toggle fullscreen
+MOD v - split a window vertically
+MOD h - split a window horizontally
+MOD r - resize mode
+
+Changing the container layout
+MOD e - default container layout
+MOD s - stacking container layout
+MOD w - tabbed container layout
+
+MOD 0-9 - switch to another workspace
+MOD Shift 0-9 - move a window to another workspace
