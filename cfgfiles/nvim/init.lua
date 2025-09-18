@@ -1,3 +1,12 @@
+local original_require = require
+require = function(modname)
+  if modname == 'lspconfig' then
+    print("DEBUG: lspconfig required from:", debug.traceback())
+  end
+  return original_require(modname)
+end
+
+
 require("config.lazy")
 
 -- Editing
@@ -10,23 +19,68 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.api.nvim_create_user_command('FindFiles', function()
-	require('telescope.builtin').find_files()
+  require('telescope.builtin').find_files()
 end, {})
 
 -- LSP configs
 -- Define the custom on_attach function
-local on_attach = function(client, bufnr)
-	client.server_capabilities.documentFormattingProvider = false
-	client.server_capabilities.documentRangeFormattingProvider = false
+-- -- local on_attach = function(client, bufnr)
+-- -- 	client.server_capabilities.documentFormattingProvider = false
+-- -- 	client.server_capabilities.documentRangeFormattingProvider = false
+-- --
+-- -- 	vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
+-- -- 		vim.lsp.buf.format({
+-- -- 			filter = function(server) return server.name == client.name end,
+-- -- 			async = true,
+-- -- 			opts = { indent_width = vim.opt.shiftwidth:get() } -- Reuses your shiftwidth=2
+-- -- 		})
+-- -- 	end, { desc = 'Format current buffer with LSP' })
+-- -- end
 
-	vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
-		vim.lsp.buf.format({
-			filter = function(server) return server.name == client.name end,
-			async = true,
-			opts = { indent_width = vim.opt.shiftwidth:get() } -- Reuses your shiftwidth=2
-		})
-	end, { desc = 'Format current buffer with LSP' })
+-- -- require('lspconfig').lua_ls.setup({ on_attach = on_attach })
+-- -- require('lspconfig').pyright.setup({ on_attach = on_attach })
+
+-- LSP configs
+-- Define the custom on_attach function
+local on_attach = function(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
+
+  vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
+    vim.lsp.buf.format({
+      filter = function(server) return server.name == client.name end,
+      async = true,
+      opts = { indent_width = vim.opt.shiftwidth:get() } -- Reuses your shiftwidth=2
+    })
+  end, { desc = 'Format current buffer with LSP' })
 end
 
-require('lspconfig').lua_ls.setup({ on_attach = on_attach })
-require('lspconfig').pyright.setup({ on_attach = on_attach })
+-- Configure LSP servers using the new vim.lsp.start API
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+-- Lua LS configuration
+vim.lsp.start({
+  name = 'lua_ls',
+  cmd = { 'lua-language-server' },
+  root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'init.lua' }, { upward = true })[1]),
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      diagnostics = { globals = { 'vim' } },
+      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+      telemetry = { enable = false },
+    }
+  }
+})
+
+-- Pyright configuration
+vim.lsp.start({
+  name = 'pyright',
+  cmd = { 'pyright-langserver', '--stdio' },
+  root_dir = vim.fs.dirname(vim.fs.find({ 'pyproject.toml', 'setup.py', 'requirements.txt', '.git' }, { upward = true })
+    [1]),
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
