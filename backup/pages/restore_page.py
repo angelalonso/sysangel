@@ -15,7 +15,7 @@ class RestorePage(BasePage):
         self.back_btn.pack(side="left", padx=10, pady=10)
         
         self.title_label = ctk.CTkLabel(self.header_frame, 
-                                       text="Restore", 
+                                       text="Basic Backup - Restore", 
                                        font=("Arial", 20, "bold"))
         self.title_label.pack(side="left", padx=20, pady=10)
         

@@ -1,0 +1,14 @@
+appearance:
+  mode: System
+  theme: blue
+application:
+  auto_save: true
+  language: en
+  notifications: true
+backup:
+  compression: true
+  default_type: full
+  encryption: false
+restore:
+  create_backup_before_restore: true
+  verification: true

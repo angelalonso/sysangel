@@ -1,17 +1,22 @@
 import customtkinter as ctk
+from config.config_manager import config_manager
 from pages.home_page import HomePage
 from pages.configure_page import ConfigurePage
 from pages.backup_page import BackupPage
 from pages.restore_page import RestorePage
 
-ctk.set_appearance_mode("System")
-ctk.set_default_color_theme("blue")
-
 class MainApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         
-        self.title("Simple Backup")
+        # Load appearance mode from config
+        appearance_mode = config_manager.get('appearance.mode', "System")
+        theme = config_manager.get('appearance.theme', "blue")
+        
+        ctk.set_appearance_mode(appearance_mode)
+        ctk.set_default_color_theme(theme)
+        
+        self.title("Basic Backup")
         self.geometry("800x600")
         self.minsize(700, 500)
         
@@ -36,4 +41,14 @@ class MainApp(ctk.CTk):
         """Show the specified page and hide others"""
         page = self.pages[page_name]
         page.tkraise()
-        page.on_page_show()  # Notify page that it's being shown
+        page.on_page_show()
+    
+    def update_appearance_mode(self, mode: str):
+        """Update appearance mode and save to config"""
+        ctk.set_appearance_mode(mode)
+        config_manager.set('appearance.mode', mode)
+    
+    def update_theme(self, theme: str):
+        """Update color theme and save to config"""
+        ctk.set_default_color_theme(theme)
+        config_manager.set('appearance.theme', theme)
