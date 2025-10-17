@@ -9,6 +9,8 @@ backup:
   compression: true
   default_type: full
   encryption: false
+  media:
+  - /media/aaf/TESTIESS
 restore:
   create_backup_before_restore: true
   verification: true

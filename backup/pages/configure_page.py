@@ -1,10 +1,11 @@
 import customtkinter as ctk
 from tkinter import messagebox, filedialog
+import os
 import logging
 from config.config_manager import config_manager
 from .base_page import BasePage
 from utils.ui_utils import setup_scrollable_content, create_responsive_grid, create_section_header
-from utils.media_utils import MediaDialog
+from utils.media_utils import MediaDialogWithTiers
 
 class ConfigurePage(BasePage):
     def setup_ui(self):
@@ -22,17 +23,16 @@ class ConfigurePage(BasePage):
         self.main_content, self.scrollable_frame = setup_scrollable_content(self)
         
         # Configure scrollable frame grid
-        create_responsive_grid(self.scrollable_frame, rows=10, cols=3)
+        create_responsive_grid(self.scrollable_frame, rows=12, cols=3)
         
         # Create all sections
-        self._create_appearance_section()
+        self._create_tier_section()
         self._create_media_section()
-        self._create_application_section()
         self._create_management_section()
         self._create_status_section()
         
-        # Load configured media on page show
-        self.load_configured_media()
+        # Load configured data on page show
+        self.load_configured_data()
     
     def _create_header(self):
         """Create the page header"""
@@ -50,36 +50,24 @@ class ConfigurePage(BasePage):
                                        font=("Arial", 20, "bold"))
         self.title_label.pack(side="left", padx=20, pady=10)
     
-    def _create_appearance_section(self):
-        """Create appearance settings section"""
+    def _create_tier_section(self):
+        """Create backup tier configuration section"""
         # Section header
-        create_section_header(self.scrollable_frame, "Appearance Settings:", 0, columnspan=3)
+        create_section_header(self.scrollable_frame, "Backup Tiers:", 0, columnspan=3)
         
-        # Appearance mode
-        ctk.CTkLabel(self.scrollable_frame, 
-                    text="Appearance Mode:",
-                    font=("Arial", 14)).grid(row=1, column=0, sticky="w", padx=10, pady=5)
+        # Description
+        desc_label = ctk.CTkLabel(self.scrollable_frame,
+                                 text="Configure three backup tiers with different data priorities:",
+                                 font=("Arial", 12),
+                                 text_color="gray70")
+        desc_label.grid(row=1, column=0, columnspan=3, sticky="w", padx=10, pady=(0, 15))
         
-        current_theme = config_manager.get('appearance.mode', "System")
-        self.theme_var = ctk.StringVar(value=current_theme)
-        self.theme_menu = ctk.CTkOptionMenu(self.scrollable_frame,
-                                           values=["System", "Dark", "Light"],
-                                           variable=self.theme_var,
-                                           command=self.change_theme)
-        self.theme_menu.grid(row=1, column=1, columnspan=2, sticky="ew", padx=10, pady=5)
-        
-        # Color theme
-        ctk.CTkLabel(self.scrollable_frame, 
-                    text="Color Theme:",
-                    font=("Arial", 14)).grid(row=2, column=0, sticky="w", padx=10, pady=5)
-        
-        current_color_theme = config_manager.get('appearance.theme', "blue")
-        self.color_theme_var = ctk.StringVar(value=current_color_theme)
-        self.color_theme_menu = ctk.CTkOptionMenu(self.scrollable_frame,
-                                                 values=["blue", "green", "dark-blue"],
-                                                 variable=self.color_theme_var,
-                                                 command=self.change_color_theme)
-        self.color_theme_menu.grid(row=2, column=1, columnspan=2, sticky="ew", padx=10, pady=5)
+        # Tiers container
+        self.tiers_container = ctk.CTkFrame(self.scrollable_frame)
+        self.tiers_container.grid(row=2, column=0, columnspan=3, sticky="ew", padx=10, pady=(0, 15))
+        self.tiers_container.grid_columnconfigure(0, weight=1)
+        self.tiers_container.grid_columnconfigure(1, weight=1)
+        self.tiers_container.grid_columnconfigure(2, weight=1)
     
     def _create_media_section(self):
         """Create media settings section"""
@@ -88,7 +76,7 @@ class ConfigurePage(BasePage):
         
         # Description
         desc_label = ctk.CTkLabel(self.scrollable_frame,
-                                 text="Configure media locations where backups will be stored:",
+                                 text="Configure media locations and assign backup tiers:",
                                  font=("Arial", 12),
                                  text_color="gray70")
         desc_label.grid(row=4, column=0, columnspan=3, sticky="w", padx=10, pady=(0, 10))
@@ -116,37 +104,14 @@ class ConfigurePage(BasePage):
         self.configured_media_container.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 10))
         self.configured_media_container.grid_columnconfigure(0, weight=1)
     
-    def _create_application_section(self):
-        """Create application settings section"""
-        # Section header
-        create_section_header(self.scrollable_frame, "Application Settings:", 7, columnspan=3)
-        
-        # Auto save switch
-        current_auto_save = config_manager.get('application.auto_save', True)
-        self.auto_save = ctk.CTkSwitch(self.scrollable_frame, 
-                                      text="Enable Auto Save",
-                                      command=self.on_auto_save_change)
-        if current_auto_save:
-            self.auto_save.select()
-        self.auto_save.grid(row=8, column=0, columnspan=3, sticky="w", padx=10, pady=5)
-        
-        # Notifications switch
-        current_notifications = config_manager.get('application.notifications', True)
-        self.notifications = ctk.CTkSwitch(self.scrollable_frame, 
-                                          text="Enable Notifications",
-                                          command=self.on_notifications_change)
-        if current_notifications:
-            self.notifications.select()
-        self.notifications.grid(row=9, column=0, columnspan=3, sticky="w", padx=10, pady=5)
-    
     def _create_management_section(self):
         """Create configuration management section"""
         # Section header
-        create_section_header(self.scrollable_frame, "Configuration Management:", 10, columnspan=3)
+        create_section_header(self.scrollable_frame, "Configuration Management:", 7, columnspan=3)
         
         # Buttons frame
         self.management_frame = ctk.CTkFrame(self.scrollable_frame)
-        self.management_frame.grid(row=11, column=0, columnspan=3, sticky="ew", padx=10, pady=10)
+        self.management_frame.grid(row=8, column=0, columnspan=3, sticky="ew", padx=10, pady=10)
         
         # Use pack for buttons to handle wrapping better
         self.export_btn = ctk.CTkButton(self.management_frame, 
@@ -171,363 +136,157 @@ class ConfigurePage(BasePage):
         self.status_label = ctk.CTkLabel(self.scrollable_frame, 
                                         text="",
                                         text_color="green")
-        self.status_label.grid(row=12, column=0, columnspan=3, sticky="w", padx=10, pady=10)
+        self.status_label.grid(row=9, column=0, columnspan=3, sticky="w", padx=10, pady=10)
     
-    def _bind_mouse_wheel(self, widget):
-        """Bind mouse wheel events to a widget for scrolling"""
-        # Bind to the widget itself
-        widget.bind("<MouseWheel>", self._on_mousewheel)
-        widget.bind("<Button-4>", self._on_mousewheel)  # Linux scroll up
-        widget.bind("<Button-5>", self._on_mousewheel)  # Linux scroll down
-        
-        # Also bind to all existing children
-        for child in widget.winfo_children():
-            child.bind("<MouseWheel>", self._on_mousewheel)
-            child.bind("<Button-4>", self._on_mousewheel)
-            child.bind("<Button-5>", self._on_mousewheel)
-
-    def _on_mousewheel(self, event):
-        """Handle mouse wheel events for scrolling"""
-        # Get the scrollable frame that should handle the scrolling
-        scrollable_frame = self.scrollable_frame
-        
-        if event.delta:
-            # Windows and macOS
-            scrollable_frame._parent_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-        else:
-            # Linux
-            if event.num == 4:
-                scrollable_frame._parent_canvas.yview_scroll(-1, "units")
-            elif event.num == 5:
-                scrollable_frame._parent_canvas.yview_scroll(1, "units")
+    def load_configured_data(self):
+        """Load both tiers and media configuration"""
+        self.load_tiers_configuration()
+        self.load_configured_media()
     
-    def get_available_drives(self):
-        """Get list of available drives on the system for selection"""
-        self.logger.info("Detecting available drives for media selection...")
-        drives = []
-        system = platform.system()
+    def load_tiers_configuration(self):
+        """Load and display tier configuration"""
+        # Clear existing tier widgets
+        for widget in self.tiers_container.winfo_children():
+            widget.destroy()
         
+        # Get tier configuration
+        tiers_config = config_manager.get('backup.tiers', self._get_default_tiers())
+        
+        # Create tier frames
+        for i, (tier_name, tier_config) in enumerate(tiers_config.items()):
+            tier_frame = ctk.CTkFrame(self.tiers_container)
+            tier_frame.grid(row=0, column=i, sticky="nsew", padx=5, pady=5)
+            tier_frame.grid_columnconfigure(0, weight=1)
+            
+            # Tier header
+            tier_header = ctk.CTkFrame(tier_frame, fg_color="transparent")
+            tier_header.grid(row=0, column=0, sticky="ew", padx=10, pady=(10, 5))
+            
+            tier_label = ctk.CTkLabel(tier_header, 
+                                     text=f"Tier {i+1}: {tier_config['name']}",
+                                     font=("Arial", 14, "bold"))
+            tier_label.pack(side="left")
+            
+            # Edit button
+            edit_btn = ctk.CTkButton(tier_header,
+                                   text="✎",
+                                   width=30,
+                                   height=30,
+                                   command=lambda t=tier_name: self.edit_tier_configuration(t))
+            edit_btn.pack(side="right")
+            
+            # Description
+            desc_label = ctk.CTkLabel(tier_frame,
+                                     text=tier_config['description'],
+                                     font=("Arial", 11),
+                                     text_color="gray70",
+                                     wraplength=200)
+            desc_label.grid(row=1, column=0, sticky="w", padx=10, pady=(0, 5))
+            
+            # Include list preview
+            include_label = ctk.CTkLabel(tier_frame,
+                                       text=f"Includes: {len(tier_config['include'])} items",
+                                       font=("Arial", 10))
+            include_label.grid(row=2, column=0, sticky="w", padx=10, pady=2)
+            
+            # Exclude list preview
+            exclude_label = ctk.CTkLabel(tier_frame,
+                                       text=f"Excludes: {len(tier_config['exclude'])} items",
+                                       font=("Arial", 10))
+            exclude_label.grid(row=3, column=0, sticky="w", padx=10, pady=2)
+    
+    def _get_default_tiers(self):
+        """Return default tier configuration"""
+        return {
+            'tier1': {
+                'name': 'Critical Data',
+                'description': 'Essential system files and critical user data',
+                'include': [],
+                'exclude': []
+            },
+            'tier2': {
+                'name': 'Important Data', 
+                'description': 'Important documents and frequently used files',
+                'include': [],
+                'exclude': []
+            },
+            'tier3': {
+                'name': 'Archive Data',
+                'description': 'Large files and archives, backed up less frequently',
+                'include': [],
+                'exclude': []
+            }
+        }
+    
+    def edit_tier_configuration(self, tier_name):
+        """Open dialog to edit tier configuration"""
+        from utils.tier_utils import TierDialog
+        
+        tier_dialog = TierDialog(self, tier_name, self.save_tier_configuration)
+        tier_dialog.show()
+    
+    def save_tier_configuration(self, tier_name, tier_config):
+        """Save tier configuration"""
         try:
-            if system == "Windows":
-                self.logger.info("Windows system detected")
-                import string
-                for drive_letter in string.ascii_uppercase:
-                    drive_path = f"{drive_letter}:\\"
-                    if os.path.exists(drive_path):
-                        drives.append(drive_path)
+            # Get current tier configuration
+            tiers_config = config_manager.get('backup.tiers', self._get_default_tiers())
             
-            elif system == "Linux":
-                self.logger.info("Linux system detected")
-                # System directories to exclude
-                system_dirs = ['/dev', '/proc', '/sys', '/run', '/snap', '/boot', '/boot/efi']
-                
-                # Use df command to find mounted filesystems (most reliable)
-                try:
-                    result = subprocess.run(['df', '-h', '--output=target,size,avail'], 
-                                          capture_output=True, text=True, timeout=5)
-                    if result.returncode == 0:
-                        lines = result.stdout.split('\n')[1:]  # Skip header
-                        for line in lines:
-                            if line.strip():
-                                parts = line.split()
-                                if len(parts) >= 3:
-                                    mount_point = parts[0]
-                                    size = parts[1]
-                                    avail = parts[2]
-                                    
-                                    # Filter out system directories and root filesystem
-                                    if (mount_point != '/' and 
-                                        not any(mount_point.startswith(sys_dir) for sys_dir in system_dirs) and
-                                        not mount_point.startswith('/var/lib/') and
-                                        not mount_point.startswith('/tmp') and
-                                        os.path.ismount(mount_point)):
-                                        
-                                        # Only include common user-accessible locations
-                                        if (mount_point.startswith('/media/') or 
-                                            mount_point.startswith('/mnt/') or
-                                            mount_point.startswith('/run/media/') or
-                                            mount_point.startswith('/home/')):
-                                            drives.append(mount_point)
-                                            self.logger.info(f"Found user media via df: {mount_point}")
-                except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError) as e:
-                    self.logger.warning(f"df command failed: {e}")
-                
-                # Fallback: Check common media directories
-                media_dirs = ['/media', '/mnt', '/run/media']
-                for media_dir in media_dirs:
-                    if os.path.exists(media_dir):
-                        try:
-                            for item in os.listdir(media_dir):
-                                full_path = os.path.join(media_dir, item)
-                                if (os.path.ismount(full_path) and 
-                                    full_path not in drives and
-                                    not any(full_path.startswith(sys_dir) for sys_dir in system_dirs)):
-                                    drives.append(full_path)
-                                    self.logger.info(f"Found media in {media_dir}: {full_path}")
-                        except (PermissionError, OSError) as e:
-                            self.logger.warning(f"Could not access {media_dir}: {e}")
-                
-                # Also check user's home directory for potential backup locations
-                try:
-                    home_dir = os.path.expanduser("~")
-                    # Check if home is on a separate mount point (common in some setups)
-                    if (os.path.ismount(home_dir) and 
-                        home_dir not in drives and
-                        home_dir != '/'):
-                        drives.append(home_dir)
-                        self.logger.info(f"Found home directory as separate mount: {home_dir}")
-                except Exception as e:
-                    self.logger.warning(f"Could not check home directory: {e}")
-                
-                # Remove duplicates and sort
-                drives = sorted(list(set(drives)))
-                
-            elif system == "Darwin":  # macOS
-                self.logger.info("macOS system detected")
-                volumes_dir = '/Volumes'
-                if os.path.exists(volumes_dir):
-                    try:
-                        for item in os.listdir(volumes_dir):
-                            full_path = os.path.join(volumes_dir, item)
-                            if os.path.ismount(full_path):
-                                # Exclude system volumes on macOS
-                                if not item.startswith('.') and item != 'Macintosh HD':
-                                    drives.append(full_path)
-                    except PermissionError:
-                        self.logger.warning("Permission denied accessing /Volumes")
+            # Update the specific tier
+            tiers_config[tier_name] = tier_config
+            config_manager.set('backup.tiers', tiers_config)
             
-            self.logger.info(f"Total available drives found: {len(drives)}")
-            return drives
+            # Refresh the display
+            self.load_tiers_configuration()
+            
+            self.show_status(f"Tier {tier_name} configuration updated")
+            self.logger.info(f"Updated tier configuration: {tier_name}")
             
         except Exception as e:
-            self.logger.error(f"Error detecting drives: {e}")
-            return []
+            error_msg = f"Error saving tier configuration: {str(e)}"
+            self.show_status(error_msg)
+            self.logger.error(error_msg)
     
     def show_add_media_dialog(self):
         """Show dialog to select and add backup media"""
-        self.logger.info("Showing add media dialog")
-        
-        # Create dialog window
-        dialog = ctk.CTkToplevel(self)
-        dialog.title("Add Backup Media")
-        dialog.geometry("500x350")
-        dialog.resizable(True, True)
-        dialog.minsize(450, 300)
-        dialog.transient(self)
-        
-        # Configure dialog to expand properly
-        dialog.grid_rowconfigure(0, weight=1)
-        dialog.grid_columnconfigure(0, weight=1)
-        
-        # Main content frame that fills the dialog
-        main_dialog_frame = ctk.CTkFrame(dialog)
-        main_dialog_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
-        main_dialog_frame.grid_rowconfigure(1, weight=1)
-        main_dialog_frame.grid_columnconfigure(0, weight=1)
-        
-        # Create a scrollable frame for the dialog content
-        dialog_scrollable = ctk.CTkScrollableFrame(main_dialog_frame)
-        dialog_scrollable.grid(row=0, column=0, sticky="nsew", pady=5)
-        dialog_scrollable.grid_columnconfigure(0, weight=1)
-        
-        # Bind mouse wheel to dialog scrollable frame
-        self._bind_dialog_mouse_wheel(dialog_scrollable, dialog)
-        
-        # Title section
-        title_label = ctk.CTkLabel(dialog_scrollable, 
-                                  text="Select Backup Media Location",
-                                  font=("Arial", 16, "bold"))
-        title_label.grid(row=0, column=0, sticky="w", pady=(0, 10))
-        
-        desc_label = ctk.CTkLabel(dialog_scrollable,
-                                 text="Choose a location where backups will be stored:",
-                                 font=("Arial", 12))
-        desc_label.grid(row=1, column=0, sticky="w", pady=(0, 15))
-        
-        # Selection section
-        selection_frame = ctk.CTkFrame(dialog_scrollable)
-        selection_frame.grid(row=2, column=0, sticky="nsew", pady=10)
-        selection_frame.grid_rowconfigure(2, weight=1)
-        selection_frame.grid_columnconfigure(0, weight=1)
-        
-        selection_label = ctk.CTkLabel(selection_frame, 
-                                      text="Available media:",
-                                      font=("Arial", 12))
-        selection_label.grid(row=0, column=0, sticky="w", pady=(10, 5))
-        
-        # Refresh button and dropdown in the same row
-        refresh_select_frame = ctk.CTkFrame(selection_frame, fg_color="transparent")
-        refresh_select_frame.grid(row=1, column=0, sticky="ew", pady=(0, 10))
-        refresh_select_frame.grid_columnconfigure(0, weight=1)
-        
-        # Get available drives
-        available_drives = self.get_available_drives()
-        
-        if not available_drives:
-            available_drives = ["No media found - click Refresh"]
-        
-        selected_var = ctk.StringVar(value=available_drives[0] if available_drives else "")
-        selection_menu = ctk.CTkOptionMenu(refresh_select_frame,
-                                          values=available_drives,
-                                          variable=selected_var)
-        selection_menu.grid(row=0, column=0, sticky="ew", padx=(0, 10))
-        
-        def refresh_media_list():
-            """Refresh the list of available media"""
-            self.logger.info("Refreshing media list")
-            new_drives = self.get_available_drives()
-            
-            if not new_drives:
-                new_drives = ["No media found"]
-            
-            selection_menu.configure(values=new_drives)
-            selected_var.set(new_drives[0] if new_drives else "")
-            update_media_info()
-        
-        refresh_btn = ctk.CTkButton(refresh_select_frame,
-                                   text="🔄",
-                                   width=40,
-                                   command=refresh_media_list)
-        refresh_btn.grid(row=0, column=1, sticky="e")
-        
-        # Info label to show details about selected media
-        info_label = ctk.CTkLabel(selection_frame,
-                                 text="Select a media location to see details",
-                                 font=("Arial", 10),
-                                 text_color="gray70",
-                                 wraplength=400,
-                                 justify="left")
-        info_label.grid(row=2, column=0, sticky="w", pady=(0, 10))
-        
-        def update_media_info(*args):
-            """Update the info label with details about the selected media"""
-            selected_path = selected_var.get()
-            if selected_path and selected_path != "No media found" and selected_path != "No media found - click Refresh":
-                try:
-                    if platform.system() == "Windows":
-                        import ctypes
-                        drive_type = ctypes.windll.kernel32.GetDriveTypeW(selected_path)
-                        type_names = {2: "Removable", 3: "Fixed", 4: "Remote", 5: "CD-ROM"}
-                        drive_type_name = type_names.get(drive_type, "Unknown")
-                        
-                        free_bytes = ctypes.c_ulonglong(0)
-                        total_bytes = ctypes.c_ulonglong(0)
-                        if ctypes.windll.kernel32.GetDiskFreeSpaceExW(
-                            ctypes.c_wchar_p(selected_path), 
-                            None, 
-                            ctypes.pointer(total_bytes), 
-                            ctypes.pointer(free_bytes)
-                        ):
-                            free_gb = free_bytes.value / (1024**3)
-                            total_gb = total_bytes.value / (1024**3)
-                            info_label.configure(text=f"Type: {drive_type_name} | Free: {free_gb:.1f}GB / Total: {total_gb:.1f}GB")
-                        else:
-                            info_label.configure(text=f"Type: {drive_type_name}")
-                    else:
-                        stat = os.statvfs(selected_path)
-                        free_gb = (stat.f_bavail * stat.f_frsize) / (1024**3)
-                        total_gb = (stat.f_blocks * stat.f_frsize) / (1024**3)
-                        used_percent = ((total_gb - free_gb) / total_gb) * 100
-                        
-                        media_type = "Storage"
-                        if '/media/' in selected_path or '/run/media/' in selected_path:
-                            media_type = "Removable Media"
-                        elif '/mnt/' in selected_path:
-                            media_type = "Mounted Storage"
-                        elif selected_path.startswith('/home/'):
-                            media_type = "Home Directory"
-                        
-                        info_label.configure(text=f"Type: {media_type} | Free: {free_gb:.1f}GB / Total: {total_gb:.1f}GB ({used_percent:.1f}% used)")
-                except Exception as e:
-                    info_label.configure(text=f"Could not get media information: {str(e)}")
-            else:
-                info_label.configure(text="Select a media location to see details")
-        
-        selected_var.trace('w', update_media_info)
-        update_media_info()
-        
-        # Buttons frame at the bottom (outside scrollable area)
-        buttons_frame = ctk.CTkFrame(main_dialog_frame, fg_color="transparent")
-        buttons_frame.grid(row=1, column=0, sticky="ew", pady=15)
-        buttons_frame.grid_columnconfigure(0, weight=1)
-        
-        def add_selected_media():
-            selected_path = selected_var.get()
-            if selected_path and selected_path != "No media found" and selected_path != "No media found - click Refresh":
-                self.add_media_to_config(selected_path)
-                dialog.destroy()
-            else:
-                messagebox.showwarning("Invalid Selection", "Please select a valid media location.")
-        
-        add_btn = ctk.CTkButton(buttons_frame, 
-                               text="Add Selected Media",
-                               command=add_selected_media,
-                               height=35)
-        add_btn.pack(side="right", padx=(10, 0))
-        
-        cancel_btn = ctk.CTkButton(buttons_frame, 
-                                  text="Cancel",
-                                  command=dialog.destroy,
-                                  height=35,
-                                  fg_color="gray")
-        cancel_btn.pack(side="right")
-        
-        # Center the dialog
-        dialog.update_idletasks()
-        x = self.winfo_x() + (self.winfo_width() - dialog.winfo_width()) // 2
-        y = self.winfo_y() + (self.winfo_height() - dialog.winfo_height()) // 2
-        dialog.geometry(f"+{x}+{y}")
-        
-        # Make dialog modal
-        dialog.focus_set()
-        dialog.grab_set()
-        
-        # Wait for the window to be closed
-        self.wait_window(dialog)
-
-    def _bind_dialog_mouse_wheel(self, widget, dialog):
-        """Bind mouse wheel events specifically for dialog scrolling"""
-        def on_dialog_mousewheel(event):
-            if event.delta:
-                # Windows and macOS
-                widget._parent_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-            else:
-                # Linux
-                if event.num == 4:
-                    widget._parent_canvas.yview_scroll(-1, "units")
-                elif event.num == 5:
-                    widget._parent_canvas.yview_scroll(1, "units")
-        
-        # Bind to the widget and its children
-        widget.bind("<MouseWheel>", on_dialog_mousewheel)
-        widget.bind("<Button-4>", on_dialog_mousewheel)
-        widget.bind("<Button-5>", on_dialog_mousewheel)
-        
-        for child in widget.winfo_children():
-            child.bind("<MouseWheel>", on_dialog_mousewheel)
-            child.bind("<Button-4>", on_dialog_mousewheel)
-            child.bind("<Button-5>", on_dialog_mousewheel)
+        media_dialog = MediaDialogWithTiers(self, self.add_media_to_config)
+        media_dialog.show()
     
-    def add_media_to_config(self, media_path):
-        """Add media path to configuration"""
+    def add_media_to_config(self, media_path, selected_tiers):
+        """Add media path to configuration with assigned tiers"""
         try:
             # Get current configured media
             configured_media = config_manager.get('backup.media', [])
             
-            # Check if already exists
-            if media_path in configured_media:
-                self.show_status(f"Media already configured: {media_path}")
-                return
+            # Check if already exists (handle both old and new formats)
+            for i, media in enumerate(configured_media):
+                if isinstance(media, dict) and media.get('path') == media_path:
+                    # Update existing media (new format)
+                    configured_media[i] = {'path': media_path, 'tiers': selected_tiers}
+                    config_manager.set('backup.media', configured_media)
+                    self.load_configured_media()
+                    self.show_status(f"Media updated: {media_path}")
+                    return
+                elif isinstance(media, str) and media == media_path:
+                    # Convert old format to new format
+                    configured_media[i] = {'path': media_path, 'tiers': selected_tiers}
+                    config_manager.set('backup.media', configured_media)
+                    self.load_configured_media()
+                    self.show_status(f"Media updated: {media_path}")
+                    return
             
-            # Add to configured media
-            configured_media.append(media_path)
+            # Add new media
+            new_media = {
+                'path': media_path,
+                'tiers': selected_tiers
+            }
+            configured_media.append(new_media)
             config_manager.set('backup.media', configured_media)
             
             # Refresh the display
             self.load_configured_media()
             
             self.show_status(f"Media added: {media_path}")
-            self.logger.info(f"Added media: {media_path}")
+            self.logger.info(f"Added media: {media_path} with tiers: {selected_tiers}")
             
         except Exception as e:
             error_msg = f"Error adding media: {str(e)}"
@@ -540,26 +299,31 @@ class ConfigurePage(BasePage):
             # Get current configured media
             configured_media = config_manager.get('backup.media', [])
             
-            # Remove the media
-            if media_path in configured_media:
-                configured_media.remove(media_path)
-                config_manager.set('backup.media', configured_media)
-                
-                # Refresh the display
-                self.load_configured_media()
-                
-                self.show_status(f"Media removed: {media_path}")
-                self.logger.info(f"Removed media: {media_path}")
-            else:
-                self.show_status("Media not found in configuration")
-                
+            # Remove the media (handle both old and new formats)
+            new_configured_media = []
+            for media in configured_media:
+                if isinstance(media, dict) and media.get('path') == media_path:
+                    continue  # Skip this one (remove it)
+                elif isinstance(media, str) and media == media_path:
+                    continue  # Skip this one (remove it)
+                else:
+                    new_configured_media.append(media)
+            
+            config_manager.set('backup.media', new_configured_media)
+            
+            # Refresh the display
+            self.load_configured_media()
+            
+            self.show_status(f"Media removed: {media_path}")
+            self.logger.info(f"Removed media: {media_path}")
+            
         except Exception as e:
             error_msg = f"Error removing media: {str(e)}"
             self.show_status(error_msg)
             self.logger.error(error_msg)
     
     def load_configured_media(self):
-        """Load and display configured media"""
+        """Load and display configured media with tier assignments"""
         self.logger.info("Loading configured media")
         
         # Clear existing media widgets
@@ -578,45 +342,89 @@ class ConfigurePage(BasePage):
             no_media_label.pack(pady=20)
             return
         
+        # Get tier names for display
+        tiers_config = config_manager.get('backup.tiers', self._get_default_tiers())
+        tier_names = {tier_id: config['name'] for tier_id, config in tiers_config.items()}
+        
         # Display each configured media item
-        for i, media_path in enumerate(configured_media):
+        for media in configured_media:
+            # Handle both old (string) and new (dict) media configurations
+            if isinstance(media, str):
+                # Old format: media is just a path string
+                media_path = media
+                assigned_tiers = []
+            else:
+                # New format: media is a dictionary
+                media_path = media.get('path', '')
+                assigned_tiers = media.get('tiers', [])
+            
             media_item_frame = ctk.CTkFrame(self.configured_media_container)
             media_item_frame.pack(fill="x", pady=5)
+            media_item_frame.grid_columnconfigure(0, weight=1)
             
-            # Media path label
-            path_label = ctk.CTkLabel(media_item_frame,
+            # Media path and tiers
+            info_frame = ctk.CTkFrame(media_item_frame, fg_color="transparent")
+            info_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
+            info_frame.grid_columnconfigure(0, weight=1)
+            
+            # Path
+            path_label = ctk.CTkLabel(info_frame,
                                      text=media_path,
                                      font=("Courier New", 11),
                                      anchor="w")
-            path_label.pack(side="left", padx=10, pady=5, fill="x", expand=True)
+            path_label.grid(row=0, column=0, sticky="w")
             
-            # Remove button
-            remove_btn = ctk.CTkButton(media_item_frame,
+            # Assigned tiers
+            assigned_tier_names = [tier_names.get(tier, tier) for tier in assigned_tiers]
+            if assigned_tier_names:
+                tiers_label = ctk.CTkLabel(info_frame,
+                                          text=f"Tiers: {', '.join(assigned_tier_names)}",
+                                          font=("Arial", 10),
+                                          text_color="gray70")
+                tiers_label.grid(row=1, column=0, sticky="w", pady=(2, 0))
+            
+            # Edit and Remove buttons
+            button_frame = ctk.CTkFrame(media_item_frame, fg_color="transparent")
+            button_frame.grid(row=0, column=1, sticky="e", padx=5, pady=5)
+            
+            edit_btn = ctk.CTkButton(button_frame,
+                                   text="✎",
+                                   width=30,
+                                   height=30,
+                                   command=lambda p=media_path: self.edit_media_tiers(p))
+            edit_btn.pack(side="left", padx=2)
+            
+            remove_btn = ctk.CTkButton(button_frame,
                                       text="✕",
                                       width=30,
                                       height=30,
                                       fg_color="#d9534f",
                                       hover_color="#c9302c",
-                                      command=lambda path=media_path: self.remove_media_from_config(path))
-            remove_btn.pack(side="right", padx=5, pady=5)
+                                      command=lambda p=media_path: self.remove_media_from_config(p))
+            remove_btn.pack(side="left", padx=2)
         
         self.logger.info(f"Displayed {len(configured_media)} configured media items")
     
-    def change_theme(self, choice):
-        self.controller.update_appearance_mode(choice)
-        self.show_status(f"Theme changed to {choice}")
-    
-    def change_color_theme(self, choice):
-        self.controller.update_theme(choice)
-        self.show_status(f"Color theme changed to {choice}")
-    
-    def on_auto_save_change(self):
-        config_manager.set('application.auto_save', self.auto_save.get())
-        self.show_status("Auto save setting updated")
-    
-    def on_notifications_change(self):
-        config_manager.set('application.notifications', self.notifications.get())
-        self.show_status("Notifications setting updated")
+    def edit_media_tiers(self, media_path):
+        """Edit tier assignments for existing media"""
+        # Find the media configuration
+        configured_media = config_manager.get('backup.media', [])
+        media_config = None
+        
+        for media in configured_media:
+            if isinstance(media, dict) and media.get('path') == media_path:
+                media_config = media
+                break
+            elif isinstance(media, str) and media == media_path:
+                # Convert old format to new format
+                media_config = {'path': media_path, 'tiers': []}
+                break
+        
+        if media_config:
+            assigned_tiers = media_config.get('tiers', []) if isinstance(media_config, dict) else []
+            media_dialog = MediaDialogWithTiers(self, self.add_media_to_config, 
+                                              media_path, assigned_tiers)
+            media_dialog.show()
     
     def export_config(self):
         """Export configuration to file"""
@@ -644,11 +452,7 @@ class ConfigurePage(BasePage):
             
             if file_path:
                 config_manager.import_config(file_path)
-                self.load_current_config()  # Refresh UI with imported values
-                
-                # Update appearance
-                self.controller.update_appearance_mode(config_manager.get('appearance.mode', 'System'))
-                self.controller.update_theme(config_manager.get('appearance.theme', 'blue'))
+                self.load_current_config()
                 
                 self.show_status("Configuration imported successfully!")
                 
@@ -660,33 +464,10 @@ class ConfigurePage(BasePage):
         if messagebox.askyesno("Confirm Reset", "Are you sure you want to reset all settings to defaults?"):
             config_manager.reset_to_defaults()
             self.load_current_config()
-            
-            # Update appearance
-            self.controller.update_appearance_mode(config_manager.get('appearance.mode', 'System'))
-            self.controller.update_theme(config_manager.get('appearance.theme', 'blue'))
-            
             self.show_status("Configuration reset to defaults")
     
     def load_current_config(self):
         """Load current configuration into UI"""
-        # Update themes
-        current_theme = config_manager.get('appearance.mode', "System")
-        self.theme_var.set(current_theme)
-        
-        current_color_theme = config_manager.get('appearance.theme', "blue")
-        self.color_theme_var.set(current_color_theme)
-        
-        # Update switches
-        if config_manager.get('application.auto_save', True):
-            self.auto_save.select()
-        else:
-            self.auto_save.deselect()
-        
-        if config_manager.get('application.notifications', True):
-            self.notifications.select()
-        else:
-            self.notifications.deselect()
-        
         # Load configured media
         self.load_configured_media()
     

@@ -29,37 +29,36 @@ class BackupPage(BasePage):
                                        font=("Arial", 16))
         self.backup_info.pack(pady=(20, 10))
         
-        # Backup type
+        # Backup type (now uses defaults from settings)
         backup_type_label = ctk.CTkLabel(self.content_frame,
                                         text="Backup Type:",
                                         font=("Arial", 14))
         backup_type_label.pack(anchor="w", pady=(10, 5))
         
+        # Get default backup type from settings
         default_backup_type = config_manager.get('backup.default_type', 'full')
         self.backup_type = ctk.CTkSegmentedButton(self.content_frame,
-                                                 values=["Full Backup", "Incremental"],
-                                                 command=self.on_backup_type_change)
+                                                 values=["Full Backup", "Incremental"])
         self.backup_type.set("Full Backup" if default_backup_type == 'full' else "Incremental")
         self.backup_type.pack(fill="x", pady=(0, 20))
         
-        # Backup options
+        # Backup options (now uses defaults from settings)
         options_label = ctk.CTkLabel(self.content_frame,
                                     text="Backup Options:",
                                     font=("Arial", 14))
         options_label.pack(anchor="w", pady=(10, 5))
         
+        # Get default options from settings
         compression_enabled = config_manager.get('backup.compression', True)
         self.compression = ctk.CTkSwitch(self.content_frame,
-                                        text="Enable Compression",
-                                        command=self.on_compression_change)
+                                        text="Enable Compression")
         if compression_enabled:
             self.compression.select()
         self.compression.pack(anchor="w", pady=10)
         
         encryption_enabled = config_manager.get('backup.encryption', False)
         self.encryption = ctk.CTkSwitch(self.content_frame,
-                                       text="Enable Encryption",
-                                       command=self.on_encryption_change)
+                                       text="Enable Encryption")
         if encryption_enabled:
             self.encryption.select()
         self.encryption.pack(anchor="w", pady=10)
@@ -71,16 +70,6 @@ class BackupPage(BasePage):
                                        height=40,
                                        font=("Arial", 16))
         self.backup_btn.pack(pady=30)
-    
-    def on_backup_type_change(self, value):
-        backup_type = 'full' if value == 'Full Backup' else 'incremental'
-        config_manager.set('backup.default_type', backup_type)
-    
-    def on_compression_change(self):
-        config_manager.set('backup.compression', self.compression.get())
-    
-    def on_encryption_change(self):
-        config_manager.set('backup.encryption', self.encryption.get())
     
     def start_backup(self):
         # Get current settings

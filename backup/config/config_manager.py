@@ -1,6 +1,6 @@
 import yaml
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional  # Add proper imports
 import logging
 
 class ConfigManager:
@@ -43,7 +43,27 @@ class ConfigManager:
                 'compression': True,
                 'encryption': False,
                 'default_type': 'full',
-                'media': []  # List for configured backup media
+                'media': [],  # List for configured backup media with tiers
+                'tiers': {    # Add this section for tier configuration
+                    'tier1': {
+                        'name': 'Critical Data',
+                        'description': 'Essential system files and critical user data',
+                        'include': [],
+                        'exclude': []
+                    },
+                    'tier2': {
+                        'name': 'Important Data', 
+                        'description': 'Important documents and frequently used files',
+                        'include': [],
+                        'exclude': []
+                    },
+                    'tier3': {
+                        'name': 'Archive Data',
+                        'description': 'Large files and archives, backed up less frequently',
+                        'include': [],
+                        'exclude': []
+                    }
+                }
             },
             'restore': {
                 'verification': True,

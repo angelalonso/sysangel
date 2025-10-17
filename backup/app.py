@@ -4,6 +4,7 @@ from pages.home_page import HomePage
 from pages.configure_page import ConfigurePage
 from pages.backup_page import BackupPage
 from pages.restore_page import RestorePage
+from pages.settings_page import SettingsPage  # Add this import
 
 class MainApp(ctk.CTk):
     def __init__(self):
@@ -17,8 +18,8 @@ class MainApp(ctk.CTk):
         ctk.set_default_color_theme(theme)
         
         self.title("Basic Backup")
-        self.geometry("1000x700")  # Increased window size
-        self.minsize(900, 600)     # Larger minimum size
+        self.geometry("1000x700")
+        self.minsize(900, 600)
         
         # Container for all pages
         self.container = ctk.CTkFrame(self)
@@ -27,8 +28,8 @@ class MainApp(ctk.CTk):
         # Dictionary to hold all pages
         self.pages = {}
         
-        # Initialize all pages
-        for PageClass in (HomePage, ConfigurePage, BackupPage, RestorePage):
+        # Initialize all pages (add SettingsPage)
+        for PageClass in (HomePage, ConfigurePage, BackupPage, RestorePage, SettingsPage):
             page_name = PageClass.__name__
             page = PageClass(parent=self.container, controller=self)
             self.pages[page_name] = page
