@@ -48,11 +48,11 @@ Get started by selecting an option below:"""
         
         # Navigation buttons - centered at bottom
         self.nav_frame = ctk.CTkFrame(self.main_container, fg_color="transparent")
-        self.nav_frame.grid(row=2, column=0, sticky="nsew", padx=100, pady=(10, 30))
+        self.nav_frame.grid(row=2, column=0, sticky="nsew", padx=80, pady=(10, 30))  # Reduced padding
         self.nav_frame.grid_columnconfigure(0, weight=1)
         self.nav_frame.grid_columnconfigure(1, weight=1)
         self.nav_frame.grid_columnconfigure(2, weight=1)
-        self.nav_frame.grid_columnconfigure(3, weight=1)  # Added for exit button
+        self.nav_frame.grid_columnconfigure(3, weight=1)
         
         # Configure button
         self.config_btn = ctk.CTkButton(self.nav_frame, 
@@ -60,7 +60,7 @@ Get started by selecting an option below:"""
                                        command=lambda: self.controller.show_page("ConfigurePage"),
                                        height=50,
                                        font=("Arial", 16))
-        self.config_btn.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        self.config_btn.grid(row=0, column=0, padx=8, pady=10, sticky="ew")  # Reduced padding
         
         # Backup button
         self.backup_btn = ctk.CTkButton(self.nav_frame, 
@@ -68,7 +68,7 @@ Get started by selecting an option below:"""
                                        command=lambda: self.controller.show_page("BackupPage"),
                                        height=50,
                                        font=("Arial", 16))
-        self.backup_btn.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+        self.backup_btn.grid(row=0, column=1, padx=8, pady=10, sticky="ew")
         
         # Restore button
         self.restore_btn = ctk.CTkButton(self.nav_frame, 
@@ -76,7 +76,7 @@ Get started by selecting an option below:"""
                                         command=lambda: self.controller.show_page("RestorePage"),
                                         height=50,
                                         font=("Arial", 16))
-        self.restore_btn.grid(row=0, column=2, padx=10, pady=10, sticky="ew")
+        self.restore_btn.grid(row=0, column=2, padx=8, pady=10, sticky="ew")
         
         # Exit button
         self.exit_btn = ctk.CTkButton(self.nav_frame, 
@@ -86,7 +86,7 @@ Get started by selecting an option below:"""
                                      font=("Arial", 16),
                                      fg_color="#d9534f",
                                      hover_color="#c9302c")
-        self.exit_btn.grid(row=0, column=3, padx=10, pady=10, sticky="ew")
+        self.exit_btn.grid(row=0, column=3, padx=8, pady=10, sticky="ew")
     
     def exit_app(self):
         """Exit the application with confirmation"""

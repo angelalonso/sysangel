@@ -17,8 +17,8 @@ class MainApp(ctk.CTk):
         ctk.set_default_color_theme(theme)
         
         self.title("Basic Backup")
-        self.geometry("800x600")
-        self.minsize(700, 500)
+        self.geometry("1000x700")  # Increased window size
+        self.minsize(900, 600)     # Larger minimum size
         
         # Container for all pages
         self.container = ctk.CTkFrame(self)

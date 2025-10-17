@@ -1,11 +1,10 @@
 import customtkinter as ctk
 from tkinter import messagebox, filedialog
-import os
-import platform
-import subprocess
 import logging
 from config.config_manager import config_manager
 from .base_page import BasePage
+from utils.ui_utils import setup_scrollable_content, create_responsive_grid, create_section_header
+from utils.media_utils import MediaDialog
 
 class ConfigurePage(BasePage):
     def setup_ui(self):
@@ -17,168 +16,162 @@ class ConfigurePage(BasePage):
         self.grid_columnconfigure(0, weight=1)
         
         # Header with back button
+        self._create_header()
+        
+        # Main content with scrolling
+        self.main_content, self.scrollable_frame = setup_scrollable_content(self)
+        
+        # Configure scrollable frame grid
+        create_responsive_grid(self.scrollable_frame, rows=10, cols=3)
+        
+        # Create all sections
+        self._create_appearance_section()
+        self._create_media_section()
+        self._create_application_section()
+        self._create_management_section()
+        self._create_status_section()
+        
+        # Load configured media on page show
+        self.load_configured_media()
+    
+    def _create_header(self):
+        """Create the page header"""
         self.header_frame = ctk.CTkFrame(self)
         self.header_frame.pack(fill="x", padx=10, pady=10)
         
         self.back_btn = ctk.CTkButton(self.header_frame, 
                                      text="← Back", 
                                      command=lambda: self.controller.show_page("HomePage"),
-                                     width=80)
+                                     width=100)
         self.back_btn.pack(side="left", padx=10, pady=10)
         
         self.title_label = ctk.CTkLabel(self.header_frame, 
                                        text="Basic Backup - Configuration", 
                                        font=("Arial", 20, "bold"))
         self.title_label.pack(side="left", padx=20, pady=10)
+    
+    def _create_appearance_section(self):
+        """Create appearance settings section"""
+        # Section header
+        create_section_header(self.scrollable_frame, "Appearance Settings:", 0, columnspan=3)
         
-        # Main content container that fills available space
-        self.main_content = ctk.CTkFrame(self)
-        self.main_content.pack(fill="both", expand=True, padx=10, pady=10)
-        self.main_content.grid_rowconfigure(0, weight=1)
-        self.main_content.grid_columnconfigure(0, weight=1)
-        
-        # Configuration content in scrollable frame - properly configured to expand
-        self.scrollable_frame = ctk.CTkScrollableFrame(self.main_content)
-        self.scrollable_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
-        
-        # Configure scrollable frame to expand
-        self.scrollable_frame.grid_rowconfigure(1, weight=1)
-        self.scrollable_frame.grid_columnconfigure(0, weight=1)
-        
-        # Bind mouse wheel events to the scrollable frame and its children
-        self._bind_mouse_wheel(self.scrollable_frame)
-        
-        # Create a content frame inside the scrollable frame for better layout control
-        self.content_frame = ctk.CTkFrame(self.scrollable_frame)
-        self.content_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        
-        # Also bind mouse wheel to content frame for better coverage
-        self._bind_mouse_wheel(self.content_frame)
-        
-        # Appearance settings
-        self.appearance_label = ctk.CTkLabel(self.content_frame, 
-                                           text="Appearance Settings:",
-                                           font=("Arial", 16, "bold"))
-        self.appearance_label.pack(anchor="w", pady=(0, 10))
-        
-        # Theme selection
-        self.theme_label = ctk.CTkLabel(self.content_frame, 
-                                       text="Appearance Mode:", 
-                                       font=("Arial", 14))
-        self.theme_label.pack(anchor="w", pady=(10, 5))
+        # Appearance mode
+        ctk.CTkLabel(self.scrollable_frame, 
+                    text="Appearance Mode:",
+                    font=("Arial", 14)).grid(row=1, column=0, sticky="w", padx=10, pady=5)
         
         current_theme = config_manager.get('appearance.mode', "System")
         self.theme_var = ctk.StringVar(value=current_theme)
-        self.theme_menu = ctk.CTkOptionMenu(self.content_frame,
+        self.theme_menu = ctk.CTkOptionMenu(self.scrollable_frame,
                                            values=["System", "Dark", "Light"],
                                            variable=self.theme_var,
                                            command=self.change_theme)
-        self.theme_menu.pack(fill="x", pady=(0, 10))
+        self.theme_menu.grid(row=1, column=1, columnspan=2, sticky="ew", padx=10, pady=5)
         
-        # Color theme selection
-        self.color_theme_label = ctk.CTkLabel(self.content_frame, 
-                                             text="Color Theme:", 
-                                             font=("Arial", 14))
-        self.color_theme_label.pack(anchor="w", pady=(10, 5))
+        # Color theme
+        ctk.CTkLabel(self.scrollable_frame, 
+                    text="Color Theme:",
+                    font=("Arial", 14)).grid(row=2, column=0, sticky="w", padx=10, pady=5)
         
         current_color_theme = config_manager.get('appearance.theme', "blue")
         self.color_theme_var = ctk.StringVar(value=current_color_theme)
-        self.color_theme_menu = ctk.CTkOptionMenu(self.content_frame,
+        self.color_theme_menu = ctk.CTkOptionMenu(self.scrollable_frame,
                                                  values=["blue", "green", "dark-blue"],
                                                  variable=self.color_theme_var,
                                                  command=self.change_color_theme)
-        self.color_theme_menu.pack(fill="x", pady=(0, 20))
-        
-        # Media Settings
-        self.media_label = ctk.CTkLabel(self.content_frame, 
-                                       text="Backup Media:",
-                                       font=("Arial", 16, "bold"))
-        self.media_label.pack(anchor="w", pady=(10, 10))
+        self.color_theme_menu.grid(row=2, column=1, columnspan=2, sticky="ew", padx=10, pady=5)
+    
+    def _create_media_section(self):
+        """Create media settings section"""
+        # Section header
+        create_section_header(self.scrollable_frame, "Backup Media:", 3, columnspan=3)
         
         # Description
-        self.media_desc = ctk.CTkLabel(self.content_frame, 
-                                      text="Configure media locations where backups will be stored:",
-                                      font=("Arial", 12),
-                                      text_color="gray70")
-        self.media_desc.pack(anchor="w", pady=(0, 10))
+        desc_label = ctk.CTkLabel(self.scrollable_frame,
+                                 text="Configure media locations where backups will be stored:",
+                                 font=("Arial", 12),
+                                 text_color="gray70")
+        desc_label.grid(row=4, column=0, columnspan=3, sticky="w", padx=10, pady=(0, 10))
         
         # Add Media button
-        self.media_btn = ctk.CTkButton(self.content_frame, 
+        self.media_btn = ctk.CTkButton(self.scrollable_frame, 
                                       text="➕ Add Backup Media",
                                       command=self.show_add_media_dialog,
                                       height=40,
                                       font=("Arial", 14))
-        self.media_btn.pack(fill="x", pady=(0, 15))
+        self.media_btn.grid(row=5, column=0, columnspan=3, sticky="ew", padx=10, pady=(0, 10))
         
-        # Configured Media list frame
-        self.configured_media_frame = ctk.CTkFrame(self.content_frame)
-        self.configured_media_frame.pack(fill="x", pady=(0, 20))
+        # Configured Media frame
+        self.configured_media_frame = ctk.CTkFrame(self.scrollable_frame)
+        self.configured_media_frame.grid(row=6, column=0, columnspan=3, sticky="ew", padx=10, pady=(0, 10))
+        self.configured_media_frame.grid_columnconfigure(0, weight=1)
         
         self.configured_media_label = ctk.CTkLabel(self.configured_media_frame, 
                                                   text="Configured Backup Media:",
                                                   font=("Arial", 14, "bold"))
-        self.configured_media_label.pack(anchor="w", padx=10, pady=(10, 5))
+        self.configured_media_label.grid(row=0, column=0, sticky="w", padx=10, pady=(10, 5))
         
         # Container for configured media items
         self.configured_media_container = ctk.CTkFrame(self.configured_media_frame, fg_color="transparent")
-        self.configured_media_container.pack(fill="x", padx=10, pady=(0, 10))
+        self.configured_media_container.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 10))
+        self.configured_media_container.grid_columnconfigure(0, weight=1)
+    
+    def _create_application_section(self):
+        """Create application settings section"""
+        # Section header
+        create_section_header(self.scrollable_frame, "Application Settings:", 7, columnspan=3)
         
-        # Application settings
-        self.settings_label = ctk.CTkLabel(self.content_frame, 
-                                          text="Application Settings:",
-                                          font=("Arial", 16, "bold"))
-        self.settings_label.pack(anchor="w", pady=(10, 10))
-        
+        # Auto save switch
         current_auto_save = config_manager.get('application.auto_save', True)
-        self.auto_save = ctk.CTkSwitch(self.content_frame, 
+        self.auto_save = ctk.CTkSwitch(self.scrollable_frame, 
                                       text="Enable Auto Save",
                                       command=self.on_auto_save_change)
         if current_auto_save:
             self.auto_save.select()
-        self.auto_save.pack(anchor="w", pady=10)
+        self.auto_save.grid(row=8, column=0, columnspan=3, sticky="w", padx=10, pady=5)
         
+        # Notifications switch
         current_notifications = config_manager.get('application.notifications', True)
-        self.notifications = ctk.CTkSwitch(self.content_frame, 
+        self.notifications = ctk.CTkSwitch(self.scrollable_frame, 
                                           text="Enable Notifications",
                                           command=self.on_notifications_change)
         if current_notifications:
             self.notifications.select()
-        self.notifications.pack(anchor="w", pady=10)
+        self.notifications.grid(row=9, column=0, columnspan=3, sticky="w", padx=10, pady=5)
+    
+    def _create_management_section(self):
+        """Create configuration management section"""
+        # Section header
+        create_section_header(self.scrollable_frame, "Configuration Management:", 10, columnspan=3)
         
-        # Configuration management
-        self.management_label = ctk.CTkLabel(self.content_frame, 
-                                            text="Configuration Management:",
-                                            font=("Arial", 16, "bold"))
-        self.management_label.pack(anchor="w", pady=(20, 10))
+        # Buttons frame
+        self.management_frame = ctk.CTkFrame(self.scrollable_frame)
+        self.management_frame.grid(row=11, column=0, columnspan=3, sticky="ew", padx=10, pady=10)
         
-        self.management_frame = ctk.CTkFrame(self.content_frame)
-        self.management_frame.pack(fill="x", pady=10)
-        
+        # Use pack for buttons to handle wrapping better
         self.export_btn = ctk.CTkButton(self.management_frame, 
                                        text="Export Config",
                                        command=self.export_config)
-        self.export_btn.pack(side="left", padx=(0, 10), pady=5)
+        self.export_btn.pack(side="left", padx=5, pady=5, fill="x", expand=True)
         
         self.import_btn = ctk.CTkButton(self.management_frame, 
                                        text="Import Config",
                                        command=self.import_config)
-        self.import_btn.pack(side="left", padx=(0, 10), pady=5)
+        self.import_btn.pack(side="left", padx=5, pady=5, fill="x", expand=True)
         
         self.reset_btn = ctk.CTkButton(self.management_frame, 
                                       text="Reset to Defaults",
                                       command=self.reset_config,
                                       fg_color="orange",
                                       hover_color="dark orange")
-        self.reset_btn.pack(side="left", pady=5)
-        
-        # Status label
-        self.status_label = ctk.CTkLabel(self.content_frame, 
+        self.reset_btn.pack(side="left", padx=5, pady=5, fill="x", expand=True)
+    
+    def _create_status_section(self):
+        """Create status section"""
+        self.status_label = ctk.CTkLabel(self.scrollable_frame, 
                                         text="",
                                         text_color="green")
-        self.status_label.pack(pady=10)
-        
-        # Load configured media on page show
-        self.load_configured_media()
+        self.status_label.grid(row=12, column=0, columnspan=3, sticky="w", padx=10, pady=10)
     
     def _bind_mouse_wheel(self, widget):
         """Bind mouse wheel events to a widget for scrolling"""
