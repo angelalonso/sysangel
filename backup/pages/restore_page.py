@@ -58,3 +58,7 @@ class RestorePage(BasePage):
     def start_restore(self):
         selected_backup = self.backup_var.get()
         messagebox.showinfo("Restore", f"Restoring from: {selected_backup}")
+    
+    def on_page_show(self):
+        """Called when page is shown"""
+        pass

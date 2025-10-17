@@ -42,7 +42,8 @@ class ConfigManager:
             'backup': {
                 'compression': True,
                 'encryption': False,
-                'default_type': 'full'  # 'full' or 'incremental'
+                'default_type': 'full',
+                'media': []  # List for configured backup media
             },
             'restore': {
                 'verification': True,

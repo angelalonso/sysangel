@@ -91,3 +91,7 @@ class BackupPage(BasePage):
         # Simulate backup process with actual settings
         message = f"Backup started!\nType: {backup_type}\nCompression: {compression}\nEncryption: {encryption}"
         messagebox.showinfo("Backup", message)
+    
+    def on_page_show(self):
+        """Called when page is shown"""
+        pass
