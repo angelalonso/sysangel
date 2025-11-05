@@ -72,14 +72,52 @@ class BackupPage(BasePage):
         self.backup_btn.pack(pady=30)
     
     def start_backup(self):
-        # Get current settings
-        backup_type = self.backup_type.get()
-        compression = self.compression.get()
-        encryption = self.encryption.get()
-        
-        # Simulate backup process with actual settings
-        message = f"Backup started!\nType: {backup_type}\nCompression: {compression}\nEncryption: {encryption}"
-        messagebox.showinfo("Backup", message)
+        """Start the actual backup process"""
+        try:
+            # Check if we have media and tiers configured
+            configured_media = config_manager.get('backup.media', [])
+            if not configured_media:
+                messagebox.showwarning("No Media", "Please configure backup media first.")
+                return
+            
+            # Get current settings
+            backup_type = self.backup_type.get()
+            compression = self.compression.get()
+            encryption = self.encryption.get()
+            
+            # Show confirmation dialog
+            confirm = messagebox.askyesno(
+                "Start Backup", 
+                f"Start {backup_type} backup?\n\n"
+                f"Compression: {'Enabled' if compression else 'Disabled'}\n"
+                f"Encryption: {'Enabled' if encryption else 'Disabled'}\n\n"
+                "This may take a while depending on the amount of data."
+            )
+            
+            if not confirm:
+                return
+            
+            # Perform backup
+            self._perform_backup(backup_type, compression, encryption)
+            
+        except Exception as e:
+            messagebox.showerror("Backup Error", f"Failed to start backup: {e}")
+
+    def _perform_backup(self, backup_type, compression, encryption):
+        """Perform the backup operation"""
+        try:
+            from utils.backup_engine import BackupEngine
+            
+            backup_engine = BackupEngine()
+            success = backup_engine.perform_backup(backup_type, compression, encryption)
+            
+            if success:
+                messagebox.showinfo("Backup Complete", "Backup completed successfully!")
+            else:
+                messagebox.showerror("Backup Failed", "Backup failed. Check logs for details.")
+                
+        except Exception as e:
+            messagebox.showerror("Backup Error", f"Backup failed: {e}")
     
     def on_page_show(self):
         """Called when page is shown"""
