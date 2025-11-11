@@ -1,0 +1,8 @@
+ubuntu 24.04
+sudo apt update && sudo apt install awesome awesome-extra kitty
+
+
+# TO DO:
+- clean up
+- automate EVERYTHING
+- install neovim
