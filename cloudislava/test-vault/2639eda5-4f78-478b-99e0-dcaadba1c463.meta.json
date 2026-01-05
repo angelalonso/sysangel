@@ -1,0 +1,12 @@
+{
+  "id": "2639eda5-4f78-478b-99e0-dcaadba1c463",
+  "name": "hello.txt",
+  "size": 19,
+  "version": 1,
+  "content_hash": "e03f3cb3d1fa7537e45a1cbe597dd2e8454b06aae44b1f41a674df031dbb50c6",
+  "created_at": "2026-01-05T11:11:07.922539366Z",
+  "modified_at": "2026-01-05T11:11:07.922540442Z",
+  "last_sync_at": null,
+  "signatures": [],
+  "parent_id": null
+}
