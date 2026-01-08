@@ -6,4 +6,4 @@ TMP/
 *.pyc
 files/xfce/xfce4/desktop/icons.screen*
 nodes/
-**/target/*
+**/target/**
