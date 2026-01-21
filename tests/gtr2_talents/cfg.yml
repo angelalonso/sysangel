@@ -1,0 +1,10 @@
+# GTR2 Talents Tuner Configuration
+# Set the path to your GTR2 installation directory
+
+gtr2_install_path: "/home/aaf/Software/Dev/gtr2_talents"
+
+# Example paths (uncomment and modify if needed):
+# gtr2_install_path: "D:/Games/GTR2"
+# gtr2_install_path: "C:/Steam/steamapps/common/GTR2"
+
+note: "Set the path to your GTR2 installation directory"
