@@ -10,7 +10,9 @@ class GTR2TalentsTunerApp(ctk.CTk):
         super().__init__()
         
         self.title("GTR2 Talents Tuner")
-        self.geometry("1000x800")  # Increased size for more data display
+        
+        # Start in fullscreen mode
+        self.attributes('-fullscreen', True)
         
         # Configuration
         self.config_manager = config_manager
@@ -31,33 +33,53 @@ class GTR2TalentsTunerApp(ctk.CTk):
         # Get program directory for CSV output
         self.program_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
         
+        # Dictionary to hold all screens
+        self.screens = {}
+        
+        # Current screen tracker
+        self.current_screen = None
+        
         # Build UI
         self.setup_ui()
-    
+        
+        # Show main screen first
+        self.show_screen("main")
+        
+        # Bind Escape key to exit fullscreen
+        self.bind('<Escape>', lambda e: self.toggle_fullscreen())
+        
     def setup_ui(self):
-        """Setup the user interface"""
-        # Create main container with padding
-        main_container = ctk.CTkFrame(self)
-        main_container.pack(fill="both", expand=True, padx=20, pady=20)
+        """Setup the main container and screens"""
+        # Create main container that will hold all screens
+        self.main_container = ctk.CTkFrame(self)
+        self.main_container.pack(fill="both", expand=True)
+        
+        # Create all screens but don't show them yet
+        self.create_main_screen()
+        self.create_data_table_screen()
+        
+    def create_main_screen(self):
+        """Create the main/first screen"""
+        self.screens["main"] = ctk.CTkFrame(self.main_container)
         
         # Title
         title_label = ctk.CTkLabel(
-            main_container,
+            self.screens["main"],
             text="GTR2 Talents Tuner",
-            font=("Arial", 28, "bold")
+            font=("Arial", 32, "bold")
         )
-        title_label.pack(pady=(0, 20))
+        title_label.pack(pady=(40, 30))
         
         # Configuration info frame
-        config_frame = ctk.CTkFrame(main_container)
-        config_frame.pack(fill="x", pady=(0, 20))
+        config_frame = ctk.CTkFrame(self.screens["main"])
+        config_frame.pack(fill="x", padx=50, pady=(0, 30))
         
         config_title = ctk.CTkLabel(
             config_frame,
             text="Configuration",
-            font=("Arial", 16, "bold")
+            font=("Arial", 20, "bold")
         )
-        config_title.pack(pady=(10, 5))
+        config_title.pack(pady=(20, 10))
         
         # Show paths
         program_dir_info = f"Program Directory: {self.program_dir}"
@@ -67,30 +89,30 @@ class GTR2TalentsTunerApp(ctk.CTk):
         path_label = ctk.CTkLabel(
             config_frame,
             text=f"{program_dir_info}\n{gtr2_path_info}\n{teams_path_info}",
-            font=("Arial", 12),
-            wraplength=600,
+            font=("Arial", 14),
+            wraplength=800,
             justify="left"
         )
-        path_label.pack(pady=10, padx=20)
+        path_label.pack(pady=15, padx=30)
         
         # Folder selection section
-        selection_frame = ctk.CTkFrame(main_container)
-        selection_frame.pack(fill="both", expand=True)
+        selection_frame = ctk.CTkFrame(self.screens["main"])
+        selection_frame.pack(fill="x", padx=50, pady=(0, 30))
         
         selection_title = ctk.CTkLabel(
             selection_frame,
             text="Select Team Folder",
-            font=("Arial", 18, "bold")
+            font=("Arial", 24, "bold")
         )
-        selection_title.pack(pady=(15, 10))
+        selection_title.pack(pady=(20, 15))
         
         # Instruction text
-        instruction = "Browse to select a team folder from the Teams directory.\nYou can navigate recursively through subdirectories.\nAll .car files will be shown recursively from the selected folder.\nteams.csv will be created in the program directory with:\nDriver, Driver1, Driver2, Description, Team, and Number fields."
+        instruction = "Browse to select a team folder from the Teams directory.\nAll .car files will be shown recursively from the selected folder.\nThe table view will open automatically and teams.csv will be generated."
         instruction_label = ctk.CTkLabel(
             selection_frame,
             text=instruction,
-            font=("Arial", 12),
-            wraplength=600,
+            font=("Arial", 16),
+            wraplength=800,
             justify="center"
         )
         instruction_label.pack(pady=(0, 20))
@@ -100,143 +122,181 @@ class GTR2TalentsTunerApp(ctk.CTk):
             selection_frame,
             text="Browse Team Folders",
             command=self.browse_folder,
-            font=("Arial", 14),
-            height=40,
-            width=200
+            font=("Arial", 18),
+            height=50,
+            width=250
         )
         browse_button.pack(pady=20)
         
         # Selected folder display
         selected_frame = ctk.CTkFrame(selection_frame)
-        selected_frame.pack(fill="x", padx=50, pady=20)
+        selected_frame.pack(fill="x", padx=30, pady=20)
         
         selected_label = ctk.CTkLabel(
             selected_frame,
             text="Selected Folder:",
-            font=("Arial", 14, "bold")
+            font=("Arial", 18, "bold")
         )
-        selected_label.pack(anchor="w", padx=10, pady=(10, 5))
+        selected_label.pack(anchor="w", padx=20, pady=(15, 5))
         
         self.selected_display = ctk.CTkLabel(
             selected_frame,
             textvariable=self.selected_folder,
-            font=("Arial", 12),
-            wraplength=700,
+            font=("Arial", 16),
+            wraplength=900,
             justify="left",
             anchor="w"
         )
-        self.selected_display.pack(fill="x", padx=10, pady=(0, 10))
+        self.selected_display.pack(fill="x", padx=20, pady=(0, 15))
         
-        # Car files display area
-        car_files_frame = ctk.CTkFrame(main_container)
-        car_files_frame.pack(fill="both", expand=True, pady=(10, 0))
+        # Status frame
+        status_frame = ctk.CTkFrame(self.screens["main"])
+        status_frame.pack(fill="x", padx=50, pady=(0, 20))
         
-        # Label for car files
-        car_files_label = ctk.CTkLabel(
-            car_files_frame,
-            text=".car Files Found (showing first 10, see CSV for all):",
-            font=("Arial", 14, "bold")
+        self.status_label = ctk.CTkLabel(
+            status_frame,
+            text="Ready to browse folders",
+            font=("Arial", 14),
+            text_color="yellow"
         )
-        car_files_label.pack(anchor="w", padx=10, pady=(10, 5))
+        self.status_label.pack(pady=15)
         
-        # Create scrollable frame for car files
-        self.car_files_scrollable = ctk.CTkScrollableFrame(
-            car_files_frame,
-            height=200,
-            label_text=""
+        # Bottom buttons frame
+        bottom_frame = ctk.CTkFrame(self.screens["main"])
+        bottom_frame.pack(fill="x", padx=50, pady=(0, 30))
+        
+        # Exit button
+        exit_btn = ctk.CTkButton(
+            bottom_frame,
+            text="Exit Application",
+            command=self.on_closing,
+            font=("Arial", 16),
+            height=45,
+            fg_color="dark red",
+            hover_color="red"
         )
-        self.car_files_scrollable.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+        exit_btn.pack(side="right", padx=10, pady=10)
         
-        # Placeholder for car files list
-        self.car_files_container = ctk.CTkFrame(self.car_files_scrollable)
-        self.car_files_container.pack(fill="both", expand=True)
+    def create_data_table_screen(self):
+        """Create the data table screen"""
+        self.screens["data_table"] = ctk.CTkFrame(self.main_container)
         
-        # CSV status frame
-        self.csv_status_frame = ctk.CTkFrame(main_container)
-        self.csv_status_frame.pack(fill="x", pady=(10, 5))
+        # Header with back button and title
+        header_frame = ctk.CTkFrame(self.screens["data_table"])
+        header_frame.pack(fill="x", padx=30, pady=(30, 20))
         
-        self.csv_status_label = ctk.CTkLabel(
-            self.csv_status_frame,
-            text=f"teams.csv will be saved to: {self.program_dir}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
-            font=("Arial", 11),
-            text_color="gray",
-            wraplength=800,
-            justify="left"
-        )
-        self.csv_status_label.pack(pady=5, padx=10)
-        
-        # Action buttons frame
-        action_frame = ctk.CTkFrame(main_container)
-        action_frame.pack(fill="x", pady=20)
-        
-        # Copy path button
-        copy_button = ctk.CTkButton(
-            action_frame,
-            text="Copy Path to Clipboard",
-            command=self.copy_to_clipboard,
-            font=("Arial", 12),
-            height=35,
-            fg_color="green",
-            hover_color="dark green"
-        )
-        copy_button.pack(side="left", padx=10, pady=10)
-        
-        # Open folder button
-        open_button = ctk.CTkButton(
-            action_frame,
-            text="Open Folder",
-            command=self.open_folder,
-            font=("Arial", 12),
-            height=35,
+        # Back button
+        back_button = ctk.CTkButton(
+            header_frame,
+            text="← Back to Folder Selection",
+            command=lambda: self.show_screen("main"),
+            font=("Arial", 16),
+            height=40,
+            width=200,
             fg_color="blue",
             hover_color="dark blue"
         )
-        open_button.pack(side="left", padx=10, pady=10)
+        back_button.pack(side="left", padx=10)
         
-        # Reset selection button
-        reset_button = ctk.CTkButton(
+        # Title
+        table_title = ctk.CTkLabel(
+            header_frame,
+            text="Car Files Data Table",
+            font=("Arial", 28, "bold")
+        )
+        table_title.pack(side="left", padx=20, expand=True)
+        
+        # Refresh button
+        refresh_button = ctk.CTkButton(
+            header_frame,
+            text="Refresh Table",
+            command=self.refresh_table,
+            font=("Arial", 16),
+            height=40,
+            width=150,
+            fg_color="green",
+            hover_color="dark green"
+        )
+        refresh_button.pack(side="right", padx=10)
+        
+        # CSV status frame
+        csv_status_frame = ctk.CTkFrame(self.screens["data_table"])
+        csv_status_frame.pack(fill="x", padx=30, pady=(0, 10))
+        
+        self.csv_status_label = ctk.CTkLabel(
+            csv_status_frame,
+            text="CSV status: Not generated yet",
+            font=("Arial", 14),
+            text_color="yellow"
+        )
+        self.csv_status_label.pack(pady=5)
+        
+        # Info frame
+        info_frame = ctk.CTkFrame(self.screens["data_table"])
+        info_frame.pack(fill="x", padx=30, pady=(0, 20))
+        
+        self.table_info_label = ctk.CTkLabel(
+            info_frame,
+            text=f"No data loaded",
+            font=("Arial", 14),
+            wraplength=1200
+        )
+        self.table_info_label.pack(pady=10)
+        
+        # Table container with scrollbars
+        table_container = ctk.CTkFrame(self.screens["data_table"])
+        table_container.pack(fill="both", expand=True, padx=30, pady=(0, 20))
+        
+        # Create scrollable frame for the table
+        self.table_canvas = tk.Canvas(table_container, bg="#2b2b2b")
+        scrollbar_y = ctk.CTkScrollbar(table_container, orientation="vertical", command=self.table_canvas.yview)
+        scrollbar_x = ctk.CTkScrollbar(table_container, orientation="horizontal", command=self.table_canvas.xview)
+        
+        self.table_frame = ctk.CTkFrame(self.table_canvas)
+        
+        # Configure the canvas
+        self.table_canvas.configure(yscrollcommand=scrollbar_y.set, xscrollcommand=scrollbar_x.set)
+        
+        # Pack everything
+        scrollbar_y.pack(side="right", fill="y")
+        scrollbar_x.pack(side="bottom", fill="x")
+        self.table_canvas.pack(side="left", fill="both", expand=True)
+        
+        # Create window inside canvas
+        self.table_canvas.create_window((0, 0), window=self.table_frame, anchor="nw")
+        
+        # Configure scrolling
+        self.table_frame.bind("<Configure>", self.on_frame_configure)
+        
+        # Action buttons at bottom
+        action_frame = ctk.CTkFrame(self.screens["data_table"])
+        action_frame.pack(fill="x", padx=30, pady=(0, 30))
+        
+        # Return to main button
+        return_main_btn = ctk.CTkButton(
             action_frame,
-            text="Reset Selection",
-            command=self.reset_selection,
-            font=("Arial", 12),
-            height=35,
-            fg_color="orange",
-            hover_color="dark orange"
+            text="Select Different Folder",
+            command=lambda: self.show_screen("main"),
+            font=("Arial", 16),
+            height=45,
+            fg_color="blue",
+            hover_color="dark blue"
         )
-        reset_button.pack(side="left", padx=10, pady=10)
+        return_main_btn.pack(side="right", padx=10, pady=10)
         
-        # Show car files button
-        show_cars_button = ctk.CTkButton(
-            action_frame,
-            text="Show .car Files",
-            command=self.show_car_files,
-            font=("Arial", 12),
-            height=35,
-            fg_color="purple",
-            hover_color="dark purple"
-        )
-        show_cars_button.pack(side="left", padx=10, pady=10)
+    def show_screen(self, screen_name):
+        """Show the specified screen and hide others"""
+        # Hide current screen if exists
+        if self.current_screen:
+            self.screens[self.current_screen].pack_forget()
         
-        # Generate CSV button
-        self.generate_csv_button = ctk.CTkButton(
-            action_frame,
-            text="Generate teams.csv",
-            command=self.generate_csv,
-            font=("Arial", 12),
-            height=35,
-            fg_color="red",
-            hover_color="dark red"
-        )
-        self.generate_csv_button.pack(side="left", padx=10, pady=10)
-        self.generate_csv_button.configure(state="disabled")  # Disabled until files are found
+        # Show the requested screen
+        self.screens[screen_name].pack(fill="both", expand=True)
+        self.current_screen = screen_name
         
-        # Status bar
-        self.status_bar = ctk.CTkLabel(
-            main_container,
-            text="Ready",
-            font=("Arial", 10)
-        )
-        self.status_bar.pack(fill="x", pady=(10, 0))
+        # Update table if showing data table screen
+        if screen_name == "data_table":
+            self.update_table_display()
     
     def browse_folder(self):
         """Open file browser to select a folder"""
@@ -255,7 +315,6 @@ class GTR2TalentsTunerApp(ctk.CTk):
                 # Ensure the selected folder is within the teams path
                 if os.path.commonpath([folder_path, self.teams_path]) == self.teams_path:
                     self.selected_folder.set(folder_path)
-                    self.update_status(f"Selected: {folder_path}")
                     
                     # Find car files immediately using data manager
                     self.car_files = self.data_manager.find_car_files_recursive(folder_path)
@@ -263,263 +322,264 @@ class GTR2TalentsTunerApp(ctk.CTk):
                     # Process car files for teams data
                     self.teams_data = self.data_manager.process_car_files_for_teams(folder_path, self.car_files)
                     
-                    # Count files in folder for info
-                    file_count = len([f for f in os.listdir(folder_path) 
-                                    if os.path.isfile(os.path.join(folder_path, f))])
+                    # Automatically generate CSV
+                    self.auto_generate_csv()
                     
-                    # Update car files display
-                    self.update_car_files_display()
+                    # Automatically switch to table view
+                    self.show_screen("data_table")
                     
-                    # Enable CSV button if we have car files
-                    if self.car_files:
-                        self.generate_csv_button.configure(state="normal")
-                        self.csv_status_label.configure(
-                            text=f"Ready to generate CSV for {len(self.car_files)} car files\nOutput: {os.path.join(self.program_dir, 'teams.csv')}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
-                            text_color="yellow"
-                        )
-                    else:
-                        self.generate_csv_button.configure(state="disabled")
-                        self.csv_status_label.configure(
-                            text=f"No .car files found for CSV generation\nOutput: {os.path.join(self.program_dir, 'teams.csv')}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
-                            text_color="gray"
-                        )
-                    
-                    messagebox.showinfo(
-                        "Folder Selected",
-                        f"Successfully selected folder:\n{folder_path}\n\n"
-                        f"Contains {file_count} file(s)\n"
-                        f"Found {len(self.car_files)} .car file(s) recursively\n"
-                        f"Teams data parsed for CSV generation (all fields)\n"
-                        f"CSV will be saved to:\n{self.program_dir}"
-                    )
                 else:
                     messagebox.showwarning(
                         "Invalid Selection",
                         "Please select a folder from within the Teams directory."
                     )
             else:
-                self.update_status("Folder selection cancelled")
+                self.status_label.configure(
+                    text="Folder selection cancelled",
+                    text_color="yellow"
+                )
                 
         except Exception as e:
             messagebox.showerror("Error", f"Could not browse folder: {e}")
-            self.update_status("Error browsing folder")
+            self.status_label.configure(
+                text="Error browsing folder",
+                text_color="red"
+            )
     
-    def update_car_files_display(self):
-        """Update the display of car files"""
-        # Clear existing display
-        for widget in self.car_files_container.winfo_children():
-            widget.destroy()
-        
-        if not self.car_files:
-            no_files_label = ctk.CTkLabel(
-                self.car_files_container,
-                text="No .car files found in selected folder",
-                font=("Arial", 12),
-                text_color="gray"
-            )
-            no_files_label.pack(pady=20)
-            return
-        
-        # Show count
-        count_label = ctk.CTkLabel(
-            self.car_files_container,
-            text=f"Found {len(self.car_files)} .car file(s):",
-            font=("Arial", 12, "bold")
-        )
-        count_label.pack(anchor="w", padx=5, pady=(0, 10))
-        
-        # Display first 10 car files with parsed info (to avoid UI overload)
-        display_limit = min(10, len(self.car_files))
-        
-        for i in range(display_limit):
-            car_file = self.car_files[i]
-            team_data = self.teams_data[i]
-            
-            file_frame = ctk.CTkFrame(self.car_files_container)
-            file_frame.pack(fill="x", padx=5, pady=2)
-            
-            # File info with all extracted data
-            driver_info = f"D:{team_data['Driver'] or '(empty)'} | D1:{team_data['Driver1']} | D2:{team_data['Driver2']}"
-            additional_info = f"Desc: {team_data['Description'][:30]}{'...' if len(team_data['Description']) > 30 else ''} | Team: {team_data['Team']} | #: {team_data['Number']}"
-            file_info = f"{i+1}. {car_file['filename']}\n     {driver_info}\n     {additional_info}"
-            
-            file_label = ctk.CTkLabel(
-                file_frame,
-                text=file_info,
-                font=("Arial", 10),
-                anchor="w",
-                justify="left"
-            )
-            file_label.pack(side="left", padx=10, pady=5, fill="x", expand=True)
-            
-            # Open file button
-            open_file_btn = ctk.CTkButton(
-                file_frame,
-                text="Open",
-                command=lambda f=car_file['full_path']: self.open_car_file(f),
-                width=60,
-                height=25,
-                font=("Arial", 10)
-            )
-            open_file_btn.pack(side="right", padx=5, pady=5)
-        
-        # Show message if there are more files
-        if len(self.car_files) > display_limit:
-            more_files_label = ctk.CTkLabel(
-                self.car_files_container,
-                text=f"... and {len(self.car_files) - display_limit} more files (see CSV for complete list)",
-                font=("Arial", 10, "italic"),
-                text_color="gray"
-            )
-            more_files_label.pack(pady=10)
-    
-    def generate_csv(self):
-        """Generate teams.csv file from parsed car file data"""
+    def auto_generate_csv(self):
+        """Automatically generate teams.csv file"""
         if not self.teams_data:
-            messagebox.showwarning("No Data", "No teams data to save. Please select a folder with .car files first.")
+            self.csv_status_label.configure(
+                text="CSV status: No data to save",
+                text_color="red"
+            )
             return
         
         try:
             # Use program directory for output
             output_path = os.path.join(self.program_dir, "teams.csv")
             
-            # Ask for confirmation if file already exists
-            if os.path.exists(output_path):
-                response = messagebox.askyesno(
-                    "File Exists",
-                    f"teams.csv already exists at:\n{output_path}\n\nDo you want to overwrite it?"
-                )
-                if not response:
-                    return
-            
             # Save CSV
             success, result, saved_path = self.data_manager.save_teams_csv(self.teams_data, self.program_dir)
             
             if success:
                 self.csv_status_label.configure(
-                    text=f"teams.csv saved: {result} entries\nLocation: {saved_path}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
+                    text=f"CSV status: ✓ Automatically saved {result} entries to: {os.path.basename(saved_path)}",
                     text_color="light green"
                 )
-                self.update_status(f"CSV saved: {result} entries")
-                messagebox.showinfo(
-                    "Success",
-                    f"teams.csv has been successfully created!\n\n"
-                    f"Location: {saved_path}\n"
-                    f"Entries: {result}\n"
-                    f"Columns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number"
-                )
             else:
-                error_msg = f"Failed to save CSV: {result}"
+                error_msg = f"CSV status: ✗ Failed to save: {result}"
                 self.csv_status_label.configure(
                     text=error_msg,
                     text_color="red"
                 )
-                self.update_status("CSV save failed")
-                messagebox.showerror("Error", error_msg)
                 
         except Exception as e:
-            error_msg = f"Error generating CSV: {e}"
-            self.csv_status_label.configure(text=error_msg, text_color="red")
-            self.update_status("CSV generation error")
-            messagebox.showerror("Error", error_msg)
-    
-    def open_car_file(self, file_path):
-        """Open the .car file in the default application"""
-        try:
-            os.startfile(file_path)
-            self.update_status(f"Opened: {os.path.basename(file_path)}")
-        except Exception as e:
-            messagebox.showerror("Error", f"Could not open file: {e}")
-    
-    def show_car_files(self):
-        """Show car files for the current selection"""
-        current_folder = self.selected_folder.get()
-        
-        if not current_folder or current_folder == "No folder selected":
-            messagebox.showwarning("No Selection", "Please select a folder first.")
-            return
-        
-        if not os.path.exists(current_folder):
-            messagebox.showwarning("Error", "Selected folder does not exist.")
-            return
-        
-        self.car_files = self.data_manager.find_car_files_recursive(current_folder)
-        self.teams_data = self.data_manager.process_car_files_for_teams(current_folder, self.car_files)
-        self.update_car_files_display()
-        
-        # Enable/disable CSV button
-        if self.car_files:
-            self.generate_csv_button.configure(state="normal")
+            error_msg = f"CSV status: ✗ Error generating CSV: {str(e)[:100]}"
             self.csv_status_label.configure(
-                text=f"Ready to generate CSV for {len(self.car_files)} car files\nOutput: {os.path.join(self.program_dir, 'teams.csv')}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
-                text_color="yellow"
+                text=error_msg,
+                text_color="red"
             )
-        else:
-            self.generate_csv_button.configure(state="disabled")
-            self.csv_status_label.configure(
-                text=f"No .car files found for CSV generation\nOutput: {os.path.join(self.program_dir, 'teams.csv')}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
+    
+    def update_table_display(self):
+        """Update the data table with current teams data"""
+        # Clear existing table content
+        for widget in self.table_frame.winfo_children():
+            widget.destroy()
+        
+        if not self.teams_data:
+            no_data_label = ctk.CTkLabel(
+                self.table_frame,
+                text="No data loaded. Please select a folder first.",
+                font=("Arial", 20),
                 text_color="gray"
             )
+            no_data_label.pack(pady=100)
+            return
         
-        if self.car_files:
-            messagebox.showinfo(
-                "Car Files Found",
-                f"Found {len(self.car_files)} .car file(s) in:\n{current_folder}\n\n"
-                f"Teams data parsed for CSV generation (all fields).\n"
-                f"CSV will be saved to:\n{os.path.join(self.program_dir, 'teams.csv')}"
-            )
-        else:
-            messagebox.showinfo(
-                "No Car Files",
-                f"No .car files found in:\n{current_folder}"
-            )
-    
-    def copy_to_clipboard(self):
-        """Copy selected path to clipboard"""
-        path = self.selected_folder.get()
-        if path and path != "No folder selected":
-            self.clipboard_clear()
-            self.clipboard_append(path)
-            self.update_status("Path copied to clipboard")
-            messagebox.showinfo("Copied", f"Path copied to clipboard:\n{path}")
-        else:
-            messagebox.showwarning("No Selection", "Please select a folder first.")
-    
-    def open_folder(self):
-        """Open the selected folder in file explorer"""
-        path = self.selected_folder.get()
-        if path and path != "No folder selected" and os.path.exists(path):
-            try:
-                os.startfile(path)  # Windows
-                self.update_status("Folder opened")
-            except:
-                try:
-                    # Try alternative for other OS (though GTR2 is Windows)
-                    import subprocess
-                    subprocess.run(['explorer', path])  # Alternative for Windows
-                    self.update_status("Folder opened")
-                except Exception as e:
-                    messagebox.showerror("Error", f"Could not open folder: {e}")
-        else:
-            messagebox.showwarning("Error", "Selected folder does not exist or no folder selected.")
-    
-    def reset_selection(self):
-        """Reset the folder selection"""
-        self.selected_folder.set("No folder selected")
-        self.car_files = []
-        self.teams_data = []
-        self.update_car_files_display()
-        self.generate_csv_button.configure(state="disabled")
-        self.csv_status_label.configure(
-            text=f"teams.csv will be saved to: {self.program_dir}\nColumns: FullPath, Filename, RelativePath, Driver, Driver1, Driver2, Description, Team, Number",
-            text_color="gray"
+        # Update info label
+        self.table_info_label.configure(
+            text=f"Showing {len(self.teams_data)} entries from: {self.selected_folder.get()}"
         )
-        self.update_status("Selection reset")
-        messagebox.showinfo("Reset", "Folder selection has been reset.")
+        
+        # Define column widths
+        col_widths = {
+            'Filename': 150,
+            'Driver': 120,
+            'Driver1': 120,
+            'Driver2': 120,
+            'Description': 200,
+            'Team': 150,
+            'Number': 80,
+            'RelativePath': 250
+        }
+        
+        # Create header row
+        header_frame = ctk.CTkFrame(self.table_frame)
+        header_frame.pack(fill="x", pady=(0, 5))
+        
+        # Create header labels
+        headers = ['#', 'Filename', 'Driver', 'Driver1', 'Driver2', 'Description', 'Team', 'Number', 'Relative Path']
+        
+        for i, header in enumerate(headers):
+            header_label = ctk.CTkLabel(
+                header_frame,
+                text=header,
+                font=("Arial", 14, "bold"),
+                anchor="w",
+                width=col_widths.get(header, 100) if i > 0 else 50
+            )
+            header_label.grid(row=0, column=i, padx=5, pady=5, sticky="ew")
+        
+        # Configure header frame grid
+        for i in range(len(headers)):
+            header_frame.grid_columnconfigure(i, weight=1)
+        
+        # Add separator
+        separator = ctk.CTkFrame(self.table_frame, height=2, fg_color="gray")
+        separator.pack(fill="x", pady=(0, 10))
+        
+        # Create data rows
+        for idx, team_data in enumerate(self.teams_data, 1):
+            row_frame = ctk.CTkFrame(self.table_frame)
+            row_frame.pack(fill="x", pady=2)
+            
+            # Create alternating background
+            if idx % 2 == 0:
+                row_frame.configure(fg_color="#2a2a2a")
+            
+            # Row number
+            num_label = ctk.CTkLabel(
+                row_frame,
+                text=str(idx),
+                font=("Arial", 12),
+                anchor="w",
+                width=50
+            )
+            num_label.grid(row=0, column=0, padx=5, pady=3, sticky="w")
+            
+            # Filename
+            filename_label = ctk.CTkLabel(
+                row_frame,
+                text=team_data['Filename'],
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Filename']
+            )
+            filename_label.grid(row=0, column=1, padx=5, pady=3, sticky="w")
+            
+            # Driver
+            driver_text = team_data['Driver'] or "(empty)"
+            driver_label = ctk.CTkLabel(
+                row_frame,
+                text=driver_text,
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Driver']
+            )
+            driver_label.grid(row=0, column=2, padx=5, pady=3, sticky="w")
+            
+            # Driver1
+            driver1_label = ctk.CTkLabel(
+                row_frame,
+                text=team_data['Driver1'],
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Driver1']
+            )
+            driver1_label.grid(row=0, column=3, padx=5, pady=3, sticky="w")
+            
+            # Driver2
+            driver2_label = ctk.CTkLabel(
+                row_frame,
+                text=team_data['Driver2'],
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Driver2']
+            )
+            driver2_label.grid(row=0, column=4, padx=5, pady=3, sticky="w")
+            
+            # Description (truncate if too long)
+            desc_text = team_data['Description']
+            if len(desc_text) > 30:
+                desc_text = desc_text[:27] + "..."
+            desc_label = ctk.CTkLabel(
+                row_frame,
+                text=desc_text,
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Description']
+            )
+            desc_label.grid(row=0, column=5, padx=5, pady=3, sticky="w")
+            
+            # Team
+            team_label = ctk.CTkLabel(
+                row_frame,
+                text=team_data['Team'],
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Team']
+            )
+            team_label.grid(row=0, column=6, padx=5, pady=3, sticky="w")
+            
+            # Number
+            number_label = ctk.CTkLabel(
+                row_frame,
+                text=team_data['Number'],
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['Number']
+            )
+            number_label.grid(row=0, column=7, padx=5, pady=3, sticky="w")
+            
+            # Relative Path
+            path_label = ctk.CTkLabel(
+                row_frame,
+                text=team_data['RelativePath'],
+                font=("Arial", 12),
+                anchor="w",
+                width=col_widths['RelativePath']
+            )
+            path_label.grid(row=0, column=8, padx=5, pady=3, sticky="w")
+            
+            # Configure row grid
+            for i in range(len(headers)):
+                row_frame.grid_columnconfigure(i, weight=1)
     
-    def update_status(self, message):
-        """Update status bar message"""
-        self.status_bar.configure(text=f"Status: {message}")
+    def on_frame_configure(self, event=None):
+        """Configure the scrollable region"""
+        self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"))
+    
+    def refresh_table(self):
+        """Refresh the table display"""
+        if self.selected_folder.get() and self.selected_folder.get() != "No folder selected":
+            # Reload data
+            folder_path = self.selected_folder.get()
+            self.car_files = self.data_manager.find_car_files_recursive(folder_path)
+            self.teams_data = self.data_manager.process_car_files_for_teams(folder_path, self.car_files)
+            
+            # Automatically regenerate CSV
+            self.auto_generate_csv()
+            
+            # Update table
+            self.update_table_display()
+            
+            # Show brief confirmation
+            self.csv_status_label.configure(
+                text=f"CSV status: ✓ Refreshed and saved {len(self.teams_data)} entries",
+                text_color="light green"
+            )
+            
+            # Brief status update (will clear after 3 seconds)
+            original_text = self.csv_status_label.cget("text")
+            self.after(3000, lambda: self.csv_status_label.configure(text=original_text))
+        else:
+            messagebox.showwarning("No Data", "No folder selected. Please select a folder first.")
+    
+    def toggle_fullscreen(self):
+        """Toggle fullscreen mode"""
+        current_state = self.attributes('-fullscreen')
+        self.attributes('-fullscreen', not current_state)
     
     def on_closing(self):
         """Handle window closing"""
