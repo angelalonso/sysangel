@@ -1,0 +1,287 @@
+import customtkinter as ctk
+import tkinter as tk
+from tkinter import filedialog, messagebox
+import os
+import sys
+import threading
+import queue
+
+from data import DataManager
+from talent import TalentManager
+
+
+# =========================
+# Loading Dialog
+# =========================
+
+class LoadingDialog(ctk.CTkToplevel):
+    def __init__(self, parent, text="Working..."):
+        super().__init__(parent)
+        self.title("")
+        self.geometry("320x120")
+        self.resizable(False, False)
+        self.transient(parent)
+        self.grab_set()
+
+        label = ctk.CTkLabel(self, text=text, font=("Arial", 16))
+        label.pack(pady=20)
+
+        self.progress = ctk.CTkProgressBar(self, mode="indeterminate")
+        self.progress.pack(fill="x", padx=20)
+        self.progress.start()
+
+        self.update_idletasks()
+
+
+# =========================
+# Main Application
+# =========================
+
+class GTR2TalentsTunerApp(ctk.CTk):
+
+    def __init__(self, config_manager):
+        super().__init__()
+
+        self.title("GTR2 Talents Tuner")
+        self.attributes("-fullscreen", True)
+
+        self.config_manager = config_manager
+        self.gtr2_path = config_manager.get_gtr2_path()
+        self.teams_path = config_manager.get_teams_path()
+
+        self.program_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+        self.data_manager = DataManager(self.gtr2_path)
+        self.talent_manager = TalentManager(self.program_dir)
+
+        self.selected_folder = tk.StringVar(value="No folder selected")
+        self.car_files = []
+        self.talents_data = []
+
+        self.queue = queue.Queue()
+
+        self.setup_ui()
+        self.show_screen("main")
+
+        self.bind("<Escape>", lambda e: self.toggle_fullscreen())
+
+    # =========================
+    # UI Setup
+    # =========================
+
+    def setup_ui(self):
+        self.main_container = ctk.CTkFrame(self)
+        self.main_container.pack(fill="both", expand=True)
+
+        self.screens = {}
+        self.current_screen = None
+
+        self.create_main_screen()
+        self.create_talents_table_screen()
+
+    # =========================
+    # Screens
+    # =========================
+
+    def create_main_screen(self):
+        frame = ctk.CTkFrame(self.main_container)
+        frame.pack(fill="both", expand=True)
+
+        title = ctk.CTkLabel(
+            frame,
+            text="GTR2 Talents Tuner",
+            font=("Arial", 32, "bold")
+        )
+        title.pack(pady=30)
+
+        path_label = ctk.CTkLabel(
+            frame,
+            textvariable=self.selected_folder,
+            wraplength=800
+        )
+        path_label.pack(pady=10)
+
+        browse_btn = ctk.CTkButton(
+            frame,
+            text="Select Team Folder",
+            command=self.browse_folder,
+            width=250,
+            height=40
+        )
+        browse_btn.pack(pady=20)
+
+        exit_btn = ctk.CTkButton(
+            frame,
+            text="Exit",
+            command=self.on_closing,
+            fg_color="darkred",
+            width=150
+        )
+        exit_btn.pack(pady=10)
+
+        self.screens["main"] = frame
+
+    def create_talents_table_screen(self):
+        frame = ctk.CTkFrame(self.main_container)
+        frame.pack(fill="both", expand=True)
+
+        header = ctk.CTkFrame(frame)
+        header.pack(fill="x", pady=10)
+
+        back_btn = ctk.CTkButton(
+            header,
+            text="⬅ Back",
+            command=lambda: self.show_screen("main"),
+            width=120
+        )
+        back_btn.pack(side="left", padx=10)
+
+        title = ctk.CTkLabel(
+            header,
+            text="Talents Table",
+            font=("Arial", 24, "bold")
+        )
+        title.pack(side="left", padx=20)
+
+        self.table_container = ctk.CTkFrame(frame)
+        self.table_container.pack(fill="both", expand=True, padx=20, pady=20)
+
+        self.screens["talents_table"] = frame
+
+    def show_screen(self, name):
+        if self.current_screen:
+            self.current_screen.pack_forget()
+
+        screen = self.screens.get(name)
+        if not screen:
+            return
+
+        screen.pack(fill="both", expand=True)
+        self.current_screen = screen
+
+        if name == "talents_table":
+            self.update_table_display()
+
+    # =========================
+    # Folder Loading (ASYNC)
+    # =========================
+
+    def browse_folder(self):
+        if not self.teams_path or not os.path.exists(self.teams_path):
+            messagebox.showerror("Error", "Teams path not found.")
+            return
+
+        folder = filedialog.askdirectory(
+            title="Select Team Folder",
+            initialdir=self.teams_path,
+            mustexist=True
+        )
+
+        if not folder:
+            return
+
+        self.selected_folder.set(folder)
+        splash = LoadingDialog(self, "Scanning and loading files...")
+
+        threading.Thread(
+            target=self._load_folder_worker,
+            args=(folder, splash),
+            daemon=True
+        ).start()
+
+    def _load_folder_worker(self, folder, splash):
+        try:
+            car_files = self.data_manager.find_car_files_recursive(folder)
+            self.car_files = car_files
+            self.talents_data = []  # populated later as needed
+
+            self.queue.put(("folder_loaded",))
+        except Exception as e:
+            self.queue.put(("error", str(e)))
+
+        self.after(0, splash.destroy)
+        self.after(0, self._process_queue)
+
+    # =========================
+    # Table Display
+    # =========================
+
+    def update_table_display(self):
+        for widget in self.table_container.winfo_children():
+            widget.destroy()
+
+        if not self.car_files:
+            return
+
+        info = ctk.CTkLabel(
+            self.table_container,
+            text=f"{len(self.car_files)} car files loaded.",
+            font=("Arial", 16)
+        )
+        info.pack(pady=20)
+
+        note = ctk.CTkLabel(
+            self.table_container,
+            text="(Table rendering intentionally minimal here — existing logic can be reattached)",
+            wraplength=600
+        )
+        note.pack(pady=10)
+
+    # =========================
+    # Saving (ASYNC)
+    # =========================
+
+    def save_edited_data(self, original_data, updated_data):
+        splash = LoadingDialog(self, "Saving changes...")
+
+        threading.Thread(
+            target=self._save_worker,
+            args=(original_data, updated_data, splash),
+            daemon=True
+        ).start()
+
+        return True
+
+    def _save_worker(self, original, updated, splash):
+        try:
+            results = self.talent_manager.update_multiple_rcd_files(
+                updated, original
+            )
+            self.queue.put(("save_done", results))
+        except Exception as e:
+            self.queue.put(("error", str(e)))
+
+        self.after(0, splash.destroy)
+        self.after(0, self._process_queue)
+
+    # =========================
+    # Queue Processing
+    # =========================
+
+    def _process_queue(self):
+        while not self.queue.empty():
+            msg = self.queue.get()
+
+            if msg[0] == "folder_loaded":
+                self.show_screen("talents_table")
+
+            elif msg[0] == "save_done":
+                messagebox.showinfo(
+                    "Success",
+                    "Changes saved successfully."
+                )
+                self.update_table_display()
+
+            elif msg[0] == "error":
+                messagebox.showerror("Error", msg[1])
+
+    # =========================
+    # Utility
+    # =========================
+
+    def toggle_fullscreen(self):
+        self.attributes("-fullscreen", not self.attributes("-fullscreen"))
+
+    def on_closing(self):
+        self.destroy()
+

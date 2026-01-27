@@ -8,17 +8,17 @@ class DataManager:
     def __init__(self, gtr2_path):
         self.car_files_cache = {}
         self.parsed_car_data = {}
-        self.parsed_rcd_cache = {}
         self.gtr2_path = gtr2_path
         self.talent_path = os.path.join(gtr2_path, "GameData", "Talent") if gtr2_path else None
     
     def find_car_files_recursive(self, folder_path):
         """Find all .car files recursively in the given folder"""
+        car_files = []
+        
         # Check cache first
         if folder_path in self.car_files_cache:
             return self.car_files_cache[folder_path]
         
-        car_files = []
         for root, dirs, files in os.walk(folder_path):
             for file in files:
                 if file.lower().endswith('.car'):
@@ -43,9 +43,6 @@ class DataManager:
     
     def parse_car_file(self, file_path):
         """Parse a .car file and extract all required values (ignore comments)"""
-        if file_path in self.parsed_car_data:
-            return self.parsed_car_data[file_path]
-        
         car_data = {
             'Driver': '',
             'Driver1': '',
@@ -92,8 +89,8 @@ class DataManager:
         except Exception as e:
             print(f"Error parsing file {file_path}: {e}")
             # Return empty values if file can't be read
+            return car_data
         
-        self.parsed_car_data[file_path] = car_data
         return car_data
     
     def normalize_driver_name(self, driver_name):
@@ -110,7 +107,7 @@ class DataManager:
         # Convert to lowercase for case-insensitive comparison
         return driver_name.lower()
     
-    def find_rcd_for_driver(self, driver_name, car_file_directory, car_file_parent_dir):
+    def find_rcd_file_for_driver(self, driver_name, car_file_directory, car_file_parent_dir):
         """Find .rcd file for a driver by searching in multiple locations"""
         if not driver_name:
             return ''
@@ -178,13 +175,10 @@ class DataManager:
     
     def parse_rcd_file(self, rcd_path):
         """Parse an RCD file and extract all key-value pairs (ignore comments)"""
-        if not rcd_path or not os.path.exists(rcd_path):
-            return {}
-        
-        if rcd_path in self.parsed_rcd_cache:
-            return self.parsed_rcd_cache[rcd_path]
-        
         rcd_data = {}
+        
+        if not rcd_path or not os.path.exists(rcd_path):
+            return rcd_data
         
         try:
             with open(rcd_path, 'r', encoding='utf-8', errors='ignore') as file:
@@ -223,7 +217,6 @@ class DataManager:
         except Exception as e:
             print(f"Error parsing RCD file {rcd_path}: {e}")
         
-        self.parsed_rcd_cache[rcd_path] = rcd_data
         return rcd_data
     
     def process_car_files_for_talents(self, folder_path, car_files):
@@ -259,7 +252,7 @@ class DataManager:
             # Process each driver in this car file
             for driver in set(drivers):  # Use set to avoid duplicates within same car file
                 # Find RCD file for this driver
-                rcd_path = self.find_rcd_for_driver(
+                rcd_path = self.find_rcd_file_for_driver(
                     driver, 
                     car_file['directory'], 
                     car_file['parent_directory']
@@ -290,7 +283,7 @@ class DataManager:
                         'Directory': car_file['directory']
                     }
                     
-                    # Add all RCD variables to the entry (with RCD_ prefix)
+                    # Add all RCD variables to the entry
                     for key, value in rcd_data.items():
                         clean_key = key.replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
                         talent_entry[f'RCD_{clean_key}'] = value
@@ -445,4 +438,17 @@ class DataManager:
         """Clear the car files cache"""
         self.car_files_cache.clear()
         self.parsed_car_data.clear()
-        self.parsed_rcd_cache.clear()
+    
+    def get_car_file_info(self, file_path):
+        """Get detailed information about a .car file"""
+        if not os.path.exists(file_path):
+            return None
+        
+        file_info = {
+            'path': file_path,
+            'size': os.path.getsize(file_path),
+            'modified': os.path.getmtime(file_path),
+            'created': os.path.getctime(file_path),
+        }
+        
+        return file_info

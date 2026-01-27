@@ -3,38 +3,9 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import os
 import sys
-import threading
-import queue
-
 from data import DataManager
 from talent import TalentManager
 
-# =========================
-# Loading Dialog
-# =========================
-
-class LoadingDialog(ctk.CTkToplevel):
-    def __init__(self, parent, text="Working..."):
-        super().__init__(parent)
-        self.title("")
-        self.geometry("360x140")
-        self.resizable(False, False)
-        self.transient(parent)
-        self.grab_set()
-
-        label = ctk.CTkLabel(self, text=text, font=("Arial", 16))
-        label.pack(pady=25)
-
-        bar = ctk.CTkProgressBar(self, mode="indeterminate")
-        bar.pack(fill="x", padx=25)
-        bar.start()
-
-        self.update_idletasks()
-
-
-# =========================
-# Editable Table (UNCHANGED)
-# =========================
 class EditableTable:
     """A helper class to manage editable table cells"""
     
@@ -152,10 +123,6 @@ class EditableTable:
                 return idx + 1  # +1 because checkbox is column 0
         return 1
 
-
-# =========================
-# EditSelectedWindow
-# =========================
 class EditSelectedWindow(ctk.CTkToplevel):
     """Window for editing selected entries"""
     
@@ -465,86 +432,80 @@ class EditSelectedWindow(ctk.CTkToplevel):
         self.grab_release()
         self.destroy()
 
-
-
-
-# =========================
-# Main Application
-# =========================
-
 class GTR2TalentsTunerApp(ctk.CTk):
     def __init__(self, config_manager):
         super().__init__()
-
+        
         self.title("GTR2 Talents Tuner")
+        
+        # Start in fullscreen mode
         self.attributes('-fullscreen', True)
-
+        
+        # Configuration
         self.config_manager = config_manager
         self.gtr2_path = config_manager.get_gtr2_path()
         self.teams_path = config_manager.get_teams_path()
-
+        
+        # Data manager - now passing gtr2_path for RCD search
         self.data_manager = DataManager(self.gtr2_path)
-
+        
+        # Talent manager for RCD generation and backups
         self.program_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
         self.talent_manager = TalentManager(self.program_dir)
-
-        self.selected_folder = tk.StringVar(value="No folder selected")
+        
+        # Selected folder
+        self.selected_folder = tk.StringVar()
+        self.selected_folder.set("No folder selected")
+        
+        # List to store car files
         self.car_files = []
-        self.talents_data = []
-
+        self.talents_data = []  # Store parsed talents data (one per driver)
+        
+        # Dictionary to hold all screens
         self.screens = {}
+        
+        # Current screen tracker
         self.current_screen = None
+        
+        # Editable table
         self.editable_table = None
+        
+        # Edit button reference
         self.edit_selected_button = None
         
-        # Table components
-        self.table_canvas = None
-        self.table_inner_frame = None
-        self.table_info_label = None
-        self.selection_info_label = None
-        self.csv_status_label = None
-        self.status_label = None
-
-        self.queue = queue.Queue()
-
+        # Build UI
         self.setup_ui()
+        
+        # Show main screen first
         self.show_screen("main")
-
+        
+        # Bind Escape key to exit fullscreen
         self.bind('<Escape>', lambda e: self.toggle_fullscreen())
-
-    # =========================
-    # UI Setup
-    # =========================
-
+        
     def setup_ui(self):
+        """Setup the main container and screens"""
+        # Create main container that will hold all screens
         self.main_container = ctk.CTkFrame(self)
         self.main_container.pack(fill="both", expand=True)
-
-        self.screens = {}
-        self.current_screen = None
-
+        
+        # Create all screens but don't show them yet
         self.create_main_screen()
         self.create_talents_table_screen()
-
-    # =========================
-    # Screens
-    # =========================
-
+        
     def create_main_screen(self):
         """Create the main/first screen"""
-        frame = ctk.CTkFrame(self.main_container)
-        self.screens["main"] = frame
+        self.screens["main"] = ctk.CTkFrame(self.main_container)
         
         # Title
         title_label = ctk.CTkLabel(
-            frame,
+            self.screens["main"],
             text="GTR2 Talents Tuner",
             font=("Arial", 32, "bold")
         )
         title_label.pack(pady=(40, 30))
         
         # Configuration info frame
-        config_frame = ctk.CTkFrame(frame)
+        config_frame = ctk.CTkFrame(self.screens["main"])
         config_frame.pack(fill="x", padx=50, pady=(0, 30))
         
         config_title = ctk.CTkLabel(
@@ -555,8 +516,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         config_title.pack(pady=(20, 10))
         
         # Show paths
-        program_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
-        program_dir_info = f"Program Directory: {program_dir}"
+        program_dir_info = f"Program Directory: {self.program_dir}"
         gtr2_path_info = f"GTR2 Path: {self.gtr2_path}"
         teams_path_info = f"Teams Folder: {self.teams_path}"
         talent_path_info = f"Talent Folder: {os.path.join(self.gtr2_path, 'GameData', 'Talent') if self.gtr2_path else 'N/A'}"
@@ -571,7 +531,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         path_label.pack(pady=15, padx=30)
         
         # Folder selection section
-        selection_frame = ctk.CTkFrame(frame)
+        selection_frame = ctk.CTkFrame(self.screens["main"])
         selection_frame.pack(fill="x", padx=50, pady=(0, 30))
         
         selection_title = ctk.CTkLabel(
@@ -596,7 +556,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         browse_button = ctk.CTkButton(
             selection_frame,
             text="Browse Team Folders",
-            command=self.browse_folder_sync,  # Changed to synchronous version
+            command=self.browse_folder,
             font=("Arial", 18),
             height=50,
             width=250
@@ -625,7 +585,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.selected_display.pack(fill="x", padx=20, pady=(0, 15))
         
         # Status frame
-        status_frame = ctk.CTkFrame(frame)
+        status_frame = ctk.CTkFrame(self.screens["main"])
         status_frame.pack(fill="x", padx=50, pady=(0, 20))
         
         self.status_label = ctk.CTkLabel(
@@ -637,7 +597,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.status_label.pack(pady=15)
         
         # Bottom buttons frame
-        bottom_frame = ctk.CTkFrame(frame)
+        bottom_frame = ctk.CTkFrame(self.screens["main"])
         bottom_frame.pack(fill="x", padx=50, pady=(0, 30))
         
         # Exit button
@@ -651,14 +611,13 @@ class GTR2TalentsTunerApp(ctk.CTk):
             hover_color="red"
         )
         exit_btn.pack(side="right", padx=10, pady=10)
-
+        
     def create_talents_table_screen(self):
         """Create the talents table screen (one entry per driver)"""
-        frame = ctk.CTkFrame(self.main_container)
-        self.screens["talents_table"] = frame
+        self.screens["talents_table"] = ctk.CTkFrame(self.main_container)
         
         # Header with back button and title
-        header_frame = ctk.CTkFrame(frame)
+        header_frame = ctk.CTkFrame(self.screens["talents_table"])
         header_frame.pack(fill="x", padx=30, pady=(30, 20))
         
         # Back button
@@ -683,7 +642,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         table_title.pack(side="left", padx=20, expand=True)
         
         # Selection actions frame
-        selection_actions_frame = ctk.CTkFrame(frame)
+        selection_actions_frame = ctk.CTkFrame(self.screens["talents_table"])
         selection_actions_frame.pack(fill="x", padx=30, pady=(0, 10))
         
         # Selection control buttons (left side)
@@ -739,7 +698,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.selection_info_label.pack(side="right", padx=20)
         
         # CSV status frame
-        csv_status_frame = ctk.CTkFrame(frame)
+        csv_status_frame = ctk.CTkFrame(self.screens["talents_table"])
         csv_status_frame.pack(fill="x", padx=30, pady=(0, 10))
         
         self.csv_status_label = ctk.CTkLabel(
@@ -751,7 +710,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.csv_status_label.pack(pady=5)
         
         # Info frame
-        info_frame = ctk.CTkFrame(frame)
+        info_frame = ctk.CTkFrame(self.screens["talents_table"])
         info_frame.pack(fill="x", padx=30, pady=(0, 20))
         
         self.table_info_label = ctk.CTkLabel(
@@ -763,7 +722,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.table_info_label.pack(pady=10)
         
         # Table container with scrollbars
-        table_container = ctk.CTkFrame(frame)
+        table_container = ctk.CTkFrame(self.screens["talents_table"])
         table_container.pack(fill="both", expand=True, padx=30, pady=(0, 20))
         
         # Create scrollable frame for the table
@@ -789,7 +748,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.table_inner_frame.bind("<Configure>", self.on_frame_configure)
         
         # Action buttons at bottom
-        action_frame = ctk.CTkFrame(frame)
+        action_frame = ctk.CTkFrame(self.screens["talents_table"])
         action_frame.pack(fill="x", padx=30, pady=(0, 30))
         
         # Return to main button
@@ -866,120 +825,216 @@ class GTR2TalentsTunerApp(ctk.CTk):
             on_save_callback=self.save_edited_data,
             read_only_keys=read_only_keys
         )
-
-    def show_screen(self, name):
+    
+    def save_edited_data(self, original_data, updated_data):
+        """Save edited data back to talents_data, CSV, and update RCD files"""
+        try:
+            # First update talents_data with new values
+            for original, updated in zip(original_data, updated_data):
+                # Find the index of this entry in talents_data
+                for idx, entry in enumerate(self.talents_data):
+                    if entry.get('RCDPath') == original.get('RCDPath') and entry.get('Driver') == original.get('Driver'):
+                        # Update the entry
+                        self.talents_data[idx].update(updated)
+                        break
+            
+            # Update RCD files using TalentManager
+            results = self.talent_manager.update_multiple_rcd_files(updated_data, original_data)
+            
+            # Count successes
+            success_count = sum(1 for r in results if r['success'])
+            total_count = len(results)
+            
+            # Save to CSV
+            self.auto_generate_csv()
+            
+            # Update table display - IMPORTANT: This refreshes the table with new values
+            self.update_table_display()
+            
+            # Show results - but DON'T use modal messagebox here
+            # Instead, update status label or use non-modal dialog
+            if success_count == total_count:
+                # Use a simpler approach - just update status
+                self.csv_status_label.configure(
+                    text=f"✅ Successfully updated {success_count} RCD file(s) and saved to teams.csv!",
+                    text_color="light green"
+                )
+                print(f"✅ Successfully updated {success_count} RCD file(s)")
+            else:
+                failed_drivers = [r['driver'] for r in results if not r['success']]
+                self.csv_status_label.configure(
+                    text=f"⚠️ Updated {success_count} of {total_count} RCD files. Failed: {', '.join(failed_drivers)}",
+                    text_color="orange"
+                )
+                print(f"⚠️ Updated {success_count} of {total_count} RCD files. Failed: {', '.join(failed_drivers)}")
+            
+            # Return True to indicate success - this will close the edit window
+            print(f"DEBUG: save_edited_data returning True")
+            return True
+            
+        except Exception as e:
+            print(f"DEBUG: save_edited_data returning False due to error: {e}")
+            import traceback
+            traceback.print_exc()
+            # Don't show messagebox here - let the edit window handle it
+            return False
+        
+    def show_screen(self, screen_name):
         """Show the specified screen and hide others"""
         # Hide current screen if exists
-        if self.current_screen and self.current_screen in self.screens:
+        if self.current_screen:
             self.screens[self.current_screen].pack_forget()
         
         # Show the requested screen
-        screen = self.screens.get(name)
-        if screen:
-            screen.pack(fill="both", expand=True)
-            self.current_screen = name
+        self.screens[screen_name].pack(fill="both", expand=True)
+        self.current_screen = screen_name
         
         # Update table if showing talents table screen
-        if name == "talents_table":
+        if screen_name == "talents_table":
             self.update_table_display()
-
-    # =========================
-    # Folder Loading (SYNCHRONOUS VERSION)
-    # =========================
-
-    def browse_folder_sync(self):
-        """Synchronous version of folder browsing for better reliability"""
+    
+    def browse_folder(self):
+        """Open file browser to select a folder - EXACT FLOW AS REQUESTED"""
         if not self.teams_path or not os.path.exists(self.teams_path):
-            messagebox.showerror("Error", "Teams path not found.")
+            messagebox.showerror("Error", "Teams path not found. Please check configuration.")
             return
-
-        folder = filedialog.askdirectory(
-            title="Select Team Folder",
-            initialdir=self.teams_path,
-            mustexist=True
-        )
-
-        if not folder:
-            return
-
-        self.selected_folder.set(folder)
-        
-        # Create and show loading dialog
-        splash = LoadingDialog(self, "Loading team data...")
         
         try:
-            # Update status
-            self.status_label.configure(
-                text="⏳ Step 1/5: Finding .car files...",
-                text_color="yellow"
-            )
-            self.update()
-            
-            # STEP 1: Find .car files
-            self.car_files = self.data_manager.find_car_files_recursive(folder)
-            
-            self.status_label.configure(
-                text=f"⏳ Step 2/5: Found {len(self.car_files)} .car files, parsing data...",
-                text_color="yellow"
-            )
-            self.update()
-            
-            # STEP 2: Process car files for talents data (includes RCD search)
-            self.talents_data = self.data_manager.process_car_files_for_talents(folder, self.car_files)
-            
-            self.status_label.configure(
-                text=f"⏳ Step 3/5: Organized into {len(self.talents_data)} driver entries, counting RCD files...",
-                text_color="yellow"
-            )
-            self.update()
-            
-            # Count RCD files found
-            rcd_found = sum(1 for entry in self.talents_data if entry['RCDExists'])
-            
-            self.status_label.configure(
-                text="⏳ Step 4/5: Saving everything to teams.csv...",
-                text_color="yellow"
-            )
-            self.update()
-            
-            # STEP 4: Save everything to CSV
-            self.auto_generate_csv()
-            
-            self.status_label.configure(
-                text="⏳ Step 5/5: Switching to table view...",
-                text_color="yellow"
-            )
-            self.update()
-            
-            # STEP 5: Show data on GUI
-            # Automatically switch to table view
-            self.show_screen("talents_table")
-            
-            # Update final status
-            self.status_label.configure(
-                text=f"✓ Complete! Found {len(self.car_files)} .car files, {len(self.talents_data)} driver entries ({rcd_found} RCD files)",
-                text_color="light green"
+            folder_path = filedialog.askdirectory(
+                title="Select Team Folder",
+                initialdir=self.teams_path,
+                mustexist=True
             )
             
+            if folder_path:
+                # Ensure the selected folder is within the teams path
+                if os.path.commonpath([folder_path, self.teams_path]) == self.teams_path:
+                    self.selected_folder.set(folder_path)
+                    
+                    # Update status
+                    self.status_label.configure(
+                        text="⏳ Step 1/5: Finding .car files...",
+                        text_color="yellow"
+                    )
+                    self.update()
+                    
+                    # STEP 1: Find .car files
+                    self.car_files = self.data_manager.find_car_files_recursive(folder_path)
+                    
+                    self.status_label.configure(
+                        text=f"⏳ Step 2/5: Found {len(self.car_files)} .car files, parsing data...",
+                        text_color="yellow"
+                    )
+                    self.update()
+                    
+                    # STEP 2: Process car files for talents data (includes RCD search)
+                    self.talents_data = self.data_manager.process_car_files_for_talents(folder_path, self.car_files)
+                    
+                    self.status_label.configure(
+                        text=f"⏳ Step 3/5: Organized into {len(self.talents_data)} driver entries, counting RCD files...",
+                        text_color="yellow"
+                    )
+                    self.update()
+                    
+                    # Count RCD files found
+                    rcd_found = sum(1 for entry in self.talents_data if entry['RCDExists'])
+                    
+                    self.status_label.configure(
+                        text="⏳ Step 4/5: Saving everything to teams.csv...",
+                        text_color="yellow"
+                    )
+                    self.update()
+                    
+                    # STEP 4: Save everything to CSV
+                    self.auto_generate_csv()
+                    
+                    self.status_label.configure(
+                        text="⏳ Step 5/5: Switching to table view...",
+                        text_color="yellow"
+                    )
+                    self.update()
+                    
+                    # STEP 5: Show data on GUI
+                    # Automatically switch to table view
+                    self.show_screen("talents_table")
+                    
+                    # Update final status
+                    self.status_label.configure(
+                        text=f"✓ Complete! Found {len(self.car_files)} .car files, {len(self.talents_data)} driver entries ({rcd_found} RCD files)",
+                        text_color="light green"
+                    )
+                    
+                else:
+                    messagebox.showwarning(
+                        "Invalid Selection",
+                        "Please select a folder from within the Teams directory."
+                    )
+            else:
+                self.status_label.configure(
+                    text="Folder selection cancelled",
+                    text_color="yellow"
+                )
+                
         except Exception as e:
-            messagebox.showerror("Error", f"Could not load folder: {str(e)}")
+            messagebox.showerror("Error", f"Could not browse folder: {e}")
             self.status_label.configure(
-                text="Error loading folder",
+                text="Error browsing folder",
                 text_color="red"
             )
-            print(f"Error loading folder: {e}")
-            import traceback
-            traceback.print_exc()
-        finally:
-            # Always destroy the loading dialog
-            splash.destroy()
-
-    # =========================
-    # Table Display
-    # =========================
-
+    
+    def auto_generate_csv(self):
+        """Automatically generate teams.csv file WITH RCD DATA"""
+        if not self.talents_data:
+            self.csv_status_label.configure(
+                text="teams.csv status: No data to save",
+                text_color="red"
+            )
+            return
+        
+        try:
+            output_path = os.path.join(self.program_dir, "teams.csv")
+            
+            # Save CSV WITH RCD DATA - using save_teams_csv
+            success, result, saved_path = self.data_manager.save_teams_csv(self.talents_data, self.program_dir)
+            
+            if success:
+                # Count RCD columns in CSV
+                rcd_cols = sum(1 for key in self.talents_data[0].keys() if key.startswith('RCD_')) if self.talents_data else 0
+                self.csv_status_label.configure(
+                    text=f"teams.csv status: ✓ Saved {result} driver entries ({rcd_cols} RCD variables each) to: {os.path.basename(saved_path)}",
+                    text_color="light green"
+                )
+                
+                # Verify CSV was written with RCD data
+                if os.path.exists(saved_path):
+                    with open(saved_path, 'r', encoding='utf-8') as f:
+                        lines = f.readlines()
+                        if len(lines) > 0:
+                            headers = lines[0].strip().split(',')
+                            rcd_headers = [h for h in headers if h.startswith('RCD_')]
+                            print(f"teams.csv written with {len(rcd_headers)} RCD columns")
+                            print(f"Sample RCD columns: {rcd_headers[:5]}")
+                            
+                            # Print sample data if available
+                            if len(lines) > 1:
+                                first_data = lines[1].strip().split(',')
+                                print(f"First data row has {len(first_data)} columns")
+            else:
+                error_msg = f"teams.csv status: ✗ Failed to save: {result}"
+                self.csv_status_label.configure(
+                    text=error_msg,
+                    text_color="red"
+                )
+                
+        except Exception as e:
+            error_msg = f"teams.csv status: ✗ Error generating CSV: {str(e)[:100]}"
+            self.csv_status_label.configure(
+                text=error_msg,
+                text_color="red"
+            )
+    
     def update_table_display(self):
-        """Update the data table with current talents data"""
+        """Update the data table with current talents data - CORRECTED COLUMN ORDERING"""
         # Clear existing table content
         for widget in self.table_inner_frame.winfo_children():
             widget.destroy()
@@ -1006,102 +1061,124 @@ class GTR2TalentsTunerApp(ctk.CTk):
         )
         self.edit_selected_button.configure(state="disabled")
         
-        # Debug output
-        print(f"\n=== DEBUG: Starting table display ===")
-        print(f"Number of talents entries: {len(self.talents_data)}")
+        # Find all RCD columns in the data
+        rcd_columns = []
+        if self.talents_data:
+            # Get RCD columns from first entry that has RCD data
+            rcd_entry = next((entry for entry in self.talents_data if entry['RCDExists']), self.talents_data[0])
+            for key in rcd_entry.keys():
+                if key.startswith('RCD_'):
+                    # Remove RCD_ prefix for display, keep original key for data access
+                    display_name = key.replace('RCD_', '')
+                    
+                    # Determine if this column is read-only
+                    is_readonly = display_name in ['Abbreviation', 'NatAbbrev', 'Nationality']
+                    
+                    rcd_columns.append((display_name, 100, key, is_readonly))
         
-        # Collect all possible columns from the data
-        all_columns = set()
-        rcd_columns_list = []
-        non_rcd_columns = []
+        # Sort RCD columns by display name for consistent display
+        rcd_columns.sort(key=lambda x: x[0])
         
-        for entry in self.talents_data:
-            all_columns.update(entry.keys())
-            
-            # Collect RCD columns for debug
-            rcd_keys = [k for k in entry.keys() if k.startswith('RCD_')]
-            if rcd_keys:
-                rcd_columns_list.extend(rcd_keys)
-        
-        # Remove duplicates
-        rcd_columns_list = list(set(rcd_columns_list))
-        print(f"Total unique columns: {len(all_columns)}")
-        print(f"RCD columns found: {len(rcd_columns_list)}")
-        if rcd_columns_list:
-            print(f"Sample RCD columns: {sorted(rcd_columns_list)[:10]}...")
-        
-        # Sort all columns
-        all_columns = sorted(all_columns)
-        
-        # Define the specific columns we want to show in order
-        # This matches the EditSelectedWindow columns
-        specified_columns = [
-            'Driver',  # Not editable in edit window
-            'RCD_CompletedLaps%',
-            'RCD_Composure',
-            'RCD_Consistency',
-            'RCD_CorneringAdd',
-            'RCD_CorneringMult',
-            'RCD_Crash',
-            'RCD_MinRacingSkill',
-            'RCD_Passing',
-            'RCD_QualColdBrainMin',
-            'RCD_QualColdBrainTime',
-            'RCD_QualifyingAbility',
-            'RCD_RaceAbility',
-            'RCD_RaceColdBrainMin',
-            'RCD_RaceColdBrainTime',
-            'RCD_RainAbility',
-            'RCD_Recovery',
-            'RCD_Script',
-            'RCD_StartStalls',
-            'RCD_StartsDry',
-            'RCD_StartsWet',
-            'RCD_TCGripThreshold',
-            'RCD_TCResponse',
-            'RCD_TCThrottleFract',
-            'RCD_TrackAggression',
-            'RCD_Abbreviation',
-            'RCD_NatAbbrev',
-            'RCD_Nationality',
-            'RCDPath',
-            'CARFiles',
-            'Team',
-            'car_number',
-            'RCDExists'
+        # Define base columns that will always be shown
+        base_columns = [
+            ('Abbreviation', 100, 'RCD_Abbreviation', False),  # Read-only, FIRST COLUMN
+            ('Driver', 150, 'Driver', False),  # Read-only
+            ('NatAbbrev', 80, 'RCD_NatAbbrev', False),  # Read-only
+            ('Nationality', 100, 'RCD_Nationality', False),  # Read-only
+            ('RCD Path', 250, 'RCDPath', False),  # Read-only
+            ('CAR Files', 200, 'CARFiles', False),  # Read-only
+            ('Team', 120, 'Team', False),  # Read-only
+            ('Car #', 80, 'car_number', False),  # Read-only
         ]
         
-        # Filter to only include columns that actually exist in our data
-        columns_to_display = []
-        for col in specified_columns:
-            if col in all_columns:
-                # Determine if this column is read-only
-                is_readonly = col in ['Driver', 'RCDPath', 'CARFiles', 'Team', 'car_number', 
-                                     'RCDExists', 'RCD_Abbreviation', 'RCD_NatAbbrev', 'RCD_Nationality']
-                
-                # Determine display name
-                if col.startswith('RCD_'):
-                    display_name = col.replace('RCD_', '')
-                else:
-                    display_name = col
-                
-                # Set width based on column type
-                if col == 'Driver':
-                    width = 150
-                elif col == 'RCDPath':
-                    width = 250
-                elif col == 'CARFiles':
-                    width = 200
-                elif col in ['Team', 'car_number']:
-                    width = 120
-                elif col == 'RCDExists':
-                    width = 80
-                else:
-                    width = 100
-                
-                columns_to_display.append((display_name, width, col, is_readonly))
+        # Build the column list in the correct order
+        columns = []
         
-        print(f"Columns to display: {len(columns_to_display)}")
+        # 1. Start with Abbreviation (always first)
+        abbreviation_found = False
+        for col in rcd_columns:
+            if col[0] == 'Abbreviation':
+                columns.append(col)
+                abbreviation_found = True
+                break
+        
+        # If Abbreviation wasn't found in RCD columns, add it from base columns
+        if not abbreviation_found:
+            for col in base_columns:
+                if col[2] == 'RCD_Abbreviation':
+                    columns.append(col)
+                    break
+        
+        # 2. Add Driver
+        columns.append(('Driver', 150, 'Driver', False))
+        
+        # 3. Add all other RCD columns except the special ones that come later
+        # First find TrackAggression if it exists
+        track_aggression_index = -1
+        for i, (display_name, width, data_key, is_readonly) in enumerate(rcd_columns):
+            if display_name == 'TrackAggression':
+                track_aggression_index = i
+                break
+        
+        # Add RCD columns before TrackAggression (excluding special ones)
+        for display_name, width, data_key, is_readonly in rcd_columns:
+            if display_name not in ['Abbreviation', 'NatAbbrev', 'Nationality']:
+                if track_aggression_index >= 0:
+                    # Check if this column comes before TrackAggression
+                    col_index = next((i for i, (dname, _, _, _) in enumerate(rcd_columns) if dname == display_name), -1)
+                    if col_index < track_aggression_index:
+                        columns.append((display_name, width, data_key, True))  # Editable
+        
+        # 4. Add NatAbbrev and Nationality right before TrackAggression
+        # Find NatAbbrev and Nationality in RCD columns
+        natabbrev_col = None
+        nationality_col = None
+        
+        for col in rcd_columns:
+            if col[0] == 'NatAbbrev':
+                natabbrev_col = col
+            elif col[0] == 'Nationality':
+                nationality_col = col
+        
+        # Add NatAbbrev if found
+        if natabbrev_col:
+            columns.append(natabbrev_col)
+        else:
+            # Add from base columns if not found in RCD
+            for col in base_columns:
+                if col[2] == 'RCD_NatAbbrev':
+                    columns.append(col)
+                    break
+        
+        # Add Nationality if found
+        if nationality_col:
+            columns.append(nationality_col)
+        else:
+            # Add from base columns if not found in RCD
+            for col in base_columns:
+                if col[2] == 'RCD_Nationality':
+                    columns.append(col)
+                    break
+        
+        # 5. Add TrackAggression if it exists
+        if track_aggression_index >= 0:
+            track_aggression_col = rcd_columns[track_aggression_index]
+            columns.append((track_aggression_col[0], track_aggression_col[1], track_aggression_col[2], True))  # Editable
+        
+        # 6. Add remaining RCD columns after TrackAggression
+        for display_name, width, data_key, is_readonly in rcd_columns:
+            if display_name not in ['Abbreviation', 'NatAbbrev', 'Nationality', 'TrackAggression']:
+                col_index = next((i for i, (dname, _, _, _) in enumerate(rcd_columns) if dname == display_name), -1)
+                if col_index > track_aggression_index or track_aggression_index < 0:
+                    columns.append((display_name, width, data_key, True))  # Editable
+        
+        # 7. Add the remaining base columns (RCD Path, CAR Files, Team, Car #)
+        for display_name, width, data_key, is_readonly in base_columns:
+            if data_key not in ['RCD_Abbreviation', 'Driver', 'RCD_NatAbbrev', 'RCD_Nationality']:
+                # Check if we already added this column
+                already_added = any(col[2] == data_key for col in columns)
+                if not already_added:
+                    columns.append((display_name, width, data_key, is_readonly))
         
         # Define read-only columns for the table
         read_only_columns = [
@@ -1110,7 +1187,6 @@ class GTR2TalentsTunerApp(ctk.CTk):
             'CARFiles',
             'Team',
             'car_number',
-            'RCDExists',
             'RCD_Abbreviation',
             'RCD_NatAbbrev',
             'RCD_Nationality'
@@ -1120,7 +1196,7 @@ class GTR2TalentsTunerApp(ctk.CTk):
         self.editable_table = EditableTable(
             self.table_inner_frame,
             self.talents_data,
-            columns_to_display,
+            columns,
             on_cell_changed=None,  # Disabled for now
             on_selection_changed=self.on_selection_changed,
             read_only_columns=read_only_columns
@@ -1129,136 +1205,18 @@ class GTR2TalentsTunerApp(ctk.CTk):
         
         # Configure grid weights (starting from column 1 because column 0 is checkboxes)
         self.table_inner_frame.grid_columnconfigure(0, weight=0)  # Checkbox column
-        for i in range(1, len(columns_to_display) + 1):
+        for i in range(1, len(columns) + 1):
             self.table_inner_frame.grid_columnconfigure(i, weight=1)
-            
-        # Auto-generate CSV when table is displayed
-        self.auto_generate_csv()
-
-    # =========================
-    # CSV Generation
-    # =========================
-
-    def auto_generate_csv(self):
-        """Automatically generate teams.csv file WITH RCD DATA"""
-        if not self.talents_data:
-            self.csv_status_label.configure(
-                text="teams.csv status: No data to save",
-                text_color="red"
-            )
-            return
-        
-        try:
-            # Save CSV WITH RCD DATA - using save_teams_csv
-            success, result, saved_path = self.data_manager.save_teams_csv(self.talents_data, self.program_dir)
-            
-            if success:
-                # Count RCD columns in CSV
-                rcd_cols = sum(1 for key in self.talents_data[0].keys() if key.startswith('RCD_')) if self.talents_data else 0
-                self.csv_status_label.configure(
-                    text=f"teams.csv status: ✓ Saved {result} driver entries ({rcd_cols} RCD variables each) to: {os.path.basename(saved_path)}",
-                    text_color="light green"
-                )
-                
-                # Verify CSV was written with RCD data
-                if os.path.exists(saved_path):
-                    with open(saved_path, 'r', encoding='utf-8') as f:
-                        lines = f.readlines()
-                        if len(lines) > 0:
-                            headers = lines[0].strip().split(',')
-                            rcd_headers = [h for h in headers if h.startswith('RCD_')]
-                            print(f"teams.csv written with {len(rcd_headers)} RCD columns")
-            else:
-                error_msg = f"teams.csv status: ✗ Failed to save: {result}"
-                self.csv_status_label.configure(
-                    text=error_msg,
-                    text_color="red"
-                )
-                
-        except Exception as e:
-            error_msg = f"teams.csv status: ✗ Error generating CSV: {str(e)[:100]}"
-            self.csv_status_label.configure(
-                text=error_msg,
-                text_color="red"
-            )
-
-    # =========================
-    # Saving
-    # =========================
-
-    def save_edited_data(self, original_data, updated_data):
-        """Save edited data back to talents_data, CSV, and update RCD files"""
-        try:
-            # Debug info
-            print(f"\n=== DEBUG: Saving edited data ===")
-            print(f"Original data count: {len(original_data)}")
-            print(f"Updated data count: {len(updated_data)}")
-            
-            # First update talents_data with new values
-            update_count = 0
-            for original, updated in zip(original_data, updated_data):
-                # Find the index of this entry in talents_data by Driver AND RCDPath
-                for idx, entry in enumerate(self.talents_data):
-                    if (entry.get('Driver') == original.get('Driver') and 
-                        entry.get('RCDPath') == original.get('RCDPath')):
-                        # Update the entry
-                        self.talents_data[idx].update(updated)
-                        update_count += 1
-                        print(f"Updated entry {idx}: {entry.get('Driver')} - RCD: {entry.get('RCDPath')}")
-                        break
-            
-            print(f"Updated {update_count} entries in talents_data")
-            
-            # Update RCD files using TalentManager
-            results = self.talent_manager.update_multiple_rcd_files(updated_data, original_data)
-            
-            # Count successes
-            success_count = sum(1 for r in results if r['success'])
-            total_count = len(results)
-            
-            print(f"RCD update results: {success_count}/{total_count} successful")
-            
-            # Save to CSV
-            self.auto_generate_csv()
-            
-            # Update table display
-            self.update_table_display()
-            
-            # Show results
-            if success_count == total_count:
-                self.csv_status_label.configure(
-                    text=f"✅ Successfully updated {success_count} RCD file(s) and saved to teams.csv!",
-                    text_color="light green"
-                )
-            else:
-                failed_drivers = [r['driver'] for r in results if not r['success']]
-                self.csv_status_label.configure(
-                    text=f"⚠️ Updated {success_count} of {total_count} RCD files. Failed: {', '.join(failed_drivers)}",
-                    text_color="orange"
-                )
-            
-            return True
-            
-        except Exception as e:
-            print(f"Error in save_edited_data: {e}")
-            import traceback
-            traceback.print_exc()
-            
-            # Show error message
-            messagebox.showerror("Save Error", f"Failed to save changes: {str(e)}")
-            return False
-
-    # =========================
-    # Utility
-    # =========================
-
+    
     def on_frame_configure(self, event=None):
         """Configure the scrollable region"""
-        if self.table_canvas:
-            self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"))
-
+        self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"))
+    
     def toggle_fullscreen(self):
-        self.attributes("-fullscreen", not self.attributes("-fullscreen"))
-
+        """Toggle fullscreen mode"""
+        current_state = self.attributes('-fullscreen')
+        self.attributes('-fullscreen', not current_state)
+    
     def on_closing(self):
+        """Handle window closing"""
         self.destroy()
