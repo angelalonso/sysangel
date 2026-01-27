@@ -8,17 +8,17 @@ class DataManager:
     def __init__(self, gtr2_path):
         self.car_files_cache = {}
         self.parsed_car_data = {}
-        self.parsed_rcd_cache = {}
         self.gtr2_path = gtr2_path
         self.talent_path = os.path.join(gtr2_path, "GameData", "Talent") if gtr2_path else None
     
     def find_car_files_recursive(self, folder_path):
         """Find all .car files recursively in the given folder"""
+        car_files = []
+        
         # Check cache first
         if folder_path in self.car_files_cache:
             return self.car_files_cache[folder_path]
         
-        car_files = []
         for root, dirs, files in os.walk(folder_path):
             for file in files:
                 if file.lower().endswith('.car'):
@@ -43,9 +43,6 @@ class DataManager:
     
     def parse_car_file(self, file_path):
         """Parse a .car file and extract all required values (ignore comments)"""
-        if file_path in self.parsed_car_data:
-            return self.parsed_car_data[file_path]
-        
         car_data = {
             'Driver': '',
             'Driver1': '',
@@ -92,8 +89,8 @@ class DataManager:
         except Exception as e:
             print(f"Error parsing file {file_path}: {e}")
             # Return empty values if file can't be read
+            return car_data
         
-        self.parsed_car_data[file_path] = car_data
         return car_data
     
     def normalize_driver_name(self, driver_name):
@@ -110,7 +107,7 @@ class DataManager:
         # Convert to lowercase for case-insensitive comparison
         return driver_name.lower()
     
-    def find_rcd_for_driver(self, driver_name, car_file_directory, car_file_parent_dir):
+    def find_rcd_file_for_driver(self, driver_name, car_file_directory, car_file_parent_dir):
         """Find .rcd file for a driver by searching in multiple locations"""
         if not driver_name:
             return ''
@@ -178,13 +175,10 @@ class DataManager:
     
     def parse_rcd_file(self, rcd_path):
         """Parse an RCD file and extract all key-value pairs (ignore comments)"""
-        if not rcd_path or not os.path.exists(rcd_path):
-            return {}
-        
-        if rcd_path in self.parsed_rcd_cache:
-            return self.parsed_rcd_cache[rcd_path]
-        
         rcd_data = {}
+        
+        if not rcd_path or not os.path.exists(rcd_path):
+            return rcd_data
         
         try:
             with open(rcd_path, 'r', encoding='utf-8', errors='ignore') as file:
@@ -223,13 +217,11 @@ class DataManager:
         except Exception as e:
             print(f"Error parsing RCD file {rcd_path}: {e}")
         
-        self.parsed_rcd_cache[rcd_path] = rcd_data
         return rcd_data
     
     def process_car_files_for_talents(self, folder_path, car_files):
-        """Process all car files and create talents data table - one entry per unique driver/RCD"""
-        # Dictionary to store unique entries by driver/RCD
-        talents_dict = {}
+        """Process all car files and create talents data table - one entry per driver"""
+        talents_data = []
         
         for car_file in car_files:
             full_path = car_file['full_path']
@@ -256,98 +248,42 @@ class DataManager:
                 drivers.append(car_data['Driver'])
                 driver_positions[car_data['Driver']] = 'Driver'
             
-            # Process each driver in this car file
-            for driver in set(drivers):  # Use set to avoid duplicates within same car file
+            # Create an entry for each unique driver
+            for driver in set(drivers):  # Use set to avoid duplicates
                 # Find RCD file for this driver
-                rcd_path = self.find_rcd_for_driver(
+                rcd_path = self.find_rcd_file_for_driver(
                     driver, 
                     car_file['directory'], 
                     car_file['parent_directory']
                 )
                 
-                # Create a unique key based on driver and RCD path
-                # If no RCD found, use driver name only
-                unique_key = f"{driver}_{rcd_path}" if rcd_path else driver
+                # Parse RCD file if found
+                rcd_data = {}
+                if rcd_path:
+                    rcd_data = self.parse_rcd_file(rcd_path)
                 
-                if unique_key not in talents_dict:
-                    # Parse RCD file if found (only once per unique driver/RCD)
-                    rcd_data = {}
-                    if rcd_path:
-                        rcd_data = self.parse_rcd_file(rcd_path)
-                    
-                    # Create initial talent entry with lists for Team and car_number
-                    talent_entry = {
-                        'Driver': driver,
-                        'Position': driver_positions[driver],  # Will be overwritten if multiple positions
-                        'RCDPath': rcd_path,
-                        'RCDExists': bool(rcd_path),
-                        'CARFiles': [car_file['filename']],  # List of CAR files
-                        'CARFullPaths': [full_path],  # List of full paths
-                        'CARRelativePaths': [car_file['relative_path']],  # List of relative paths
-                        'Team': [car_data['Team']] if car_data['Team'] else [],  # List of Teams
-                        'car_number': [car_data['car_number']] if car_data['car_number'] else [],  # List of car numbers
-                        'Description': car_data['Description'],
-                        'Directory': car_file['directory']
-                    }
-                    
-                    # Add all RCD variables to the entry (with RCD_ prefix)
-                    for key, value in rcd_data.items():
-                        clean_key = key.replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
-                        talent_entry[f'RCD_{clean_key}'] = value
-                    
-                    talents_dict[unique_key] = talent_entry
-                else:
-                    # Update existing entry with additional CAR file info
-                    existing = talents_dict[unique_key]
-                    
-                    # Add this CAR file to the lists if not already present
-                    if car_file['filename'] not in existing['CARFiles']:
-                        existing['CARFiles'].append(car_file['filename'])
-                    
-                    if full_path not in existing['CARFullPaths']:
-                        existing['CARFullPaths'].append(full_path)
-                    
-                    if car_file['relative_path'] not in existing['CARRelativePaths']:
-                        existing['CARRelativePaths'].append(car_file['relative_path'])
-                    
-                    # Add Team to list if not already present and not empty
-                    if car_data['Team'] and car_data['Team'] not in existing['Team']:
-                        existing['Team'].append(car_data['Team'])
-                    
-                    # Add car_number to list if not already present and not empty
-                    if car_data['car_number'] and car_data['car_number'] not in existing['car_number']:
-                        existing['car_number'].append(car_data['car_number'])
-                    
-                    # Update position if different (store as comma-separated if multiple)
-                    current_position = existing['Position']
-                    new_position = driver_positions[driver]
-                    if new_position != current_position:
-                        if ',' not in current_position:
-                            existing['Position'] = f"{current_position},{new_position}"
-                        elif new_position not in current_position:
-                            existing['Position'] = f"{current_position},{new_position}"
-        
-        # Convert dictionary to list and prepare for display
-        talents_data = []
-        for entry in talents_dict.values():
-            # Convert lists to display strings for Team and car_number
-            display_entry = entry.copy()
-            
-            # Convert Team list to semicolon-separated string, remove duplicates
-            if 'Team' in display_entry and isinstance(display_entry['Team'], list):
-                # Remove empty strings and duplicates
-                teams = [str(t).strip() for t in display_entry['Team'] if str(t).strip()]
-                unique_teams = list(dict.fromkeys(teams))  # Preserve order while removing duplicates
-                display_entry['Team'] = ';'.join(unique_teams) if unique_teams else ''
-            
-            # Convert car_number list to semicolon-separated string, remove duplicates
-            if 'car_number' in display_entry and isinstance(display_entry['car_number'], list):
-                # Remove empty strings and duplicates
-                numbers = [str(n).strip() for n in display_entry['car_number'] if str(n).strip()]
-                unique_numbers = list(dict.fromkeys(numbers))  # Preserve order while removing duplicates
-                display_entry['car_number'] = ';'.join(unique_numbers) if unique_numbers else ''
-            
-            talents_data.append(display_entry)
+                # Create talent entry with RCD data
+                talent_entry = {
+                    'Driver': driver,
+                    'Position': driver_positions[driver],
+                    'RCDPath': rcd_path,
+                    'RCDExists': bool(rcd_path),
+                    'CARFile': car_file['filename'],
+                    'CARFullPath': full_path,
+                    'CARRelativePath': car_file['relative_path'],
+                    'Description': car_data['Description'],
+                    'Team': car_data['Team'],
+                    'car_number': car_data['car_number'],
+                    'Directory': car_file['directory']
+                }
+                
+                # Add all RCD variables to the entry (WITH RCD_ PREFIX for CSV)
+                for key, value in rcd_data.items():
+                    # Clean up key names for CSV (no spaces, etc.)
+                    clean_key = key.replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
+                    talent_entry[f'RCD_{clean_key}'] = value
+                
+                talents_data.append(talent_entry)
         
         # Sort by driver name
         talents_data.sort(key=lambda x: x['Driver'].lower())
@@ -355,57 +291,29 @@ class DataManager:
         return talents_data
     
     def save_teams_csv(self, talents_data, output_dir):
-        """Save teams data to a CSV file - ONE ENTRY PER DRIVER WITH RCD DATA"""
+        """Save teams data to a CSV file in the specified directory - ONE ENTRY PER DRIVER WITH RCD DATA"""
         try:
+            # Create output path in the program directory - CHANGED TO teams.csv
             output_path = os.path.join(output_dir, "teams.csv")
             
-            # Prepare data for CSV (convert lists to strings)
-            csv_data = []
-            for entry in talents_data:
-                csv_entry = entry.copy()
-                
-                # Convert lists to semicolon-separated strings for CSV
-                if 'CARFiles' in csv_entry and isinstance(csv_entry['CARFiles'], list):
-                    csv_entry['CARFiles'] = ';'.join(csv_entry['CARFiles'])
-                
-                if 'CARFullPaths' in csv_entry and isinstance(csv_entry['CARFullPaths'], list):
-                    csv_entry['CARFullPaths'] = ';'.join(csv_entry['CARFullPaths'])
-                
-                if 'CARRelativePaths' in csv_entry and isinstance(csv_entry['CARRelativePaths'], list):
-                    csv_entry['CARRelativePaths'] = ';'.join(csv_entry['CARRelativePaths'])
-                
-                # Team and car_number are already strings from process_car_files_for_talents
-                # but handle them if they somehow come as lists
-                if 'Team' in csv_entry and isinstance(csv_entry['Team'], list):
-                    teams = [str(t).strip() for t in csv_entry['Team'] if str(t).strip()]
-                    unique_teams = list(dict.fromkeys(teams))
-                    csv_entry['Team'] = ';'.join(unique_teams) if unique_teams else ''
-                
-                if 'car_number' in csv_entry and isinstance(csv_entry['car_number'], list):
-                    numbers = [str(n).strip() for n in csv_entry['car_number'] if str(n).strip()]
-                    unique_numbers = list(dict.fromkeys(numbers))
-                    csv_entry['car_number'] = ';'.join(unique_numbers) if unique_numbers else ''
-                
-                csv_data.append(csv_entry)
-            
-            # Collect all possible columns
+            # Collect all possible columns (including dynamic RCD columns)
             fieldnames = set()
-            for entry in csv_data:
+            for entry in talents_data:
                 fieldnames.update(entry.keys())
             
             # Sort fieldnames for consistent output
             fieldnames = sorted(list(fieldnames))
             
-            # Ensure key columns come first
+            # Ensure key columns come first in logical order
             key_columns = [
                 'Driver', 
                 'RCDPath', 
                 'RCDExists',
-                'CARFiles',  # Now contains multiple CAR files
-                'CARFullPaths',
-                'CARRelativePaths',
-                'Team',      # Now may contain multiple teams
-                'car_number', # Now may contain multiple car numbers
+                'CARFile', 
+                'CARFullPath', 
+                'CARRelativePath',
+                'Team', 
+                'car_number',
                 'Description',
                 'Position',
                 'Directory'
@@ -418,7 +326,7 @@ class DataManager:
                     ordered_fieldnames.append(col)
                     fieldnames.remove(col)
             
-            # Add RCD_ columns
+            # Add RCD_ columns (sorted alphabetically)
             rcd_columns = sorted([col for col in fieldnames if col.startswith('RCD_')])
             ordered_fieldnames.extend(rcd_columns)
             
@@ -428,9 +336,13 @@ class DataManager:
             
             with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=ordered_fieldnames)
+                
+                # Write header
                 writer.writeheader()
                 
-                for talent in csv_data:
+                # Write data rows - ONE ENTRY PER DRIVER WITH ALL DATA
+                for talent in talents_data:
+                    # Ensure all columns exist in this row
                     row_data = {}
                     for col in ordered_fieldnames:
                         row_data[col] = talent.get(col, '')
@@ -445,4 +357,17 @@ class DataManager:
         """Clear the car files cache"""
         self.car_files_cache.clear()
         self.parsed_car_data.clear()
-        self.parsed_rcd_cache.clear()
+    
+    def get_car_file_info(self, file_path):
+        """Get detailed information about a .car file"""
+        if not os.path.exists(file_path):
+            return None
+        
+        file_info = {
+            'path': file_path,
+            'size': os.path.getsize(file_path),
+            'modified': os.path.getmtime(file_path),
+            'created': os.path.getctime(file_path),
+        }
+        
+        return file_info
