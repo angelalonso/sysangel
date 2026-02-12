@@ -19,28 +19,45 @@ struct SearchResult {
 
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
-    if args.len() < 3 {
-        eprintln!("Usage: {} [-a] [-v] <pattern> <directory>", args[0]);
-        eprintln!("  -a    Search with related words (thesaurus mode)");
-        eprintln!("  -v    Verbose mode (show context lines with formatting)");
+    if args.len() < 2 {
+        eprintln!("Usage: {} <pattern> [directory] [-a] [-v]", args[0]);
+        eprintln!("  pattern     Search pattern");
+        eprintln!("  directory   Optional, defaults to current directory (.)");
+        eprintln!("  -a          Search with related words (thesaurus mode)");
+        eprintln!("  -v          Verbose mode (show context lines with formatting)");
         std::process::exit(1);
     }
 
     let mut arg_idx = 1;
+    
+    // First argument is always the pattern
+    let pattern = &args[arg_idx];
+    arg_idx += 1;
+    
+    // Second argument might be directory or a flag
+    let directory = if arg_idx < args.len() && !args[arg_idx].starts_with('-') {
+        let dir = &args[arg_idx];
+        arg_idx += 1;
+        dir
+    } else {
+        "."
+    };
+    
+    // Parse flags after pattern and optional directory
     let mut related_mode = false;
     let mut verbose_mode = false;
     
-    while arg_idx < args.len() - 2 {
+    while arg_idx < args.len() {
         match args[arg_idx].as_str() {
             "-a" => related_mode = true,
             "-v" => verbose_mode = true,
-            _ => break,
+            flag => {
+                eprintln!("Warning: Unknown flag '{}'", flag);
+            }
         }
         arg_idx += 1;
     }
 
-    let pattern = &args[arg_idx];
-    let directory = &args[arg_idx + 1];
     let before = 4;
     let after = 7;
 
@@ -175,6 +192,7 @@ fn main() -> io::Result<()> {
 
     Ok(())
 }
+
 fn load_thesaurus() -> HashMap<String, Vec<String>> {
     let mut thesaurus = HashMap::new();
     
