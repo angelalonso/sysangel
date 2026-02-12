@@ -1,0 +1,63 @@
+# Vision / Sight
+eye,eyes,vision,sight,visual,seeing,view,look,gaze,stare,glance,eyeball,retina,cornea,pupil,iris,optic,ocular,ophthalmic,blind,eyesight
+
+# Computer / Technology
+computer,pc,laptop,desktop,machine,device,workstation,server,hardware,software,cpu,processor,memory,ram,storage,disk,drive
+
+# Code / Programming
+code,programming,software,program,application,app,script,function,method,class,variable,algorithm,develop,development,coding,compile,debug,test,deploy
+
+# Error / Bug
+error,bug,issue,problem,failure,fault,defect,glitch,crash,exception,panic,warning,mistake,incorrect,invalid
+
+# File / Directory
+file,directory,folder,path,doc,document,txt,data,archive
+
+# Network / Internet
+network,internet,web,online,connection,link,site,server,client,protocol,tcp,ip,http,url
+
+# Emotions
+happy,joy,delight,pleased,glad,cheerful,content,thrilled,elated,ecstatic
+sad,unhappy,sorrow,depressed,gloomy,miserable,down,upset,heartbroken
+
+# Size
+big,large,huge,enormous,giant,massive,great,tall,high,wide
+small,little,tiny,miniature,compact,petite,minute,microscopic
+
+# Speed
+fast,quick,rapid,speedy,swift,hasty,immediate,prompt
+slow,sluggish,leisurely,unhurried,gradual,delayed
+
+# Money
+money,cash,currency,funds,capital,wealth,finance,payment,expense,cost,price
+bank,account,loan,credit,debt,interest,investment
+
+# Health
+health,medical,clinical,therapy,treatment,medicine,drug,patient,doctor,physician,nurse,hospital,clinic
+disease,illness,sickness,condition,disorder,syndrome
+
+# Time
+time,hour,minute,second,day,week,month,year,decade,century
+now,present,current,immediate
+past,previous,former,earlier
+future,upcoming,forthcoming,coming
+
+# Work
+work,job,employment,occupation,profession,career,business,task,duty,responsibility
+employee,worker,staff,personnel
+employer,boss,manager,supervisor
+
+# Communication
+talk,speak,say,tell,communicate,converse,discuss,chat
+message,note,text,letter,email
+call,phone,telephone
+
+# Learning
+learn,study,education,training,instruction,teaching
+knowledge,understanding,comprehension
+student,pupil,learner
+teacher,instructor,educator,professor
+
+# Cloud
+cloud,aws,azure,virtual,google,rds,ec2,route53
+
