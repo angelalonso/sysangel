@@ -6,7 +6,7 @@ use std::env;
 use std::fs;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Instant;
 
@@ -15,6 +15,14 @@ struct SearchResult {
     line_number: usize,
     context_lines: Vec<String>,
     match_line_index: usize,
+}
+
+struct FileNameMatch {
+    path: PathBuf,
+    // These fields are kept for potential future use but marked with _ to avoid warnings
+    _matched_part: String,
+    _full_name: String,
+    _is_directory: bool,
 }
 
 fn main() -> io::Result<()> {
@@ -29,6 +37,7 @@ fn main() -> io::Result<()> {
         eprintln!("  -C NUM      Show NUM lines before and after match (default: 2)");
         eprintln!("  -v          Verbose mode (show context lines with formatting)");
         eprintln!("  -a          Enable thesaurus mode (search with related words)");
+        eprintln!("  --no-names  Disable file/folder name searching (enabled by default)");
         std::process::exit(1);
     }
 
@@ -40,10 +49,11 @@ fn main() -> io::Result<()> {
     
     // Default values
     let mut directory = ".";
-    let mut before = 4;
-    let mut after = 7;
+    let mut before = 2;
+    let mut after = 2;
     let mut related_mode = false;
     let mut verbose_mode = false;
+    let mut search_names = true;  // Changed default to true
     
     // Parse remaining arguments
     while arg_idx < args.len() {
@@ -94,6 +104,10 @@ fn main() -> io::Result<()> {
                 related_mode = true;
                 arg_idx += 1;
             }
+            "--no-names" => {  // New flag to disable name searching
+                search_names = false;
+                arg_idx += 1;
+            }
             _ => {
                 // If it doesn't start with '-', treat as directory
                 if !args[arg_idx].starts_with('-') {
@@ -108,37 +122,52 @@ fn main() -> io::Result<()> {
     }
 
     if verbose_mode {
-        println!("🔍 Searching for: '{}'", pattern);
+        println!("Searching for: '{}'", pattern);
         if related_mode {
-            println!("📖 Related words mode enabled");
+            println!("Related words mode enabled");
         }
-        println!("📁 In directory: {}", directory);
-        println!("📄 Context: {} lines before, {} lines after", before, after);
+        if search_names {
+            println!("File/folder name search enabled (default)");
+        } else {
+            println!("File/folder name search disabled");
+        }
+        println!("In directory: {}", directory);
+        println!("Context: {} lines before, {} lines after", before, after);
         println!();
     }
 
     let start = Instant::now();
     
-    let regex_pattern = if related_mode {
+    // Build search patterns - different for content vs names
+    let content_pattern = if related_mode {
         let thesaurus = load_thesaurus();
         let related = get_related_words(pattern, &thesaurus);
         
         if verbose_mode && related.len() > 1 {
-            println!("📚 Related words: {}", related.join(", "));
+            println!("Related words: {}", related.join(", "));
         }
         
-        format!(r"(?i)\b({})\b", related.join("|"))
+        // For content, use word boundaries to avoid partial matches within words
+        let pattern_str = format!(r"(?i)\b({})\b", related.join("|"));
+        Regex::new(&pattern_str).unwrap()
+    } else {
+        let pattern_str = format!(r"(?i){}", regex::escape(pattern));
+        Regex::new(&pattern_str).unwrap()
+    };
+
+    // For file names, we want partial matches, so no word boundaries
+    let name_pattern_str = if related_mode {
+        let thesaurus = load_thesaurus();
+        let related = get_related_words(pattern, &thesaurus);
+        format!(r"(?i)({})", related.join("|"))
     } else {
         format!(r"(?i){}", regex::escape(pattern))
     };
-    
-    let regex = Regex::new(&regex_pattern).unwrap_or_else(|e| {
-        eprintln!("Invalid regex pattern: {}", e);
-        std::process::exit(1);
-    });
+    let name_regex = Regex::new(&name_pattern_str).unwrap();
 
     let match_count = AtomicUsize::new(0);
     let file_count = AtomicUsize::new(0);
+    let name_match_count = AtomicUsize::new(0);
 
     let files: Vec<_> = WalkBuilder::new(directory)
         .hidden(false)
@@ -151,23 +180,26 @@ fn main() -> io::Result<()> {
         .collect();
 
     if verbose_mode {
-        println!("📊 Found {} files to search", files.len());
+        println!("Found {} files to search", files.len());
         println!();
     }
 
-    let results: Vec<_> = files
+    // Search file contents
+    let content_results: Vec<_> = files
         .par_iter()
         .filter_map(|file| {
             if verbose_mode {
                 file_count.fetch_add(1, Ordering::Relaxed);
                 
                 if file_count.load(Ordering::Relaxed) % 1000 == 0 {
-                    print!("\r⏳ Processed {} files...", file_count.load(Ordering::Relaxed));
+                    print!("\rProcessing files: {} ({} name matches)", 
+                           file_count.load(Ordering::Relaxed),
+                           name_match_count.load(Ordering::Relaxed));
                     let _ = io::stdout().flush();
                 }
             }
 
-            search_file(file, &regex, before, after).map(|mut results| {
+            search_file(file, &content_pattern, before, after).map(|mut results| {
                 match_count.fetch_add(results.len(), Ordering::Relaxed);
                 for r in &mut results {
                     r.file = file.clone();
@@ -178,24 +210,76 @@ fn main() -> io::Result<()> {
         .flatten()
         .collect();
 
+    // Search file/folder names (now enabled by default)
+    let name_results = if search_names {
+        let name_matches: Vec<_> = WalkBuilder::new(directory)
+            .hidden(false)
+            .git_ignore(true)
+            .ignore(true)
+            .build()
+            .filter_map(|e| e.ok())
+            .filter(|e| {
+                if let Some(name) = e.path().file_name().and_then(|n| n.to_str()) {
+                    name_regex.is_match(name)
+                } else {
+                    false
+                }
+            })
+            .map(|e| {
+                let is_dir = e.file_type().map(|ft| ft.is_dir()).unwrap_or(false);
+                let path = e.into_path();
+                let full_name = path.file_name().unwrap().to_string_lossy().to_string();
+                
+                // Find the specific part that matched (kept for potential future use)
+                let _matched_part = if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                    if let Some(mat) = name_regex.find(name) {
+                        name[mat.start()..mat.end()].to_string()
+                    } else {
+                        full_name.clone()
+                    }
+                } else {
+                    full_name.clone()
+                };
+                
+                name_match_count.fetch_add(1, Ordering::Relaxed);
+                
+                FileNameMatch {
+                    path,
+                    _matched_part,
+                    _full_name: full_name,
+                    _is_directory: is_dir,
+                }
+            })
+            .collect();
+        
+        name_matches
+    } else {
+        Vec::new()
+    };
+
     if verbose_mode {
-        println!("\r✅ Processed {} files", file_count.load(Ordering::Relaxed));
+        println!("\rProcessed {} files", file_count.load(Ordering::Relaxed));
         println!();
     }
 
-    if results.is_empty() {
+    // Display results
+    let has_content_matches = !content_results.is_empty();
+    let has_name_matches = !name_results.is_empty();
+
+    if !has_content_matches && !has_name_matches {
         if verbose_mode {
-            println!("❌ No matches found");
+            println!("No matches found");
         }
     } else {
         if verbose_mode {
-            println!("🎯 Found {} matches:\n", results.len());
-        }
-        
-        let mut current_file = PathBuf::new();
-        
-        for result in results {
-            if verbose_mode {
+            // VERBOSE OUTPUT - Advanced with formatting
+            if has_content_matches {
+                println!("Found {} content matches:\n", content_results.len());
+            }
+            
+            // Show content matches with full context and highlighting
+            let mut current_file = PathBuf::new();
+            for result in content_results {
                 if result.file != current_file {
                     current_file = result.file.clone();
                     println!("\n\x1b[1;33m{}:{}\x1b[0m", current_file.display(), result.line_number);
@@ -207,7 +291,7 @@ fn main() -> io::Result<()> {
                     if idx == result.match_line_index {
                         print!("\x1b[1;37m");
                         
-                        let highlighted = regex.replace_all(line, |caps: &regex::Captures| {
+                        let highlighted = content_pattern.replace_all(line, |caps: &regex::Captures| {
                             format!("\x1b[1;34m{}\x1b[1;37m", &caps[0])
                         });
                         
@@ -218,23 +302,67 @@ fn main() -> io::Result<()> {
                     }
                 }
                 println!();
-            } else {
+            }
+
+            // Show name matches with formatting in verbose mode
+            if has_name_matches {
+                if has_content_matches {
+                    println!("\nFound {} file/folder name matches:\n", name_results.len());
+                } else {
+                    println!("Found {} file/folder name matches:\n", name_results.len());
+                }
+                
+                for name_match in name_results {
+                    if let Some(parent) = name_match.path.parent() {
+                        let parent_str = if parent.to_string_lossy() == "" { 
+                            ".".to_string() 
+                        } else { 
+                            parent.display().to_string() 
+                        };
+                        
+                        let path_string = name_match.path.display().to_string();
+                        let highlighted_path = name_regex.replace_all(&path_string, |caps: &regex::Captures| {
+                            format!("\x1b[1;32m{}\x1b[0m\x1b[1;36m", &caps[0])
+                        });
+                        
+                        println!("  \x1b[1;36m{}\x1b[0m", highlighted_path);
+                    } else {
+                        let path_string = name_match.path.display().to_string();
+                        let highlighted_path = name_regex.replace_all(&path_string, |caps: &regex::Captures| {
+                            format!("\x1b[1;32m{}\x1b[0m\x1b[1;36m", &caps[0])
+                        });
+                        println!("  \x1b[1;36m{}\x1b[0m", highlighted_path);
+                    }
+                }
+            }
+        } else {
+            // SIMPLE OUTPUT - Just paths (with line numbers for content matches)
+            // Show content matches (just the path:line format)
+            for result in content_results {
                 println!("{}:{}", result.file.display(), result.line_number);
+            }
+
+            // Show name matches (just the path, no prefix)
+            for name_match in name_results {
+                println!("{}", name_match.path.display());
             }
         }
     }
 
     if verbose_mode {
-        println!("\n📈 Summary:");
-        println!("   Time: {:?}", start.elapsed());
-        println!("   Files: {}", file_count.load(Ordering::Relaxed));
-        println!("   Matches: {}", match_count.load(Ordering::Relaxed));
-        println!("   Context: {} before, {} after", before, after);
+        println!("\nSummary:");
+        println!("  Time: {:?}", start.elapsed());
+        println!("  Files searched: {}", file_count.load(Ordering::Relaxed));
+        println!("  Content matches: {}", match_count.load(Ordering::Relaxed));
+        if search_names {
+            println!("  Name matches: {}", name_match_count.load(Ordering::Relaxed));
+        }
+        println!("  Context: {} before, {} after", before, after);
         
         if related_mode {
             let thesaurus = load_thesaurus();
             let related = get_related_words(pattern, &thesaurus);
-            println!("   Related words: {}", related.join(", "));
+            println!("  Related words: {}", related.join(", "));
         }
     }
 
@@ -310,6 +438,7 @@ fn get_related_words(word: &str, thesaurus: &HashMap<String, Vec<String>>) -> Ve
             related.insert(w.clone());
         }
     } else {
+        // If exact word not found, try to find partial matches
         for (key, synonyms) in thesaurus {
             if key.contains(&word_lower) || word_lower.contains(key) {
                 for w in synonyms {
@@ -325,7 +454,7 @@ fn get_related_words(word: &str, thesaurus: &HashMap<String, Vec<String>>) -> Ve
 }
 
 fn search_file(
-    path: &std::path::Path, 
+    path: &Path, 
     regex: &Regex, 
     before: usize, 
     after: usize
