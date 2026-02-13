@@ -20,11 +20,15 @@ struct SearchResult {
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        eprintln!("Usage: {} <pattern> [directory] [-a] [-v]", args[0]);
+        eprintln!("Usage: {} <pattern> [directory] [options]", args[0]);
         eprintln!("  pattern     Search pattern");
         eprintln!("  directory   Optional, defaults to current directory (.)");
-        eprintln!("  -a          Search with related words (thesaurus mode)");
+        eprintln!("\nOptions:");
+        eprintln!("  -A NUM      Show NUM lines after match (default: 2)");
+        eprintln!("  -B NUM      Show NUM lines before match (default: 2)");
+        eprintln!("  -C NUM      Show NUM lines before and after match (default: 2)");
         eprintln!("  -v          Verbose mode (show context lines with formatting)");
+        eprintln!("  -a          Enable thesaurus mode (search with related words)");
         std::process::exit(1);
     }
 
@@ -34,32 +38,74 @@ fn main() -> io::Result<()> {
     let pattern = &args[arg_idx];
     arg_idx += 1;
     
-    // Second argument might be directory or a flag
-    let directory = if arg_idx < args.len() && !args[arg_idx].starts_with('-') {
-        let dir = &args[arg_idx];
-        arg_idx += 1;
-        dir
-    } else {
-        "."
-    };
-    
-    // Parse flags after pattern and optional directory
+    // Default values
+    let mut directory = ".";
+    let mut before = 4;
+    let mut after = 7;
     let mut related_mode = false;
     let mut verbose_mode = false;
     
+    // Parse remaining arguments
     while arg_idx < args.len() {
         match args[arg_idx].as_str() {
-            "-a" => related_mode = true,
-            "-v" => verbose_mode = true,
-            flag => {
-                eprintln!("Warning: Unknown flag '{}'", flag);
+            "-A" => {
+                if arg_idx + 1 < args.len() {
+                    after = args[arg_idx + 1].parse().unwrap_or_else(|_| {
+                        eprintln!("Error: -A requires a number");
+                        std::process::exit(1);
+                    });
+                    arg_idx += 2;
+                } else {
+                    eprintln!("Error: -A requires a number");
+                    std::process::exit(1);
+                }
+            }
+            "-B" => {
+                if arg_idx + 1 < args.len() {
+                    before = args[arg_idx + 1].parse().unwrap_or_else(|_| {
+                        eprintln!("Error: -B requires a number");
+                        std::process::exit(1);
+                    });
+                    arg_idx += 2;
+                } else {
+                    eprintln!("Error: -B requires a number");
+                    std::process::exit(1);
+                }
+            }
+            "-C" => {
+                if arg_idx + 1 < args.len() {
+                    let num: usize = args[arg_idx + 1].parse().unwrap_or_else(|_| {
+                        eprintln!("Error: -C requires a number");
+                        std::process::exit(1);
+                    });
+                    before = num;
+                    after = num;
+                    arg_idx += 2;
+                } else {
+                    eprintln!("Error: -C requires a number");
+                    std::process::exit(1);
+                }
+            }
+            "-v" => {
+                verbose_mode = true;
+                arg_idx += 1;
+            }
+            "-a" => {
+                related_mode = true;
+                arg_idx += 1;
+            }
+            _ => {
+                // If it doesn't start with '-', treat as directory
+                if !args[arg_idx].starts_with('-') {
+                    directory = &args[arg_idx];
+                    arg_idx += 1;
+                } else {
+                    eprintln!("Warning: Unknown flag '{}'", args[arg_idx]);
+                    arg_idx += 1;
+                }
             }
         }
-        arg_idx += 1;
     }
-
-    let before = 4;
-    let after = 7;
 
     if verbose_mode {
         println!("🔍 Searching for: '{}'", pattern);
@@ -67,6 +113,7 @@ fn main() -> io::Result<()> {
             println!("📖 Related words mode enabled");
         }
         println!("📁 In directory: {}", directory);
+        println!("📄 Context: {} lines before, {} lines after", before, after);
         println!();
     }
 
@@ -182,6 +229,7 @@ fn main() -> io::Result<()> {
         println!("   Time: {:?}", start.elapsed());
         println!("   Files: {}", file_count.load(Ordering::Relaxed));
         println!("   Matches: {}", match_count.load(Ordering::Relaxed));
+        println!("   Context: {} before, {} after", before, after);
         
         if related_mode {
             let thesaurus = load_thesaurus();
@@ -196,64 +244,59 @@ fn main() -> io::Result<()> {
 fn load_thesaurus() -> HashMap<String, Vec<String>> {
     let mut thesaurus = HashMap::new();
     
-    // First try to load from external file for easy editing
-    let home = env::var("HOME").unwrap_or_default();
-    let config_path = format!("{}/.config/rsearch/thesaurus.txt", home);
+    // First try current directory
+    if let Ok(contents) = fs::read_to_string("./thesaurus.txt") {
+        parse_thesaurus_content(&contents, &mut thesaurus);
+    }
     
-    let possible_paths = vec![
-        "./thesaurus.txt",
-        config_path.as_str(),
-        "/usr/local/share/rsearch/thesaurus.txt",
-        "/usr/share/rsearch/thesaurus.txt",
-    ];
-    
-    for path in possible_paths {
-        if let Ok(contents) = fs::read_to_string(path) {
-            for line in contents.lines() {
-                let line = line.trim();
-                if line.is_empty() || line.starts_with('#') {
-                    continue;
-                }
-                
-                let words: Vec<String> = line.split(',')
-                    .map(|s| s.trim().to_lowercase())
-                    .filter(|s| !s.is_empty())
-                    .collect();
-                
-                if !words.is_empty() {
-                    let key = words[0].clone();
-                    thesaurus.insert(key, words);
-                }
-            }
-            
-            if !thesaurus.is_empty() {
-                break;
-            }
+    // If not found, try ~/.vws/
+    if thesaurus.is_empty() {
+        let home = env::var("HOME").unwrap_or_default();
+        let vws_path = format!("{}/.vws/thesaurus.txt", home);
+        if let Ok(contents) = fs::read_to_string(vws_path) {
+            parse_thesaurus_content(&contents, &mut thesaurus);
         }
     }
     
-    // If no external file found, use embedded version
+    // If still empty, use embedded default
     if thesaurus.is_empty() {
-        let embedded = include_str!("../thesaurus.txt");
-        for line in embedded.lines() {
-            let line = line.trim();
-            if line.is_empty() || line.starts_with('#') {
-                continue;
-            }
-            
-            let words: Vec<String> = line.split(',')
-                .map(|s| s.trim().to_lowercase())
-                .filter(|s| !s.is_empty())
-                .collect();
-            
-            if !words.is_empty() {
-                let key = words[0].clone();
-                thesaurus.insert(key, words);
-            }
-        }
+        // Built-in default thesaurus
+        let default_content = r#"eye,vision,sight,see,view,look,eyeball,ocular
+computer,pc,laptop,desktop,workstation,machine
+file,document,text,note,archive,record
+search,find,locate,lookup,query,scan
+word,term,keyword,phrase,expression
+note,memo,reminder,journal,diary,log
+create,make,build,generate,produce
+delete,remove,erase,eliminate
+update,modify,change,edit
+view,display,show,visualize
+help,assist,support,guide
+error,mistake,bug,failure,issue"#;
+        
+        parse_thesaurus_content(default_content, &mut thesaurus);
     }
     
     thesaurus
+}
+
+fn parse_thesaurus_content(content: &str, thesaurus: &mut HashMap<String, Vec<String>>) {
+    for line in content.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+        
+        let words: Vec<String> = line.split(',')
+            .map(|s| s.trim().to_lowercase())
+            .filter(|s| !s.is_empty())
+            .collect();
+        
+        if !words.is_empty() {
+            let key = words[0].clone();
+            thesaurus.insert(key, words);
+        }
+    }
 }
 
 fn get_related_words(word: &str, thesaurus: &HashMap<String, Vec<String>>) -> Vec<String> {
