@@ -1,0 +1,36 @@
+terminator + tmux
+nvim
+keepassx
+chrome
+helium
+sound config
+keyboard layout config
+display config
+bluetooth
+---
+Right Win -> app menu
+Alt-Tab -> show other app in Desktop
+4 vistual desktops -> L-Win + h/l to move to prev/next
+                   -> L-Win + Shift + h/l to move app to prev/next
+L-Win + w -> helium
+L-Win + a -> Firefox
+L-Win + f -> File browser
+L-Win + t -> Terminator
+L-Win + k -> Keepassx
+
+---
+installed
+apt install mako-notifier grim slurp sway wofi blueman swaylock swayidle
+...
+curl -fsSL https://pescheckit.github.io/sway-displays/gpg.key \
+  | sudo gpg --dearmor -o /usr/share/keyrings/sway-displays.gpg
+
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/sway-displays.gpg] \
+https://pescheckit.github.io/sway-displays/apt stable main" \
+  | sudo tee /etc/apt/sources.list.d/sway-displays.list
+
+sudo apt update && sudo apt install sway-displays
+...
+---
+backups 
+- snapshots?

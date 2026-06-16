@@ -1,0 +1,10 @@
+# ~/.config/mako/config
+sort=-time
+layer=overlay
+anchor=top-right
+width=300
+height=100
+margin=10
+padding=15
+border-size=2
+border-radius=5

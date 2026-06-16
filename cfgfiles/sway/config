@@ -1,0 +1,76 @@
+# Modifier key (Super/Windows)
+set $mod Mod4
+
+# App Shortcuts
+bindsym $mod+t exec terminator
+bindsym $mod+k exec keepassxc
+bindsym $mod+a exec firefox
+bindsym $mod+w exec /home/aaf/Software/helium-0.12.4.1-x86_64.AppImage --enable-features=UseOzonePlatform --ozone-platform=wayland
+bindsym $mod+f exec nautilus  # Change 'nautilus' to your preferred file browser
+bindsym $mod+c exec /usr/bin/google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime %U
+
+#### Standard Sway stuff
+# Exit
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
+# Reload
+bindsym $mod+Shift+r exec swaymsg reload
+# Lock
+bindsym Mod1+Ctrl+q exec swaylock -c 1c3335
+# Audio controls
+bindsym $mod+Shift+s exec pavucontrol
+#bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pamixer --get-volume > $XDG_RUNTIME_DIR/wob.sock
+bindsym XF86AudioRaiseVolume exec pamixer -i 5
+bindsym XF86AudioLowerVolume exec pamixer -d 5
+bindsym XF86AudioMute        exec pamixer -t
+# notifications
+exec_always mako
+# Force browser dialogs to always float so they don't mess up your tiling layout
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+
+
+#### My stuff
+## KEYBOARD
+input * {
+    xkb_layout "de"
+    # xkb_layout "us"
+}
+## DISPLAY
+exec_always /usr/bin/sway-displays load work_externalonly
+# App Menu (Right Win key)
+# Note: XF86Menu is often the scan code for the Menu/Right Win key
+bindsym Super_R exec wofi --show drun
+
+# Move focus around
+bindsym $mod+Ctrl+h focus left
+bindsym $mod+Ctrl+j focus down
+bindsym $mod+Ctrl+k focus up
+bindsym $mod+Ctrl+l focus right
+
+# 4 Virtual Desktops + Movement (using h/l)
+# Mapping h/l to move between workspaces
+bindsym $mod+h workspace prev
+bindsym $mod+l workspace next
+# Move active window to prev/next workspace
+bindsym $mod+Shift+h move container to workspace prev
+bindsym $mod+Shift+l move container to workspace next
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+  # Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+
+# Alt-Tab (Last Used Window)
+# You need 'swayr' for true Alt-Tab behavior.
+# Install: sudo apt install swayr
+bindsym Mod1+Shift+Tab exec rofi -show window
+##bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
+## bindsym Mod1+Tab focus next
+## bindsym Mod1+Shift+Tab focus prev
