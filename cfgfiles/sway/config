@@ -9,28 +9,70 @@ bindsym $mod+w exec /home/aaf/Software/helium-0.12.4.1-x86_64.AppImage --enable-
 bindsym $mod+f exec nautilus  # Change 'nautilus' to your preferred file browser
 bindsym $mod+c exec /usr/bin/google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime %U
 
+## --------------------------------------------------------------------------------------------------------------------------- ##
 #### Standard Sway stuff
 # Exit
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
+
 # Reload
 bindsym $mod+Shift+r exec swaymsg reload
+
 # Lock
 bindsym Mod1+Ctrl+q exec swaylock -c 1c3335
+
+# Sleep Mode, -ish
+exec swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
+
 # Audio controls
 bindsym $mod+Shift+s exec pavucontrol
 #bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pamixer --get-volume > $XDG_RUNTIME_DIR/wob.sock
 bindsym XF86AudioRaiseVolume exec pamixer -i 5
 bindsym XF86AudioLowerVolume exec pamixer -d 5
 bindsym XF86AudioMute        exec pamixer -t
+
+# Brightness control
+bindsym XF86MonBrightnessUp exec sudo brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec sudo brightnessctl set 5%-
+
 # notifications
 exec_always mako
+
 # Force browser dialogs to always float so they don't mess up your tiling layout
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [window_type="dialog"] floating enable
 
+# Remove window borders/titles
+default_border pixel 1
+default_floating_border pixel 1
 
+# Bar
+bar {
+    # Uses the i3status program to feed data to the bar
+    status_command i3status
+
+    # Position can be 'top' or 'bottom'
+    position top
+
+    colors {
+        # Text color and background of the bar itself
+        statusline #ffffff
+        background #323232
+
+        # Focused workspace buttons (Active tab)
+        #           border  bg      text
+        focused_workspace #4c7899 #285577 #ffffff
+        
+        # Inactive workspace buttons
+        inactive_workspace #333333 #222222 #888888
+    }
+}
+
+## --------------------------------------------------------------------------------------------------------------------------- ##
 #### My stuff
 ## KEYBOARD
 input * {
@@ -67,9 +109,16 @@ bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4
 
+# Scratchpad - send stuff here and there
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+Space move scratchpad
+# Move the current scratchpad window back to tiles
+bindsym $mod+Mod1+Space floating toggle
+
+# Show the next scratchpad window or hide the focused scratchpad window
+bindsym $mod+Space scratchpad show
 # Alt-Tab (Last Used Window)
 # You need 'swayr' for true Alt-Tab behavior.
-# Install: sudo apt install swayr
 bindsym Mod1+Shift+Tab exec rofi -show window
 ##bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
 ## bindsym Mod1+Tab focus next
