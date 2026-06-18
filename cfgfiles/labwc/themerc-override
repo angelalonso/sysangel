@@ -1,0 +1,11 @@
+# Background color of the OSD
+osd.bg.color: #285577
+
+# Text color for the workspace name/number
+osd.label.text.color: #ffffff
+
+# Border color of the OSD
+osd.border.color: #4c7899
+
+# Border width (in pixels)
+osd.border.width: 0

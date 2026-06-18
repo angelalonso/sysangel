@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<openbox_menu>
+  <menu id="root-menu" label="LabWC">
+    <item label="Terminal"><action name="Execute" command="terminator"/></item>
+    <item label="Helium"><action name="Execute" command="/home/aaf/Software/helium-0.12.4.1-x86_64.AppImage --enable-features=UseOzonePlatform --ozone-platform=wayland"/></item>
+    <item label="Display Settings"><action name="Execute" command="wdisplays"/></item>
+    <separator/>
+    <item label="Reconfigure"><action name="Reconfigure"/></item>
+    <item label="Exit"><action name="Exit"/></item>
+  </menu>
+</openbox_menu>
