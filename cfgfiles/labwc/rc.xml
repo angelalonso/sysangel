@@ -4,14 +4,14 @@
   <keyboard>
     <default />
     <!-- Desktop Switching -->
-    <keybind key="W-h"><action name="GoToDesktop" to="left" wrap="yes"/></keybind>
-    <keybind key="W-l"><action name="GoToDesktop" to="right" wrap="yes"/></keybind>
+    <keybind key="W-h"><action name="GoToDesktop" to="left" wrap="no"/></keybind>
+    <keybind key="W-l"><action name="GoToDesktop" to="right" wrap="no"/></keybind>
     <keybind key="W-1"><action name="GoToDesktop" to="1"/></keybind>
     <keybind key="W-2"><action name="GoToDesktop" to="2"/></keybind>
     <keybind key="W-3"><action name="GoToDesktop" to="3"/></keybind>
     <keybind key="W-4"><action name="GoToDesktop" to="4"/></keybind>
-    <keybind key="W-S-h"><action name="SendToDesktop" to="left"/></keybind>
-    <keybind key="W-S-l"><action name="SendToDesktop" to="right"/></keybind>
+    <keybind key="W-S-h"><action name="SendToDesktop" to="left" wrap="no"/></keybind>
+    <keybind key="W-S-l"><action name="SendToDesktop" to="right" wrap="no"/></keybind>
     <keybind key="W-S-1"><action name="SendToDesktop" to="1"/></keybind>
     <keybind key="W-S-2"><action name="SendToDesktop" to="2"/></keybind>
     <keybind key="W-S-3"><action name="SendToDesktop" to="3"/></keybind>

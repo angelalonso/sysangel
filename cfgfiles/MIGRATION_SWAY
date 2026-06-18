@@ -40,4 +40,5 @@ LAB WC
 
 sudo apt update
 sudo apt install waybar mako-notifier swaybg swayidle swaylock wofi wdisplays policykit-1-gnome pavucontrol brightnessctl
-
+sudo apt update
+sudo apt install pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
