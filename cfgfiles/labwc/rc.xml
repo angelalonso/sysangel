@@ -3,6 +3,7 @@
   <desktops number="4" />
   <keyboard>
     <default />
+    <keybind key="W-S-q"><action name="Close" /></keybind>
     <!-- Desktop Switching -->
     <keybind key="W-h"><action name="GoToDesktop" to="left" wrap="no"/></keybind>
     <keybind key="W-l"><action name="GoToDesktop" to="right" wrap="no"/></keybind>

@@ -1,0 +1,10 @@
+# Profile 1: Laptop only (when on the go)
+profile {
+    output "eDP-1" enable mode 1920x1080@60Hz position 0,0
+}
+
+# Profile 2: Desk setup (External monitor plugged in, laptop screen disabled)
+profile {
+    output "eDP-1" disable
+    output "HDMI-A-1" enable mode 3840x2160@59.997Hz position 0,0 scale 1.4
+}

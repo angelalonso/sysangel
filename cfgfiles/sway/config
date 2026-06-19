@@ -2,6 +2,7 @@
 set $mod Mod4
 
 # App Shortcuts
+bindsym $mod+Shift+q kill
 bindsym $mod+t exec terminator
 bindsym $mod+k exec keepassxc
 bindsym $mod+a exec firefox
@@ -71,6 +72,8 @@ bar {
         inactive_workspace #333333 #222222 #888888
     }
 }
+# Tell Sway to never let windows hide the bar
+for_window [app_id="terminator"] border pixel 1
 
 ## --------------------------------------------------------------------------------------------------------------------------- ##
 #### My stuff
