@@ -19,3 +19,7 @@ swayidle -w \
 
 # Display manager
 kanshi &
+# Network manager
+nm-applet --indicator &
+# Bluetooth icon (if you have bluetooth)
+blueman-applet &

@@ -2,21 +2,18 @@
     "layer": "top",
     "position": "top",
     "height": 32,
+    "spacing": 10,
+    "fixed-center": true,
+    
     "modules-left": [],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "disk", "battery"],
+    "modules-right": ["cpu", "memory", "disk", "pulseaudio", "backlight", "battery", "tray"],
 
-    "disk": {
-        "interval": 30,
-        "format": "Disk: {percentage_used}%",
-        "path": "/",
-        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
-    },
     "clock": {
         "format": "{:%H:%M}",
         "rotate": 0,
-        "format-alt": "{ %d·%m·%y}",
-        "tooltip-format": "<span>{calendar}</span>",
+        "format-alt": "{:%d·%m·%y}",
+        "tooltip-format": "<span color='#cdd6f4'>{calendar}</span>",
         "calendar": {
             "mode": "month",
             "format": {
@@ -27,14 +24,44 @@
             }
         }
     },
+
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""],
+        "on-click": "pavucontrol"
     },
+
+    "backlight": {
+        "format": "{icon}",
+        "format-icons": [""],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip-format": "{percent}%"
+    },
+
+    "battery": {
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{capacity}%"
+    },
+
     "cpu": {
         "format": "CPU: {usage}%"
     },
+
     "memory": {
         "format": "RAM: {}%"
+    },
+
+    "disk": {
+        "interval": 30,
+        "format": "Disk: {percentage_used}%",
+        "path": "/",
+        "tooltip-format": "{used} used out of {total} on {path}"
+    },
+
+    "tray": {
+        "spacing": 10,
+        "height": 32
     }
 }
