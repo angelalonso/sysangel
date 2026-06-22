@@ -6,4 +6,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 pre { text-align: left; background: #2d2d2d; padding: 15px; border-radius: 4px; overflow-x: auto; font-family: monospace; }
 button { background: #03dac6; color: #000; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 15px; }
 button:hover { background: #01bfa5; }
+.btn-secondary { background: #333333; color: #e0e0e0; border: 1px solid #555; }
+.btn-secondary:hover { background: #444444; }
 .hidden { display: none !important; }
+.screen { transition: opacity 0.2s ease-in-out; }

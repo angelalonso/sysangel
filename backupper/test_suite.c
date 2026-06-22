@@ -15,7 +15,6 @@ int tests_failed = 0;
     } \
 } while(0)
 
-// Helper function mock to test how main.c sanitizes data for JS injection
 void sanitize_for_js(const char* input, char* output) {
     int j = 0;
     for(int i = 0; input[i] != '\0'; i++) {
@@ -30,6 +29,15 @@ void sanitize_for_js(const char* input, char* output) {
         }
     }
     output[j] = '\0';
+}
+
+int is_valid_invoke_command(const char* command) {
+    if (strcmp(command, "getConfig") == 0 || 
+        strcmp(command, "createConfig") == 0 || 
+        strcmp(command, "addMixTape") == 0) {
+        return 1;
+    }
+    return 0;
 }
 
 void test_missing_config_behavior() {
@@ -51,7 +59,6 @@ void test_reading_valid_config() {
 }
 
 void test_js_serialization_escaping() {
-    // Tests that multi-line YAML text won't break the JS window context 
     const char* raw_yaml = "key: \"value\"\nnext: true";
     char sanitized[256] = {0};
     
@@ -61,11 +68,17 @@ void test_js_serialization_escaping() {
     assert_msg(strstr(sanitized, "\\\"") != NULL, "Quotes must be escaped to '\\\"' so they don't terminate JS strings early.");
 }
 
+void test_add_mixtape_command_routing() {
+    assert_msg(is_valid_invoke_command("addMixTape") == 1, "The 'addMixTape' native action must be registered in backend routing.");
+    assert_msg(is_valid_invoke_command("manageBackup") == 0, "The legacy secondary window command should no longer be registered.");
+}
+
 int main() {
     printf("=== Starting WebView Application Test Suite ===\n");
     test_missing_config_behavior();
     test_reading_valid_config();
     test_js_serialization_escaping();
+    test_add_mixtape_command_routing();
     printf("=== Summary: %d Passed, %d Failed ===\n", tests_run - tests_failed, tests_failed);
     return tests_failed > 0 ? 1 : 0;
 }

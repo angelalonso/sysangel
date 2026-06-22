@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -std=c99
+CFLAGS = -Wall -Wextra -O2 -std=c99 -Wno-deprecated-declarations
 TARGET = app
 TEST_TARGET = test_runner
 

@@ -9,13 +9,28 @@
 <body>
     <div class="container">
         <h1>Configuration Manager</h1>
-        <div id="status-card" class="card loading">
-            <p id="status-message">Loading configuration...</p>
-            <button id="btn-create" class="hidden" onclick="createConfig()">Create from Template</button>
+        
+        <div id="screen-main" class="screen">
+            <div id="status-card" class="card loading">
+                <p id="status-message">Loading configuration...</p>
+                <button id="btn-create" class="hidden" onclick="createConfig()">Create from Template</button>
+            </div>
+            <div id="config-card" class="card hidden">
+                <h3>Current Configuration:</h3>
+                <pre id="config-content"></pre>
+            </div>
+            <div class="card">
+                <h3>Storage Management</h3>
+                <button id="btn-backup" onclick="showScreen('screen-backup')">Manage Backup Storage</button>
+            </div>
         </div>
-        <div id="config-card" class="card hidden">
-            <h3>Current Configuration:</h3>
-            <pre id="config-content"></pre>
+
+        <div id="screen-backup" class="screen hidden">
+            <div class="card">
+                <h2>Mix Tapes</h2>
+                <button id="btn-add-mixtape" onclick="addMixTape()">Add New Mix Tape</button>
+            </div>
+            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
         </div>
     </div>
     <script src="app.js"></script>

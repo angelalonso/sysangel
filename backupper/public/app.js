@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", fetchConfig);
 
+// Screen Routing Manager
+window.showScreen = function(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.add('hidden');
+    });
+    const targetScreen = document.getElementById(screenId);
+    if (targetScreen) {
+        targetScreen.classList.remove('hidden');
+    }
+};
+
 // Pure C Callback hooks called back by C's webview_eval
 window.receiveConfig = function(data) {
     const statusCard = document.getElementById('status-card');
@@ -30,7 +41,7 @@ window.receiveCreateStatus = function(data) {
     }
 };
 
-// CRITICAL FIX: Safe wrapper for legacy WebKit communication in Linux
+// Safe wrapper for legacy WebKit communication in Linux
 function callNative(param) {
     if (window.external && window.external.invoke) {
         window.external.invoke(param);
@@ -42,11 +53,13 @@ function callNative(param) {
 }
 
 function fetchConfig() {
-    // Use the safe wrapper instead of direct window.external.invoke
     callNative("getConfig");
 }
 
 function createConfig() {
-    // Use the safe wrapper instead of direct window.external.invoke
-    callNative("createConfig");
+    callNative("callNative");
+}
+
+function addMixTape() {
+    callNative("addMixTape");
 }

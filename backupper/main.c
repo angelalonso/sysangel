@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdarg.h>  // Required internally by legacy webview.h
 #include <limits.h>
+#include <gtk/gtk.h> // Required for GTK components
 
 #define WEBVIEW_GTK 1
 #define WEBVIEW_IMPLEMENTATION
@@ -37,12 +38,38 @@ void handle_create_config(struct webview *w, const char *arg) {
     webview_eval(w, json_reply);
 }
 
+void handle_add_mixtape(struct webview *w) {
+    // Fetch the underlying GTK top-level window from the webview context
+    GtkWidget *parent_window = NULL;
+    if (w != NULL && w->priv.window != NULL) {
+        parent_window = GTK_WIDGET(w->priv.window);
+    }
+
+    GtkWidget *dialog = gtk_file_chooser_dialog_new("Select Mix Tape Folder",
+                                                    parent_window ? GTK_WINDOW(parent_window) : NULL,
+                                                    GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                                    "_Cancel", GTK_RESPONSE_CANCEL,
+                                                    "_Open", GTK_RESPONSE_ACCEPT,
+                                                    NULL);
+    
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+        char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+        if (filename != NULL) {
+            printf("Selected mix tape folder: %s\n", filename);
+            g_free(filename);
+        }
+    }
+    gtk_widget_destroy(dialog);
+}
+
 void my_external_invoke_cb(struct webview *w, const char *arg) {
     if (arg != NULL) {
         if (strcmp(arg, "getConfig") == 0) {
             handle_get_config(w, arg);
         } else if (strcmp(arg, "createConfig") == 0) {
             handle_create_config(w, arg);
+        } else if (strcmp(arg, "addMixTape") == 0) {
+            handle_add_mixtape(w);
         }
     }
 }
