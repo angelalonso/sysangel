@@ -16,6 +16,7 @@
                 <button class="btn-menu" onclick="showScreen('screen-tapes')">Tapes</button>
                 <button class="btn-menu" onclick="goToConfigScreen()">Config</button>
             </div>
+            <p style="margin-top: 40px; color: #777;">Press <kbd>Esc</kbd> anywhere to go back, or on this screen to Exit.</p>
         </div>
 
         <div id="screen-mixes" class="screen hidden">
@@ -23,7 +24,7 @@
             <div class="card">
                 <p>Manage and combine your customized audio track playlists here.</p>
             </div>
-            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
+            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back <kbd>Esc</kbd></button>
         </div>
 
         <div id="screen-tapes" class="screen hidden">
@@ -32,7 +33,7 @@
                 <h3>Storage Options</h3>
                 <button id="btn-add-mixtape" onclick="addMixTape()">Add New Mix Tape</button>
             </div>
-            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
+            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back <kbd>Esc</kbd></button>
         </div>
 
         <div id="screen-config" class="screen hidden">
@@ -44,7 +45,18 @@
                 <h3>Current Configuration (cfg.yml):</h3>
                 <pre id="config-content"></pre>
             </div>
-            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
+            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back <kbd>Esc</kbd></button>
+        </div>
+
+        <div id="screen-confirm-exit" class="screen hidden">
+            <div class="card error" style="margin-top: 100px; padding: 40px;">
+                <h2>Exit Application?</h2>
+                <p>Are you sure you want to close the Configuration Manager?</p>
+                <div style="display: flex; gap: 20px; justify-content: center; margin-top: 25px;">
+                    <button style="background: #cf6679; color: white;" onclick="confirmExitApp()">Yes, Exit</button>
+                    <button class="btn-secondary" style="margin-top: 15px;" onclick="showScreen('screen-main')">No, Stay <kbd>Esc</kbd></button>
+                </div>
+            </div>
         </div>
 
     </div>

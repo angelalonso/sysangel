@@ -9,7 +9,6 @@
 #include "webview.h"
 #include "server.h"
 
-// Ensures the configuration file exists by checking and copying template if needed
 void check_and_ensure_config(void) {
     ConfigData data = read_config_file("cfg.yml");
     if (!data.exists) {
@@ -20,7 +19,6 @@ void check_and_ensure_config(void) {
 
 void handle_get_config(struct webview *w, const char *arg) {
     (void)arg;
-    // Always double check or read the config
     ConfigData data = read_config_file("cfg.yml");
     
     char json_reply[4192];
@@ -69,18 +67,20 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
             handle_get_config(w, arg);
         } else if (strcmp(arg, "addMixTape") == 0) {
             handle_add_mixtape(w);
+        } else if (strcmp(arg, "exitApp") == 0) {
+            printf("Exit confirmation approved. Terminating webview lifecycle loop.\n");
+            webview_terminate(w);
         }
     }
 }
 
 int main(void) {
-    // Automatically manage configuration baseline strategy before spinning up UI context
     check_and_ensure_config();
 
     struct webview webview = {
         .title = "Configuration Manager",
-        .width = 640,
-        .height = 480,
+        .width = 1280,
+        .height = 960,
         .resizable = 0,
         .external_invoke_cb = my_external_invoke_cb
     };

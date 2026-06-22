@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Application initially starts directly at the 'main' viewport
     showScreen('screen-main');
+    setupKeyboardShortcuts();
 });
 
 // Single Window View/Route Controller
@@ -18,6 +19,34 @@ window.goToConfigScreen = function() {
     showScreen('screen-config');
     fetchConfig();
 };
+
+// Global Keyboard Shortcut Listener
+function setupKeyboardShortcuts() {
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            // Find the currently active screen
+            const activeScreen = document.querySelector('.screen:not(.hidden)');
+            
+            if (activeScreen) {
+                if (activeScreen.id === 'screen-main') {
+                    // Esc on main screen routes to the exit confirmation view
+                    console.log("Esc detected on main screen. Opening confirmation screen.");
+                    showScreen('screen-confirm-exit');
+                } else if (activeScreen.id === 'screen-confirm-exit') {
+                    // Esc on the confirmation screen itself dismisses it and goes back to main
+                    showScreen('screen-main');
+                } else {
+                    // Esc on any other sub-screen goes back to main dashboard
+                    showScreen('screen-main');
+                }
+            }
+        }
+    });
+}
+
+function confirmExitApp() {
+    callNative("exitApp");
+}
 
 // Pure C Callback hook invoked by backend's webview_eval
 window.receiveConfig = function(data) {
@@ -53,6 +82,6 @@ function fetchConfig() {
     callNative("getConfig");
 }
 
-function addMixTape() {
+fn_addMixTape = function() {
     callNative("addMixTape");
 }
