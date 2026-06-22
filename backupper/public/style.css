@@ -3,10 +3,17 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .card { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
 .error { border-color: #cf6679; }
 .success { border-color: #03dac6; }
-pre { text-align: left; background: #2d2d2d; padding: 15px; border-radius: 4px; overflow-x: auto; font-family: monospace; }
-button { background: #03dac6; color: #000; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+pre { text-align: left; background: #2d2d2d; padding: 15px; border-radius: 4px; overflow-x: auto; font-family: monospace; color: #a5d6ff; }
+
+button { background: #03dac6; color: #000; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 15px; }
 button:hover { background: #01bfa5; }
-.btn-secondary { background: #333333; color: #e0e0e0; border: 1px solid #555; }
+
+/* Dashboard layout styles */
+.menu-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+.btn-menu { background: #1f3a60; color: #fff; font-size: 1.2rem; padding: 20px; border: 1px solid #3a5fcd; border-radius: 6px; }
+.btn-menu:hover { background: #2a4d7c; }
+
+.btn-secondary { background: #333333; color: #e0e0e0; border: 1px solid #555; font-size: 0.95rem; }
 .btn-secondary:hover { background: #444444; }
 .hidden { display: none !important; }
 .screen { transition: opacity 0.2s ease-in-out; }

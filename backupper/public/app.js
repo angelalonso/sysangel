@@ -1,6 +1,9 @@
-document.addEventListener("DOMContentLoaded", fetchConfig);
+document.addEventListener("DOMContentLoaded", () => {
+    // Application initially starts directly at the 'main' viewport
+    showScreen('screen-main');
+});
 
-// Screen Routing Manager
+// Single Window View/Route Controller
 window.showScreen = function(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.add('hidden');
@@ -11,53 +14,43 @@ window.showScreen = function(screenId) {
     }
 };
 
-// Pure C Callback hooks called back by C's webview_eval
+window.goToConfigScreen = function() {
+    showScreen('screen-config');
+    fetchConfig();
+};
+
+// Pure C Callback hook invoked by backend's webview_eval
 window.receiveConfig = function(data) {
     const statusCard = document.getElementById('status-card');
     const statusMsg = document.getElementById('status-message');
     const configCard = document.getElementById('config-card');
     const configContent = document.getElementById('config-content');
-    const createBtn = document.getElementById('btn-create');
 
     if (data.exists) {
         statusCard.className = "card success";
         statusMsg.innerText = "Configuration Loaded Successfully";
         configCard.classList.remove('hidden');
         configContent.innerText = data.content;
-        createBtn.classList.add('hidden');
     } else {
         statusCard.className = "card error";
-        statusMsg.innerText = "Warning: cfg.yml is missing!";
+        statusMsg.innerText = "Error: Configuration file could not be created.";
         configCard.classList.add('hidden');
-        createBtn.classList.remove('hidden');
     }
 };
 
-window.receiveCreateStatus = function(data) {
-    if (data.success) {
-        fetchConfig();
-    } else {
-        alert("Failed to create configuration.");
-    }
-};
-
-// Safe wrapper for legacy WebKit communication in Linux
+// Safe bridge platform handler for Linux WebKit environments
 function callNative(param) {
     if (window.external && window.external.invoke) {
         window.external.invoke(param);
     } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.external) {
         window.webkit.messageHandlers.external.postMessage(param);
     } else {
-        console.error("Native WebView bridge not found.");
+        console.error("Native WebView bridge interface not discovered.");
     }
 }
 
 function fetchConfig() {
     callNative("getConfig");
-}
-
-function createConfig() {
-    callNative("callNative");
 }
 
 function addMixTape() {

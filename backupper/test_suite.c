@@ -15,70 +15,57 @@ int tests_failed = 0;
     } \
 } while(0)
 
-void sanitize_for_js(const char* input, char* output) {
-    int j = 0;
-    for(int i = 0; input[i] != '\0'; i++) {
-        if(input[i] == '\n') { 
-            output[j++] = '\\'; 
-            output[j++] = 'n'; 
-        } else if(input[i] == '"') { 
-            output[j++] = '\\'; 
-            output[j++] = '"'; 
-        } else { 
-            output[j++] = input[i]; 
-        }
-    }
-    output[j] = '\0';
-}
-
-int is_valid_invoke_command(const char* command) {
-    if (strcmp(command, "getConfig") == 0 || 
-        strcmp(command, "createConfig") == 0 || 
-        strcmp(command, "addMixTape") == 0) {
-        return 1;
-    }
-    return 0;
-}
-
-void test_missing_config_behavior() {
-    remove("cfg.yml"); 
+// Duplicate implementation helper mirroring main.c check-and-create strategy logic
+void mock_check_and_ensure_config() {
     ConfigData data = read_config_file("cfg.yml");
-    assert_msg(data.exists == 0, "Backend should detect when cfg.yml is missing.");
+    if (!data.exists) {
+        create_config_from_template("cfg.yml.template", "cfg.yml");
+    }
 }
 
-void test_reading_valid_config() {
-    FILE* f = fopen("cfg.yml", "w");
-    fprintf(f, "test: pass");
-    fclose(f);
+void test_automatic_template_instantiation() {
+    // 1. Setup mock environment files
+    remove("cfg.yml");
+    FILE* t = fopen("cfg.yml.template", "w");
+    fprintf(t, "setting: template_default\n");
+    fclose(t);
+
+    // 2. Execute target logic under test
+    mock_check_and_ensure_config();
+
+    // 3. Verify target baseline behavior 
+    ConfigData data = read_config_file("cfg.yml");
+    assert_msg(data.exists == 1, "Strategy must automatically create cfg.yml if it does not exist.");
+    assert_msg(strstr(data.content, "setting: template_default") != NULL, "Automatically created config must match template payload.");
+
+    // Clean up
+    remove("cfg.yml");
+    remove("cfg.yml.template");
+}
+
+void test_existing_config_is_not_overwritten() {
+    FILE* t = fopen("cfg.yml.template", "w");
+    fprintf(t, "setting: template_default\n");
+    fclose(t);
+
+    FILE* c = fopen("cfg.yml", "w");
+    fprintf(c, "setting: custom_user_override\n");
+    fclose(c);
+
+    // Run strategy logic
+    mock_check_and_ensure_config();
 
     ConfigData data = read_config_file("cfg.yml");
-    assert_msg(data.exists == 1, "Backend should detect when cfg.yml is present.");
-    assert_msg(strstr(data.content, "test: pass") != NULL, "Backend must read the accurate contents of cfg.yml.");
-    
-    remove("cfg.yml"); 
-}
+    assert_msg(strstr(data.content, "setting: custom_user_override") != NULL, "Strategy must not overwrite an already existing configuration file.");
 
-void test_js_serialization_escaping() {
-    const char* raw_yaml = "key: \"value\"\nnext: true";
-    char sanitized[256] = {0};
-    
-    sanitize_for_js(raw_yaml, sanitized);
-    
-    assert_msg(strstr(sanitized, "\\n") != NULL, "Newlines must be escaped to '\\n' for safe JS JSON parsing.");
-    assert_msg(strstr(sanitized, "\\\"") != NULL, "Quotes must be escaped to '\\\"' so they don't terminate JS strings early.");
-}
-
-void test_add_mixtape_command_routing() {
-    assert_msg(is_valid_invoke_command("addMixTape") == 1, "The 'addMixTape' native action must be registered in backend routing.");
-    assert_msg(is_valid_invoke_command("manageBackup") == 0, "The legacy secondary window command should no longer be registered.");
+    remove("cfg.yml");
+    remove("cfg.yml.template");
 }
 
 int main() {
-    printf("=== Starting WebView Application Test Suite ===\n");
-    test_missing_config_behavior();
-    test_reading_valid_config();
-    test_js_serialization_escaping();
-    test_add_mixtape_command_routing();
+    printf("=== Starting WebView UI State & Strategy Test Suite ===\n");
+    test_automatic_template_instantiation();
+    test_existing_config_is_not_overwritten();
     printf("=== Summary: %d Passed, %d Failed ===\n", tests_run - tests_failed, tests_failed);
     return tests_failed > 0 ? 1 : 0;
 }

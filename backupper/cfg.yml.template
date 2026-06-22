@@ -1,3 +1,2 @@
-datatype: file
-datafile: ./data.txt
-
+data_type: file
+data_file: data.txt

@@ -1,16 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>  // Required internally by legacy webview.h
+#include <stdarg.h>
 #include <limits.h>
-#include <gtk/gtk.h> // Required for GTK components
+#include <gtk/gtk.h>
 
 #define WEBVIEW_GTK 1
 #define WEBVIEW_IMPLEMENTATION
 #include "webview.h"
 #include "server.h"
 
+// Ensures the configuration file exists by checking and copying template if needed
+void check_and_ensure_config(void) {
+    ConfigData data = read_config_file("cfg.yml");
+    if (!data.exists) {
+        printf("cfg.yml missing. Automatically creating from template...\n");
+        create_config_from_template("cfg.yml.template", "cfg.yml");
+    }
+}
+
 void handle_get_config(struct webview *w, const char *arg) {
     (void)arg;
+    // Always double check or read the config
     ConfigData data = read_config_file("cfg.yml");
     
     char json_reply[4192];
@@ -30,16 +40,7 @@ void handle_get_config(struct webview *w, const char *arg) {
     webview_eval(w, json_reply);
 }
 
-void handle_create_config(struct webview *w, const char *arg) {
-    (void)arg;
-    int success = create_config_from_template("cfg.yml.template", "cfg.yml");
-    char json_reply[128];
-    snprintf(json_reply, sizeof(json_reply), "window.receiveCreateStatus({\"success\": %s})", success ? "true" : "false");
-    webview_eval(w, json_reply);
-}
-
 void handle_add_mixtape(struct webview *w) {
-    // Fetch the underlying GTK top-level window from the webview context
     GtkWidget *parent_window = NULL;
     if (w != NULL && w->priv.window != NULL) {
         parent_window = GTK_WIDGET(w->priv.window);
@@ -66,8 +67,6 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
     if (arg != NULL) {
         if (strcmp(arg, "getConfig") == 0) {
             handle_get_config(w, arg);
-        } else if (strcmp(arg, "createConfig") == 0) {
-            handle_create_config(w, arg);
         } else if (strcmp(arg, "addMixTape") == 0) {
             handle_add_mixtape(w);
         }
@@ -75,6 +74,9 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
 }
 
 int main(void) {
+    // Automatically manage configuration baseline strategy before spinning up UI context
+    check_and_ensure_config();
+
     struct webview webview = {
         .title = "Configuration Manager",
         .width = 640,

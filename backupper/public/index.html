@@ -8,30 +8,45 @@
 </head>
 <body>
     <div class="container">
-        <h1>Configuration Manager</h1>
         
         <div id="screen-main" class="screen">
-            <div id="status-card" class="card loading">
-                <p id="status-message">Loading configuration...</p>
-                <button id="btn-create" class="hidden" onclick="createConfig()">Create from Template</button>
-            </div>
-            <div id="config-card" class="card hidden">
-                <h3>Current Configuration:</h3>
-                <pre id="config-content"></pre>
-            </div>
-            <div class="card">
-                <h3>Storage Management</h3>
-                <button id="btn-backup" onclick="showScreen('screen-backup')">Manage Backup Storage</button>
+            <h1>Main Dashboard</h1>
+            <div class="menu-grid">
+                <button class="btn-menu" onclick="showScreen('screen-mixes')">Mixes</button>
+                <button class="btn-menu" onclick="showScreen('screen-tapes')">Tapes</button>
+                <button class="btn-menu" onclick="goToConfigScreen()">Config</button>
             </div>
         </div>
 
-        <div id="screen-backup" class="screen hidden">
+        <div id="screen-mixes" class="screen hidden">
+            <h1>Mixes Manager</h1>
             <div class="card">
-                <h2>Mix Tapes</h2>
+                <p>Manage and combine your customized audio track playlists here.</p>
+            </div>
+            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
+        </div>
+
+        <div id="screen-tapes" class="screen hidden">
+            <h1>Mix Tapes Storage</h1>
+            <div class="card">
+                <h3>Storage Options</h3>
                 <button id="btn-add-mixtape" onclick="addMixTape()">Add New Mix Tape</button>
             </div>
             <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
         </div>
+
+        <div id="screen-config" class="screen hidden">
+            <h1>System Configuration</h1>
+            <div id="status-card" class="card loading">
+                <p id="status-message">Loading configuration status...</p>
+            </div>
+            <div id="config-card" class="card hidden">
+                <h3>Current Configuration (cfg.yml):</h3>
+                <pre id="config-content"></pre>
+            </div>
+            <button class="btn-secondary" onclick="showScreen('screen-main')">← Go Back</button>
+        </div>
+
     </div>
     <script src="app.js"></script>
 </body>
