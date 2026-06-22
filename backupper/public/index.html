@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Backend Config Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Configuration Manager</h1>
+        <div id="status-card" class="card loading">
+            <p id="status-message">Loading configuration...</p>
+            <button id="btn-create" class="hidden" onclick="createConfig()">Create from Template</button>
+        </div>
+        <div id="config-card" class="card hidden">
+            <h3>Current Configuration:</h3>
+            <pre id="config-content"></pre>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
