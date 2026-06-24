@@ -33,6 +33,20 @@ const char* mock_handle_keyboard_esc(const char* current_screen_id) {
     return "screen-main"; // Sub-screens route back to dashboard
 }
 
+// Mock state trackers for new functionalities
+int mock_get_mix_tapes_list_called = 0;
+int mock_trigger_mix_tape_called = 0;
+char last_triggered_mixtape_id[64] = "";
+
+void mock_native_get_mix_tapes_list() {
+    mock_get_mix_tapes_list_called = 1;
+}
+
+void mock_native_trigger_mix_tape(const char* tape_id) {
+    mock_trigger_mix_tape_called = 1;
+    strncpy(last_triggered_mixtape_id, tape_id, sizeof(last_triggered_mixtape_id) - 1);
+}
+
 void test_automatic_template_instantiation() {
     remove("test_cfg.yml");
     FILE* t = fopen("test_cfg.yml.template", "w");
@@ -80,12 +94,33 @@ void test_keyboard_escape_routing() {
     assert_msg(strcmp(mock_handle_keyboard_esc("screen-confirm-exit"), "screen-main") == 0, "Pressing Escape on the exit screen must cancel out and drop safely back to main.");
 }
 
+// New tests targeting functionality added for Mix-Tapes dashboard features
+void test_mix_tapes_list_request() {
+    mock_get_mix_tapes_list_called = 0;
+    mock_native_get_mix_tapes_list();
+    assert_msg(mock_get_mix_tapes_list_called == 1, "Main dashboard request event must successfully call backend to acquire existing mix-tapes list.");
+}
+
+void test_trigger_mix_tape_action() {
+    mock_trigger_mix_tape_called = 0;
+    memset(last_triggered_mixtape_id, 0, sizeof(last_triggered_mixtape_id));
+    
+    mock_native_trigger_mix_tape("tape-uuid-999");
+    assert_msg(mock_trigger_mix_tape_called == 1, "Trigger action button invocation must contact the native backend execution handle.");
+    assert_msg(strcmp(last_triggered_mixtape_id, "tape-uuid-999") == 0, "Trigger communication payload must cleanly convey selected mixtape ID identifier.");
+}
+
 int main() {
     printf("=== Starting WebView UI State & Strategy Test Suite ===\n");
     test_automatic_template_instantiation();
     test_existing_config_is_not_overwritten();
     test_window_dimensions_doubled();
     test_keyboard_escape_routing();
+    
+    // Execute newly introduced test routines
+    test_mix_tapes_list_request();
+    test_trigger_mix_tape_action();
+
     printf("=== Summary: %d Passed, %d Failed ===\n", tests_run - tests_failed, tests_failed);
     return tests_failed > 0 ? 1 : 0;
 }

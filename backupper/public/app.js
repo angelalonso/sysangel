@@ -13,6 +13,11 @@ window.showScreen = function(screenId) {
     if (targetScreen) {
         targetScreen.classList.remove('hidden');
     }
+
+    // Automatically load or update the list when visiting the dashboard screen
+    if (screenId === 'screen-main') {
+        loadMixTapesList();
+    }
 };
 
 window.goToConfigScreen = function() {
@@ -67,6 +72,39 @@ window.receiveConfig = function(data) {
     }
 };
 
+// Callback to populate existing mix tapes list dynamically
+window.renderMixTapes = function(mixTapesArray) {
+    const listContainer = document.getElementById('mix-tapes-list');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = '';
+
+    if (!mixTapesArray || mixTapesArray.length === 0) {
+        listContainer.innerHTML = '<li style="color: #777; padding: 10px 0;">No existing Mix-Tapes found.</li>';
+        return;
+    }
+
+    mixTapesArray.forEach(tape => {
+        const item = document.createElement('li');
+        item.className = "mixtape-item";
+        
+        const label = document.createElement('span');
+        label.innerText = tape.name || "Unnamed Mix-Tape";
+        label.className = "mixtape-label";
+
+        const actionBtn = document.createElement('button');
+        actionBtn.innerText = "Trigger";
+        actionBtn.className = "btn-trigger-action";
+        actionBtn.onclick = () => {
+            triggerMixTape(tape.id);
+        };
+
+        item.appendChild(label);
+        item.appendChild(actionBtn);
+        listContainer.appendChild(item);
+    });
+};
+
 // Safe bridge platform handler for Linux WebKit environments
 function callNative(param) {
     if (window.external && window.external.invoke) {
@@ -80,6 +118,14 @@ function callNative(param) {
 
 function fetchConfig() {
     callNative("getConfig");
+}
+
+function loadMixTapesList() {
+    callNative("getMixTapesList");
+}
+
+function triggerMixTape(tapeId) {
+    callNative("triggerMixTape:" + tapeId);
 }
 
 fn_addMixTape = function() {
