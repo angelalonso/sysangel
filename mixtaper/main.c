@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <pthread.h>
 #include <time.h>
+#include <sys/stat.h>
 #include "webview.h"
 #include "server.h"
 
@@ -133,6 +134,9 @@ static gboolean idle_rsync_callback(gpointer user_data) {
     return FALSE;
 }
 
+// Global config values
+int tape_check_interval_seconds = 5;
+
 void my_external_invoke_cb(struct webview *w, const char *arg) {
     if (strcmp(arg, "exitApp") == 0) {
         webview_terminate(w);
@@ -144,6 +148,7 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
             cfg_file = fopen("cfg.yml", "w");
             if (cfg_file) {
                 fprintf(cfg_file, "data_type: file\ndata_file: data.json\n");
+                fprintf(cfg_file, "tape_check_interval: 5\n");
                 fclose(cfg_file);
             }
             cfg_file = fopen("cfg.yml", "r");
@@ -159,6 +164,19 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         char data_type[128] = {0};
         char data_file_path[256] = {0};
         parse_config(cfg_content, data_type, data_file_path);
+        
+        // Parse tape_check_interval from config
+        const char* interval_str = strstr(cfg_content, "tape_check_interval:");
+        if (interval_str) {
+            interval_str += 20; // Skip "tape_check_interval:"
+            while (*interval_str == ' ' || *interval_str == '\t') interval_str++;
+            int val = atoi(interval_str);
+            if (val > 0) {
+                tape_check_interval_seconds = val;
+                printf("[Config] Tape check interval set to %d seconds\n", tape_check_interval_seconds);
+                fflush(stdout);
+            }
+        }
         
         if (strcmp(data_type, "file") != 0) {
             webview_dialog(w, WEBVIEW_DIALOG_TYPE_ALERT, WEBVIEW_DIALOG_FLAG_ERROR, 
@@ -193,9 +211,21 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         snprintf(js_eval, 32768, "window.initializeData(\"%s\", \"%s\", 0);", escaped_cfg, escaped_data);
         webview_eval(w, js_eval);
         
+        // Send tape check interval to JS
+        char interval_js[256];
+        snprintf(interval_js, sizeof(interval_js), 
+            "window.receiveTapeCheckInterval(%d);", tape_check_interval_seconds);
+        webview_eval(w, interval_js);
+        
         free(escaped_cfg);
         free(escaped_data);
         free(js_eval);
+    }
+    else if (strcmp(arg, "getTapeCheckInterval") == 0) {
+        char interval_js[256];
+        snprintf(interval_js, sizeof(interval_js), 
+            "window.receiveTapeCheckInterval(%d);", tape_check_interval_seconds);
+        webview_eval(w, interval_js);
     }
     else if (strncmp(arg, "saveData:", 9) == 0) {
         const char *json_str = arg + 9;
@@ -383,6 +413,38 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         pthread_mutex_unlock(&rsync_mutex);
         
         printf("[Rsync] Started background task %s: %s\n", cmd_id, cmd);
+        fflush(stdout);
+    }
+    else if (strncmp(arg, "createMarker:", 13) == 0) {
+        const char *path = arg + 13;
+        FILE *f = fopen(path, "w");
+        if (f) {
+            fprintf(f, "MixTaper tape marker\n");
+            fclose(f);
+            printf("[Marker] Created: %s\n", path);
+        } else {
+            printf("[Marker] Failed to create: %s\n", path);
+        }
+        fflush(stdout);
+    }
+    else if (strncmp(arg, "checkTapeAvailability:", 22) == 0) {
+        const char *path = arg + 22;
+        char marker_path[4096];
+        snprintf(marker_path, sizeof(marker_path), "%s/.mixtape", path);
+        
+        struct stat st;
+        int available = (stat(marker_path, &st) == 0);
+        
+        char js_buf[8192];
+        char escaped_path[4096];
+        js_escape(path, escaped_path, sizeof(escaped_path));
+        
+        snprintf(js_buf, sizeof(js_buf),
+            "window.receiveTapeAvailability({\"path\":\"%s\",\"available\":%s});",
+            escaped_path, available ? "true" : "false");
+        webview_eval(w, js_buf);
+        
+        printf("[Availability] Path: %s, Available: %s\n", path, available ? "true" : "false");
         fflush(stdout);
     }
 }

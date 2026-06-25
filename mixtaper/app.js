@@ -2,7 +2,54 @@ document.addEventListener("DOMContentLoaded", () => {
     showScreen('screen-main');
     setupKeyboardShortcuts();
     callNative("loadInitialData");
+    
+    // Start periodic tape availability checking
+    startPeriodicTapeCheck();
 });
+
+// Configuration for tape check interval (in seconds)
+// This will be updated from cfg.yml
+window.tapeCheckIntervalSeconds = 5;
+window.tapeCheckTimer = null;
+
+function startPeriodicTapeCheck() {
+    // Load config to get interval
+    loadTapeCheckIntervalFromConfig();
+    
+    // Do an initial check after a short delay
+    setTimeout(() => {
+        checkAllTapeAvailability();
+    }, 500);
+    
+    // Set up periodic checking
+    if (window.tapeCheckTimer) {
+        clearInterval(window.tapeCheckTimer);
+    }
+    window.tapeCheckTimer = setInterval(() => {
+        checkAllTapeAvailability();
+    }, window.tapeCheckIntervalSeconds * 1000);
+}
+
+function loadTapeCheckIntervalFromConfig() {
+    // Try to read from cfg.yml via native call
+    // The config will be parsed and the interval will be set
+    // Default is 5 seconds if not specified
+    callNative("getTapeCheckInterval");
+}
+
+window.receiveTapeCheckInterval = function(intervalSeconds) {
+    if (intervalSeconds && intervalSeconds > 0) {
+        window.tapeCheckIntervalSeconds = intervalSeconds;
+        // Restart the timer with new interval
+        if (window.tapeCheckTimer) {
+            clearInterval(window.tapeCheckTimer);
+            window.tapeCheckTimer = setInterval(() => {
+                checkAllTapeAvailability();
+            }, window.tapeCheckIntervalSeconds * 1000);
+        }
+        console.log(`[Tape Check] Interval set to ${window.tapeCheckIntervalSeconds} seconds`);
+    }
+};
 
 window.showScreen = function(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
@@ -37,6 +84,8 @@ function setupKeyboardShortcuts() {
                     showScreen('screen-tapes');
                 } else if (activeScreen.id === 'screen-mix-tapes') {
                     showScreen('screen-main');
+                } else if (activeScreen.id === 'screen-delete-blocked') {
+                    showScreen('screen-main');
                 } else {
                     showScreen('screen-main');
                 }
@@ -54,6 +103,8 @@ window.appState = {
 };
 
 window.rsyncOperations = {};
+window._tapeAvailability = {};
+window._tapeAvailabilityLastCheck = 0;
 
 window.receiveConfig = function(data) {
     const statusCard = document.getElementById('status-card');
@@ -106,43 +157,57 @@ function saveStateToBackend() {
 }
 
 function renderLists() {
-    const mixesList = document.getElementById('mixes-list');
-    if (mixesList) {
-        if (!window.appState.mixes || window.appState.mixes.length === 0) {
-            mixesList.innerHTML = "<p style='color: #777;'>No mixes configured yet.</p>";
-        } else {
-            mixesList.innerHTML = '<ul style="list-style-type: none; padding: 0; margin: 0;">' + 
-                window.appState.mixes.map((mix, index) => {
-                    let mObj = typeof mix === 'string' ? { id: "legacy-mix-"+index, name: mix, paths: [mix] } : mix;
-                    if (typeof mix === 'string') window.appState.mixes[index] = mObj;
-                    return `
-                    <li class="list-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 5px; border-bottom: 1px solid #444;">
-                        <span class="item-label" style="font-size: 1.05rem; color: #e0e0e0; font-weight: 500;">${mObj.name}</span>
-                        <button class="btn-secondary btn-action" style="margin: 0; padding: 6px 16px; font-size: 0.85rem;" onclick="editMix('${mObj.id}')">Edit</button>
-                    </li>`;
-                }).join('') + "</ul>";
-        }
-    }
-
-    const tapesList = document.getElementById('tapes-list');
-    if (tapesList) {
-        if (!window.appState.tapes || window.appState.tapes.length === 0) {
-            tapesList.innerHTML = "<p style='color: #777;'>No tapes configured yet.</p>";
-        } else {
-            tapesList.innerHTML = '<ul style="list-style-type: none; padding: 0; margin: 0;">' + 
-                window.appState.tapes.map((tape, index) => {
-                    let tObj = typeof tape === 'string' ? { id: "legacy-tape-"+index, name: tape, path: tape } : tape;
-                    if (typeof tape === 'string') window.appState.tapes[index] = tObj;
-                    return `
-                    <li class="list-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 5px; border-bottom: 1px solid #444;">
-                        <span class="item-label" style="font-size: 1.05rem; color: #e0e0e0; font-weight: 500;">${tObj.name}</span>
-                        <button class="btn-secondary btn-action" style="margin: 0; padding: 6px 16px; font-size: 0.85rem;" onclick="editTape('${tObj.id}')">Edit</button>
-                    </li>`;
-                }).join('') + "</ul>";
-        }
-    }
-
+    renderMixesList();
+    renderTapesList();
     renderMixTapesList();
+}
+
+function renderMixesList() {
+    const mixesList = document.getElementById('mixes-list');
+    if (!mixesList) return;
+    
+    if (!window.appState.mixes || window.appState.mixes.length === 0) {
+        mixesList.innerHTML = "<p style='color: #777;'>No mixes configured yet.</p>";
+        return;
+    }
+    
+    mixesList.innerHTML = '<ul style="list-style-type: none; padding: 0; margin: 0;">' + 
+        window.appState.mixes.map((mix, index) => {
+            let mObj = typeof mix === 'string' ? { id: "legacy-mix-"+index, name: mix, paths: [mix] } : mix;
+            if (typeof mix === 'string') window.appState.mixes[index] = mObj;
+            return `
+            <li class="list-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 5px; border-bottom: 1px solid #444;">
+                <span class="item-label" style="font-size: 1.05rem; color: #e0e0e0; font-weight: 500;">${mObj.name}</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-secondary btn-action" style="margin: 0; padding: 6px 16px; font-size: 0.85rem;" onclick="editMix('${mObj.id}')">Edit</button>
+                    <button class="btn-danger" style="margin: 0; padding: 6px 16px; font-size: 0.85rem;" onclick="deleteMix('${mObj.id}')">Delete</button>
+                </div>
+            </li>`;
+        }).join('') + "</ul>";
+}
+
+function renderTapesList() {
+    const tapesList = document.getElementById('tapes-list');
+    if (!tapesList) return;
+    
+    if (!window.appState.tapes || window.appState.tapes.length === 0) {
+        tapesList.innerHTML = "<p style='color: #777;'>No tapes configured yet.</p>";
+        return;
+    }
+    
+    tapesList.innerHTML = '<ul style="list-style-type: none; padding: 0; margin: 0;">' + 
+        window.appState.tapes.map((tape, index) => {
+            let tObj = typeof tape === 'string' ? { id: "legacy-tape-"+index, name: tape, path: tape } : tape;
+            if (typeof tape === 'string') window.appState.tapes[index] = tObj;
+            return `
+            <li class="list-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 5px; border-bottom: 1px solid #444;">
+                <span class="item-label" style="font-size: 1.05rem; color: #e0e0e0; font-weight: 500;">${tObj.name}</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-secondary btn-action" style="margin: 0; padding: 6px 16px; font-size: 0.85rem;" onclick="editTape('${tObj.id}')">Edit</button>
+                    <button class="btn-danger" style="margin: 0; padding: 6px 16px; font-size: 0.85rem;" onclick="deleteTape('${tObj.id}')">Delete</button>
+                </div>
+            </li>`;
+        }).join('') + "</ul>";
 }
 
 function renderMixTapesList() {
@@ -160,18 +225,27 @@ function renderMixTapesList() {
         const mixName = mix ? mix.name : "(deleted mix)";
         const tapeName = tape ? tape.name : "(deleted tape)";
         const isRunning = window.rsyncOperations[mt.id] && window.rsyncOperations[mt.id].running;
+        const isAvailable = tape ? window.checkTapeAvailable(tape.path) : false;
+        
+        let applyButton;
+        if (isRunning) {
+            applyButton = `<button class="btn-trigger-action" style="padding: 4px 12px; font-size: 0.75rem; background: #ff9800; color: #000;" disabled>⏳ Running...</button>`;
+        } else if (!isAvailable) {
+            applyButton = `<button class="btn-trigger-action" style="padding: 4px 12px; font-size: 0.75rem; background: #cf6679; color: #fff; cursor: not-allowed; opacity: 0.8;" disabled>Not available</button>`;
+        } else {
+            applyButton = `<button class="btn-trigger-action" style="padding: 4px 12px; font-size: 0.75rem; background: #03dac6; color: #000;" onclick="applyMixTape('${mt.id}')">▶ Apply</button>`;
+        }
         
         return `
         <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 5px; border-bottom: 1px solid #2a2a2a;">
             <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
-                <button class="btn-trigger-action" style="padding: 4px 12px; font-size: 0.75rem; background: ${isRunning ? '#ff9800' : '#03dac6'}; color: #000;" onclick="applyMixTape('${mt.id}')" ${isRunning ? 'disabled' : ''}>
-                    ${isRunning ? '⏳ Running...' : '▶ Apply'}
-                </button>
+                ${applyButton}
                 <div>
                     <span style="font-size: 1.05rem; color: #e0e0e0; font-weight: 500;">${mt.name}</span>
                     <span style="color: #777; font-size: 0.85rem; margin-left: 15px;">
                         ${mixName} → ${tapeName}
                     </span>
+                    ${!isAvailable ? `<span style="color: #cf6679; font-size: 0.8rem; margin-left: 10px;">(Tape not mounted)</span>` : ''}
                 </div>
             </div>
             <div style="display: flex; gap: 10px;">
@@ -182,6 +256,94 @@ function renderMixTapesList() {
         `;
     }).join('');
 }
+
+window.checkTapeAvailable = function(tapePath) {
+    if (!window._tapeAvailability) {
+        window._tapeAvailability = {};
+    }
+    // If we've never checked this tape, default to false (unavailable)
+    if (window._tapeAvailability[tapePath] === undefined) {
+        return false;
+    }
+    return window._tapeAvailability[tapePath] !== false;
+};
+
+window.receiveTapeAvailability = function(data) {
+    try {
+        const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+        if (!window._tapeAvailability) {
+            window._tapeAvailability = {};
+        }
+        window._tapeAvailability[parsed.path] = parsed.available;
+        window._tapeAvailabilityLastCheck = Date.now();
+        renderLists();
+    } catch (e) {
+        console.error("Failed to parse tape availability data", e);
+    }
+};
+
+function checkAllTapeAvailability() {
+    const tapes = window.appState.tapes || [];
+    let totalTapes = 0;
+    let unavailableTapes = 0;
+    
+    tapes.forEach(tape => {
+        if (tape.path) {
+            totalTapes++;
+            callNative("checkTapeAvailability:" + tape.path);
+        }
+    });
+    
+    // After all checks complete, we'll log the summary
+    // The log will be printed after all responses are received
+    // We'll track this with a counter
+    if (totalTapes === 0) {
+        // No tapes to check
+    }
+}
+
+// Track tape availability check responses for logging
+window._tapeCheckPending = {};
+window._tapeCheckTotal = 0;
+window._tapeCheckCompleted = 0;
+
+// Override receiveTapeAvailability to also handle logging
+const originalReceiveTapeAvailability = window.receiveTapeAvailability;
+window.receiveTapeAvailability = function(data) {
+    try {
+        const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+        if (!window._tapeAvailability) {
+            window._tapeAvailability = {};
+        }
+        window._tapeAvailability[parsed.path] = parsed.available;
+        window._tapeAvailabilityLastCheck = Date.now();
+        
+        // Track for logging
+        window._tapeCheckCompleted++;
+        
+        renderLists();
+        
+        // Check if all pending checks are complete
+        if (window._tapeCheckCompleted >= window._tapeCheckTotal && window._tapeCheckTotal > 0) {
+            // Count unavailable tapes
+            let unavailable = 0;
+            let total = 0;
+            for (const [path, available] of Object.entries(window._tapeAvailability)) {
+                total++;
+                if (!available) {
+                    unavailable++;
+                }
+            }
+            console.log(`[Tape Check] ${total - unavailable} out of ${total} tapes available (${unavailable} not available)`);
+            
+            // Reset counters
+            window._tapeCheckCompleted = 0;
+            window._tapeCheckTotal = 0;
+        }
+    } catch (e) {
+        console.error("Failed to parse tape availability data", e);
+    }
+};
 
 function populateMixTapeSelectors() {
     const mixSelect = document.getElementById('mix-tape-mix-select');
@@ -301,6 +463,12 @@ window.applyMixTape = function(mixTapeId) {
         return;
     }
     
+    // Check if tape is available before running
+    if (!window.checkTapeAvailable(tape.path)) {
+        alert("Tape is not available. Please make sure the storage is mounted.");
+        return;
+    }
+    
     if (!mix.paths || mix.paths.length === 0) {
         alert("The selected Mix has no paths to copy.");
         return;
@@ -310,13 +478,12 @@ window.applyMixTape = function(mixTapeId) {
         running: true,
         started: Date.now()
     };
-    renderMixTapesList();
+    renderLists();
     
     const sourcePaths = mix.paths;
     const destPath = tape.path;
     const MAX_PATHS_PER_BATCH = 20;
     
-    // Group paths into batches of MAX_PATHS_PER_BATCH
     const batches = [];
     for (let i = 0; i < sourcePaths.length; i += MAX_PATHS_PER_BATCH) {
         batches.push(sourcePaths.slice(i, i + MAX_PATHS_PER_BATCH));
@@ -330,7 +497,6 @@ window.applyMixTape = function(mixTapeId) {
     console.log(`[Mix-Tape: ${mixTape.name}] Starting rsync of ${sourcePaths.length} path(s) in ${totalBatches} batch(es) to ${destPath}`);
     
     batches.forEach((batch, batchIndex) => {
-        // Build a single rsync command with all paths in this batch
         let cmd = "rsync -av";
         batch.forEach(path => {
             cmd += ` '${path}'`;
@@ -355,7 +521,7 @@ window.applyMixTape = function(mixTapeId) {
             if (completedBatches === totalBatches) {
                 window.rsyncOperations[mixTapeId].running = false;
                 window.rsyncOperations[mixTapeId].completed = Date.now();
-                renderMixTapesList();
+                renderLists();
                 
                 const successCount = totalBatches - failedBatches;
                 let summary = `Rsync completed for "${mixTape.name}":\n`;
@@ -482,6 +648,56 @@ window.saveNewMix = function() {
     showScreen('screen-mixes');
 };
 
+window.deleteMix = function(mixId) {
+    // Check if this mix is used in any mix-tape
+    const usedIn = window.appState.mixTapes.filter(mt => mt.mixId === mixId);
+    if (usedIn.length > 0) {
+        const mixNames = usedIn.map(mt => `"${mt.name}"`).join(', ');
+        document.getElementById('delete-blocked-message').innerHTML = 
+            `The Mix "<strong>${window.appState.mixes.find(m => m.id === mixId)?.name || mixId}</strong>" is used in the following Mix-Tapes:<br><br>` +
+            `<span style="color: #cf6679;">${mixNames}</span><br><br>` +
+            `Please delete these Mix-Tapes first before deleting this Mix.`;
+        showScreen('screen-delete-blocked');
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete the Mix "${window.appState.mixes.find(m => m.id === mixId)?.name || mixId}"?`)) {
+        window.appState.mixes = window.appState.mixes.filter(m => m.id !== mixId);
+        saveStateToBackend();
+        renderLists();
+    }
+};
+
+window.deleteTape = function(tapeId) {
+    // Check if this tape is used in any mix-tape
+    const usedIn = window.appState.mixTapes.filter(mt => mt.tapeId === tapeId);
+    if (usedIn.length > 0) {
+        const tapeNames = usedIn.map(mt => `"${mt.name}"`).join(', ');
+        document.getElementById('delete-blocked-message').innerHTML = 
+            `The Tape "<strong>${window.appState.tapes.find(t => t.id === tapeId)?.name || tapeId}</strong>" is used in the following Mix-Tapes:<br><br>` +
+            `<span style="color: #cf6679;">${tapeNames}</span><br><br>` +
+            `Please delete these Mix-Tapes first before deleting this Tape.`;
+        showScreen('screen-delete-blocked');
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete the Tape "${window.appState.tapes.find(t => t.id === tapeId)?.name || tapeId}"?`)) {
+        window.appState.tapes = window.appState.tapes.filter(t => t.id !== tapeId);
+        saveStateToBackend();
+        renderLists();
+    }
+};
+
+function goBackFromDeleteBlocked() {
+    const activeScreen = document.querySelector('.screen:not(.hidden)');
+    if (activeScreen) {
+        if (activeScreen.id === 'screen-delete-blocked') {
+            // Go back to the previous screen (mixes or tapes)
+            showScreen('screen-main');
+        }
+    }
+}
+
 window.startNewTape = function() {
     document.getElementById('current-tape-id').value = ""; 
     callNative("selectTapeFolder");
@@ -526,6 +742,10 @@ window.saveNewTape = function() {
     } else {
         window.appState.tapes.push(payload);
     }
+    
+    // Create the .mixtape marker file on the tape root
+    const markerPath = path + '/.mixtape';
+    callNative("createMarker:" + markerPath);
     
     saveStateToBackend();
     renderLists();
