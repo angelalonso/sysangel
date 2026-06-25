@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -O2 -std=c99 -Wno-deprecated-declarations
-TARGET = mixtaper
+TARGET = mixtape
 TEST_TARGET = test_runner
 
 WEBVIEW_FLAGS = `pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.1` -ldl

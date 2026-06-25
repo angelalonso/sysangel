@@ -419,7 +419,7 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         const char *path = arg + 13;
         FILE *f = fopen(path, "w");
         if (f) {
-            fprintf(f, "MixTaper tape marker\n");
+            fprintf(f, "MixTape tape marker\n");
             fclose(f);
             printf("[Marker] Created: %s\n", path);
         } else {
@@ -444,14 +444,14 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
             escaped_path, available ? "true" : "false");
         webview_eval(w, js_buf);
         
-        printf("[Availability] Path: %s, Available: %s\n", path, available ? "true" : "false");
+        // printf("[Availability] Path: %s, Available: %s\n", path, available ? "true" : "false");
         fflush(stdout);
     }
 }
 
 int main() {
     struct webview webview = {
-        .title = "MixTaper",
+        .title = "MixTape",
         .width = 1280,
         .height = 960,
         .resizable = 1,
