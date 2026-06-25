@@ -20,7 +20,6 @@ kbd { background: #444; color: #fff; border: 1px solid #666; border-radius: 3px;
 .hidden { display: none !important; }
 .screen { transition: opacity 0.2s ease-in-out; }
 
-/* Custom Mix-Tapes Row Layout Styles */
 .mixtape-item {
     display: flex;
     justify-content: space-between;
@@ -46,7 +45,6 @@ kbd { background: #444; color: #fff; border: 1px solid #666; border-radius: 3px;
     background: #4a6fdd;
 }
 
-/* Mix-Tape list items on main screen */
 #mix-tapes-list li {
     display: flex;
     justify-content: space-between;
@@ -95,56 +93,58 @@ kbd { background: #444; color: #fff; border: 1px solid #666; border-radius: 3px;
     background: #b05a6e;
 }
 
-/* Select dropdowns - improved visibility for both dropdown and selection */
 select {
     width: 100%;
     padding: 12px;
-    background: #2d2d2d;
-    border: 1px solid #666;
-    color: #e0e0e0;
+    background: #1e1e1e;
+    border: 1px solid #777;
+    color: #ffffff;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 1rem;
     font-weight: 500;
     appearance: auto;
 }
-/* The selected option (what you see when dropdown is closed) */
+
 select option {
-    background: #2d2d2d;
-    color: #e0e0e0;
+    background: #1e1e1e;
+    color: #ffffff;
     padding: 8px;
 }
-/* The selected option when dropdown is open and highlighted */
+
 select option:checked {
-    background: #1f3a60 !important;
-    color: #ffffff !important;
+    background: #1f3a60;
+    color: #ffffff;
 }
-/* Hover effect on options in the dropdown list */
+
 select option:hover {
-    background: #3a5fcd !important;
-    color: #ffffff !important;
+    background: #3a5fcd;
+    color: #ffffff;
 }
+
 select:focus {
     outline: none;
     border-color: #03dac6;
     box-shadow: 0 0 8px rgba(3, 218, 198, 0.3);
 }
 
-/* Mix-Tape screen specific styles */
 #screen-mix-tapes select {
-    background: #2d2d2d;
-    color: #e0e0e0;
-    border-color: #555;
+    background: #1e1e1e;
+    color: #ffffff;
+    border-color: #777;
 }
+
 #screen-mix-tapes select option {
-    background: #2d2d2d;
-    color: #e0e0e0;
+    background: #1e1e1e;
+    color: #ffffff;
 }
+
 #screen-mix-tapes select option:checked {
-    background: #1f3a60 !important;
-    color: #ffffff !important;
+    background: #1f3a60;
+    color: #ffffff;
 }
+
 #screen-mix-tapes select option:hover {
-    background: #3a5fcd !important;
-    color: #ffffff !important;
+    background: #3a5fcd;
+    color: #ffffff;
 }

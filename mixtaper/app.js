@@ -12,7 +12,6 @@ window.showScreen = function(screenId) {
     if (targetScreen) {
         targetScreen.classList.remove('hidden');
     }
-    // Refresh select dropdowns when entering mix-tapes screen
     if (screenId === 'screen-mix-tapes') {
         populateMixTapeSelectors();
     }
@@ -54,7 +53,6 @@ window.appState = {
     mixTapes: []
 };
 
-// Track ongoing rsync operations
 window.rsyncOperations = {};
 
 window.receiveConfig = function(data) {
@@ -108,7 +106,6 @@ function saveStateToBackend() {
 }
 
 function renderLists() {
-    // Render Mixes Array Structure
     const mixesList = document.getElementById('mixes-list');
     if (mixesList) {
         if (!window.appState.mixes || window.appState.mixes.length === 0) {
@@ -127,7 +124,6 @@ function renderLists() {
         }
     }
 
-    // Render Tapes Array Structure
     const tapesList = document.getElementById('tapes-list');
     if (tapesList) {
         if (!window.appState.tapes || window.appState.tapes.length === 0) {
@@ -146,7 +142,6 @@ function renderLists() {
         }
     }
 
-    // Render Mix-Tapes on Main Screen
     renderMixTapesList();
 }
 
@@ -160,7 +155,6 @@ function renderMixTapesList() {
     }
     
     mixTapesList.innerHTML = window.appState.mixTapes.map((mt, index) => {
-        // Find the associated mix and tape names
         const mix = window.appState.mixes.find(m => m.id === mt.mixId);
         const tape = window.appState.tapes.find(t => t.id === mt.tapeId);
         const mixName = mix ? mix.name : "(deleted mix)";
@@ -190,7 +184,6 @@ function renderMixTapesList() {
 }
 
 function populateMixTapeSelectors() {
-    // Populate mix selector
     const mixSelect = document.getElementById('mix-tape-mix-select');
     if (mixSelect) {
         const currentValue = mixSelect.value;
@@ -201,11 +194,9 @@ function populateMixTapeSelectors() {
             option.textContent = mix.name;
             mixSelect.appendChild(option);
         });
-        // Restore selection if editing
         if (currentValue) mixSelect.value = currentValue;
     }
     
-    // Populate tape selector
     const tapeSelect = document.getElementById('mix-tape-tape-select');
     if (tapeSelect) {
         const currentValue = tapeSelect.value;
@@ -216,20 +207,14 @@ function populateMixTapeSelectors() {
             option.textContent = tape.name;
             tapeSelect.appendChild(option);
         });
-        // Restore selection if editing
         if (currentValue) tapeSelect.value = currentValue;
     }
 }
-
-// ---------------------------------------------------------
-// MIX-TAPES WORKFLOW
-// ---------------------------------------------------------
 
 window.startNewMixTape = function() {
     document.getElementById('current-mix-tape-id').value = "";
     document.getElementById('new-mix-tape-name').value = "";
     populateMixTapeSelectors();
-    // Reset selectors to empty
     document.getElementById('mix-tape-mix-select').value = "";
     document.getElementById('mix-tape-tape-select').value = "";
     showScreen('screen-mix-tapes');
@@ -292,7 +277,6 @@ window.deleteMixTape = function(mixTapeId) {
 };
 
 window.applyMixTape = function(mixTapeId) {
-    // Check if already running
     if (window.rsyncOperations[mixTapeId] && window.rsyncOperations[mixTapeId].running) {
         alert("Rsync is already running for this Mix-Tape. Please wait.");
         return;
@@ -322,37 +306,29 @@ window.applyMixTape = function(mixTapeId) {
         return;
     }
     
-    // Set running state
     window.rsyncOperations[mixTapeId] = {
         running: true,
         started: Date.now()
     };
     renderMixTapesList();
     
-    // Build rsync command for each path in the mix
-    // Use single quotes for paths to handle spaces properly
-    // The C backend will handle the quoting properly
     const sourcePaths = mix.paths;
     const destPath = tape.path;
     
     const commands = sourcePaths.map(sourcePath => {
-        // Use single quotes in the command - the C backend will handle them
         return `rsync -av '${sourcePath}' '${destPath}/'`;
     });
     
-    // Execute each rsync command in the background
     const totalCommands = commands.length;
     let completedCommands = 0;
     let failedCommands = 0;
     let errorMessages = [];
     
-    // Log start
     console.log(`[Mix-Tape: ${mixTape.name}] Starting rsync of ${totalCommands} path(s) to ${destPath}`);
     
     commands.forEach((cmd, index) => {
         const cmdId = `${mixTapeId}-cmd-${index}`;
         
-        // Set up a callback to handle the result
         window.rsyncCallbacks = window.rsyncCallbacks || {};
         window.rsyncCallbacks[cmdId] = function(result, output) {
             completedCommands++;
@@ -361,20 +337,16 @@ window.applyMixTape = function(mixTapeId) {
                 errorMessages.push(`Command ${index+1}: ${result}`);
             }
             
-            // Log output to console
             console.log(`[Mix-Tape: ${mixTape.name}] Command ${index+1}/${totalCommands}: ${result}`);
             if (output) {
                 console.log(`Output: ${output}`);
             }
             
-            // Check if all commands are done
             if (completedCommands === totalCommands) {
-                // Clear running state
                 window.rsyncOperations[mixTapeId].running = false;
                 window.rsyncOperations[mixTapeId].completed = Date.now();
                 renderMixTapesList();
                 
-                // Show summary
                 const successCount = totalCommands - failedCommands;
                 let summary = `Rsync completed for "${mixTape.name}":\n`;
                 summary += `${successCount} succeeded, ${failedCommands} failed.\n`;
@@ -386,14 +358,10 @@ window.applyMixTape = function(mixTapeId) {
             }
         };
         
-        // Send the rsync command to the backend
         callNative(`rsync:${cmd}|${cmdId}`);
     });
 };
 
-// ---------------------------------------------------------
-// MIXES WORKFLOW (Multi-Path)
-// ---------------------------------------------------------
 window.tempMixPaths = [];
 
 window.startNewMix = function() {
@@ -409,17 +377,15 @@ window.addMixPaths = function() {
     callNative("selectMixPaths");
 };
 
-window.addMixFolder = function() {
-    callNative("selectMixFolder");
+window.addMixFolders = function() {
+    callNative("selectMixFolders");
 };
 
 window.receiveMixFolder = function(folderPath) {
     if (!folderPath) return;
 
-    // Append the folder to the paths list (same as receiving a single file path)
     window.tempMixPaths = window.tempMixPaths.concat([folderPath]);
 
-    // Auto-fill mix name if creating a brand-new mix and name is still empty
     const mixId = document.getElementById('current-mix-id').value;
     const nameInput = document.getElementById('new-mix-name');
     if (!mixId && nameInput.value === "") {
@@ -429,13 +395,25 @@ window.receiveMixFolder = function(folderPath) {
     renderMixPathsInEdit();
 };
 
+window.receiveMixFolders = function(foldersArray) {
+    if (!foldersArray || foldersArray.length === 0) return;
+    
+    window.tempMixPaths = window.tempMixPaths.concat(foldersArray);
+    
+    const mixId = document.getElementById('current-mix-id').value;
+    const nameInput = document.getElementById('new-mix-name');
+    if (!mixId && nameInput.value === "") {
+        nameInput.value = foldersArray[0].split(/[/\\]/).pop() + " Mix";
+    }
+    
+    renderMixPathsInEdit();
+};
+
 window.receiveMixPaths = function(pathsArray) {
     if (!pathsArray || pathsArray.length === 0) return;
     
-    // Concat newly selected paths with existing loaded paths
     window.tempMixPaths = window.tempMixPaths.concat(pathsArray);
     
-    // Auto-fill mix name if we are creating brand new and it's empty
     const mixId = document.getElementById('current-mix-id').value;
     const nameInput = document.getElementById('new-mix-name');
     if (!mixId && nameInput.value === "") {
@@ -494,10 +472,6 @@ window.saveNewMix = function() {
     showScreen('screen-mixes');
 };
 
-
-// ---------------------------------------------------------
-// TAPES WORKFLOW (Single Folder Path)
-// ---------------------------------------------------------
 window.startNewTape = function() {
     document.getElementById('current-tape-id').value = ""; 
     callNative("selectTapeFolder");
@@ -548,7 +522,6 @@ window.saveNewTape = function() {
     showScreen('screen-tapes');
 };
 
-// Safe bridge functions
 function callNative(param) {
     if (window.external && window.external.invoke) {
         window.external.invoke(param);

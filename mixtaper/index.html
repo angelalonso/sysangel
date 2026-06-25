@@ -52,9 +52,9 @@
                 <div style="margin-bottom: 20px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px;">
                         <label style="font-weight: bold; color: #777; margin: 0;">Assigned Files & Folders:</label>
-                        <div style="display: flex; gap: 8px;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                             <button class="btn-secondary" onclick="addMixPaths()" style="margin: 0; white-space: nowrap; font-size: 0.85rem;">+ Add Files</button>
-                            <button class="btn-secondary" onclick="addMixFolder()" style="margin: 0; white-space: nowrap; font-size: 0.85rem;">+ Add Folder</button>
+                            <button class="btn-secondary" onclick="addMixFolders()" style="margin: 0; white-space: nowrap; font-size: 0.85rem;">+ Add Folders</button>
                         </div>
                     </div>
                     <div id="new-mix-paths-list" style="max-height: 200px; overflow-y: auto; padding-right: 5px;">
@@ -124,7 +124,7 @@
                     
                     <div style="margin-bottom: 20px;">
                         <label for="mix-tape-tape-select" style="display: block; margin-bottom: 8px; font-weight: bold;">Select Tape:</label>
-                        <select id="mix-tape-tape-select" style="width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #555; color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 1rem;">
+                        <select id="mix-tape-tape-select" style="width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #777; color: #ffffff; border-radius: 4px; box-sizing: border-box; font-size: 1rem; font-weight: 500;">
                             <option value="">-- Select a Tape --</option>
                         </select>
                     </div>

@@ -13,7 +13,6 @@
 #include "webview.h"
 #include "server.h"
 
-// Structure for background rsync task
 typedef struct {
     char cmd[8192];
     char cmd_id[128];
@@ -23,22 +22,19 @@ typedef struct {
     struct webview *webview;
 } rsync_task_t;
 
-// Thread-safe queue for rsync tasks
 #define MAX_RSYNC_TASKS 16
 rsync_task_t rsync_tasks[MAX_RSYNC_TASKS];
 int rsync_task_count = 0;
 pthread_mutex_t rsync_mutex = PTHREAD_MUTEX_INITIALIZER;
 int rsync_thread_running = 1;
 
-// Forward declaration
 static gboolean idle_rsync_callback(gpointer user_data);
 
-// Background thread for rsync execution
 void* rsync_worker(void* arg) {
     (void)arg;
     struct timespec ts;
     ts.tv_sec = 0;
-    ts.tv_nsec = 100000000; // 100ms
+    ts.tv_nsec = 100000000;
     
     while (rsync_thread_running) {
         rsync_task_t task;
@@ -48,7 +44,7 @@ void* rsync_worker(void* arg) {
         for (int i = 0; i < MAX_RSYNC_TASKS; i++) {
             if (rsync_tasks[i].completed == 0 && rsync_tasks[i].cmd[0] != '\0') {
                 task = rsync_tasks[i];
-                rsync_tasks[i].completed = 1; // Mark as being processed
+                rsync_tasks[i].completed = 1;
                 has_task = 1;
                 break;
             }
@@ -60,7 +56,6 @@ void* rsync_worker(void* arg) {
             continue;
         }
         
-        // Execute the command
         printf("[Rsync] Executing: %s\n", task.cmd);
         fflush(stdout);
         
@@ -77,7 +72,6 @@ void* rsync_worker(void* arg) {
                     strcpy(task.result + result_len, line);
                     result_len += line_len;
                 }
-                // Also print to stdout for real-time monitoring
                 printf("%s", line);
                 fflush(stdout);
             }
@@ -92,18 +86,14 @@ void* rsync_worker(void* arg) {
         printf("[Rsync] Task %s completed with exit code %d\n", task.cmd_id, task.exit_code);
         fflush(stdout);
         
-        // Notify the UI about completion - schedule on main thread
         if (task.webview != NULL) {
-            // Create a copy of the data to pass to the idle callback
             rsync_task_t *task_copy = (rsync_task_t*)malloc(sizeof(rsync_task_t));
             if (task_copy != NULL) {
                 memcpy(task_copy, &task, sizeof(rsync_task_t));
-                // Schedule the UI update on the main thread using g_idle_add
                 g_idle_add(idle_rsync_callback, task_copy);
             }
         }
         
-        // Clear the task
         pthread_mutex_lock(&rsync_mutex);
         memset(&task, 0, sizeof(task));
         pthread_mutex_unlock(&rsync_mutex);
@@ -111,7 +101,6 @@ void* rsync_worker(void* arg) {
     return NULL;
 }
 
-// Idle callback to safely call webview_eval from the main thread
 static gboolean idle_rsync_callback(gpointer user_data) {
     rsync_task_t *task = (rsync_task_t*)user_data;
     if (task == NULL || task->webview == NULL) {
@@ -134,7 +123,6 @@ static gboolean idle_rsync_callback(gpointer user_data) {
     }
     webview_eval(task->webview, js_buf);
     
-    // Also log to console
     char notify_buf[1024];
     snprintf(notify_buf, sizeof(notify_buf),
         "console.log('[Rsync] Task %s completed with exit code %d');",
@@ -145,11 +133,9 @@ static gboolean idle_rsync_callback(gpointer user_data) {
     return FALSE;
 }
 
-// Callback for handling frontend invocations
 void my_external_invoke_cb(struct webview *w, const char *arg) {
     if (strcmp(arg, "exitApp") == 0) {
         webview_terminate(w);
-        // Signal the rsync worker to stop
         rsync_thread_running = 0;
     } 
     else if (strcmp(arg, "getConfig") == 0 || strcmp(arg, "loadInitialData") == 0) {
@@ -268,7 +254,6 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
             NULL
         );
         
-        // Allows selecting MULTIPLE files holding CTRL/SHIFT
         gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
@@ -303,39 +288,57 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         }
         gtk_widget_destroy(dialog);
     }
-    else if (strcmp(arg, "selectMixFolder") == 0) {
+    else if (strcmp(arg, "selectMixFolders") == 0) {
         GtkWidget *dialog = gtk_file_chooser_dialog_new(
-            "Select Mix Folder",
+            "Select Mix Folders",
             GTK_WINDOW(w->priv.window),
             GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
             "_Cancel", GTK_RESPONSE_CANCEL,
             "_Add", GTK_RESPONSE_ACCEPT,
             NULL
         );
+        
+        gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-            char *path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-            if (path != NULL) {
-                char js_buf[4120];
+            GSList *paths = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+            
+            size_t buf_size = 32768;
+            char *js_buf = malloc(buf_size);
+            strcpy(js_buf, "window.receiveMixFolders([");
+            
+            GSList *iter = paths;
+            while (iter != NULL) {
+                char *path = (char *)iter->data;
                 char escaped[2048] = {0};
                 js_escape(path, escaped, sizeof(escaped));
-                snprintf(js_buf, sizeof(js_buf), "window.receiveMixFolder(\"%s\");", escaped);
-                webview_eval(w, js_buf);
+                
+                strcat(js_buf, "\"");
+                strcat(js_buf, escaped);
+                strcat(js_buf, "\"");
+                
+                if (iter->next != NULL) {
+                    strcat(js_buf, ", ");
+                }
+                
                 g_free(path);
+                iter = iter->next;
             }
+            g_slist_free(paths);
+            strcat(js_buf, "]);");
+            
+            webview_eval(w, js_buf);
+            free(js_buf);
         }
         gtk_widget_destroy(dialog);
     }
     else if (strncmp(arg, "rsync:", 6) == 0) {
-        // Parse: "rsync:<command>|<callback_id>"
         const char *cmd_part = arg + 6;
         char cmd[8192] = {0};
         char cmd_id[128] = {0};
         
-        // Split at the pipe separator
         const char *pipe_pos = strchr(cmd_part, '|');
         if (pipe_pos == NULL) {
-            // No callback ID provided, use a default one
             strncpy(cmd, cmd_part, sizeof(cmd) - 1);
             cmd[sizeof(cmd) - 1] = '\0';
             snprintf(cmd_id, sizeof(cmd_id), "rsync-%d", (int)time(NULL));
@@ -348,12 +351,9 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
             cmd_id[sizeof(cmd_id) - 1] = '\0';
         }
         
-        // Clean up the command - remove extra quotes and use proper shell escaping
-        // The command already has single quotes from the JS side, which is correct
         char full_cmd[16384];
         snprintf(full_cmd, sizeof(full_cmd), "%s 2>&1", cmd);
         
-        // Queue the task for background execution
         pthread_mutex_lock(&rsync_mutex);
         int task_index = -1;
         for (int i = 0; i < MAX_RSYNC_TASKS; i++) {
@@ -364,7 +364,6 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         }
         
         if (task_index == -1) {
-            // No slots available, report error back to JS
             char js_buf[1024];
             snprintf(js_buf, sizeof(js_buf), 
                 "window.rsyncCallbacks && window.rsyncCallbacks['%s'] && window.rsyncCallbacks['%s']('error: too many rsync tasks', '');",
@@ -374,7 +373,6 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
             return;
         }
         
-        // Initialize the task
         memset(&rsync_tasks[task_index], 0, sizeof(rsync_task_t));
         strncpy(rsync_tasks[task_index].cmd, full_cmd, sizeof(rsync_tasks[task_index].cmd) - 1);
         rsync_tasks[task_index].cmd[sizeof(rsync_tasks[task_index].cmd) - 1] = '\0';
@@ -384,7 +382,6 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         rsync_tasks[task_index].completed = 0;
         pthread_mutex_unlock(&rsync_mutex);
         
-        // Log to stdout
         printf("[Rsync] Started background task %s: %s\n", cmd_id, cmd);
         fflush(stdout);
     }
@@ -416,7 +413,6 @@ int main() {
         return 1;
     }
 
-    // Start the background rsync worker thread
     pthread_t rsync_thread;
     if (pthread_create(&rsync_thread, NULL, rsync_worker, NULL) != 0) {
         fprintf(stderr, "Warning: Failed to create rsync background thread. Rsync operations will block.\n");
@@ -426,13 +422,10 @@ int main() {
     }
 
     while (webview_loop(&webview, 1) == 0) {
-        // Yields CPU loop block
     }
 
-    // Signal the rsync worker to stop
     rsync_thread_running = 0;
     
-    // Wait a bit for the thread to finish
     struct timespec ts;
     ts.tv_sec = 0;
     ts.tv_nsec = 100000000;
