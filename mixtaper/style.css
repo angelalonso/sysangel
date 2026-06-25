@@ -94,57 +94,59 @@ kbd { background: #444; color: #fff; border: 1px solid #666; border-radius: 3px;
 }
 
 select {
-    width: 100%;
-    padding: 12px;
-    background: #1e1e1e;
-    border: 1px solid #777;
-    color: #ffffff;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1rem;
-    font-weight: 500;
-    appearance: auto;
+    width: 100% !important;
+    padding: 12px !important;
+    background: #1e1e1e !important;
+    border: 1px solid #666 !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
 }
 
 select option {
-    background: #1e1e1e;
-    color: #ffffff;
-    padding: 8px;
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+    padding: 8px !important;
 }
 
 select option:checked {
-    background: #1f3a60;
-    color: #ffffff;
+    background: #1f3a60 !important;
+    color: #ffffff !important;
 }
 
 select option:hover {
-    background: #3a5fcd;
-    color: #ffffff;
+    background: #3a5fcd !important;
+    color: #ffffff !important;
 }
 
 select:focus {
-    outline: none;
-    border-color: #03dac6;
-    box-shadow: 0 0 8px rgba(3, 218, 198, 0.3);
+    outline: none !important;
+    border-color: #03dac6 !important;
+    box-shadow: 0 0 8px rgba(3, 218, 198, 0.3) !important;
 }
 
 #screen-mix-tapes select {
-    background: #1e1e1e;
-    color: #ffffff;
-    border-color: #777;
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #666 !important;
 }
 
 #screen-mix-tapes select option {
-    background: #1e1e1e;
-    color: #ffffff;
+    background: #1e1e1e !important;
+    color: #ffffff !important;
 }
 
 #screen-mix-tapes select option:checked {
-    background: #1f3a60;
-    color: #ffffff;
+    background: #1f3a60 !important;
+    color: #ffffff !important;
 }
 
 #screen-mix-tapes select option:hover {
-    background: #3a5fcd;
-    color: #ffffff;
+    background: #3a5fcd !important;
+    color: #ffffff !important;
 }
