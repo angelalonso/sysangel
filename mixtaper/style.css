@@ -1,5 +1,5 @@
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #e0e0e0; display: flex; justify-content: center; padding-top: 50px; }
-.container { width: 100%; max-width: 1000px; text-align: center; }
+.container { width: 100%; max-width: 1000px; text-align: center; display: flex; flex-direction: column; min-height: calc(100vh - 100px); }
 .card { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
 .error { border-color: #cf6679; }
 .success { border-color: #03dac6; }
@@ -8,9 +8,19 @@ pre { text-align: left; background: #2d2d2d; padding: 15px; border-radius: 4px; 
 button { background: #03dac6; color: #000; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 15px; }
 button:hover { background: #01bfa5; }
 
-.menu-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
-.btn-menu { background: #1f3a60; color: #fff; font-size: 1.2rem; padding: 20px; border: 1px solid #3a5fcd; border-radius: 6px; }
+.menu-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+.menu-row { display: flex; gap: 15px; }
+.btn-menu { background: #1f3a60; color: #fff; font-size: 1.2rem; padding: 20px; border: 1px solid #3a5fcd; border-radius: 6px; width: 100%; }
 .btn-menu:hover { background: #2a4d7c; }
+.btn-half { width: 50%; }
+
+.main-card { flex: 1; min-height: 200px; max-height: 400px; overflow-y: auto; margin-bottom: 15px; }
+
+.bottom-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 15px; }
+.btn-config { background: #333333; color: #e0e0e0; border: 1px solid #555; font-size: 0.95rem; margin: 0; padding: 8px 24px; width: auto; }
+.btn-config:hover { background: #444444; }
+.btn-exit { background: transparent; color: #cf6679; border: 1px solid #cf6679; font-size: 0.95rem; margin: 0; padding: 8px 24px; width: auto; }
+.btn-exit:hover { background: #cf6679; color: #fff; }
 
 .btn-secondary { background: #333333; color: #e0e0e0; border: 1px solid #555; font-size: 0.95rem; }
 .btn-secondary:hover { background: #444444; }

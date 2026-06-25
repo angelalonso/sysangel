@@ -389,7 +389,7 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
 
 int main() {
     struct webview webview = {
-        .title = "Audio Storage Manager",
+        .title = "MixTaper",
         .width = 1280,
         .height = 960,
         .resizable = 1,

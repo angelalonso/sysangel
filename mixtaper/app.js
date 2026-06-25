@@ -314,43 +314,53 @@ window.applyMixTape = function(mixTapeId) {
     
     const sourcePaths = mix.paths;
     const destPath = tape.path;
+    const MAX_PATHS_PER_BATCH = 20;
     
-    const commands = sourcePaths.map(sourcePath => {
-        return `rsync -av '${sourcePath}' '${destPath}/'`;
-    });
+    // Group paths into batches of MAX_PATHS_PER_BATCH
+    const batches = [];
+    for (let i = 0; i < sourcePaths.length; i += MAX_PATHS_PER_BATCH) {
+        batches.push(sourcePaths.slice(i, i + MAX_PATHS_PER_BATCH));
+    }
     
-    const totalCommands = commands.length;
-    let completedCommands = 0;
-    let failedCommands = 0;
+    const totalBatches = batches.length;
+    let completedBatches = 0;
+    let failedBatches = 0;
     let errorMessages = [];
     
-    console.log(`[Mix-Tape: ${mixTape.name}] Starting rsync of ${totalCommands} path(s) to ${destPath}`);
+    console.log(`[Mix-Tape: ${mixTape.name}] Starting rsync of ${sourcePaths.length} path(s) in ${totalBatches} batch(es) to ${destPath}`);
     
-    commands.forEach((cmd, index) => {
-        const cmdId = `${mixTapeId}-cmd-${index}`;
+    batches.forEach((batch, batchIndex) => {
+        // Build a single rsync command with all paths in this batch
+        let cmd = "rsync -av";
+        batch.forEach(path => {
+            cmd += ` '${path}'`;
+        });
+        cmd += ` '${destPath}/'`;
+        
+        const cmdId = `${mixTapeId}-batch-${batchIndex}`;
         
         window.rsyncCallbacks = window.rsyncCallbacks || {};
         window.rsyncCallbacks[cmdId] = function(result, output) {
-            completedCommands++;
+            completedBatches++;
             if (result !== "success") {
-                failedCommands++;
-                errorMessages.push(`Command ${index+1}: ${result}`);
+                failedBatches++;
+                errorMessages.push(`Batch ${batchIndex+1}: ${result}`);
             }
             
-            console.log(`[Mix-Tape: ${mixTape.name}] Command ${index+1}/${totalCommands}: ${result}`);
+            console.log(`[Mix-Tape: ${mixTape.name}] Batch ${batchIndex+1}/${totalBatches}: ${result}`);
             if (output) {
                 console.log(`Output: ${output}`);
             }
             
-            if (completedCommands === totalCommands) {
+            if (completedBatches === totalBatches) {
                 window.rsyncOperations[mixTapeId].running = false;
                 window.rsyncOperations[mixTapeId].completed = Date.now();
                 renderMixTapesList();
                 
-                const successCount = totalCommands - failedCommands;
+                const successCount = totalBatches - failedBatches;
                 let summary = `Rsync completed for "${mixTape.name}":\n`;
-                summary += `${successCount} succeeded, ${failedCommands} failed.\n`;
-                if (failedCommands > 0) {
+                summary += `${successCount} batch(es) succeeded, ${failedBatches} failed.\n`;
+                if (failedBatches > 0) {
                     summary += `\nErrors:\n${errorMessages.join('\n')}`;
                 }
                 console.log(`[Mix-Tape: ${mixTape.name}] ${summary}`);

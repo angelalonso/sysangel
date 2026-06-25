@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C Backend Config Manager</title>
+    <title>MixTaper</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         
         <div id="screen-main" class="screen">
-            <h1>Main Dashboard</h1>
             <div class="menu-grid">
-                <button class="btn-menu" onclick="showScreen('screen-mixes')">Mixes</button>
-                <button class="btn-menu" onclick="showScreen('screen-tapes')">Tapes</button>
+                <div class="menu-row">
+                    <button class="btn-menu btn-half" onclick="showScreen('screen-mixes')">Mixes</button>
+                    <button class="btn-menu btn-half" onclick="showScreen('screen-tapes')">Tapes</button>
+                </div>
                 <button class="btn-menu" onclick="showScreen('screen-mix-tapes')">Mix-Tapes</button>
-                <button class="btn-menu" onclick="goToConfigScreen()">Config</button>
             </div>
 
-            <div class="card" style="margin-top: 30px; text-align: left;">
+            <div class="card main-card" style="text-align: left; flex: 1; margin-top: 20px;">
                 <h3 style="margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px;">Existing Mix-Tapes</h3>
                 <ul id="mix-tapes-list" style="list-style-type: none; padding: 0; margin: 0;">
                     <li style="color: #777; padding: 10px 0;">Loading Mix-Tapes...</li>
                 </ul>
             </div>
+
+            <div class="bottom-row">
+                <button class="btn-secondary btn-config" onclick="goToConfigScreen()">Config</button>
+                <button class="btn-exit" onclick="confirmExitApp()">Exit</button>
+            </div>
             
-            <p style="margin-top: 40px; color: #777;">Press <kbd>Esc</kbd> anywhere to go back, or on this screen to Exit.</p>
+            <p style="margin-top: 15px; color: #555; font-size: 0.85rem;">Press <kbd>Esc</kbd> anywhere to go back, or on this screen to Exit.</p>
         </div>
 
         <div id="screen-mixes" class="screen hidden">
