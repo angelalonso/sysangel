@@ -9,6 +9,7 @@
 #include <limits.h>
 #include <sys/wait.h>
 #include <pthread.h>
+#include <time.h>
 #include "webview.h"
 #include "server.h"
 
@@ -27,11 +28,19 @@ typedef struct {
 rsync_task_t rsync_tasks[MAX_RSYNC_TASKS];
 int rsync_task_count = 0;
 pthread_mutex_t rsync_mutex = PTHREAD_MUTEX_INITIALIZER;
+int rsync_thread_running = 1;
+
+// Forward declaration
+static gboolean idle_rsync_callback(gpointer user_data);
 
 // Background thread for rsync execution
 void* rsync_worker(void* arg) {
     (void)arg;
-    while (1) {
+    struct timespec ts;
+    ts.tv_sec = 0;
+    ts.tv_nsec = 100000000; // 100ms
+    
+    while (rsync_thread_running) {
         rsync_task_t task;
         int has_task = 0;
         
@@ -47,7 +56,7 @@ void* rsync_worker(void* arg) {
         pthread_mutex_unlock(&rsync_mutex);
         
         if (!has_task) {
-            usleep(100000); // 100ms
+            nanosleep(&ts, NULL);
             continue;
         }
         
@@ -83,22 +92,15 @@ void* rsync_worker(void* arg) {
         printf("[Rsync] Task %s completed with exit code %d\n", task.cmd_id, task.exit_code);
         fflush(stdout);
         
-        // Notify the UI about completion
+        // Notify the UI about completion - schedule on main thread
         if (task.webview != NULL) {
-            char escaped_result[4096] = {0};
-            js_escape(task.result, escaped_result, sizeof(escaped_result));
-            
-            char js_buf[16384];
-            if (task.exit_code == 0) {
-                snprintf(js_buf, sizeof(js_buf), 
-                    "window.rsyncCallbacks && window.rsyncCallbacks['%s'] && window.rsyncCallbacks['%s']('success', '%s');",
-                    task.cmd_id, task.cmd_id, escaped_result);
-            } else {
-                snprintf(js_buf, sizeof(js_buf), 
-                    "window.rsyncCallbacks && window.rsyncCallbacks['%s'] && window.rsyncCallbacks['%s']('error: exit code %d', '%s');",
-                    task.cmd_id, task.cmd_id, task.exit_code, escaped_result);
+            // Create a copy of the data to pass to the idle callback
+            rsync_task_t *task_copy = (rsync_task_t*)malloc(sizeof(rsync_task_t));
+            if (task_copy != NULL) {
+                memcpy(task_copy, &task, sizeof(rsync_task_t));
+                // Schedule the UI update on the main thread using g_idle_add
+                g_idle_add(idle_rsync_callback, task_copy);
             }
-            webview_eval(task.webview, js_buf);
         }
         
         // Clear the task
@@ -109,10 +111,46 @@ void* rsync_worker(void* arg) {
     return NULL;
 }
 
+// Idle callback to safely call webview_eval from the main thread
+static gboolean idle_rsync_callback(gpointer user_data) {
+    rsync_task_t *task = (rsync_task_t*)user_data;
+    if (task == NULL || task->webview == NULL) {
+        if (task) free(task);
+        return FALSE;
+    }
+    
+    char escaped_result[4096] = {0};
+    js_escape(task->result, escaped_result, sizeof(escaped_result));
+    
+    char js_buf[16384];
+    if (task->exit_code == 0) {
+        snprintf(js_buf, sizeof(js_buf), 
+            "window.rsyncCallbacks && window.rsyncCallbacks['%s'] && window.rsyncCallbacks['%s']('success', '%s');",
+            task->cmd_id, task->cmd_id, escaped_result);
+    } else {
+        snprintf(js_buf, sizeof(js_buf), 
+            "window.rsyncCallbacks && window.rsyncCallbacks['%s'] && window.rsyncCallbacks['%s']('error: exit code %d', '%s');",
+            task->cmd_id, task->cmd_id, task->exit_code, escaped_result);
+    }
+    webview_eval(task->webview, js_buf);
+    
+    // Also log to console
+    char notify_buf[1024];
+    snprintf(notify_buf, sizeof(notify_buf),
+        "console.log('[Rsync] Task %s completed with exit code %d');",
+        task->cmd_id, task->exit_code);
+    webview_eval(task->webview, notify_buf);
+    
+    free(task);
+    return FALSE;
+}
+
 // Callback for handling frontend invocations
 void my_external_invoke_cb(struct webview *w, const char *arg) {
     if (strcmp(arg, "exitApp") == 0) {
         webview_terminate(w);
+        // Signal the rsync worker to stop
+        rsync_thread_running = 0;
     } 
     else if (strcmp(arg, "getConfig") == 0 || strcmp(arg, "loadInitialData") == 0) {
         FILE *cfg_file = fopen("cfg.yml", "r");
@@ -299,54 +337,21 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         if (pipe_pos == NULL) {
             // No callback ID provided, use a default one
             strncpy(cmd, cmd_part, sizeof(cmd) - 1);
+            cmd[sizeof(cmd) - 1] = '\0';
             snprintf(cmd_id, sizeof(cmd_id), "rsync-%d", (int)time(NULL));
         } else {
             size_t cmd_len = pipe_pos - cmd_part;
-            strncpy(cmd, cmd_part, cmd_len < sizeof(cmd) - 1 ? cmd_len : sizeof(cmd) - 1);
+            if (cmd_len >= sizeof(cmd)) cmd_len = sizeof(cmd) - 1;
+            strncpy(cmd, cmd_part, cmd_len);
+            cmd[cmd_len] = '\0';
             strncpy(cmd_id, pipe_pos + 1, sizeof(cmd_id) - 1);
+            cmd_id[sizeof(cmd_id) - 1] = '\0';
         }
         
-        // Fix the path quoting - remove the extra quotes and use proper shell escaping
-        // The problem is that js_escape adds \" which then gets passed to the shell
-        // We need to strip the quotes and use single quotes for rsync paths
-        char cleaned_cmd[8192] = {0};
-        char *dst = cleaned_cmd;
-        const char *src = cmd;
-        int in_quoted_arg = 0;
-        
-        while (*src) {
-            if (*src == '"') {
-                // Skip the quote character
-                src++;
-                continue;
-            }
-            *dst++ = *src++;
-        }
-        *dst = '\0';
-        
-        // Now use single quotes for the arguments to handle spaces properly
-        // The command is already in the form: rsync -av "path1" "path2"
-        // We need to convert to: rsync -av 'path1' 'path2'
-        char final_cmd[16384] = {0};
-        char *f = final_cmd;
-        const char *c = cleaned_cmd;
-        int in_quotes = 0;
-        
-        while (*c) {
-            if (*c == '"') {
-                // Replace double quotes with single quotes
-                *f++ = '\'';
-                in_quotes = !in_quotes;
-                c++;
-                continue;
-            }
-            *f++ = *c++;
-        }
-        *f = '\0';
-        
-        // Add 2>&1 to capture stderr
+        // Clean up the command - remove extra quotes and use proper shell escaping
+        // The command already has single quotes from the JS side, which is correct
         char full_cmd[16384];
-        snprintf(full_cmd, sizeof(full_cmd), "%s 2>&1", final_cmd);
+        snprintf(full_cmd, sizeof(full_cmd), "%s 2>&1", cmd);
         
         // Queue the task for background execution
         pthread_mutex_lock(&rsync_mutex);
@@ -372,13 +377,15 @@ void my_external_invoke_cb(struct webview *w, const char *arg) {
         // Initialize the task
         memset(&rsync_tasks[task_index], 0, sizeof(rsync_task_t));
         strncpy(rsync_tasks[task_index].cmd, full_cmd, sizeof(rsync_tasks[task_index].cmd) - 1);
+        rsync_tasks[task_index].cmd[sizeof(rsync_tasks[task_index].cmd) - 1] = '\0';
         strncpy(rsync_tasks[task_index].cmd_id, cmd_id, sizeof(rsync_tasks[task_index].cmd_id) - 1);
+        rsync_tasks[task_index].cmd_id[sizeof(rsync_tasks[task_index].cmd_id) - 1] = '\0';
         rsync_tasks[task_index].webview = w;
         rsync_tasks[task_index].completed = 0;
         pthread_mutex_unlock(&rsync_mutex);
         
         // Log to stdout
-        printf("[Rsync] Started background task %s: %s\n", cmd_id, final_cmd);
+        printf("[Rsync] Started background task %s: %s\n", cmd_id, cmd);
         fflush(stdout);
     }
 }
@@ -422,6 +429,15 @@ int main() {
         // Yields CPU loop block
     }
 
+    // Signal the rsync worker to stop
+    rsync_thread_running = 0;
+    
+    // Wait a bit for the thread to finish
+    struct timespec ts;
+    ts.tv_sec = 0;
+    ts.tv_nsec = 100000000;
+    nanosleep(&ts, NULL);
+    
     webview_exit(&webview);
     return 0;
 }
