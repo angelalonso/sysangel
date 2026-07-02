@@ -45,5 +45,6 @@ sudo apt install pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
 
 download slack .deb
 download google chrome .deb
-sudo apt install kanshi
+sudo apt install kanshi flameshot
+
 

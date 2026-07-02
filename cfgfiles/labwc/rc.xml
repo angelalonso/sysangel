@@ -44,6 +44,11 @@
     <keybind key="XF86AudioMute"><action name="Execute" command="pamixer -t"/></keybind>
     <keybind key="XF86MonBrightnessUp"><action name="Execute" command="sudo brightnessctl set 5%+" /></keybind>
     <keybind key="XF86MonBrightnessDown"><action name="Execute" command="sudo brightnessctl set 5%-" /></keybind>
+
+    <!-- Screenshotting -->
+    <keybind key="XF86Eject">
+      <action name="Execute" command="env XDG_CURRENT_DESKTOP=sway flameshot gui"/>
+    </keybind>
   </keyboard>
   <layer-rule>
     <layer-shell name="waybar" exclusive="true" />
