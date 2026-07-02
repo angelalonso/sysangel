@@ -1,6 +1,6 @@
 CC       ?= gcc
-CFLAGS   ?= -Wall -Wextra -O2 -std=gnu11
-LDFLAGS  ?=
+CFLAGS   ?= -Wall -Wextra -O2 -std=gnu11 -DWEBVIEW_GTK $(shell pkg-config --cflags webkit2gtk-4.0 2>/dev/null || pkg-config --cflags webkit2gtk-4.1 2>/dev/null)
+LDFLAGS  ?= -lpthread $(shell pkg-config --libs webkit2gtk-4.0 2>/dev/null || pkg-config --libs webkit2gtk-4.1 2>/dev/null)
 
 TEST_DIR  := tests
 BIN_DIR   := bin
@@ -31,14 +31,10 @@ $(TARGET): ic.c | $(BIN_DIR)
 $(DEMO): $(TEST_DIR)/demo_target.c | $(BIN_DIR)
 	$(CC) $(CFLAGS) -o $@ $<
 
-# Builds everything and runs ic against the bundled demo program so you
-# can see disk opens/reads/writes/deletes and a network connect attempt.
 test: build $(DEMO)
 	@echo "== running ic against tests/demo_target =="
 	./$(TARGET) -- ./$(DEMO)
 
-# Run ic against an arbitrary program, e.g.:
-#   make run ARGS="curl -s https://example.com"
 run: build
 	@if [ -z "$(ARGS)" ]; then \
 		echo "usage: make run ARGS='PROGRAM [ARGS...]'"; exit 1; \
