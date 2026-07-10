@@ -37,6 +37,7 @@
     <keybind key="Super_R"><action name="Execute" command="wofi --show drun"/></keybind>
     <!-- Run Menu (F2) -->
     <keybind key="F2"><action name="Execute" command="wofi --show run"/></keybind>
+    <keybind key="W-S-y"><action name="Execute" command="killall wofi"/></keybind>
     
     <!-- Audio & Brightness -->
     <keybind key="XF86AudioRaiseVolume"><action name="Execute" command="pamixer -i 5"/></keybind>
