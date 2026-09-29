@@ -1,0 +1,17 @@
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  lmet
+)
+
+(defalias
+  ;; Tap sends Ctrl+Escape (to open Labwc menu)
+  ;; Hold acts as Left Meta / Super (for combos like Super+T)
+  win-tap (tap-hold 200 200 (multi lctrl esc) lmet)
+)
+
+(deflayer base
+  @win-tap
+)
