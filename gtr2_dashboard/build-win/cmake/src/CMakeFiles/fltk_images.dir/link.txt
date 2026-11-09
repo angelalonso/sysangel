@@ -1,0 +1,2 @@
+/usr/bin/x86_64-w64-mingw32-ar qc ../lib/libfltk_images.a CMakeFiles/fltk_images.dir/fl_images_core.cxx.obj CMakeFiles/fltk_images.dir/Fl_BMP_Image.cxx.obj CMakeFiles/fltk_images.dir/Fl_File_Icon2.cxx.obj CMakeFiles/fltk_images.dir/Fl_GIF_Image.cxx.obj CMakeFiles/fltk_images.dir/Fl_Help_Dialog.cxx.obj CMakeFiles/fltk_images.dir/Fl_JPEG_Image.cxx.obj CMakeFiles/fltk_images.dir/Fl_PNG_Image.cxx.obj CMakeFiles/fltk_images.dir/Fl_PNM_Image.cxx.obj
+/usr/bin/x86_64-w64-mingw32-ranlib ../lib/libfltk_images.a

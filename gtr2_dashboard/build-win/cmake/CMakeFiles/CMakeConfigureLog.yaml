@@ -1,0 +1,1620 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      The target system is: Windows -  - 
+      The host system is: Linux - 6.8.0-147-generic - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/x86_64-w64-mingw32-gcc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is GNU, found in:
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/3.28.3/CompilerIdC/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/x86_64-w64-mingw32-g++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/3.28.3/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:38 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5199f/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_5199f.dir/build.make CMakeFiles/cmTC_5199f.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ'
+        Building C object CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -v -o CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc
+        Target: x86_64-w64-mingw32
+        Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+        Thread model: win32
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13-win32 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_5199f.dir/'
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/cc1 -quiet -v -U_REENTRANT /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_5199f.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/cceeTMUT.s
+        GNU C17 (GCC) version 13-win32 (x86_64-w64-mingw32)
+        	compiled by GNU C version 13.2.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version isl-0.26-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/sys-include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include
+        End of search list.
+        Compiler executable checksum: 2f238ebf931cb75a735d1d63553d9825
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_5199f.dir/'
+         /usr/bin/x86_64-w64-mingw32-as -v -o CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj /tmp/cceeTMUT.s
+        GNU assembler version 2.41.90 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.41.90.20240122
+        COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_5199f.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5199f.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_5199f.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_5199f.dir/objects.a @CMakeFiles/cmTC_5199f.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -v -Wl,--whole-archive CMakeFiles/cmTC_5199f.dir/objects.a -Wl,--no-whole-archive -o cmTC_5199f.exe -Wl,--out-implib,libcmTC_5199f.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc
+        COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper
+        Target: x86_64-w64-mingw32
+        Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+        Thread model: win32
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13-win32 (GCC) 
+        COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_5199f.exe' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_5199f.'
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/collect2 -plugin /usr/lib/gcc/x86_64-w64-mingw32/13-win32/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper -plugin-opt=-fresolution=/tmp/ccKbhB5t.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_5199f.exe /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32 -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib --whole-archive CMakeFiles/cmTC_5199f.dir/objects.a --no-whole-archive --out-implib libcmTC_5199f.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_5199f.exe' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_5199f.'
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/usr/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include] ==> [/usr/x86_64-w64-mingw32/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed;/usr/x86_64-w64-mingw32/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
+      - "/usr/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(x86_64-w64-mingw32-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5199f/fast]
+        ignore line: [gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ']
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_5199f.dir/build.make CMakeFiles/cmTC_5199f.dir/build]
+        ignore line: [gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ykyruZ']
+        ignore line: [Building C object CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [/usr/bin/x86_64-w64-mingw32-gcc   -v -o CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed]
+        ignore line: [Thread model: win32]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13-win32 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_5199f.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/cc1 -quiet -v -U_REENTRANT /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_5199f.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/cceeTMUT.s]
+        ignore line: [GNU C17 (GCC) version 13-win32 (x86_64-w64-mingw32)]
+        ignore line: [	compiled by GNU C version 13.2.0  GMP version 6.3.0  MPFR version 4.2.1  MPC version 1.3.1  isl version isl-0.26-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/sys-include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 2f238ebf931cb75a735d1d63553d9825]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_5199f.dir/']
+        ignore line: [ /usr/bin/x86_64-w64-mingw32-as -v -o CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj /tmp/cceeTMUT.s]
+        ignore line: [GNU assembler version 2.41.90 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.41.90.20240122]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_5199f.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_5199f.exe]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5199f.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/cmake -E rm -f CMakeFiles/cmTC_5199f.dir/objects.a]
+        ignore line: [/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_5199f.dir/objects.a @CMakeFiles/cmTC_5199f.dir/objects1.rsp]
+        ignore line: [/usr/bin/x86_64-w64-mingw32-gcc  -v -Wl --whole-archive CMakeFiles/cmTC_5199f.dir/objects.a -Wl --no-whole-archive -o cmTC_5199f.exe -Wl --out-implib libcmTC_5199f.dll.a -Wl --major-image-version 0 --minor-image-version 0 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed]
+        ignore line: [Thread model: win32]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13-win32 (GCC) ]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_5199f.exe' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_5199f.']
+        link line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/collect2 -plugin /usr/lib/gcc/x86_64-w64-mingw32/13-win32/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper -plugin-opt=-fresolution=/tmp/ccKbhB5t.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_5199f.exe /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32 -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib --whole-archive CMakeFiles/cmTC_5199f.dir/objects.a --no-whole-archive --out-implib libcmTC_5199f.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o]
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccKbhB5t.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-ladvapi32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lshell32] ==> ignore
+          arg [-plugin-opt=-pass-through=-luser32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-m] ==> ignore
+          arg [i386pep] ==> ignore
+          arg [-Bdynamic] ==> search dynamic
+          arg [-o] ==> ignore
+          arg [cmTC_5199f.exe] ==> ignore
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o] ==> obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o]
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o]
+          arg [-L/usr/lib/gcc/x86_64-w64-mingw32/13-win32] ==> dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32]
+          arg [-L/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib] ==> dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib]
+          arg [--whole-archive] ==> ignore
+          arg [CMakeFiles/cmTC_5199f.dir/objects.a] ==> ignore
+          arg [--no-whole-archive] ==> ignore
+          arg [--out-implib] ==> ignore
+          arg [libcmTC_5199f.dll.a] ==> ignore
+          arg [--major-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [--minor-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-ladvapi32] ==> lib [advapi32]
+          arg [-lshell32] ==> lib [shell32]
+          arg [-luser32] ==> lib [user32]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o] ==> obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o]
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        collapse obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o] ==> [/usr/x86_64-w64-mingw32/lib/crt2.o]
+        collapse library dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32]
+        collapse library dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib] ==> [/usr/x86_64-w64-mingw32/lib]
+        implicit libs: [mingw32;gcc;moldname;mingwex;kernel32;advapi32;shell32;user32;kernel32;mingw32;gcc;moldname;mingwex;kernel32]
+        implicit objs: [/usr/x86_64-w64-mingw32/lib/crt2.o;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32;/usr/x86_64-w64-mingw32/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:38 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3959d/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3959d.dir/build.make CMakeFiles/cmTC_3959d.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT'
+        Building CXX object CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj
+        /usr/bin/x86_64-w64-mingw32-g++   -v -o CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-g++
+        Target: x86_64-w64-mingw32
+        Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+        Thread model: win32
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13-win32 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3959d.dir/'
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/cc1plus -quiet -v -U_REENTRANT /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_3959d.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccAXvy5u.s
+        GNU C++17 (GCC) version 13-win32 (x86_64-w64-mingw32)
+        	compiled by GNU C version 13.2.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version isl-0.26-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/sys-include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/x86_64-w64-mingw32
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/backward
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include
+        End of search list.
+        Compiler executable checksum: d9aa912102515005505aa1bbf0e5f800
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3959d.dir/'
+         /usr/bin/x86_64-w64-mingw32-as -v -o CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj /tmp/ccAXvy5u.s
+        GNU assembler version 2.41.90 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.41.90.20240122
+        COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_3959d.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3959d.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_3959d.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_3959d.dir/objects.a @CMakeFiles/cmTC_3959d.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-g++  -v -Wl,--whole-archive CMakeFiles/cmTC_3959d.dir/objects.a -Wl,--no-whole-archive -o cmTC_3959d.exe -Wl,--out-implib,libcmTC_3959d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-g++
+        COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper
+        Target: x86_64-w64-mingw32
+        Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+        Thread model: win32
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13-win32 (GCC) 
+        COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3959d.exe' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3959d.'
+         /usr/lib/gcc/x86_64-w64-mingw32/13-win32/collect2 -plugin /usr/lib/gcc/x86_64-w64-mingw32/13-win32/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper -plugin-opt=-fresolution=/tmp/ccGfbCGD.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_3959d.exe /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32 -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib --whole-archive CMakeFiles/cmTC_3959d.dir/objects.a --no-whole-archive --out-implib libcmTC_3959d.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3959d.exe' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3959d.'
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/x86_64-w64-mingw32]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/backward]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed]
+          add: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/x86_64-w64-mingw32] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/x86_64-w64-mingw32]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/backward] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/backward]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed]
+        collapse include dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include] ==> [/usr/x86_64-w64-mingw32/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/x86_64-w64-mingw32;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/backward;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed;/usr/x86_64-w64-mingw32/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
+      - "/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:38 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(x86_64-w64-mingw32-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3959d/fast]
+        ignore line: [gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT']
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_3959d.dir/build.make CMakeFiles/cmTC_3959d.dir/build]
+        ignore line: [gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wfE9lT']
+        ignore line: [Building CXX object CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj]
+        ignore line: [/usr/bin/x86_64-w64-mingw32-g++   -v -o CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-g++]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed]
+        ignore line: [Thread model: win32]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13-win32 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3959d.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/cc1plus -quiet -v -U_REENTRANT /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_3959d.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccAXvy5u.s]
+        ignore line: [GNU C++17 (GCC) version 13-win32 (x86_64-w64-mingw32)]
+        ignore line: [	compiled by GNU C version 13.2.0  GMP version 6.3.0  MPFR version 4.2.1  MPC version 1.3.1  isl version isl-0.26-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/sys-include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/x86_64-w64-mingw32]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include/c++/backward]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/include-fixed]
+        ignore line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: d9aa912102515005505aa1bbf0e5f800]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3959d.dir/']
+        ignore line: [ /usr/bin/x86_64-w64-mingw32-as -v -o CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj /tmp/ccAXvy5u.s]
+        ignore line: [GNU assembler version 2.41.90 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.41.90.20240122]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3959d.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_3959d.exe]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3959d.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/cmake -E rm -f CMakeFiles/cmTC_3959d.dir/objects.a]
+        ignore line: [/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_3959d.dir/objects.a @CMakeFiles/cmTC_3959d.dir/objects1.rsp]
+        ignore line: [/usr/bin/x86_64-w64-mingw32-g++  -v -Wl --whole-archive CMakeFiles/cmTC_3959d.dir/objects.a -Wl --no-whole-archive -o cmTC_3959d.exe -Wl --out-implib libcmTC_3959d.dll.a -Wl --major-image-version 0 --minor-image-version 0 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-g++]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=win32 --program-suffix=-win32 --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed]
+        ignore line: [Thread model: win32]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13-win32 (GCC) ]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/:/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3959d.exe' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3959d.']
+        link line: [ /usr/lib/gcc/x86_64-w64-mingw32/13-win32/collect2 -plugin /usr/lib/gcc/x86_64-w64-mingw32/13-win32/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper -plugin-opt=-fresolution=/tmp/ccGfbCGD.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_3959d.exe /usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32 -L/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib --whole-archive CMakeFiles/cmTC_3959d.dir/objects.a --no-whole-archive --out-implib libcmTC_3959d.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 /usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o]
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/13-win32/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccGfbCGD.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-ladvapi32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lshell32] ==> ignore
+          arg [-plugin-opt=-pass-through=-luser32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-m] ==> ignore
+          arg [i386pep] ==> ignore
+          arg [-Bdynamic] ==> search dynamic
+          arg [-o] ==> ignore
+          arg [cmTC_3959d.exe] ==> ignore
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o] ==> obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o]
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o]
+          arg [-L/usr/lib/gcc/x86_64-w64-mingw32/13-win32] ==> dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32]
+          arg [-L/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib] ==> dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib]
+          arg [--whole-archive] ==> ignore
+          arg [CMakeFiles/cmTC_3959d.dir/objects.a] ==> ignore
+          arg [--no-whole-archive] ==> ignore
+          arg [--out-implib] ==> ignore
+          arg [libcmTC_3959d.dll.a] ==> ignore
+          arg [--major-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [--minor-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-ladvapi32] ==> lib [advapi32]
+          arg [-lshell32] ==> lib [shell32]
+          arg [-luser32] ==> lib [user32]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o] ==> obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o]
+        remove lib [msvcrt]
+        remove lib [msvcrt]
+        collapse obj [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib/crt2.o] ==> [/usr/x86_64-w64-mingw32/lib/crt2.o]
+        collapse library dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32] ==> [/usr/lib/gcc/x86_64-w64-mingw32/13-win32]
+        collapse library dir [/usr/lib/gcc/x86_64-w64-mingw32/13-win32/../../../../x86_64-w64-mingw32/lib] ==> [/usr/x86_64-w64-mingw32/lib]
+        implicit libs: [stdc++;mingw32;gcc_s;gcc;moldname;mingwex;kernel32;advapi32;shell32;user32;kernel32;mingw32;gcc_s;gcc;moldname;mingwex;kernel32]
+        implicit objs: [/usr/x86_64-w64-mingw32/lib/crt2.o;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtbegin.o;/usr/lib/gcc/x86_64-w64-mingw32/13-win32/crtend.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-w64-mingw32/13-win32;/usr/x86_64-w64-mingw32/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:250 (check_include_file)"
+      - "CMake/setup.cmake:104 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ce6d0/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ce6d0.dir/build.make CMakeFiles/cmTC_ce6d0.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o'
+        Building C object CMakeFiles/cmTC_ce6d0.dir/CheckIncludeFile.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_ce6d0.dir/CheckIncludeFile.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o/CheckIncludeFile.c
+        Linking C executable cmTC_ce6d0.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ce6d0.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_ce6d0.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_ce6d0.dir/objects.a @CMakeFiles/cmTC_ce6d0.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_ce6d0.dir/objects.a -Wl,--no-whole-archive -o cmTC_ce6d0.exe -Wl,--out-implib,libcmTC_ce6d0.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_ce6d0.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-4XdB0o'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:251 (check_include_file)"
+      - "CMake/setup.cmake:104 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_95f9a/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_95f9a.dir/build.make CMakeFiles/cmTC_95f9a.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR'
+        Building C object CMakeFiles/cmTC_95f9a.dir/CheckIncludeFile.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_95f9a.dir/CheckIncludeFile.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR/CheckIncludeFile.c
+        Linking C executable cmTC_95f9a.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_95f9a.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_95f9a.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_95f9a.dir/objects.a @CMakeFiles/cmTC_95f9a.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_95f9a.dir/objects.a -Wl,--no-whole-archive -o cmTC_95f9a.exe -Wl,--out-implib,libcmTC_95f9a.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_95f9a.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-vSaoMR'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:252 (check_include_file)"
+      - "CMake/setup.cmake:104 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_fe08b/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_fe08b.dir/build.make CMakeFiles/cmTC_fe08b.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w'
+        Building C object CMakeFiles/cmTC_fe08b.dir/CheckIncludeFile.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_fe08b.dir/CheckIncludeFile.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w/CheckIncludeFile.c
+        Linking C executable cmTC_fe08b.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fe08b.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_fe08b.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_fe08b.dir/objects.a @CMakeFiles/cmTC_fe08b.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_fe08b.dir/objects.a -Wl,--no-whole-archive -o cmTC_fe08b.exe -Wl,--out-implib,libcmTC_fe08b.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_fe08b.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-Vjno6w'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:146 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:271 (__check_type_size_impl)"
+      - "CMake/setup.cmake:104 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Check size of short"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SIZEOF_SHORT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9e963/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9e963.dir/build.make CMakeFiles/cmTC_9e963.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1'
+        Building C object CMakeFiles/cmTC_9e963.dir/SIZEOF_SHORT.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_9e963.dir/SIZEOF_SHORT.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1/SIZEOF_SHORT.c
+        Linking C executable cmTC_9e963.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9e963.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_9e963.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_9e963.dir/objects.a @CMakeFiles/cmTC_9e963.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_9e963.dir/objects.a -Wl,--no-whole-archive -o cmTC_9e963.exe -Wl,--out-implib,libcmTC_9e963.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_9e963.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-7Ynrz1'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:146 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:271 (__check_type_size_impl)"
+      - "CMake/setup.cmake:105 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Check size of int"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SIZEOF_INT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_10535/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_10535.dir/build.make CMakeFiles/cmTC_10535.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv'
+        Building C object CMakeFiles/cmTC_10535.dir/SIZEOF_INT.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_10535.dir/SIZEOF_INT.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv/SIZEOF_INT.c
+        Linking C executable cmTC_10535.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_10535.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_10535.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_10535.dir/objects.a @CMakeFiles/cmTC_10535.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_10535.dir/objects.a -Wl,--no-whole-archive -o cmTC_10535.exe -Wl,--out-implib,libcmTC_10535.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_10535.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-dUiXmv'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:146 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:271 (__check_type_size_impl)"
+      - "CMake/setup.cmake:106 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Check size of long"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SIZEOF_LONG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_95203/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_95203.dir/build.make CMakeFiles/cmTC_95203.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ'
+        Building C object CMakeFiles/cmTC_95203.dir/SIZEOF_LONG.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_95203.dir/SIZEOF_LONG.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ/SIZEOF_LONG.c
+        Linking C executable cmTC_95203.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_95203.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_95203.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_95203.dir/objects.a @CMakeFiles/cmTC_95203.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_95203.dir/objects.a -Wl,--no-whole-archive -o cmTC_95203.exe -Wl,--out-implib,libcmTC_95203.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_95203.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-T3cstJ'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:146 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckTypeSize.cmake:271 (__check_type_size_impl)"
+      - "CMake/setup.cmake:107 (CHECK_TYPE_SIZE)"
+      - "CMakeLists.txt:58 (include)"
+    checks:
+      - "Check size of long long"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_HAVE_LONG_LONG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6d616/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_6d616.dir/build.make CMakeFiles/cmTC_6d616.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN'
+        Building C object CMakeFiles/cmTC_6d616.dir/HAVE_LONG_LONG.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_6d616.dir/HAVE_LONG_LONG.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN/HAVE_LONG_LONG.c
+        Linking C executable cmTC_6d616.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d616.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_6d616.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_6d616.dir/objects.a @CMakeFiles/cmTC_6d616.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_6d616.dir/objects.a -Wl,--no-whole-archive -o cmTC_6d616.exe -Wl,--out-implib,libcmTC_6d616.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_6d616.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-gyRNfN'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:52 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_ALSA_ASOUNDLIB_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4499c/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_4499c.dir/build.make CMakeFiles/cmTC_4499c.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp'
+        Building C object CMakeFiles/cmTC_4499c.dir/HAVE_ALSA_ASOUNDLIB_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_4499c.dir/HAVE_ALSA_ASOUNDLIB_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp/HAVE_ALSA_ASOUNDLIB_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp/HAVE_ALSA_ASOUNDLIB_H.c:2:10: fatal error: alsa/asoundlib.h: No such file or directory
+            2 | #include <alsa/asoundlib.h>
+              |          ^~~~~~~~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_4499c.dir/build.make:78: CMakeFiles/cmTC_4499c.dir/HAVE_ALSA_ASOUNDLIB_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp'
+        gmake[1]: *** [Makefile:127: cmTC_4499c/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-lwiuHp'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:53 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_DLFCN_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9b0ec/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9b0ec.dir/build.make CMakeFiles/cmTC_9b0ec.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4'
+        Building C object CMakeFiles/cmTC_9b0ec.dir/HAVE_DLFCN_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_9b0ec.dir/HAVE_DLFCN_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4/HAVE_DLFCN_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4/HAVE_DLFCN_H.c:2:10: fatal error: dlfcn.h: No such file or directory
+            2 | #include <dlfcn.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_9b0ec.dir/build.make:78: CMakeFiles/cmTC_9b0ec.dir/HAVE_DLFCN_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4'
+        gmake[1]: *** [Makefile:127: cmTC_9b0ec/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-ysy7G4'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:54 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_GL_GLU_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_db4db/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_db4db.dir/build.make CMakeFiles/cmTC_db4db.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg'
+        Building C object CMakeFiles/cmTC_db4db.dir/HAVE_GL_GLU_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_db4db.dir/HAVE_GL_GLU_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg/HAVE_GL_GLU_H.c
+        Linking C executable cmTC_db4db.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_db4db.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_db4db.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_db4db.dir/objects.a @CMakeFiles/cmTC_db4db.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_db4db.dir/objects.a -Wl,--no-whole-archive -o cmTC_db4db.exe -Wl,--out-implib,libcmTC_db4db.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_db4db.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-F9EjNg'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:55 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_LIBPNG_PNG_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_bdec0/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_bdec0.dir/build.make CMakeFiles/cmTC_bdec0.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ'
+        Building C object CMakeFiles/cmTC_bdec0.dir/HAVE_LIBPNG_PNG_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_bdec0.dir/HAVE_LIBPNG_PNG_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ/HAVE_LIBPNG_PNG_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ/HAVE_LIBPNG_PNG_H.c:2:10: fatal error: libpng/png.h: No such file or directory
+            2 | #include <libpng/png.h>
+              |          ^~~~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_bdec0.dir/build.make:78: CMakeFiles/cmTC_bdec0.dir/HAVE_LIBPNG_PNG_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ'
+        gmake[1]: *** [Makefile:127: cmTC_bdec0/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KnAAdZ'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:56 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_LOCALE_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_96c46/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_96c46.dir/build.make CMakeFiles/cmTC_96c46.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb'
+        Building C object CMakeFiles/cmTC_96c46.dir/HAVE_LOCALE_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_96c46.dir/HAVE_LOCALE_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb/HAVE_LOCALE_H.c
+        Linking C executable cmTC_96c46.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_96c46.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_96c46.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_96c46.dir/objects.a @CMakeFiles/cmTC_96c46.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_96c46.dir/objects.a -Wl,--no-whole-archive -o cmTC_96c46.exe -Wl,--out-implib,libcmTC_96c46.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_96c46.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-AwG6Yb'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:57 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_OPENGL_GLU_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d199d/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_d199d.dir/build.make CMakeFiles/cmTC_d199d.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj'
+        Building C object CMakeFiles/cmTC_d199d.dir/HAVE_OPENGL_GLU_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_d199d.dir/HAVE_OPENGL_GLU_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj/HAVE_OPENGL_GLU_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj/HAVE_OPENGL_GLU_H.c:2:10: fatal error: OpenGL/glu.h: No such file or directory
+            2 | #include <OpenGL/glu.h>
+              |          ^~~~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_d199d.dir/build.make:78: CMakeFiles/cmTC_d199d.dir/HAVE_OPENGL_GLU_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj'
+        gmake[1]: *** [Makefile:127: cmTC_d199d/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-zjpuVj'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:58 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_PNG_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4fb8b/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_4fb8b.dir/build.make CMakeFiles/cmTC_4fb8b.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv'
+        Building C object CMakeFiles/cmTC_4fb8b.dir/HAVE_PNG_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_4fb8b.dir/HAVE_PNG_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv/HAVE_PNG_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv/HAVE_PNG_H.c:2:10: fatal error: png.h: No such file or directory
+            2 | #include <png.h>
+              |          ^~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_4fb8b.dir/build.make:78: CMakeFiles/cmTC_4fb8b.dir/HAVE_PNG_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv'
+        gmake[1]: *** [Makefile:127: cmTC_4fb8b/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-v3u3Lv'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:59 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STDIO_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ed09d/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ed09d.dir/build.make CMakeFiles/cmTC_ed09d.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi'
+        Building C object CMakeFiles/cmTC_ed09d.dir/HAVE_STDIO_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_ed09d.dir/HAVE_STDIO_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi/HAVE_STDIO_H.c
+        Linking C executable cmTC_ed09d.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ed09d.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_ed09d.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_ed09d.dir/objects.a @CMakeFiles/cmTC_ed09d.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_ed09d.dir/objects.a -Wl,--no-whole-archive -o cmTC_ed09d.exe -Wl,--out-implib,libcmTC_ed09d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_ed09d.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-akgrMi'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:60 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STRINGS_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_b0b8d/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_b0b8d.dir/build.make CMakeFiles/cmTC_b0b8d.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4'
+        Building C object CMakeFiles/cmTC_b0b8d.dir/HAVE_STRINGS_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_b0b8d.dir/HAVE_STRINGS_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4/HAVE_STRINGS_H.c
+        Linking C executable cmTC_b0b8d.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b0b8d.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_b0b8d.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_b0b8d.dir/objects.a @CMakeFiles/cmTC_b0b8d.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_b0b8d.dir/objects.a -Wl,--no-whole-archive -o cmTC_b0b8d.exe -Wl,--out-implib,libcmTC_b0b8d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_b0b8d.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-MK5WP4'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:61 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SYS_SELECT_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_27afb/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_27afb.dir/build.make CMakeFiles/cmTC_27afb.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1'
+        Building C object CMakeFiles/cmTC_27afb.dir/HAVE_SYS_SELECT_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_27afb.dir/HAVE_SYS_SELECT_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1/HAVE_SYS_SELECT_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1/HAVE_SYS_SELECT_H.c:2:10: fatal error: sys/select.h: No such file or directory
+            2 | #include <sys/select.h>
+              |          ^~~~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_27afb.dir/build.make:78: CMakeFiles/cmTC_27afb.dir/HAVE_SYS_SELECT_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1'
+        gmake[1]: *** [Makefile:127: cmTC_27afb/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KU0Gg1'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:62 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SYS_STDTYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_57d64/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_57d64.dir/build.make CMakeFiles/cmTC_57d64.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD'
+        Building C object CMakeFiles/cmTC_57d64.dir/HAVE_SYS_STDTYPES_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_57d64.dir/HAVE_SYS_STDTYPES_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD/HAVE_SYS_STDTYPES_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD/HAVE_SYS_STDTYPES_H.c:2:10: fatal error: sys/stdtypes.h: No such file or directory
+            2 | #include <sys/stdtypes.h>
+              |          ^~~~~~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_57d64.dir/build.make:78: CMakeFiles/cmTC_57d64.dir/HAVE_SYS_STDTYPES_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD'
+        gmake[1]: *** [Makefile:127: cmTC_57d64/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-X2bouD'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:64 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_X11_XREGION_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_dcce2/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_dcce2.dir/build.make CMakeFiles/cmTC_dcce2.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV'
+        Building C object CMakeFiles/cmTC_dcce2.dir/HAVE_X11_XREGION_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_dcce2.dir/HAVE_X11_XREGION_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV/HAVE_X11_XREGION_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV/HAVE_X11_XREGION_H.c:2:10: fatal error: X11/Xlib.h: No such file or directory
+            2 | #include <X11/Xlib.h>
+              |          ^~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_dcce2.dir/build.make:78: CMakeFiles/cmTC_dcce2.dir/HAVE_X11_XREGION_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV'
+        gmake[1]: *** [Makefile:127: cmTC_dcce2/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-giwpcV'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:65 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_XDBE_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f25d4/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f25d4.dir/build.make CMakeFiles/cmTC_f25d4.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr'
+        Building C object CMakeFiles/cmTC_f25d4.dir/HAVE_XDBE_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_f25d4.dir/HAVE_XDBE_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr/HAVE_XDBE_H.c
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr/HAVE_XDBE_H.c:2:10: fatal error: X11/Xlib.h: No such file or directory
+            2 | #include <X11/Xlib.h>
+              |          ^~~~~~~~~~~~
+        compilation terminated.
+        gmake[2]: *** [CMakeFiles/cmTC_f25d4.dir/build.make:78: CMakeFiles/cmTC_f25d4.dir/HAVE_XDBE_H.c.obj] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr'
+        gmake[1]: *** [Makefile:127: cmTC_f25d4/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-QgxEtr'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "CMake/resources.cmake:32 (check_include_files)"
+      - "CMake/resources.cmake:107 (fl_find_header)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_DIRENT_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5d5f0/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_5d5f0.dir/build.make CMakeFiles/cmTC_5d5f0.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7'
+        Building C object CMakeFiles/cmTC_5d5f0.dir/HAVE_DIRENT_H.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc    -o CMakeFiles/cmTC_5d5f0.dir/HAVE_DIRENT_H.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7/HAVE_DIRENT_H.c
+        Linking C executable cmTC_5d5f0.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5d5f0.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_5d5f0.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_5d5f0.dir/objects.a @CMakeFiles/cmTC_5d5f0.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_5d5f0.dir/objects.a -Wl,--no-whole-archive -o cmTC_5d5f0.exe -Wl,--out-implib,libcmTC_5d5f0.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_5d5f0.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-uU0qT7'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:178 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_DLSYM"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_87e27/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_87e27.dir/build.make CMakeFiles/cmTC_87e27.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1'
+        Building C object CMakeFiles/cmTC_87e27.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=dlsym -o CMakeFiles/cmTC_87e27.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1/CheckFunctionExists.c
+        Linking C executable cmTC_87e27.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_87e27.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_87e27.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_87e27.dir/objects.a @CMakeFiles/cmTC_87e27.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=dlsym  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_87e27.dir/objects.a -Wl,--no-whole-archive -o cmTC_87e27.exe -Wl,--out-implib,libcmTC_87e27.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_87e27.dir/linkLibs.rsp
+        /usr/bin/x86_64-w64-mingw32-ld: CMakeFiles/cmTC_87e27.dir/objects.a(CheckFunctionExists.c.obj):CheckFunctionExists.c:(.text+0x15): undefined reference to `dlsym'
+        collect2: error: ld returned 1 exit status
+        gmake[2]: *** [CMakeFiles/cmTC_87e27.dir/build.make:101: cmTC_87e27.exe] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1'
+        gmake[1]: *** [Makefile:127: cmTC_87e27/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-jyIMh1'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:181 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_LOCALECONV"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_cf3ef/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_cf3ef.dir/build.make CMakeFiles/cmTC_cf3ef.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa'
+        Building C object CMakeFiles/cmTC_cf3ef.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=localeconv -o CMakeFiles/cmTC_cf3ef.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa/CheckFunctionExists.c
+        Linking C executable cmTC_cf3ef.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cf3ef.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_cf3ef.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_cf3ef.dir/objects.a @CMakeFiles/cmTC_cf3ef.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=localeconv  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_cf3ef.dir/objects.a -Wl,--no-whole-archive -o cmTC_cf3ef.exe -Wl,--out-implib,libcmTC_cf3ef.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_cf3ef.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-qHTFqa'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:190 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SCANDIR"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f8808/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f8808.dir/build.make CMakeFiles/cmTC_f8808.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay'
+        Building C object CMakeFiles/cmTC_f8808.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=scandir -o CMakeFiles/cmTC_f8808.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay/CheckFunctionExists.c
+        Linking C executable cmTC_f8808.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8808.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_f8808.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_f8808.dir/objects.a @CMakeFiles/cmTC_f8808.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=scandir  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_f8808.dir/objects.a -Wl,--no-whole-archive -o cmTC_f8808.exe -Wl,--out-implib,libcmTC_f8808.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_f8808.dir/linkLibs.rsp
+        /usr/bin/x86_64-w64-mingw32-ld: CMakeFiles/cmTC_f8808.dir/objects.a(CheckFunctionExists.c.obj):CheckFunctionExists.c:(.text+0x15): undefined reference to `scandir'
+        collect2: error: ld returned 1 exit status
+        gmake[2]: *** [CMakeFiles/cmTC_f8808.dir/build.make:101: cmTC_f8808.exe] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay'
+        gmake[1]: *** [Makefile:127: cmTC_f8808/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-GkaDay'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:191 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_SNPRINTF"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8a64d/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_8a64d.dir/build.make CMakeFiles/cmTC_8a64d.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5'
+        Building C object CMakeFiles/cmTC_8a64d.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=snprintf -o CMakeFiles/cmTC_8a64d.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5/CheckFunctionExists.c
+        <command-line>: warning: conflicting types for built-in function ‘snprintf’; expected ‘int(char *, long long unsigned int,  const char *, ...)’ [-Wbuiltin-declaration-mismatch]
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^~~~~~~~~~~~~~~~~~~~~
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5/CheckFunctionExists.c:1:1: note: ‘snprintf’ is declared in header ‘<stdio.h>’
+          +++ |+#include <stdio.h>
+            1 | #ifdef CHECK_FUNCTION_EXISTS
+        Linking C executable cmTC_8a64d.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8a64d.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_8a64d.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_8a64d.dir/objects.a @CMakeFiles/cmTC_8a64d.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=snprintf  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_8a64d.dir/objects.a -Wl,--no-whole-archive -o cmTC_8a64d.exe -Wl,--out-implib,libcmTC_8a64d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_8a64d.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-CQqPp5'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:198 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STRCASECMP"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3ff6b/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3ff6b.dir/build.make CMakeFiles/cmTC_3ff6b.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW'
+        Building C object CMakeFiles/cmTC_3ff6b.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=strcasecmp -o CMakeFiles/cmTC_3ff6b.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW/CheckFunctionExists.c
+        <command-line>: warning: conflicting types for built-in function ‘strcasecmp’; expected ‘int(const char *, const char *)’ [-Wbuiltin-declaration-mismatch]
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^~~~~~~~~~~~~~~~~~~~~
+        Linking C executable cmTC_3ff6b.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ff6b.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_3ff6b.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_3ff6b.dir/objects.a @CMakeFiles/cmTC_3ff6b.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=strcasecmp  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_3ff6b.dir/objects.a -Wl,--no-whole-archive -o cmTC_3ff6b.exe -Wl,--out-implib,libcmTC_3ff6b.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_3ff6b.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-0NLpOW'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:200 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STRLCAT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f1a27/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f1a27.dir/build.make CMakeFiles/cmTC_f1a27.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf'
+        Building C object CMakeFiles/cmTC_f1a27.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=strlcat -o CMakeFiles/cmTC_f1a27.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf/CheckFunctionExists.c
+        Linking C executable cmTC_f1a27.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f1a27.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_f1a27.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_f1a27.dir/objects.a @CMakeFiles/cmTC_f1a27.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=strlcat  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_f1a27.dir/objects.a -Wl,--no-whole-archive -o cmTC_f1a27.exe -Wl,--out-implib,libcmTC_f1a27.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_f1a27.dir/linkLibs.rsp
+        /usr/bin/x86_64-w64-mingw32-ld: CMakeFiles/cmTC_f1a27.dir/objects.a(CheckFunctionExists.c.obj):CheckFunctionExists.c:(.text+0x15): undefined reference to `strlcat'
+        collect2: error: ld returned 1 exit status
+        gmake[2]: *** [CMakeFiles/cmTC_f1a27.dir/build.make:101: cmTC_f1a27.exe] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf'
+        gmake[1]: *** [Makefile:127: cmTC_f1a27/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-wgP0gf'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:201 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_STRLCPY"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c0e8d/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c0e8d.dir/build.make CMakeFiles/cmTC_c0e8d.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw'
+        Building C object CMakeFiles/cmTC_c0e8d.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=strlcpy -o CMakeFiles/cmTC_c0e8d.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw/CheckFunctionExists.c
+        Linking C executable cmTC_c0e8d.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c0e8d.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_c0e8d.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_c0e8d.dir/objects.a @CMakeFiles/cmTC_c0e8d.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=strlcpy  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_c0e8d.dir/objects.a -Wl,--no-whole-archive -o cmTC_c0e8d.exe -Wl,--out-implib,libcmTC_c0e8d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_c0e8d.dir/linkLibs.rsp
+        /usr/bin/x86_64-w64-mingw32-ld: CMakeFiles/cmTC_c0e8d.dir/objects.a(CheckFunctionExists.c.obj):CheckFunctionExists.c:(.text+0x15): undefined reference to `strlcpy'
+        collect2: error: ld returned 1 exit status
+        gmake[2]: *** [CMakeFiles/cmTC_c0e8d.dir/build.make:101: cmTC_c0e8d.exe] Error 1
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw'
+        gmake[1]: *** [Makefile:127: cmTC_c0e8d/fast] Error 2
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-KMUURw'
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/resources.cmake:202 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:63 (include)"
+    directories:
+      source: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9"
+      binary: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: " -Wl,-subsystem,windows"
+      CMAKE_MODULE_PATH: "/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/fltk-1.3.9/CMake"
+    buildResult:
+      variable: "HAVE_VSNPRINTF"
+      cached: true
+      stdout: |
+        Change Dir: '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_89ff0/fast
+        gmake[1]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_89ff0.dir/build.make CMakeFiles/cmTC_89ff0.dir/build
+        gmake[2]: Entering directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9'
+        Building C object CMakeFiles/cmTC_89ff0.dir/CheckFunctionExists.c.obj
+        /usr/bin/x86_64-w64-mingw32-gcc   -DCHECK_FUNCTION_EXISTS=vsnprintf -o CMakeFiles/cmTC_89ff0.dir/CheckFunctionExists.c.obj -c /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9/CheckFunctionExists.c
+        <command-line>: warning: conflicting types for built-in function ‘vsnprintf’; expected ‘int(char *, long long unsigned int,  const char *, char *)’ [-Wbuiltin-declaration-mismatch]
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^~~~~~~~~~~~~~~~~~~~~
+        /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9/CheckFunctionExists.c:1:1: note: ‘vsnprintf’ is declared in header ‘<stdio.h>’
+          +++ |+#include <stdio.h>
+            1 | #ifdef CHECK_FUNCTION_EXISTS
+        Linking C executable cmTC_89ff0.exe
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_89ff0.dir/link.txt --verbose=1
+        /usr/bin/cmake -E rm -f CMakeFiles/cmTC_89ff0.dir/objects.a
+        /usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_89ff0.dir/objects.a @CMakeFiles/cmTC_89ff0.dir/objects1.rsp
+        /usr/bin/x86_64-w64-mingw32-gcc  -DCHECK_FUNCTION_EXISTS=vsnprintf  -Wl,-subsystem,windows  -Wl,--whole-archive CMakeFiles/cmTC_89ff0.dir/objects.a -Wl,--no-whole-archive -o cmTC_89ff0.exe -Wl,--out-implib,libcmTC_89ff0.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_89ff0.dir/linkLibs.rsp
+        gmake[2]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9'
+        gmake[1]: Leaving directory '/home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/cmake/CMakeFiles/CMakeScratch/TryCompile-PcbLP9'
+        
+      exitCode: 0
+...

@@ -1,0 +1,2 @@
+/usr/bin/x86_64-w64-mingw32-ar qc ../lib/libfltk_forms.a CMakeFiles/fltk_forms.dir/forms_compatability.cxx.obj CMakeFiles/fltk_forms.dir/forms_bitmap.cxx.obj CMakeFiles/fltk_forms.dir/forms_free.cxx.obj CMakeFiles/fltk_forms.dir/forms_fselect.cxx.obj CMakeFiles/fltk_forms.dir/forms_pixmap.cxx.obj CMakeFiles/fltk_forms.dir/forms_timer.cxx.obj
+/usr/bin/x86_64-w64-mingw32-ranlib ../lib/libfltk_forms.a
