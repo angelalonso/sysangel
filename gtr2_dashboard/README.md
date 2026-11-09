@@ -2,6 +2,16 @@ sudo apt install g++ make cmake curl mingw-w64 libfltk1.3-dev
 make          # native Linux binary
 make win      # gamelauncher.exe
 
+I need some changes:
+- There should be a button that opens a config dialog/window/mode
+- The "Game folder" editable part should be moved to that config screen 
+- There should also be a button that configures files versions.
+- Each one of those needs the path to the file, the current version to save, and a name for that version. We will eventually have different versions of the same files.
+- Each version has to have a copy in the folder where our program runs.
+- For each of the controller/resolution modes, we can configure which files we want to change, and which version we need.
+- Original versions on the game have to be saved somewhere for disaster recovery
+
+v0.1
 I need a program that runs on windows and has the following requirements:
 - It should be as nimble as possible
 - It should have a GUI
