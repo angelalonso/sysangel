@@ -1,0 +1,101 @@
+diff -rq /media/aaf/T/000_CAREER_CHANGES/GTR\ 2\ -\ FIA\ GT\ Racing\ Game.G29 /media/aaf/T/000_CAREER_CHANGES/GTR\ 2\ -\ FIA\ GT\ Racing\ Game.R3                                                                                      
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: 09mallory                                                                                                                                                                             
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: 2005Mondello                                                                                                                                                                          
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: 2009_Thruxton                                                                                                                                                                         
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Aintree                                                                                                                                                                               
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Anderstorp                                                                                                                                                                            
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: AngleseyCircuit                                                                                                                                                                       
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Barcelona                                                                                                                                                                             
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Bedford                                                                                                                                                                               
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Brands_Hatch_2008                                                                                                                                                                     
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: BritishGP                                                                                                                                                                             
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Brno                                                                                                                                                                                  
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Cadwell                                                                                                                                                                               
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: _CastleCombe2005                                                                                                                                                                      
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Croft07                                                                                                                                                                               
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: CrystalPalace                                                                                                                                                                         
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Donington                                                                                                                                                                             
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Dubai                                                                                                                                                                                 
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Enna                                                                                                                                                                                  
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Estoril                                                                                                                                                                               
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Goodwood                                                                                                                                                                              
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: HAT_Dedicated                                                                                                                                                                         
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Hockenheim                                                                                                                                                                            
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Imola                                                                                                                                                                                 
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: _Knockhill2005                                                                                                                                                                        
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Magny-Cours                                                                                                                                                                           
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Monza                                                                                                                                                                                 
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Oschersleben                                                                                                                                                                          
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: _OultonPark2005                                                                                                                                                                       
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: pembrey                                                                                                                                                                               
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: rockingham
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: sb_Cadwell
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: shared
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Silverstone2011
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: _Snetterton2005
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Spa
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: specialfx.tec
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Thruxton
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Valencia
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Locations: Zhuhai
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/SIM_TEST.gdb and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/SIM_TEST.gdb differ
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/GameData/Teams: Formula Ford
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: CHANGES_from_original.txt
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: formula_ford.aud
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: formula_ford.cas
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: FORMULA_FORD_CPIT.gtr
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: formula_ford.grb
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: formula_ford.hdc.orig
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: formula_ford.sp
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: FORMULA_FORD_TRACKAHOLICS.GTR
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: formula_ford.tyr.orig
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: FORMULA_FORD_WHEELS.gtr
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: ReadMe.txt
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 1
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 10
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 14
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 15
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 16
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 17
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 19
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 2
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 20
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 21
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 22
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 23
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 24
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 25
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 3
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 4
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 5
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 6
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 7
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 8
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/GameData/Teams/Sport/Formula Ford: team 9
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/Plugins/ccgep.ini and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/Plugins/ccgep.ini differ
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: Castle Combe 2005.Vcr
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: Croft07 HOT LAP.Vcr
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: Croft07.Vcr
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: Donington Park GP HOT LAP.Vcr
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/ReplayData/Donington Park GP.Vcr and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData/Donington Park GP.Vcr differ
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: Goodwood.Vcr
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/ReplayData/Hockenheim GP HOT LAP.Vcr and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData/Hockenheim GP HOT LAP.Vcr differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/ReplayData/Hockenheim GP.Vcr and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData/Hockenheim GP.Vcr differ
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: pembrey HOT LAP.Vcr
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/ReplayData: pembrey.Vcr
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/AngelAlonso.PLR and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/AngelAlonso.PLR differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/Career.blt and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/Career.blt differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/SIM_CAREER_National_B.bch and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/SIM_CAREER_National_B.bch differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/SIM_SingleMakes.bch and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/SIM_SingleMakes.bch differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/SIM_Specials.bch and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/SIM_Specials.bch differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/SIM_TEST.bch and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/SIM_TEST.bch differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/AngelAlonso/tempGarage.svm and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/AngelAlonso/tempGarage.svm differ
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/HAT: 4Magny.hat
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/HAT: Castle2005.hat
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/HAT: Croft07.hat
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/HAT: Goodwood.hat
+Only in /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/HAT: Pembrey.hat
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/Log/Results/raceresults.txt and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/Results/raceresults.txt differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/Log/weather.txt and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/Log/weather.txt differ
+Files /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.G29/UserData/vehicledata.spt and /media/aaf/T/000_CAREER_CHANGES/GTR 2 - FIA GT Racing Game.R3/UserData/vehicledata.spt differ
+

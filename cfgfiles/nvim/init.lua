@@ -84,3 +84,11 @@ vim.lsp.start({
   on_attach = on_attach,
   capabilities = capabilities,
 })
+
+-- Lazy plugins
+return {
+  {
+    "github/copilot.vim",
+    lazy = false,
+  },
+}
