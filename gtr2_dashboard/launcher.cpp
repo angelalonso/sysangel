@@ -27,8 +27,10 @@
 #include <algorithm>
 #include <cctype>
 #include <cstring>
+#include <ctime>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
@@ -213,8 +215,50 @@ static Category g_cats[2] = {
 
 static fs::path g_base, g_cfgFile, g_modesDir, g_versionsDir, g_originalsDir;
 static std::string g_gameFolder;
+static std::string g_executablePath;
+static Fl_Window* g_mainWindow = nullptr;
+static Fl_Button* g_applyButton = nullptr;
 static Fl_Box* g_gameLabel = nullptr;
 static Fl_Box* g_status = nullptr;
+
+static std::string selectedName(const Category& c);
+
+static Fl_Color lightBlueColor() { return fl_rgb_color(226, 232, 240); }
+static Fl_Color inactiveWindowColor() { return fl_rgb_color(194, 200, 208); }
+static Fl_Color applyReadyColor() { return fl_rgb_color(238, 248, 210); }
+
+static void setMainWindowActive(bool active) {
+    if (!g_mainWindow) return;
+    g_mainWindow->color(active ? lightBlueColor() : inactiveWindowColor());
+    g_mainWindow->redraw();
+}
+
+static void updateApplyButton() {
+    if (!g_applyButton) return;
+    bool hasSelection = false;
+    for (auto& c : g_cats)
+        if (!selectedName(c).empty()) {
+            hasSelection = true;
+            break;
+        }
+    g_applyButton->color(hasSelection ? applyReadyColor() : FL_BACKGROUND_COLOR);
+    g_applyButton->redraw();
+}
+
+static void debugLog(const std::string& message) {
+    std::ofstream out(g_base / "launcher.log", std::ios::app);
+    if (out) {
+        std::time_t now = std::time(nullptr);
+        std::tm localTime{};
+#ifdef _WIN32
+        localtime_s(&localTime, &now);
+#else
+        localtime_r(&now, &localTime);
+#endif
+        out << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << " " << message << "\n";
+    }
+    std::clog << message << "\n";
+}
 
 static fs::path gamePath() { return P(g_gameFolder); }
 
@@ -259,6 +303,7 @@ static void saveConfig() {
     std::ofstream f(g_cfgFile, std::ios::trunc);
     if (!f) return;
     f << "game_path=" << g_gameFolder << "\n";
+    f << "executable_path=" << g_executablePath << "\n";
     for (auto& c : g_cats) f << c.subdir << "=" << selectedName(c) << "\n";
 }
 
@@ -312,6 +357,7 @@ static void refresh(Category& c, const std::string& select = "") {
         if (names[i] == select) sel = (int)i + 1;
     }
     if (sel) c.list->value(sel);
+    updateApplyButton();
 }
 
 // ======================================================== versions (disk) ===
@@ -464,16 +510,32 @@ static bool containsIgnoreCase(const std::string& text, const std::string& query
 static void patchLinesFind(Fl_Widget*, void* p) {
     PatchLinesDlg* d = (PatchLinesDlg*)p;
     std::string query = d->search->value();
-    if (query.empty() || d->fileLines.empty()) return;
+    debugLog("Patch search clicked: query='" + query + "'" +
+             ", start=" + std::to_string(d->searchStart) +
+             ", lines=" + std::to_string(d->fileLines.size()));
+    if (query.empty()) {
+        debugLog("Patch search skipped: empty query.");
+        return;
+    }
+    if (d->fileLines.empty()) {
+        debugLog("Patch search skipped: file has no lines.");
+        return;
+    }
 
     for (size_t offset = 0; offset < d->fileLines.size(); ++offset) {
         size_t index = (static_cast<size_t>(d->searchStart) + offset) % d->fileLines.size();
         if (containsIgnoreCase(d->fileLines[index], query)) {
             d->searchStart = static_cast<int>((index + 1) % d->fileLines.size());
-            d->lines->show(static_cast<int>(index + 1));
+            int matchLine = static_cast<int>(index + 1);
+            d->lines->middleline(matchLine);
+            d->lines->redraw();
+            debugLog("Patch search match: line=" + std::to_string(index + 1) +
+                     ", next_start=" + std::to_string(d->searchStart) +
+                     ", browser_top=" + std::to_string(d->lines->topline()));
             return;
         }
     }
+    debugLog("Patch search found no match.");
     fl_alert("No lines found for:\n%s", query.c_str());
 }
 
@@ -511,6 +573,8 @@ static bool selectPatchLines(const fs::path& file, std::vector<std::string>& out
     d.lines = new Fl_Multi_Browser(10, 65, 740, 377);
     d.lines->format_char(0);
     d.fileLines = readLines(file);
+    debugLog("Opened patch line selector: file=" + S(file) +
+             ", lines=" + std::to_string(d.fileLines.size()));
     for (size_t i = 0; i < d.fileLines.size(); ++i) {
         std::string display = std::to_string(i + 1) + ": " + d.fileLines[i];
         d.lines->add(display.c_str());
@@ -706,6 +770,7 @@ static void vmCloseCb(Fl_Widget*, void* p) { ((VerMgr*)p)->win->hide(); }
 static void onVersions(Fl_Widget*, void*) {
     VerMgr m;
     m.win = new Fl_Window(620, 390, "File versions");
+    m.win->color(lightBlueColor());
     mkLabel(10, 10, 300, "Tracked files", true);
     mkLabel(320, 10, 290, "Versions", true);
     m.filesB = mkBrowser(10, 32, 300, 250);
@@ -722,7 +787,9 @@ static void onVersions(Fl_Widget*, void*) {
     m.win->end();
 
     vmReload(&m);
+    setMainWindowActive(false);
     runModal(m.win);
+    setMainWindowActive(true);
     delete m.win;
 }
 
@@ -832,7 +899,7 @@ static void editMode(const Category& c, const std::string& name) {
 
 struct CfgDlg {
     Fl_Window* win = nullptr;
-    Fl_Input* game = nullptr;
+    Fl_Input *game = nullptr, *executable = nullptr;
 };
 
 static void cfgBrowse(Fl_Widget*, void* p) {
@@ -842,6 +909,16 @@ static void cfgBrowse(Fl_Widget*, void* p) {
     fc.type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
     if (d->game->value()[0]) fc.directory(d->game->value());
     if (fc.show() == 0) d->game->value(fc.filename());
+}
+
+static void cfgBrowseExecutable(Fl_Widget*, void* p) {
+    CfgDlg* d = (CfgDlg*)p;
+    Fl_Native_File_Chooser fc;
+    fc.title("Select the executable to launch");
+    fc.type(Fl_Native_File_Chooser::BROWSE_FILE);
+    std::string current = d->executable->value();
+    if (!current.empty()) fc.directory(S(P(current).parent_path()).c_str());
+    if (fc.show() == 0) d->executable->value(fc.filename());
 }
 
 static void cfgOpenData(Fl_Widget*, void*) { openPath(g_base); }
@@ -854,7 +931,13 @@ static void cfgOk(Fl_Widget*, void* p) {
         fl_alert("%s", "That folder does not exist.");
         return;
     }
+    std::string executable = d->executable->value();
+    if (!executable.empty() && !fs::is_regular_file(P(executable), ec)) {
+        fl_alert("%s", "The configured executable does not exist or is not a file.");
+        return;
+    }
     g_gameFolder = path;
+    g_executablePath = executable;
     updateGameLabel();
     saveConfig();
     d->win->hide();
@@ -864,16 +947,23 @@ static void cfgCancel(Fl_Widget*, void* p) { ((CfgDlg*)p)->win->hide(); }
 
 static void onConfig(Fl_Widget*, void*) {
     CfgDlg d;
-    d.win = new Fl_Window(520, 130, "Configuration");
+    d.win = new Fl_Window(520, 170, "Configuration");
+    d.win->color(lightBlueColor());
     mkLabel(10, 10, 500, "Game folder:");
     d.game = new Fl_Input(10, 32, 400, 25);
     d.game->value(g_gameFolder.c_str());
     (new Fl_Button(420, 32, 90, 25, "Browse..."))->callback(cfgBrowse, &d);
-    (new Fl_Button(10, 85, 140, 30, "Open data folder"))->callback(cfgOpenData);
-    (new Fl_Button(350, 85, 80, 30, "OK"))->callback(cfgOk, &d);
-    (new Fl_Button(440, 85, 70, 30, "Cancel"))->callback(cfgCancel, &d);
+    mkLabel(10, 67, 500, "Executable to launch:");
+    d.executable = new Fl_Input(10, 89, 400, 25);
+    d.executable->value(g_executablePath.c_str());
+    (new Fl_Button(420, 89, 90, 25, "Browse..."))->callback(cfgBrowseExecutable, &d);
+    (new Fl_Button(10, 130, 140, 30, "Open data folder"))->callback(cfgOpenData);
+    (new Fl_Button(350, 130, 80, 30, "OK"))->callback(cfgOk, &d);
+    (new Fl_Button(440, 130, 70, 30, "Cancel"))->callback(cfgCancel, &d);
     d.win->end();
+    setMainWindowActive(false);
     runModal(d.win);
+    setMainWindowActive(true);
     delete d.win;
 }
 
@@ -916,6 +1006,41 @@ static void onEditMode(Fl_Widget*, void* p) {
     std::string name = selectedName(*c);
     if (name.empty()) { setStatus("Select a " + std::string(c->singular) + " to edit."); return; }
     editMode(*c, name);
+}
+
+static void onLaunch(Fl_Widget*, void*) {
+    if (g_executablePath.empty()) {
+        setStatus("Configure the executable first.");
+        return;
+    }
+
+    std::error_code ec;
+    fs::path executable = fs::absolute(P(g_executablePath), ec);
+    if (ec || !fs::is_regular_file(executable, ec)) {
+        setStatus("Configured executable does not exist: " + g_executablePath);
+        return;
+    }
+
+#ifdef _WIN32
+    HINSTANCE result = ShellExecuteW(nullptr, L"open", executable.wstring().c_str(),
+                                     nullptr, executable.parent_path().wstring().c_str(), SW_SHOWNORMAL);
+    if ((INT_PTR)result <= 32) {
+        setStatus("Could not launch " + S(executable) + ".");
+        return;
+    }
+#else
+    pid_t pid = fork();
+    if (pid < 0) {
+        setStatus("Could not launch " + S(executable) + ".");
+        return;
+    }
+    if (pid == 0) {
+        if (chdir(executable.parent_path().c_str()) != 0) _exit(126);
+        execl(executable.c_str(), executable.c_str(), (char*)nullptr);
+        _exit(127);
+    }
+#endif
+    setStatus("Launched " + S(executable) + ".");
 }
 
 static void onApply(Fl_Widget*, void*) {
@@ -1006,9 +1131,14 @@ static void onApply(Fl_Widget*, void*) {
 
 // ====================================================================== GUI ==
 
+static void onCategorySelection(Fl_Widget*, void*) {
+    updateApplyButton();
+}
+
 static void buildCategory(Category& c, int x, int y, int w, int h) {
     mkLabel(x, y, w, c.title, true);
     c.list = mkBrowser(x, y + 22, w, h);
+    c.list->callback(onCategorySelection);
     int bw = (w - 6) / 3, by = y + 22 + h + 5;
     (new Fl_Button(x, by, bw, 25, "Add"))->callback(onAddMode, &c);
     (new Fl_Button(x + bw + 3, by, bw, 25, "Remove"))->callback(onRemoveMode, &c);
@@ -1031,9 +1161,12 @@ int main(int argc, char** argv) {
     }
     auto cfg = loadConfig();
     g_gameFolder = cfg["game_path"];
+    g_executablePath = cfg["executable_path"];
 
     Fl::scheme("gtk+");
-    Fl_Window* win = new Fl_Window(540, 430, "Game launcher");
+    Fl_Window* win = new Fl_Window(540, 500, "Game launcher");
+    g_mainWindow = win;
+    setMainWindowActive(true);
 
     (new Fl_Button(10, 10, 140, 28, "Configuration..."))->callback(onConfig);
     (new Fl_Button(160, 10, 140, 28, "File versions..."))->callback(onVersions);
@@ -1043,12 +1176,19 @@ int main(int argc, char** argv) {
     buildCategory(g_cats[0], 10, 75, 255, 190);
     buildCategory(g_cats[1], 275, 75, 255, 190);
 
-    Fl_Button* apply = new Fl_Button(10, 330, 360, 35, "Apply");
-    apply->labelfont(FL_BOLD);
-    apply->callback(onApply);
+    g_applyButton = new Fl_Button(10, 330, 360, 35, "Apply");
+    g_applyButton->labelfont(FL_BOLD);
+    g_applyButton->callback(onApply);
     (new Fl_Button(380, 330, 150, 35, "Restore originals"))->callback(onRestore);
 
-    g_status = new Fl_Box(10, 375, 520, 45);
+    Fl_Button* launch = new Fl_Button(10, 375, 520, 55, "LAUNCH GAME");
+    launch->color(FL_RED);
+    launch->labelcolor(FL_WHITE);
+    launch->labelfont(FL_BOLD);
+    launch->labelsize(18);
+    launch->callback(onLaunch);
+
+    g_status = new Fl_Box(10, 440, 520, 45);
     g_status->box(FL_DOWN_BOX);
     g_status->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE | FL_ALIGN_WRAP);
 
