@@ -20,10 +20,12 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Hold_Browser.H>
+#include <FL/Fl_Multi_Browser.H>
 #include <FL/Fl_Native_File_Chooser.H>
 #include <FL/fl_ask.H>
 
 #include <algorithm>
+#include <cctype>
 #include <cstring>
 #include <filesystem>
 #include <fstream>
@@ -147,35 +149,6 @@ static std::string extractKey(const std::string& line) {
     while (!key.empty() && (key.back() == ' ' || key.back() == '\t')) key.pop_back();
     while (!key.empty() && (key.front() == ' ' || key.front() == '\t')) key.erase(key.begin());
     return key;
-}
-
-static std::vector<std::string> generatePatch(const std::vector<std::string>& origLines, const std::vector<std::string>& srcLines) {
-    std::vector<std::string> patch;
-    std::map<std::string, std::string> origMap;
-    for (const auto& l : origLines) {
-        std::string k = extractKey(l);
-        if (!k.empty()) origMap[k] = l;
-    }
-
-    for (size_t i = 0; i < srcLines.size(); ++i) {
-        const std::string& sl = srcLines[i];
-        std::string sk = extractKey(sl);
-        if (!sk.empty()) {
-            auto it = origMap.find(sk);
-            if (it == origMap.end() || it->second != sl) {
-                patch.push_back(sl);
-            }
-        } else {
-            bool foundExact = false;
-            for (const auto& ol : origLines) {
-                if (ol == sl) { foundExact = true; break; }
-            }
-            if (!foundExact) {
-                patch.push_back(sl);
-            }
-        }
-    }
-    return patch;
 }
 
 static std::vector<std::string> applyPatch(const std::vector<std::string>& origLines, const std::vector<std::string>& patchLines) {
@@ -443,11 +416,13 @@ static void onRestore(Fl_Widget*, void*) {
 
 struct AddFormDlg {
     Fl_Window* win_ = nullptr;
-    Fl_Input *fileIn = nullptr, *nameIn = nullptr, *srcIn = nullptr;
+    Fl_Input *fileIn = nullptr, *nameIn = nullptr;
     Fl_Check_Button* patchCb_ = nullptr;
+    Fl_Button* selectPatch_ = nullptr;
     bool ok_ = false;
     std::string rel_, ver_;
     bool isPatch_ = false;
+    std::vector<std::string> patchLines_;
 };
 
 static void afBrowseFile(Fl_Widget*, void* p) {
@@ -461,23 +436,125 @@ static void afBrowseFile(Fl_Widget*, void* p) {
     std::string rel;
     if (!relFromGame(P(fc.filename()), rel))
         fl_alert("%s", "That file is not inside the game folder.");
-    else
+    else {
         f->fileIn->value(rel.c_str());
+        f->patchLines_.clear();
+    }
 }
 
-static void afBrowseSrc(Fl_Widget*, void* p) {
+struct PatchLinesDlg {
+    Fl_Window* win = nullptr;
+    Fl_Multi_Browser* lines = nullptr;
+    Fl_Input* search = nullptr;
+    bool ok = false;
+    int searchStart = 0;
+    std::vector<std::string> fileLines;
+    std::vector<std::string> selected;
+};
+
+static bool containsIgnoreCase(const std::string& text, const std::string& query) {
+    if (query.empty()) return false;
+    auto it = std::search(text.begin(), text.end(), query.begin(), query.end(),
+                          [](char a, char b) {
+                              return std::tolower((unsigned char)a) == std::tolower((unsigned char)b);
+                          });
+    return it != text.end();
+}
+
+static void patchLinesFind(Fl_Widget*, void* p) {
+    PatchLinesDlg* d = (PatchLinesDlg*)p;
+    std::string query = d->search->value();
+    if (query.empty() || d->fileLines.empty()) return;
+
+    for (size_t offset = 0; offset < d->fileLines.size(); ++offset) {
+        size_t index = (static_cast<size_t>(d->searchStart) + offset) % d->fileLines.size();
+        if (containsIgnoreCase(d->fileLines[index], query)) {
+            d->searchStart = static_cast<int>((index + 1) % d->fileLines.size());
+            d->lines->show(static_cast<int>(index + 1));
+            return;
+        }
+    }
+    fl_alert("No lines found for:\n%s", query.c_str());
+}
+
+static void patchLinesOk(Fl_Widget*, void* p) {
+    PatchLinesDlg* d = (PatchLinesDlg*)p;
+    for (int i = 1; i <= d->lines->size(); ++i)
+        if (d->lines->selected(i))
+            d->selected.push_back(d->fileLines[i - 1]);
+    if (d->selected.empty()) {
+        fl_alert("%s", "Select at least one line to include in the patch.");
+        return;
+    }
+    d->ok = true;
+    d->win->hide();
+}
+
+static void patchLinesCancel(Fl_Widget*, void* p) {
+    ((PatchLinesDlg*)p)->win->hide();
+}
+
+static bool selectPatchLines(const fs::path& file, std::vector<std::string>& out) {
+    std::error_code ec;
+    if (!fs::is_regular_file(file, ec)) {
+        fl_alert("File not found:\n%s", S(file).c_str());
+        return false;
+    }
+
+    PatchLinesDlg d;
+    d.win = new Fl_Window(760, 530, "Select patch lines");
+    mkLabel(10, 8, 740, "Select the lines to include in this patch:", true);
+    d.search = new Fl_Input(10, 32, 580, 25, "Search:");
+    d.search->when(FL_WHEN_ENTER_KEY);
+    d.search->callback(patchLinesFind, &d);
+    (new Fl_Button(600, 32, 150, 25, "Find next"))->callback(patchLinesFind, &d);
+    d.lines = new Fl_Multi_Browser(10, 65, 740, 377);
+    d.lines->format_char(0);
+    d.fileLines = readLines(file);
+    for (size_t i = 0; i < d.fileLines.size(); ++i) {
+        std::string display = std::to_string(i + 1) + ": " + d.fileLines[i];
+        d.lines->add(display.c_str());
+    }
+    (new Fl_Button(560, 490, 90, 30, "OK"))->callback(patchLinesOk, &d);
+    (new Fl_Button(660, 490, 90, 30, "Cancel"))->callback(patchLinesCancel, &d);
+    d.win->end();
+    runModal(d.win);
+    delete d.win;
+    if (!d.ok) return false;
+    out = std::move(d.selected);
+    return true;
+}
+
+static void afSelectPatch(Fl_Widget*, void* p) {
     AddFormDlg* f = (AddFormDlg*)p;
-    Fl_Native_File_Chooser fc;
-    fc.title("Select the file to import as this version");
-    fc.type(Fl_Native_File_Chooser::BROWSE_FILE);
-    if (fc.show() == 0) f->srcIn->value(fc.filename());
+    std::string rel = f->fileIn->value();
+    if (!cleanRel(rel)) {
+        fl_alert("%s", "Select a valid file inside the game folder first.");
+        return;
+    }
+    std::vector<std::string> selected;
+    if (selectPatchLines(gamePath() / P(rel), selected))
+        f->patchLines_ = std::move(selected);
+}
+
+static void afFileChanged(Fl_Widget*, void* p) {
+    ((AddFormDlg*)p)->patchLines_.clear();
+}
+
+static void afPatchChanged(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    f->selectPatch_->activate();
+    if (!f->patchCb_->value()) {
+        f->patchLines_.clear();
+        f->selectPatch_->deactivate();
+    }
 }
 
 static void afOk(Fl_Widget*, void* p) {
     AddFormDlg* f = (AddFormDlg*)p;
     if (!gameOk()) { fl_alert("%s", "Set the game folder first (Configuration)."); return; }
 
-    std::string rel = f->fileIn->value(), ver = f->nameIn->value(), src = f->srcIn->value();
+    std::string rel = f->fileIn->value(), ver = f->nameIn->value();
     bool isPatch = f->patchCb_->value() != 0;
 
     if (!cleanRel(rel)) {
@@ -488,10 +565,10 @@ static void afOk(Fl_Widget*, void* p) {
         fl_alert("%s", "Invalid version name.\nAvoid  \\ / : * ? \" < > | =  and leading/trailing spaces.");
         return;
     }
-    fs::path from = src.empty() ? gamePath() / P(rel) : P(src);
+    fs::path from = gamePath() / P(rel);
     std::error_code ec;
     if (!fs::is_regular_file(from, ec)) {
-        fl_alert("Source file not found:\n%s", S(from).c_str());
+        fl_alert("Game file not found:\n%s", S(from).c_str());
         return;
     }
 
@@ -509,10 +586,11 @@ static void afOk(Fl_Widget*, void* p) {
     fs::create_directories(dst.parent_path(), ec);
 
     if (isPatch) {
-        auto origLines = readLines(g_originalsDir / P(rel));
-        auto srcLines = readLines(from);
-        auto patchLines = generatePatch(origLines, srcLines);
-        if (!writeLines(dst, patchLines)) {
+        if (f->patchLines_.empty()) {
+            fl_alert("%s", "Use 'Select patch lines...' to choose at least one line.");
+            return;
+        }
+        if (!writeLines(dst, f->patchLines_)) {
             fl_alert("%s", "Could not save the patch version file.");
             return;
         }
@@ -535,20 +613,21 @@ static void afCancel(Fl_Widget*, void* p) { ((AddFormDlg*)p)->win_->hide(); }
 
 static bool addVersionForm(const std::string& prefillRel, std::string& outRel, std::string& outVer, bool& outIsPatch) {
     AddFormDlg f;
-    f.win_ = new Fl_Window(560, 265, "Add version");
+    f.win_ = new Fl_Window(560, 230, "Add version");
     mkLabel(10, 8, 540, "File inside the game folder (e.g. config/input.ini):");
     f.fileIn = new Fl_Input(10, 30, 440, 25);
+    f.fileIn->callback(afFileChanged, &f);
     (new Fl_Button(460, 30, 90, 25, "Browse..."))->callback(afBrowseFile, &f);
     mkLabel(10, 65, 540, "Version name (e.g. 1080p, xbox):");
     f.nameIn = new Fl_Input(10, 87, 540, 25);
-    mkLabel(10, 122, 540, "Content from file (empty = the file as it is now in the game folder):");
-    f.srcIn = new Fl_Input(10, 144, 440, 25);
-    (new Fl_Button(460, 144, 90, 25, "Browse..."))->callback(afBrowseSrc, &f);
+    f.patchCb_ = new Fl_Check_Button(10, 125, 250, 25, " Store as patch");
+    f.patchCb_->callback(afPatchChanged, &f);
+    f.selectPatch_ = new Fl_Button(270, 125, 180, 25, "Select patch lines...");
+    f.selectPatch_->callback(afSelectPatch, &f);
+    f.selectPatch_->deactivate();
 
-    f.patchCb_ = new Fl_Check_Button(10, 182, 540, 25, " Store as patch (only include changes/modified lines)");
-
-    (new Fl_Button(340, 222, 130, 30, "Save version"))->callback(afOk, &f);
-    (new Fl_Button(480, 222, 70, 30, "Cancel"))->callback(afCancel, &f);
+    (new Fl_Button(340, 185, 130, 30, "Save version"))->callback(afOk, &f);
+    (new Fl_Button(480, 185, 70, 30, "Cancel"))->callback(afCancel, &f);
     f.win_->end();
     f.fileIn->value(prefillRel.c_str());
 
