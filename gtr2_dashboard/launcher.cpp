@@ -1,11 +1,11 @@
 // launcher.cpp - tiny preconfiguration frontend for a game.
 //
 // Concepts
-//   * Tracked file : a file inside the game folder, identified by its path
+//   * Tracked Config: a file inside the game folder, identified by its path
 //                    relative to that folder (e.g. "config/input.ini").
-//   * Version      : a named snapshot or patch of a tracked file, stored by us.
+//   * Version      : a named snapshot or patch of a tracked config, or pre-launch command lists.
 //   * Mode         : a resolution or a controller option. A mode is a list of
-//                    (tracked file -> version) entries.
+//                    (tracked config -> version) entries.
 //   * Apply        : for the selected resolution mode and controller mode,
 //                    copy or patch the chosen version of each file into the game folder.
 //   * Originals    : the first time we ever touch a game file, the pristine
@@ -19,6 +19,7 @@
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Check_Button.H>
+#include <FL/Fl_Choice.H>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Multi_Browser.H>
 #include <FL/Fl_Native_File_Chooser.H>
@@ -41,6 +42,7 @@
 #else
 #include <limits.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #endif
 
 namespace fs = std::filesystem;
@@ -114,6 +116,12 @@ static Fl_Box* mkLabel(int x, int y, int w, const char* text, bool bold = false)
 
 static Fl_Hold_Browser* mkBrowser(int x, int y, int w, int h) {
     Fl_Hold_Browser* b = new Fl_Hold_Browser(x, y, w, h);
+    b->format_char(0);
+    return b;
+}
+
+static Fl_Multi_Browser* mkMultiBrowser(int x, int y, int w, int h) {
+    Fl_Multi_Browser* b = new Fl_Multi_Browser(x, y, w, h);
     b->format_char(0);
     return b;
 }
@@ -198,6 +206,30 @@ static std::vector<std::string> applyPatch(const std::vector<std::string>& origL
     return result;
 }
 
+static std::vector<std::string> computeDiffLines(const std::vector<std::string>& origLines, const std::vector<std::string>& extLines) {
+    std::map<std::string, std::string> origMap;
+    for (const auto& l : origLines) {
+        std::string k = extractKey(l);
+        if (!k.empty()) origMap[k] = l;
+    }
+
+    std::vector<std::string> diffs;
+    for (const auto& l : extLines) {
+        std::string k = extractKey(l);
+        if (!k.empty()) {
+            auto it = origMap.find(k);
+            if (it == origMap.end() || it->second != l) {
+                diffs.push_back(l);
+            }
+        } else {
+            if (std::find(origLines.begin(), origLines.end(), l) == origLines.end()) {
+                diffs.push_back(l);
+            }
+        }
+    }
+    return diffs;
+}
+
 // =================================================================== state ===
 
 struct Category {
@@ -274,7 +306,7 @@ static void setStatus(const std::string& m) {
 
 static void updateGameLabel() {
     std::string t = "Game folder: " +
-                    (g_gameFolder.empty() ? std::string("(not set - open Configuration)") : g_gameFolder);
+                    (g_gameFolder.empty() ? std::string("(not set - open Settings)") : g_gameFolder);
     g_gameLabel->copy_label(t.c_str());
     g_gameLabel->redraw();
 }
@@ -372,6 +404,9 @@ static std::pair<std::string, bool> parseVersionDisplay(const std::string& itemT
     if (itemText.size() > 8 && itemText.compare(itemText.size() - 8, 8, " [patch]") == 0) {
         return {itemText.substr(0, itemText.size() - 8), true};
     }
+    if (itemText.size() > 14 && itemText.compare(itemText.size() - 14, 14, " [pre-launch]") == 0) {
+        return {itemText.substr(0, itemText.size() - 14), false};
+    }
     return {itemText, false};
 }
 
@@ -385,11 +420,15 @@ static VersionMap scanVersions() {
         if (rel.empty() || rel == fs::path(".")) continue;
         std::string fname = S(it->path().filename());
         bool isPatch = false;
-        if (fname.size() > 6 && fname.compare(fname.size() - 6, 6, ".patch") == 0) {
+        bool isCmdList = (rel.generic_u8string() == "__pre_launch_commands__");
+        
+        if (!isCmdList && fname.size() > 6 && fname.compare(fname.size() - 6, 6, ".patch") == 0) {
             fname = fname.substr(0, fname.size() - 6);
             isPatch = true;
         }
-        m[rel.generic_u8string()].push_back(fname + (isPatch ? " [patch]" : " [full]"));
+        std::string dispKey = isCmdList ? "Pre-launch Commands" : rel.generic_u8string();
+        std::string suffix = isCmdList ? " [pre-launch]" : (isPatch ? " [patch]" : " [full]");
+        m[dispKey].push_back(fname + suffix);
     }
     for (auto& kv : m) std::sort(kv.second.begin(), kv.second.end());
     return m;
@@ -400,7 +439,7 @@ static std::vector<std::string> modesUsing(const std::string& rel, const std::st
     for (auto& c : g_cats)
         for (auto& n : scanModes(c.dir))
             for (auto& e : loadMode(modeFile(c, n)))
-                if (e.file == rel && (e.version == ver || e.version + " [patch]" == ver || e.version + " [full]" == ver)) {
+                if (e.file == rel && (e.version == ver || e.version + " [patch]" == ver || e.version + " [full]" == ver || e.version + " [pre-launch]" == ver)) {
                     out.push_back(std::string(c.singular) + " " + n);
                     break;
                 }
@@ -457,23 +496,70 @@ static void onRestore(Fl_Widget*, void*) {
 }
 
 // ====================================================== dialog: add version ==
-// Renamed from AddForm and members suffixed to avoid colliding with macros
-// that Windows headers define (e.g. "file", "src", "name", "win").
 
 struct AddFormDlg {
     Fl_Window* win_ = nullptr;
+    Fl_Choice* typeChoice = nullptr;
+    Fl_Box *fileLabel = nullptr, *nameLabel = nullptr;
     Fl_Input *fileIn = nullptr, *nameIn = nullptr;
+    Fl_Button *browseBtn = nullptr;
     Fl_Check_Button* patchCb_ = nullptr;
+    Fl_Check_Button* extPatchCb_ = nullptr;
+    Fl_Input* extFileIn = nullptr;
+    Fl_Button* browseExtBtn = nullptr;
     Fl_Button* selectPatch_ = nullptr;
+    Fl_Multi_Browser* cmdsBrowser = nullptr;
+    Fl_Button *addCmdBtn = nullptr, *removeCmdBtn = nullptr;
     bool ok_ = false;
     std::string rel_, ver_;
     bool isPatch_ = false;
+    bool isCmdList_ = false;
+    std::string extFilePath_;
     std::vector<std::string> patchLines_;
+    std::vector<std::string> cmdList_;
 };
+
+static void afToggleConfigType(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    bool isCmd = (f->typeChoice->value() == 1);
+    if (isCmd) {
+        f->fileIn->hide();
+        if (f->browseBtn) f->browseBtn->hide();
+        if (f->patchCb_) f->patchCb_->hide();
+        if (f->extPatchCb_) f->extPatchCb_->hide();
+        if (f->extFileIn) f->extFileIn->hide();
+        if (f->browseExtBtn) f->browseExtBtn->hide();
+        if (f->selectPatch_) f->selectPatch_->hide();
+
+        if (f->cmdsBrowser) f->cmdsBrowser->show();
+        if (f->addCmdBtn) f->addCmdBtn->show();
+        if (f->removeCmdBtn) f->removeCmdBtn->show();
+
+        f->fileLabel->copy_label("Pre-launch commands (executed sequentially before game launch):");
+        f->nameLabel->copy_label("Command List Version Name (e.g., default, high_perf):");
+    } else {
+        if (f->cmdsBrowser) f->cmdsBrowser->hide();
+        if (f->addCmdBtn) f->addCmdBtn->hide();
+        if (f->removeCmdBtn) f->removeCmdBtn->hide();
+
+        f->fileIn->show();
+        if (f->browseBtn) f->browseBtn->show();
+        if (f->patchCb_) f->patchCb_->show();
+        if (f->extPatchCb_) f->extPatchCb_->show();
+        if (f->extPatchCb_->value()) {
+            if (f->extFileIn) f->extFileIn->show();
+            if (f->browseExtBtn) f->browseExtBtn->show();
+        }
+        if (f->selectPatch_) f->selectPatch_->show();
+
+        f->fileLabel->copy_label("File inside the game folder (e.g. config/input.ini):");
+        f->nameLabel->copy_label("Version name (e.g. 1080p, xbox):");
+    }
+}
 
 static void afBrowseFile(Fl_Widget*, void* p) {
     AddFormDlg* f = (AddFormDlg*)p;
-    if (!gameOk()) { fl_alert("%s", "Set the game folder first (Configuration)."); return; }
+    if (!gameOk()) { fl_alert("%s", "Set the game folder first (Settings)."); return; }
     Fl_Native_File_Chooser fc;
     fc.title("Select a file inside the game folder");
     fc.type(Fl_Native_File_Chooser::BROWSE_FILE);
@@ -510,32 +596,17 @@ static bool containsIgnoreCase(const std::string& text, const std::string& query
 static void patchLinesFind(Fl_Widget*, void* p) {
     PatchLinesDlg* d = (PatchLinesDlg*)p;
     std::string query = d->search->value();
-    debugLog("Patch search clicked: query='" + query + "'" +
-             ", start=" + std::to_string(d->searchStart) +
-             ", lines=" + std::to_string(d->fileLines.size()));
-    if (query.empty()) {
-        debugLog("Patch search skipped: empty query.");
-        return;
-    }
-    if (d->fileLines.empty()) {
-        debugLog("Patch search skipped: file has no lines.");
-        return;
-    }
+    if (query.empty() || d->fileLines.empty()) return;
 
     for (size_t offset = 0; offset < d->fileLines.size(); ++offset) {
         size_t index = (static_cast<size_t>(d->searchStart) + offset) % d->fileLines.size();
         if (containsIgnoreCase(d->fileLines[index], query)) {
             d->searchStart = static_cast<int>((index + 1) % d->fileLines.size());
-            int matchLine = static_cast<int>(index + 1);
-            d->lines->middleline(matchLine);
+            d->lines->middleline(static_cast<int>(index + 1));
             d->lines->redraw();
-            debugLog("Patch search match: line=" + std::to_string(index + 1) +
-                     ", next_start=" + std::to_string(d->searchStart) +
-                     ", browser_top=" + std::to_string(d->lines->topline()));
             return;
         }
     }
-    debugLog("Patch search found no match.");
     fl_alert("No lines found for:\n%s", query.c_str());
 }
 
@@ -556,7 +627,7 @@ static void patchLinesCancel(Fl_Widget*, void* p) {
     ((PatchLinesDlg*)p)->win->hide();
 }
 
-static bool selectPatchLines(const fs::path& file, std::vector<std::string>& out) {
+static bool selectPatchLines(const fs::path& file, const std::vector<std::string>& initialSelected, std::vector<std::string>& out) {
     std::error_code ec;
     if (!fs::is_regular_file(file, ec)) {
         fl_alert("File not found:\n%s", S(file).c_str());
@@ -573,11 +644,16 @@ static bool selectPatchLines(const fs::path& file, std::vector<std::string>& out
     d.lines = new Fl_Multi_Browser(10, 65, 740, 377);
     d.lines->format_char(0);
     d.fileLines = readLines(file);
-    debugLog("Opened patch line selector: file=" + S(file) +
-             ", lines=" + std::to_string(d.fileLines.size()));
+    
+    std::map<std::string, bool> initialMap;
+    for (const auto& s : initialSelected) initialMap[s] = true;
+
     for (size_t i = 0; i < d.fileLines.size(); ++i) {
         std::string display = std::to_string(i + 1) + ": " + d.fileLines[i];
         d.lines->add(display.c_str());
+        if (initialMap[d.fileLines[i]]) {
+            d.lines->select(static_cast<int>(i + 1));
+        }
     }
     (new Fl_Button(560, 490, 90, 30, "OK"))->callback(patchLinesOk, &d);
     (new Fl_Button(660, 490, 90, 30, "Cancel"))->callback(patchLinesCancel, &d);
@@ -597,7 +673,7 @@ static void afSelectPatch(Fl_Widget*, void* p) {
         return;
     }
     std::vector<std::string> selected;
-    if (selectPatchLines(gamePath() / P(rel), selected))
+    if (selectPatchLines(gamePath() / P(rel), f->patchLines_, selected))
         f->patchLines_ = std::move(selected);
 }
 
@@ -608,48 +684,135 @@ static void afFileChanged(Fl_Widget*, void* p) {
 static void afPatchChanged(Fl_Widget*, void* p) {
     AddFormDlg* f = (AddFormDlg*)p;
     f->selectPatch_->activate();
-    if (!f->patchCb_->value()) {
+    if (!f->patchCb_->value() && !f->extPatchCb_->value()) {
         f->patchLines_.clear();
         f->selectPatch_->deactivate();
     }
 }
 
+static void afExtPatchCb(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    if (f->extPatchCb_->value()) {
+        f->patchCb_->set();
+        if (f->extFileIn) f->extFileIn->show();
+        if (f->browseExtBtn) f->browseExtBtn->show();
+        f->selectPatch_->activate();
+    } else {
+        if (f->extFileIn) f->extFileIn->hide();
+        if (f->browseExtBtn) f->browseExtBtn->hide();
+        f->extFilePath_.clear();
+        if (f->extFileIn) f->extFileIn->value("");
+    }
+}
+
+static void afBrowseExternal(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    Fl_Native_File_Chooser fc;
+    fc.title("Select external file to create patch from");
+    fc.type(Fl_Native_File_Chooser::BROWSE_FILE);
+    if (fc.show() != 0) return;
+    f->extFilePath_ = fc.filename();
+    if (f->extFileIn) f->extFileIn->value(f->extFilePath_.c_str());
+
+    std::string rel = f->fileIn->value();
+    if (cleanRel(rel)) {
+        fs::path targetFile = gamePath() / P(rel);
+        std::error_code ec;
+        if (fs::is_regular_file(targetFile, ec)) {
+            auto origLines = readLines(targetFile);
+            auto extLines = readLines(P(f->extFilePath_));
+            f->patchLines_ = computeDiffLines(origLines, extLines);
+        }
+    }
+}
+
+static void afAddCmdCb(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    const char* cmdIn = fl_input("Enter command to run before launch:", "");
+    if (!cmdIn) return;
+    std::string cmd = cmdIn;
+    if (!cmd.empty()) {
+        f->cmdsBrowser->add(cmd.c_str());
+    }
+}
+
+static void afRemoveCmdCb(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    int idx = f->cmdsBrowser->value();
+    if (!idx) {
+        fl_alert("%s", "Select a command from the list to remove.");
+        return;
+    }
+    f->cmdsBrowser->remove(idx);
+}
+
 static void afOk(Fl_Widget*, void* p) {
     AddFormDlg* f = (AddFormDlg*)p;
-    if (!gameOk()) { fl_alert("%s", "Set the game folder first (Configuration)."); return; }
+    if (!gameOk()) { fl_alert("%s", "Set the game folder first (Settings)."); return; }
 
-    std::string rel = f->fileIn->value(), ver = f->nameIn->value();
-    bool isPatch = f->patchCb_->value() != 0;
+    bool isCmds = (f->typeChoice->value() == 1);
+    bool isFile = (f->typeChoice->value() == 0);
 
-    if (!cleanRel(rel)) {
-        fl_alert("%s", "Invalid file path.\nUse a path relative to the game folder, e.g. config/input.ini");
-        return;
-    }
-    if (!validName(ver)) {
-        fl_alert("%s", "Invalid version name.\nAvoid  \\ / : * ? \" < > | =  and leading/trailing spaces.");
-        return;
-    }
-    fs::path from = gamePath() / P(rel);
-    std::error_code ec;
-    if (!fs::is_regular_file(from, ec)) {
-        fl_alert("Game file not found:\n%s", S(from).c_str());
-        return;
-    }
+    std::string rel, ver;
+    bool isPatch = false;
 
-    std::string err;
-    if (!backupOriginal(rel, err)) {
-        fl_alert("Could not back up the original:\n%s", err.c_str());
-        return;
+    if (isCmds) {
+        rel = "__pre_launch_commands__";
+        ver = f->nameIn->value();
+        f->cmdList_.clear();
+        for (int i = 1; i <= f->cmdsBrowser->size(); ++i) {
+            std::string line = f->cmdsBrowser->text(i);
+            if (!line.empty()) f->cmdList_.push_back(line);
+        }
+        if (f->cmdList_.empty()) {
+            fl_alert("%s", "Add at least one pre-launch command.");
+            return;
+        }
+        if (!validName(ver)) {
+            fl_alert("%s", "Invalid version name.\nAvoid  \\ / : * ? \" < > | =  and leading/trailing spaces.");
+            return;
+        }
+    } else {
+        rel = f->fileIn->value();
+        ver = f->nameIn->value();
+        isPatch = f->patchCb_->value() != 0 || f->extPatchCb_->value() != 0;
+
+        if (!cleanRel(rel)) {
+            fl_alert("%s", "Invalid file path.\nUse a path relative to the game folder, e.g. config/input.ini");
+            return;
+        }
+        if (!validName(ver)) {
+            fl_alert("%s", "Invalid version name.\nAvoid  \\ / : * ? \" < > | =  and leading/trailing spaces.");
+            return;
+        }
+        fs::path from = gamePath() / P(rel);
+        std::error_code ec;
+        if (!fs::is_regular_file(from, ec)) {
+            fl_alert("Game file not found:\n%s", S(from).c_str());
+            return;
+        }
+
+        std::string err;
+        if (!backupOriginal(rel, err)) {
+            fl_alert("Could not back up the original:\n%s", err.c_str());
+            return;
+        }
     }
 
     fs::path dst = versionPath(rel, ver, isPatch);
+    std::error_code ec;
     if (fs::exists(dst, ec)) {
-        fl_alert("Version '%s' of that file already exists.", ver.c_str());
+        fl_alert("Version '%s' of that config already exists.", ver.c_str());
         return;
     }
     fs::create_directories(dst.parent_path(), ec);
 
-    if (isPatch) {
+    if (isCmds) {
+        if (!writeLines(dst, f->cmdList_)) {
+            fl_alert("%s", "Could not save pre-launch commands version file.");
+            return;
+        }
+    } else if (isPatch) {
         if (f->patchLines_.empty()) {
             fl_alert("%s", "Use 'Select patch lines...' to choose at least one line.");
             return;
@@ -659,7 +822,7 @@ static void afOk(Fl_Widget*, void* p) {
             return;
         }
     } else {
-        fs::copy_file(from, dst, fs::copy_options::none, ec);
+        fs::copy_file(gamePath() / P(rel), dst, fs::copy_options::none, ec);
         if (ec) {
             fl_alert("Could not save the version:\n%s", ec.message().c_str());
             return;
@@ -670,6 +833,7 @@ static void afOk(Fl_Widget*, void* p) {
     f->rel_ = rel;
     f->ver_ = ver;
     f->isPatch_ = isPatch;
+    f->isCmdList_ = isCmds;
     f->win_->hide();
 }
 
@@ -677,23 +841,64 @@ static void afCancel(Fl_Widget*, void* p) { ((AddFormDlg*)p)->win_->hide(); }
 
 static bool addVersionForm(const std::string& prefillRel, std::string& outRel, std::string& outVer, bool& outIsPatch) {
     AddFormDlg f;
-    f.win_ = new Fl_Window(560, 230, "Add version");
-    mkLabel(10, 8, 540, "File inside the game folder (e.g. config/input.ini):");
-    f.fileIn = new Fl_Input(10, 30, 440, 25);
-    f.fileIn->callback(afFileChanged, &f);
-    (new Fl_Button(460, 30, 90, 25, "Browse..."))->callback(afBrowseFile, &f);
-    mkLabel(10, 65, 540, "Version name (e.g. 1080p, xbox):");
-    f.nameIn = new Fl_Input(10, 87, 540, 25);
-    f.patchCb_ = new Fl_Check_Button(10, 125, 250, 25, " Store as patch");
-    f.patchCb_->callback(afPatchChanged, &f);
-    f.selectPatch_ = new Fl_Button(270, 125, 180, 25, "Select patch lines...");
-    f.selectPatch_->callback(afSelectPatch, &f);
-    f.selectPatch_->deactivate();
+    f.win_ = new Fl_Window(560, 480, "Add Version");
 
-    (new Fl_Button(340, 185, 130, 30, "Save version"))->callback(afOk, &f);
-    (new Fl_Button(480, 185, 70, 30, "Cancel"))->callback(afCancel, &f);
+    mkLabel(10, 8, 540, "Config Type:", true);
+    f.typeChoice = new Fl_Choice(10, 30, 220, 25);
+    f.typeChoice->add("Config file");
+    f.typeChoice->add("Pre-launch commands");
+    f.typeChoice->value(0);
+    f.typeChoice->callback(afToggleConfigType, &f);
+
+    f.fileLabel = mkLabel(10, 62, 540, "File inside the game folder (e.g. config/input.ini):");
+    
+    // Config file controls
+    f.fileIn = new Fl_Input(10, 84, 440, 25);
+    f.fileIn->callback(afFileChanged, &f);
+    
+    f.browseBtn = new Fl_Button(460, 84, 90, 25, "Browse...");
+    f.browseBtn->callback(afBrowseFile, &f);
+
+    f.patchCb_ = new Fl_Check_Button(10, 120, 250, 25, " Store as patch");
+    f.patchCb_->callback(afPatchChanged, &f);
+
+    f.extPatchCb_ = new Fl_Check_Button(10, 150, 300, 25, " Create patch from external file");
+    f.extPatchCb_->callback(afExtPatchCb, &f);
+
+    f.extFileIn = new Fl_Input(10, 180, 440, 25);
+    f.extFileIn->hide();
+
+    f.browseExtBtn = new Fl_Button(460, 180, 90, 25, "Browse ext...");
+    f.browseExtBtn->callback(afBrowseExternal, &f);
+    f.browseExtBtn->hide();
+    
+    Fl_Button* selectPatchLinesBtn = new Fl_Button(270, 120, 180, 25, "Select patch lines...");
+    selectPatchLinesBtn->callback(afSelectPatch, &f);
+    selectPatchLinesBtn->deactivate();
+    f.selectPatch_ = selectPatchLinesBtn;
+
+    // Pre-launch commands controls (shared layout area, initially hidden)
+    f.cmdsBrowser = mkMultiBrowser(10, 84, 540, 100);
+    f.cmdsBrowser->hide();
+
+    f.addCmdBtn = new Fl_Button(10, 188, 110, 25, "Add command");
+    f.addCmdBtn->callback(afAddCmdCb, &f);
+    f.addCmdBtn->hide();
+
+    f.removeCmdBtn = new Fl_Button(130, 188, 130, 25, "Remove command");
+    f.removeCmdBtn->callback(afRemoveCmdCb, &f);
+    f.removeCmdBtn->hide();
+
+    f.nameLabel = mkLabel(10, 225, 540, "Version name (e.g. 1080p, xbox):");
+    f.nameIn = new Fl_Input(10, 247, 540, 25);
+
+    (new Fl_Button(340, 435, 130, 30, "Save version"))->callback(afOk, &f);
+    (new Fl_Button(480, 435, 70, 30, "Cancel"))->callback(afCancel, &f);
     f.win_->end();
-    f.fileIn->value(prefillRel.c_str());
+
+    if (!prefillRel.empty() && prefillRel != "Pre-launch Commands") {
+        f.fileIn->value(prefillRel.c_str());
+    }
 
     runModal(f.win_);
     delete f.win_;
@@ -701,7 +906,7 @@ static bool addVersionForm(const std::string& prefillRel, std::string& outRel, s
     return f.ok_;
 }
 
-// ======================================================== dialog: file versions =====
+// ======================================================== dialog: config versions ==
 
 struct VerMgr {
     Fl_Window* win = nullptr;
@@ -735,22 +940,25 @@ static void vmAddCb(Fl_Widget*, void* p) {
     std::string rel, ver;
     bool isPatch = false;
     if (addVersionForm(pre, rel, ver, isPatch)) {
-        vmReload(m, rel, ver + (isPatch ? " [patch]" : " [full]"));
-        setStatus("Saved version '" + ver + "' (" + (isPatch ? "patch" : "full") + ") of " + rel + ".");
+        std::string dispVer = ver + (rel == "__pre_launch_commands__" ? " [pre-launch]" : (isPatch ? " [patch]" : " [full]"));
+        std::string dispKey = (rel == "__pre_launch_commands__") ? "Pre-launch Commands" : rel;
+        vmReload(m, dispKey, dispVer);
+        setStatus("Saved version '" + ver + "' for " + (rel == "__pre_launch_commands__" ? "Pre-launch Commands" : rel) + ".");
     }
 }
 
 static void vmDeleteCb(Fl_Widget*, void* p) {
     VerMgr* m = (VerMgr*)p;
     int fi = m->filesB->value(), vi = m->versB->value();
-    if (!fi || !vi) { fl_alert("%s", "Select a file and one of its versions first."); return; }
-    std::string rel = m->filesB->text(fi);
+    if (!fi || !vi) { fl_alert("%s", "Select a tracked config and one of its versions first."); return; }
+    std::string dispFile = m->filesB->text(fi);
+    std::string rel = (dispFile == "Pre-launch Commands") ? "__pre_launch_commands__" : dispFile;
     auto [verClean, isPatch] = parseVersionDisplay(m->versB->text(vi));
 
     std::string used;
     for (auto& u : modesUsing(rel, m->versB->text(vi))) used += "\n  - " + u;
     std::string warn = used.empty() ? "" : "\n\nIt is used by:" + used + "\nThose entries will be flagged as missing.";
-    if (fl_choice("Delete version '%s' of %s?%s", "Cancel", "Delete", nullptr, verClean.c_str(), rel.c_str(),
+    if (fl_choice("Delete version '%s' of %s?%s", "Cancel", "Delete", nullptr, verClean.c_str(), dispFile.c_str(),
                   warn.c_str()) != 1)
         return;
 
@@ -762,16 +970,16 @@ static void vmDeleteCb(Fl_Widget*, void* p) {
         fs::remove(dir, ec);
         dir = parent;
     }
-    vmReload(m, rel);
+    vmReload(m, dispFile);
 }
 
 static void vmCloseCb(Fl_Widget*, void* p) { ((VerMgr*)p)->win->hide(); }
 
 static void onVersions(Fl_Widget*, void*) {
     VerMgr m;
-    m.win = new Fl_Window(620, 390, "File versions");
+    m.win = new Fl_Window(620, 390, "Config Versions");
     m.win->color(lightBlueColor());
-    mkLabel(10, 10, 300, "Tracked files", true);
+    mkLabel(10, 10, 300, "Tracked Configs", true);
     mkLabel(320, 10, 290, "Versions", true);
     m.filesB = mkBrowser(10, 32, 300, 250);
     m.filesB->callback(vmFilesCb, &m);
@@ -807,9 +1015,12 @@ static void meRefreshEntries(ModeEditor* m) {
     m->entriesB->clear();
     for (auto& e : m->entries) {
         std::error_code ec;
-        bool ok = fs::is_regular_file(versionPath(e.file, e.version, false), ec) ||
-                  fs::is_regular_file(versionPath(e.file, e.version, true), ec);
-        std::string t = e.file + "   ->   " + e.version + (ok ? "" : "   [MISSING]");
+        bool isCmd = (e.file == "__pre_launch_commands__");
+        std::string dispFile = isCmd ? "Pre-launch Commands" : e.file;
+        bool ok = isCmd ? fs::is_regular_file(versionPath(e.file, e.version, false), ec) :
+                          (fs::is_regular_file(versionPath(e.file, e.version, false), ec) ||
+                           fs::is_regular_file(versionPath(e.file, e.version, true), ec));
+        std::string t = dispFile + "   ->   " + e.version + (ok ? "" : "   [MISSING]");
         m->entriesB->add(t.c_str());
     }
 }
@@ -829,22 +1040,26 @@ static void meEntryCb(Fl_Widget*, void* p) {
     int i = m->entriesB->value();
     if (!i) return;
     Entry e = m->entries[i - 1];
+    std::string dispFile = (e.file == "__pre_launch_commands__") ? "Pre-launch Commands" : e.file;
     m->filesB->value(0);
-    selectByText(m->filesB, e.file);
+    selectByText(m->filesB, dispFile);
     meFilesCb(nullptr, m);
     selectByText(m->versB, e.version);
     if (!m->versB->value()) {
         selectByText(m->versB, e.version + " [full]");
         if (!m->versB->value()) selectByText(m->versB, e.version + " [patch]");
+        if (!m->versB->value()) selectByText(m->versB, e.version + " [pre-launch]");
     }
 }
 
 static void meSetCb(Fl_Widget*, void* p) {
     ModeEditor* m = (ModeEditor*)p;
     int fi = m->filesB->value(), vi = m->versB->value();
-    if (!fi || !vi) { fl_alert("%s", "Select a file and a version first."); return; }
+    if (!fi || !vi) { fl_alert("%s", "Select a tracked config and a version first."); return; }
+    std::string dispFile = m->filesB->text(fi);
+    std::string realFile = (dispFile == "Pre-launch Commands") ? "__pre_launch_commands__" : dispFile;
     auto [vClean, isPatch] = parseVersionDisplay(m->versB->text(vi));
-    Entry ne{m->filesB->text(fi), vClean};
+    Entry ne{realFile, vClean};
     int idx = -1;
     for (size_t i = 0; i < m->entries.size(); ++i)
         if (m->entries[i].file == ne.file) { m->entries[i] = ne; idx = (int)i; }
@@ -871,21 +1086,21 @@ static void editMode(const Category& c, const std::string& name) {
     m.entries = loadMode(m.file);
     m.vm = scanVersions();
 
-    m.win = new Fl_Window(620, 475, "Edit mode");
+    m.win = new Fl_Window(620, 475, "Edit Mode");
     std::string title = std::string(c.title) + ": " + name;
     mkLabel(10, 8, 600, "", true)->copy_label(title.c_str());
 
-    mkLabel(10, 34, 600, "Files this mode changes   (file -> version):");
+    mkLabel(10, 34, 600, "Configs this mode changes (config -> version):");
     m.entriesB = mkBrowser(10, 56, 600, 130);
     m.entriesB->callback(meEntryCb, &m);
     (new Fl_Button(10, 191, 130, 26, "Remove entry"))->callback(meRemoveCb, &m);
 
-    mkLabel(10, 228, 300, "Tracked files");
+    mkLabel(10, 228, 300, "Tracked Configs");
     mkLabel(320, 228, 290, "Versions");
     m.filesB = mkBrowser(10, 249, 300, 140);
     m.filesB->callback(meFilesCb, &m);
     m.versB = mkBrowser(320, 249, 290, 140);
-    (new Fl_Button(10, 395, 200, 28, "Set file -> version"))->callback(meSetCb, &m);
+    (new Fl_Button(10, 395, 200, 28, "Set config -> version"))->callback(meSetCb, &m);
     (new Fl_Button(510, 435, 100, 30, "Close"))->callback(meCloseCb, &m);
     m.win->end();
 
@@ -895,7 +1110,7 @@ static void editMode(const Category& c, const std::string& name) {
     delete m.win;
 }
 
-// ======================================================== dialog: config ====
+// ======================================================== dialog: settings ===
 
 struct CfgDlg {
     Fl_Window* win = nullptr;
@@ -945,9 +1160,9 @@ static void cfgOk(Fl_Widget*, void* p) {
 
 static void cfgCancel(Fl_Widget*, void* p) { ((CfgDlg*)p)->win->hide(); }
 
-static void onConfig(Fl_Widget*, void*) {
+static void onSettings(Fl_Widget*, void*) {
     CfgDlg d;
-    d.win = new Fl_Window(520, 170, "Configuration");
+    d.win = new Fl_Window(520, 170, "Settings");
     d.win->color(lightBlueColor());
     mkLabel(10, 10, 500, "Game folder:");
     d.game = new Fl_Input(10, 32, 400, 25);
@@ -991,7 +1206,7 @@ static void onRemoveMode(Fl_Widget*, void* p) {
     Category* c = (Category*)p;
     std::string name = selectedName(*c);
     if (name.empty()) { setStatus("Select a " + std::string(c->singular) + " to remove."); return; }
-    if (fl_choice("Delete %s '%s'?\n(Saved file versions are not affected.)", "Cancel", "Delete", nullptr,
+    if (fl_choice("Delete %s '%s'?\n(Saved config versions are not affected.)", "Cancel", "Delete", nullptr,
                   c->singular, name.c_str()) != 1)
         return;
     std::error_code ec;
@@ -1008,9 +1223,33 @@ static void onEditMode(Fl_Widget*, void* p) {
     editMode(*c, name);
 }
 
+static int runSynchronousCommand(const std::string& cmdLine, const fs::path& workDir) {
+    if (cmdLine.empty()) return 0;
+#ifdef _WIN32
+    fs::path oldDir = fs::current_path();
+    std::error_code ec;
+    fs::current_path(workDir, ec);
+    int r = std::system(cmdLine.c_str());
+    if (!ec) fs::current_path(oldDir, ec);
+    return r;
+#else
+    std::string fullCmd = "cd -- ";
+    std::string qdir = "'";
+    for (char ch : S(workDir)) { if (ch == '\'') qdir += "'\\''"; else qdir += ch; }
+    qdir += "'";
+    fullCmd += qdir + " && " + cmdLine;
+    int status = std::system(fullCmd.c_str());
+    if (status == -1) return -1;
+    if (WIFEXITED(status)) {
+        return WEXITSTATUS(status);
+    }
+    return -1;
+#endif
+}
+
 static void onLaunch(Fl_Widget*, void*) {
     if (g_executablePath.empty()) {
-        setStatus("Configure the executable first.");
+        setStatus("Configure the executable first in Settings.");
         return;
     }
 
@@ -1019,6 +1258,27 @@ static void onLaunch(Fl_Widget*, void*) {
     if (ec || !fs::is_regular_file(executable, ec)) {
         setStatus("Configured executable does not exist: " + g_executablePath);
         return;
+    }
+
+    for (auto& c : g_cats) {
+        std::string modeName = selectedName(c);
+        if (modeName.empty()) continue;
+        for (auto& e : loadMode(modeFile(c, modeName))) {
+            if (e.file == "__pre_launch_commands__") {
+                fs::path cmdPath = versionPath(e.file, e.version, false);
+                if (fs::is_regular_file(cmdPath, ec)) {
+                    auto cmds = readLines(cmdPath);
+                    for (auto& cmd : cmds) {
+                        int exitCode = runSynchronousCommand(cmd, executable.parent_path());
+                        if (exitCode != 0) {
+                            std::string errMsg = "Pre-launch command failed (exit code " + std::to_string(exitCode) + "): " + cmd;
+                            setStatus(errMsg);
+                            debugLog(errMsg);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 #ifdef _WIN32
@@ -1044,7 +1304,7 @@ static void onLaunch(Fl_Widget*, void*) {
 }
 
 static void onApply(Fl_Widget*, void*) {
-    if (!gameOk()) { setStatus("Game folder is not set or does not exist. Open Configuration."); return; }
+    if (!gameOk()) { setStatus("Game folder is not set or does not exist. Open Settings."); return; }
 
     struct Item { std::string rel, ver, from; };
     std::vector<Item> plan;
@@ -1058,7 +1318,7 @@ static void onApply(Fl_Widget*, void*) {
         modes += (modes.empty() ? "" : ", ") + label;
         for (auto& e : loadMode(modeFile(c, name))) {
             std::string rel = e.file;
-            if (!cleanRel(rel) || !validName(e.version)) {
+            if (rel != "__pre_launch_commands__" && (!cleanRel(rel) || !validName(e.version))) {
                 setStatus("Invalid entry '" + e.file + "=" + e.version + "' in " + label + ". Nothing was changed.");
                 return;
             }
@@ -1074,10 +1334,18 @@ static void onApply(Fl_Widget*, void*) {
         }
     }
     if (modes.empty()) { setStatus("Select a resolution and/or a controller first."); return; }
-    if (plan.empty()) { setStatus("The selected modes have no file entries. Use Edit... to add some."); return; }
+    if (plan.empty()) { setStatus("The selected modes have no config entries. Use Edit... to add some."); return; }
 
     std::error_code ec;
     for (auto& it : plan) {
+        if (it.rel == "__pre_launch_commands__") {
+            fs::path cmdPath = versionPath(it.rel, it.ver, false);
+            if (!fs::is_regular_file(cmdPath, ec)) {
+                setStatus("Pre-launch commands version '" + it.ver + "' is missing (used by " + it.from + ").");
+                return;
+            }
+            continue;
+        }
         fs::path patchPath = versionPath(it.rel, it.ver, true);
         fs::path fullPath = versionPath(it.rel, it.ver, false);
         if (!fs::is_regular_file(patchPath, ec) && !fs::is_regular_file(fullPath, ec)) {
@@ -1088,6 +1356,7 @@ static void onApply(Fl_Widget*, void*) {
     }
 
     for (auto& it : plan) {
+        if (it.rel == "__pre_launch_commands__") continue;
         std::string err;
         if (!backupOriginal(it.rel, err)) {
             setStatus("Could not back up " + it.rel + ": " + err + ". Nothing was changed.");
@@ -1097,6 +1366,10 @@ static void onApply(Fl_Widget*, void*) {
 
     int n = 0;
     for (auto& it : plan) {
+        if (it.rel == "__pre_launch_commands__") {
+            ++n;
+            continue;
+        }
         fs::path dst = gamePath() / P(it.rel);
         fs::create_directories(dst.parent_path(), ec);
 
@@ -1122,7 +1395,7 @@ static void onApply(Fl_Widget*, void*) {
         ++n;
     }
     saveConfig();
-    std::string msg = "Applied " + std::to_string(n) + " file(s) for " + modes + ".";
+    std::string msg = "Applied " + std::to_string(n) + " config(s) for " + modes + ".";
     if (!overridden.empty())
         msg += " Note: " + overridden[0] + (overridden.size() > 1 ? " (and others)" : "") +
                " was set by both modes; the later one (controller) won.";
@@ -1164,12 +1437,12 @@ int main(int argc, char** argv) {
     g_executablePath = cfg["executable_path"];
 
     Fl::scheme("gtk+");
-    Fl_Window* win = new Fl_Window(540, 500, "Game launcher");
+    Fl_Window* win = new Fl_Window(540, 500, "Game Launcher");
     g_mainWindow = win;
     setMainWindowActive(true);
 
-    (new Fl_Button(10, 10, 140, 28, "Configuration..."))->callback(onConfig);
-    (new Fl_Button(160, 10, 140, 28, "File versions..."))->callback(onVersions);
+    (new Fl_Button(10, 10, 140, 28, "Settings..."))->callback(onSettings);
+    (new Fl_Button(160, 10, 140, 28, "Config Versions..."))->callback(onVersions);
 
     g_gameLabel = mkLabel(10, 45, 520, "");
 
@@ -1196,7 +1469,7 @@ int main(int argc, char** argv) {
 
     updateGameLabel();
     for (auto& c : g_cats) refresh(c, cfg[c.subdir]);
-    if (g_gameFolder.empty()) setStatus("First run: open Configuration and set the game folder.");
+    if (g_gameFolder.empty()) setStatus("First run: open Settings and set the game folder.");
 
     win->show(argc, argv);
     int rc = Fl::run();

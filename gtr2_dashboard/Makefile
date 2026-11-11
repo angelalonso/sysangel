@@ -22,7 +22,7 @@ $(OBJ): $(SRC)
 win: gamelauncher.exe
 
 gamelauncher.exe: $(WIN_OBJ)
-	$(WIN_CXX) $(CXXFLAGS) -mwindows $^ -o $@ -L$(PREFIX)/lib -lfltk $(WIN_SYS_LIBS)
+	$(WIN_CXX) $(CXXFLAGS) -mwindows -static-libgcc -static-libstdc++ $^ -o $@ -L$(PREFIX)/lib -lfltk $(WIN_SYS_LIBS)
 
 $(WIN_OBJ): $(SRC)
 	$(WIN_CXX) $(CXXFLAGS) -DWIN32 -I$(PREFIX)/include -c $< -o $@
