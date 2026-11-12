@@ -6,6 +6,7 @@ PREFIX   := /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/prefix
 SRC      := launcher.cpp
 OBJ      := launcher.o
 WIN_OBJ  := launcher.win.o
+TEST_BIN := launcher_tests
 
 # Windows system libraries needed by static FLTK (GDI, COM, common controls, winsock).
 # Order matters: they must come after -lfltk.
@@ -27,7 +28,13 @@ gamelauncher.exe: $(WIN_OBJ)
 $(WIN_OBJ): $(SRC)
 	$(WIN_CXX) $(CXXFLAGS) -DWIN32 -I$(PREFIX)/include -c $< -o $@
 
-clean:
-	rm -f $(OBJ) $(WIN_OBJ) gamelauncher gamelauncher.exe
+$(TEST_BIN): tests.cpp launcher.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ -lfltk
 
-.PHONY: all win clean
+test: $(TEST_BIN)
+	./$(TEST_BIN)
+
+clean:
+	rm -f $(OBJ) $(WIN_OBJ) gamelauncher gamelauncher.exe $(TEST_BIN)
+
+.PHONY: all win test clean
