@@ -48,6 +48,30 @@ void testTextAndPatches(const fs::path& root) {
                              {"width=1920", "height=1080", "new_option=yes"});
     check(merged == std::vector<std::string>({"width=1920", "height=1080", "# comment", "new_option=yes"}),
           "patch replacement/insertion failed");
+
+    auto diffIndices = computeDiffIndices(
+        {"width=800", "height=600", "# comment"},
+        {"width=1920", "height=600", "# comment", "new_option=yes"});
+    check(diffIndices == std::vector<size_t>({0, 3}),
+          "external-file differences were not identified by line");
+    check(nextSelectedIndex({true, false, true, false}, -1, 1) == 0,
+          "next selected-line navigation did not start at the first selection");
+    check(nextSelectedIndex({true, false, true, false}, 0, 1) == 2,
+          "next selected-line navigation skipped a selected line");
+    check(nextSelectedIndex({true, false, true, false}, 0, -1) == 2,
+          "previous selected-line navigation did not wrap");
+    check(nextSelectedIndex({false, false}, 0, 1) == -1,
+          "selected-line navigation returned a line when none was selected");
+    std::vector<bool> selection = {true, false, true};
+    std::vector<std::vector<bool>> history = {{true, false, false}};
+    check(undoSelection(selection, history) && selection == std::vector<bool>({true, false, false}),
+          "undo did not restore the previous patch-line selection");
+    check(!undoSelection(selection, history), "undo reported a change when history was empty");
+    std::string dimmed = patchLineDisplay(1, "height=600", false);
+    check(dimmed.find("height=600") != std::string::npos && dimmed != "2: height=600",
+          "unselected patch lines were not styled as lighter text");
+    check(patchLineDisplay(1, "height=600", true) == "2: height=600",
+          "selected patch lines were incorrectly dimmed");
 }
 
 void testModesAndVersions(const fs::path& root) {

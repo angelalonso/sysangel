@@ -31,6 +31,7 @@
 #include <ctime>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <string>
@@ -206,28 +207,54 @@ static std::vector<std::string> applyPatch(const std::vector<std::string>& origL
     return result;
 }
 
+static std::vector<size_t> computeDiffIndices(const std::vector<std::string>& origLines,
+                                              const std::vector<std::string>& extLines);
+
 static std::vector<std::string> computeDiffLines(const std::vector<std::string>& origLines, const std::vector<std::string>& extLines) {
+    std::vector<std::string> diffs;
+    for (size_t index : computeDiffIndices(origLines, extLines))
+        diffs.push_back(extLines[index]);
+    return diffs;
+}
+
+static std::vector<size_t> computeDiffIndices(const std::vector<std::string>& origLines,
+                                              const std::vector<std::string>& extLines) {
     std::map<std::string, std::string> origMap;
     for (const auto& l : origLines) {
         std::string k = extractKey(l);
         if (!k.empty()) origMap[k] = l;
     }
 
-    std::vector<std::string> diffs;
-    for (const auto& l : extLines) {
+    std::vector<size_t> diffs;
+    for (size_t i = 0; i < extLines.size(); ++i) {
+        const auto& l = extLines[i];
         std::string k = extractKey(l);
         if (!k.empty()) {
             auto it = origMap.find(k);
-            if (it == origMap.end() || it->second != l) {
-                diffs.push_back(l);
-            }
-        } else {
-            if (std::find(origLines.begin(), origLines.end(), l) == origLines.end()) {
-                diffs.push_back(l);
-            }
+            if (it == origMap.end() || it->second != l) diffs.push_back(i);
+        } else if (std::find(origLines.begin(), origLines.end(), l) == origLines.end()) {
+            diffs.push_back(i);
         }
     }
     return diffs;
+}
+
+static int nextSelectedIndex(const std::vector<bool>& selected, int current, int direction) {
+    if (selected.empty() || direction == 0) return -1;
+    const int count = static_cast<int>(selected.size());
+    int index = current;
+    for (int step = 0; step < count; ++step) {
+        index = (index + direction + count) % count;
+        if (selected[index]) return index;
+    }
+    return -1;
+}
+
+static bool undoSelection(std::vector<bool>& current, std::vector<std::vector<bool>>& history) {
+    if (history.empty()) return false;
+    current = std::move(history.back());
+    history.pop_back();
+    return true;
 }
 
 // =================================================================== state ===
@@ -582,6 +609,9 @@ struct PatchLinesDlg {
     int searchStart = 0;
     std::vector<std::string> fileLines;
     std::vector<std::string> selected;
+    std::vector<bool> currentSelection;
+    std::vector<std::vector<bool>> selectionHistory;
+    bool updating = false;
 };
 
 static bool containsIgnoreCase(const std::string& text, const std::string& query) {
@@ -610,11 +640,69 @@ static void patchLinesFind(Fl_Widget*, void* p) {
     fl_alert("No lines found for:\n%s", query.c_str());
 }
 
+static std::string patchLineDisplay(size_t index, const std::string& line, bool selected) {
+    // FLTK browser format codes let unselected lines remain readable but visually secondary.
+    const char format = '\x01';
+    std::string display = std::to_string(index + 1) + ": " + line;
+    if (selected) return display;
+    return std::string(1, format) + "C" + std::to_string(fl_rgb_color(155, 155, 155)) +
+           std::string(1, format) + "." + display;
+}
+
+static void patchLinesRefreshStyles(PatchLinesDlg* d) {
+    if (d->updating) return;
+    d->updating = true;
+    for (size_t i = 0; i < d->fileLines.size(); ++i)
+        d->lines->text(static_cast<int>(i + 1),
+                       patchLineDisplay(i, d->fileLines[i], d->currentSelection[i]).c_str());
+    d->lines->redraw();
+    d->updating = false;
+}
+
+static void patchLinesSelectionChanged(Fl_Widget*, void* p) {
+    PatchLinesDlg* d = (PatchLinesDlg*)p;
+    if (d->updating) return;
+    std::vector<bool> next(d->fileLines.size(), false);
+    for (size_t i = 0; i < next.size(); ++i)
+        next[i] = d->lines->selected(static_cast<int>(i + 1)) != 0;
+    if (next != d->currentSelection) {
+        d->selectionHistory.push_back(d->currentSelection);
+        d->currentSelection = std::move(next);
+        patchLinesRefreshStyles(d);
+    }
+}
+
+static void patchLinesFocusSelected(PatchLinesDlg* d, int direction) {
+    int current = d->lines->value() - 1;
+    int next = nextSelectedIndex(d->currentSelection, current, direction);
+    if (next < 0) return;
+    d->lines->middleline(next + 1);
+    d->lines->value(next + 1);
+    d->lines->redraw();
+}
+
+static void patchLinesUndo(Fl_Widget*, void* p) {
+    PatchLinesDlg* d = (PatchLinesDlg*)p;
+    if (!undoSelection(d->currentSelection, d->selectionHistory)) return;
+    d->updating = true;
+    for (size_t i = 0; i < d->currentSelection.size(); ++i)
+        d->lines->select(static_cast<int>(i + 1), d->currentSelection[i] ? 1 : 0);
+    d->updating = false;
+    patchLinesRefreshStyles(d);
+}
+
+static void patchLinesNext(Fl_Widget*, void* p) {
+    patchLinesFocusSelected((PatchLinesDlg*)p, 1);
+}
+
+static void patchLinesPrevious(Fl_Widget*, void* p) {
+    patchLinesFocusSelected((PatchLinesDlg*)p, -1);
+}
+
 static void patchLinesOk(Fl_Widget*, void* p) {
     PatchLinesDlg* d = (PatchLinesDlg*)p;
-    for (int i = 1; i <= d->lines->size(); ++i)
-        if (d->lines->selected(i))
-            d->selected.push_back(d->fileLines[i - 1]);
+    for (size_t i = 0; i < d->currentSelection.size(); ++i)
+        if (d->currentSelection[i]) d->selected.push_back(d->fileLines[i]);
     if (d->selected.empty()) {
         fl_alert("%s", "Select at least one line to include in the patch.");
         return;
@@ -642,19 +730,23 @@ static bool selectPatchLines(const fs::path& file, const std::vector<std::string
     d.search->callback(patchLinesFind, &d);
     (new Fl_Button(600, 32, 150, 25, "Find next"))->callback(patchLinesFind, &d);
     d.lines = new Fl_Multi_Browser(10, 65, 740, 377);
-    d.lines->format_char(0);
+    d.lines->format_char('\x01');
+    d.lines->callback(patchLinesSelectionChanged, &d);
     d.fileLines = readLines(file);
     
     std::map<std::string, bool> initialMap;
     for (const auto& s : initialSelected) initialMap[s] = true;
 
+    d.currentSelection.assign(d.fileLines.size(), false);
     for (size_t i = 0; i < d.fileLines.size(); ++i) {
-        std::string display = std::to_string(i + 1) + ": " + d.fileLines[i];
-        d.lines->add(display.c_str());
-        if (initialMap[d.fileLines[i]]) {
-            d.lines->select(static_cast<int>(i + 1));
-        }
+        bool selected = initialMap[d.fileLines[i]];
+        d.currentSelection[i] = selected;
+        d.lines->add(patchLineDisplay(i, d.fileLines[i], selected).c_str());
+        if (selected) d.lines->select(static_cast<int>(i + 1));
     }
+    (new Fl_Button(10, 450, 130, 30, "Previous selected"))->callback(patchLinesPrevious, &d);
+    (new Fl_Button(145, 450, 130, 30, "Next selected"))->callback(patchLinesNext, &d);
+    (new Fl_Button(280, 450, 130, 30, "Undo change"))->callback(patchLinesUndo, &d);
     (new Fl_Button(560, 490, 90, 30, "OK"))->callback(patchLinesOk, &d);
     (new Fl_Button(660, 490, 90, 30, "Cancel"))->callback(patchLinesCancel, &d);
     d.win->end();
