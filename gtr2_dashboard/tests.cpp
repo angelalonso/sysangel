@@ -72,6 +72,18 @@ void testTextAndPatches(const fs::path& root) {
           "unselected patch lines were not styled as lighter text");
     check(patchLineDisplay(1, "height=600", true) == "2: height=600",
           "selected patch lines were incorrectly dimmed");
+    check(patchLineDisplay(1, "height=600", false, 1).find(std::string(1, '\x01') + "B") != std::string::npos,
+          "search result was not given a background highlight");
+
+    PatchLinesDlg dialog;
+    dialog.fileLines = {"width=800", "# original"};
+    dialog.currentSelection = {true, false};
+    dialog.comparisonByKey["width"] = "width=1920";
+    dialog.comparisonByIndex = {"", ""};
+    check(patchLineContent(&dialog, 0) == "width=1920",
+          "selected lines did not display the comparison-file version");
+    check(patchLineContent(&dialog, 1) == "# original",
+          "unselected lines did not display the original-file version");
 }
 
 void testModesAndVersions(const fs::path& root) {

@@ -609,10 +609,28 @@ struct PatchLinesDlg {
     int searchStart = 0;
     std::vector<std::string> fileLines;
     std::vector<std::string> selected;
+    std::map<std::string, std::string> comparisonByKey;
+    std::vector<std::string> comparisonByIndex;
     std::vector<bool> currentSelection;
     std::vector<std::vector<bool>> selectionHistory;
     bool updating = false;
+    int searchMatch = -1;
 };
+
+static void patchLinesRefreshStyles(PatchLinesDlg* d);
+
+static std::string patchLineContent(const PatchLinesDlg* d, size_t index) {
+    if (!d->currentSelection[index]) return d->fileLines[index];
+
+    std::string key = extractKey(d->fileLines[index]);
+    if (!key.empty()) {
+        auto comparison = d->comparisonByKey.find(key);
+        if (comparison != d->comparisonByKey.end()) return comparison->second;
+    }
+    if (index < d->comparisonByIndex.size() && !d->comparisonByIndex[index].empty())
+        return d->comparisonByIndex[index];
+    return d->fileLines[index];
+}
 
 static bool containsIgnoreCase(const std::string& text, const std::string& query) {
     if (query.empty()) return false;
@@ -626,27 +644,40 @@ static bool containsIgnoreCase(const std::string& text, const std::string& query
 static void patchLinesFind(Fl_Widget*, void* p) {
     PatchLinesDlg* d = (PatchLinesDlg*)p;
     std::string query = d->search->value();
-    if (query.empty() || d->fileLines.empty()) return;
+    if (query.empty() || d->fileLines.empty()) {
+        d->searchMatch = -1;
+        patchLinesRefreshStyles(d);
+        return;
+    }
 
+    d->searchMatch = -1;
     for (size_t offset = 0; offset < d->fileLines.size(); ++offset) {
         size_t index = (static_cast<size_t>(d->searchStart) + offset) % d->fileLines.size();
         if (containsIgnoreCase(d->fileLines[index], query)) {
             d->searchStart = static_cast<int>((index + 1) % d->fileLines.size());
+            d->searchMatch = static_cast<int>(index);
             d->lines->middleline(static_cast<int>(index + 1));
+            patchLinesRefreshStyles(d);
             d->lines->redraw();
             return;
         }
     }
+    patchLinesRefreshStyles(d);
     fl_alert("No lines found for:\n%s", query.c_str());
 }
 
-static std::string patchLineDisplay(size_t index, const std::string& line, bool selected) {
+static std::string patchLineDisplay(size_t index, const std::string& line, bool selected, int searchMatch = -1) {
     // FLTK browser format codes let unselected lines remain readable but visually secondary.
     const char format = '\x01';
     std::string display = std::to_string(index + 1) + ": " + line;
-    if (selected) return display;
-    return std::string(1, format) + "C" + std::to_string(fl_rgb_color(155, 155, 155)) +
-           std::string(1, format) + "." + display;
+    std::string styled;
+    if (!selected) {
+        styled = std::string(1, format) + "C" + std::to_string(fl_rgb_color(155, 155, 155));
+    }
+    if (static_cast<int>(index) == searchMatch)
+        styled += std::string(1, format) + "B" + std::to_string(fl_rgb_color(35, 105, 55));
+    if (styled.empty()) return display;
+    return styled + std::string(1, format) + "." + display;
 }
 
 static void patchLinesRefreshStyles(PatchLinesDlg* d) {
@@ -654,7 +685,7 @@ static void patchLinesRefreshStyles(PatchLinesDlg* d) {
     d->updating = true;
     for (size_t i = 0; i < d->fileLines.size(); ++i)
         d->lines->text(static_cast<int>(i + 1),
-                       patchLineDisplay(i, d->fileLines[i], d->currentSelection[i]).c_str());
+                       patchLineDisplay(i, patchLineContent(d, i), d->currentSelection[i], d->searchMatch).c_str());
     d->lines->redraw();
     d->updating = false;
 }
@@ -715,7 +746,10 @@ static void patchLinesCancel(Fl_Widget*, void* p) {
     ((PatchLinesDlg*)p)->win->hide();
 }
 
-static bool selectPatchLines(const fs::path& file, const std::vector<std::string>& initialSelected, std::vector<std::string>& out) {
+static bool selectPatchLines(const fs::path& file,
+                             const std::vector<std::string>& initialSelected,
+                             const std::vector<std::string>& comparisonLines,
+                             std::vector<std::string>& out) {
     std::error_code ec;
     if (!fs::is_regular_file(file, ec)) {
         fl_alert("File not found:\n%s", S(file).c_str());
@@ -738,10 +772,28 @@ static bool selectPatchLines(const fs::path& file, const std::vector<std::string
     for (const auto& s : initialSelected) initialMap[s] = true;
 
     d.currentSelection.assign(d.fileLines.size(), false);
+    std::map<std::string, bool> changedComparisonKeys;
+    d.comparisonByIndex.assign(d.fileLines.size(), "");
+    if (!comparisonLines.empty()) {
+        auto changed = computeDiffIndices(d.fileLines, comparisonLines);
+        for (size_t index : changed) {
+            std::string key = extractKey(comparisonLines[index]);
+            if (!key.empty()) {
+                d.comparisonByKey[key] = comparisonLines[index];
+                changedComparisonKeys[key] = true;
+            }
+        }
+        for (size_t i = 0; i < d.fileLines.size() && i < comparisonLines.size(); ++i) {
+            if (extractKey(d.fileLines[i]).empty() && d.fileLines[i] != comparisonLines[i])
+                d.comparisonByIndex[i] = comparisonLines[i];
+        }
+    }
     for (size_t i = 0; i < d.fileLines.size(); ++i) {
-        bool selected = initialMap[d.fileLines[i]];
+        std::string key = extractKey(d.fileLines[i]);
+        bool selected = initialMap[d.fileLines[i]] ||
+                        (!key.empty() && changedComparisonKeys[key]);
         d.currentSelection[i] = selected;
-        d.lines->add(patchLineDisplay(i, d.fileLines[i], selected).c_str());
+        d.lines->add(patchLineDisplay(i, patchLineContent(&d, i), selected, d.searchMatch).c_str());
         if (selected) d.lines->select(static_cast<int>(i + 1));
     }
     (new Fl_Button(10, 450, 130, 30, "Previous selected"))->callback(patchLinesPrevious, &d);
@@ -753,7 +805,19 @@ static bool selectPatchLines(const fs::path& file, const std::vector<std::string
     runModal(d.win);
     delete d.win;
     if (!d.ok) return false;
-    out = std::move(d.selected);
+    out.clear();
+    for (size_t i = 0; i < d.currentSelection.size(); ++i) {
+        if (!d.currentSelection[i]) continue;
+        std::string key = extractKey(d.fileLines[i]);
+        auto comparison = d.comparisonByKey.find(key);
+        if (comparison != d.comparisonByKey.end()) {
+            out.push_back(comparison->second);
+        } else if (i < d.comparisonByIndex.size() && !d.comparisonByIndex[i].empty()) {
+            out.push_back(d.comparisonByIndex[i]);
+        } else {
+            out.push_back(d.fileLines[i]);
+        }
+    }
     return true;
 }
 
@@ -764,8 +828,23 @@ static void afSelectPatch(Fl_Widget*, void* p) {
         fl_alert("%s", "Select a valid file inside the game folder first.");
         return;
     }
+    std::vector<std::string> comparisonLines;
+    fs::path displayFile = gamePath() / P(rel);
+    if (f->extPatchCb_->value()) {
+        comparisonLines = readLines(P(f->extFilePath_));
+        std::error_code ec;
+        fs::path original = g_originalsDir / P(rel);
+        if (!fs::is_regular_file(original, ec)) {
+            std::string error;
+            if (!backupOriginal(rel, error)) {
+                fl_alert("Could not save the original for comparison:\n%s", error.c_str());
+                return;
+            }
+        }
+        if (fs::is_regular_file(original, ec)) displayFile = original;
+    }
     std::vector<std::string> selected;
-    if (selectPatchLines(gamePath() / P(rel), f->patchLines_, selected))
+    if (selectPatchLines(displayFile, f->patchLines_, comparisonLines, selected))
         f->patchLines_ = std::move(selected);
 }
 
