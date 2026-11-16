@@ -2,6 +2,7 @@ CXX      := g++
 WIN_CXX  := x86_64-w64-mingw32-g++
 CXXFLAGS := -std=c++17 -Os -Wall -Wextra -ffunction-sections -fdata-sections
 PREFIX   := /home/aaf/Software/Dev/sysangel/gtr2_dashboard/build-win/prefix
+WIN_CXXFLAGS := $(CXXFLAGS) -DWIN32 -isystem $(PREFIX)/include
 
 SRC      := launcher.cpp
 OBJ      := launcher.o
@@ -26,7 +27,7 @@ gamelauncher.exe: $(WIN_OBJ)
 	$(WIN_CXX) $(CXXFLAGS) -mwindows -static-libgcc -static-libstdc++ $^ -o $@ -L$(PREFIX)/lib -lfltk $(WIN_SYS_LIBS)
 
 $(WIN_OBJ): $(SRC)
-	$(WIN_CXX) $(CXXFLAGS) -DWIN32 -I$(PREFIX)/include -c $< -o $@
+	$(WIN_CXX) $(WIN_CXXFLAGS) -c $< -o $@
 
 $(TEST_BIN): tests.cpp launcher.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@ -lfltk
