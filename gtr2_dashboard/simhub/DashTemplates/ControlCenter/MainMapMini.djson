@@ -1,0 +1,226 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "164ec5f2-e003-4de9-bbf4-69c5ab2e0d52",
+  "BaseHeight": 441,
+  "BaseWidth": 497,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": false,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RadarItem, SimHub.Plugins",
+              "PlayerStyle": {
+                "$id": "6",
+                "LabelFontSize": 14.0,
+                "LabelColor": "#FFFFFFFF",
+                "DotColor": "#FFFF0000",
+                "DotBorderThickness": 4.0,
+                "DotBordercolor": "#FFFFFFFF",
+                "DotRadius": 40.0,
+                "Bindings": {
+                  "$id": "7"
+                }
+              },
+              "OpponentStyle": {
+                "$id": "8",
+                "LabelFontSize": 14.0,
+                "LabelColor": "#FFFFFFFF",
+                "DotColor": "#FFFFFFFF",
+                "DotBorderThickness": 3.0,
+                "DotBordercolor": "#FF1E90FF",
+                "DotRadius": 30.0,
+                "Bindings": {
+                  "$id": "9"
+                }
+              },
+              "Scale": 1.0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "10",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "11"
+                }
+              },
+              "Height": 441.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Position": "0,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 497.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 1,
+              "IsFreezed": false,
+              "Id": "5acf2c51-d754-4035-b8a7-fad3e5918b9d",
+              "IsSelected": true,
+              "Name": "RadarItem0",
+              "Bindings": {
+                "$id": "12"
+              }
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "5"
+        },
+        "RenderingSkip": 0,
+        "Id": "8b01e203-2c49-439e-a055-bb0553f6769f",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "13"
+        }
+      },
+      {
+        "$id": "14",
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "15",
+          "$values": [
+            {
+              "$id": "16",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.GeneratedStaticMapItem, SimHub.Plugins",
+              "PlayerPulse": true,
+              "PlayerPulseColor": "#FFFF0000",
+              "PlayerPulseRadius": 120.0,
+              "PlayerPulseThickness": 8.0,
+              "PlayerStyle": {
+                "$id": "17",
+                "LabelFont": "Sui Generis Light",
+                "LabelFontSize": 31.0,
+                "LabelColor": "#FFFFFFFF",
+                "DotColor": "#FFFF0000",
+                "DotBorderThickness": 2.0,
+                "DotBordercolor": "#FFFFFFFF",
+                "DotRadius": 60.0,
+                "Bindings": {
+                  "$id": "18"
+                }
+              },
+              "OpponentStyle": {
+                "$id": "19",
+                "LabelFont": "Sui Generis Light",
+                "LabelFontSize": 32.0,
+                "LabelColor": "#FF000000",
+                "DotColor": "#FFFAEBD7",
+                "DotBorderThickness": 2.0,
+                "DotBordercolor": "#FF6495ED",
+                "DotRadius": 60.0,
+                "Bindings": {
+                  "$id": "20"
+                }
+              },
+              "StartLine": {
+                "$id": "21",
+                "Enabled": true,
+                "Color": "#FFFF0000",
+                "Height": 100.0,
+                "Width": 10.0,
+                "Bindings": {
+                  "$id": "22"
+                }
+              },
+              "TrackColor": "#FF5F9EA0",
+              "AlternateTrackSectorColor": "#FFFF6347",
+              "TrackWidth": 15.0,
+              "TrackBorderWidth": 0.0,
+              "MinimumTrackWidth": 10.0,
+              "MinimumTrackBorderWidth": -1.0,
+              "TrackBorderColor": "#FF000000",
+              "MapShadow": true,
+              "RenderImageWidth": 493.0,
+              "RenderImageHeight": 394.0,
+              "CursorColor": "#FFFF0000",
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "23",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "24"
+                }
+              },
+              "Height": 441.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Position": "0,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 497.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 3,
+              "IsFreezed": false,
+              "Id": "aeee4ebd-0dbe-4935-be8f-0da39bed440e",
+              "IsSelected": true,
+              "Name": "GeneratedStaticMapItem0",
+              "Bindings": {
+                "$id": "25"
+              }
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "16"
+        },
+        "RenderingSkip": 0,
+        "Id": "47977241-4806-4d04-9b72-0208b9826195",
+        "Name": "Screen2",
+        "Bindings": {
+          "$id": "26"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "14"
+  },
+  "Images": {
+    "$id": "27",
+    "$values": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "SimHubVersion": "9.1.19",
+  "Category": "RSC",
+  "Title": "RSC - iRacing - Leaderboard Standings Dash",
+  "Description": "iRacing Standings Leaderboard Dash",
+  "Author": "Romainrob",
+  "ScreenCount": 3.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [
+    1
+  ],
+  "MainPreviewIndex": 0,
+  "IsOverlay": false,
+  "Width": 872.0,
+  "Height": 510.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

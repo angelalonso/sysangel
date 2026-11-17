@@ -1,0 +1,48 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "c45717db-4358-48f7-9e16-79c1860c8386",
+  "BaseHeight": 190,
+  "BaseWidth": 892,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "_ExposedProperties": {
+          "$id": "4",
+          "Items": {
+            "$id": "5",
+            "$values": []
+          },
+          "Bindings": {
+            "$id": "6"
+          }
+        },
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "7",
+          "$values": []
+        },
+        "RenderingSkip": 0,
+        "Id": "887fb990-bffe-42c0-aaa9-a57ae804294f",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "8"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "9",
+    "$values": []
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - iRacing - Control Center",
+  "Description": "",
+  "Author": "Romainrob",
+  "ScreenCount": 9.0,
+  "InGameScreensIndexs": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "IdleScreensIndexs": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "MainPreviewIndex": 1,
+  "IsOverlay": false,
+  "Width": 1280.0,
+  "Height": 800.0,
+  "OverlaySizeWarning": true,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

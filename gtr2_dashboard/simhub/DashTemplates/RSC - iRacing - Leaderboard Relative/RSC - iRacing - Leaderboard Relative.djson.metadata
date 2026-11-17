@@ -1,0 +1,20 @@
+{
+  "SimHubVersion": "9.1.19",
+  "Category": "RSC",
+  "Title": "RSC - iRacing - Leaderboard Relative",
+  "Description": "Relative Leaderboard ",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 484.0,
+  "Height": 234.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

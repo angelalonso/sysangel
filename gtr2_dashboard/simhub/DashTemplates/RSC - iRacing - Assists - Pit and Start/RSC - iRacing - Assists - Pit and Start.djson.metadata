@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - iRacing - Assists - Pit and Start",
+  "Description": "Pit Speed - Box Distance - Start Inputs - 0 to 100kph",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 215.0,
+  "Height": 405.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

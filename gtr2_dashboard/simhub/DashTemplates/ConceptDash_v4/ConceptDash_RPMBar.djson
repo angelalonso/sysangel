@@ -1,0 +1,260 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "a5c29c41-3f84-43fa-a421-473626df9572",
+  "BaseHeight": 95,
+  "BaseWidth": 1280,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "LinearGradientBrush": {
+                  "@EndPoint": "6.12303176911189E-17,1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF3B3A3A",
+                        "@Offset": "0"
+                      },
+                      {
+                        "@Color": "#FF292929",
+                        "@Offset": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": -5.0,
+              "Top": -8.0,
+              "Width": 1306.0,
+              "Height": 102.0,
+              "Opacity": 100.0,
+              "BlurRadius": 1.0,
+              "BorderTop": 0,
+              "BorderBottom": 2,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FF808080",
+              "Position": "-5,-8,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": false,
+              "Id": "83427f71-769d-4f1e-8fb6-53f71b86a93c",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "6"
+              },
+              "RenderingSkip": 0,
+              "Name": "LinearShadeItem0"
+            },
+            {
+              "$id": "7",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ProgressBarItem, SimHub.Plugins",
+              "AutoSize": false,
+              "AutoSizeScale": 1.0,
+              "ProgressBarColor": "#FF1E90FF",
+              "Minimum": 0.0,
+              "Maximum": 100.0,
+              "Value": 50.0,
+              "Steps": 0.0,
+              "ProgressBarAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 4.0,
+              "Top": 3.0,
+              "Width": 1270.0,
+              "Height": 85.0,
+              "Opacity": 75.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 4,
+              "BorderBottom": 4,
+              "BorderLeft": 4,
+              "BorderRight": 4,
+              "BorderColor": "#FF000000",
+              "Position": "4,3,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": false,
+              "Id": "c1d1b4a2-799e-4832-90c8-896acb9e2563",
+              "IsSelected": true,
+              "Bindings": {
+                "$id": "8",
+                "Maximum": {
+                  "$id": "9",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "10",
+                    "Expression": "[DataCorePlugin.GameData.NewData.MaxRpm]"
+                  }
+                },
+                "Value": {
+                  "$id": "11",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "12",
+                    "Expression": "[DataCorePlugin.GameData.NewData.Rpms]"
+                  }
+                }
+              },
+              "RenderingSkip": 1,
+              "Name": "ProgressBarItem0"
+            },
+            {
+              "$id": "13",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Eurostar",
+              "FontWeight": "Normal",
+              "FontStyle": "Normal",
+              "FontSize": 84.0,
+              "Text": "245",
+              "TextColor": "#FF000000",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": false,
+              "Left": 511.0,
+              "Top": 0.0,
+              "Width": 350.0,
+              "Height": 95.0,
+              "Opacity": 100.0,
+              "BlurRadius": 20.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "511,0,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "aba2f8ed-0d78-4931-ad20-19fda84d9037",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "14",
+                "Text": {
+                  "$id": "15",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "16",
+                    "Expression": "max(0,[DataCorePlugin.GameData.NewData.Rpms])"
+                  }
+                }
+              },
+              "RenderingSkip": 1,
+              "Name": "Speed"
+            },
+            {
+              "$id": "17",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Eurostar",
+              "FontWeight": "Normal",
+              "FontStyle": "Normal",
+              "FontSize": 84.0,
+              "Text": "245",
+              "TextColor": "#FFFF4500",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 468.0,
+              "Top": -1.0,
+              "Width": 350.0,
+              "Height": 95.0,
+              "Opacity": 100.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "468,-1,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": false,
+              "Id": "aba2f8ed-0d78-4931-ad20-19fda84d9037",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "18",
+                "Text": {
+                  "$id": "19",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "20",
+                    "Expression": "max(0,[DataCorePlugin.GameData.NewData.Rpms])"
+                  }
+                }
+              },
+              "RenderingSkip": 1,
+              "Name": "Speed1"
+            }
+          ]
+        },
+        "SelectedItems": {
+          "$type": "System.Linq.Enumerable+WhereEnumerableIterator`1[[SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IGDashItem, SimHub.Plugins]], System.Core",
+          "$values": [
+            {
+              "$ref": "7"
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "7"
+        },
+        "CanOpen": false,
+        "IsFreezed": false,
+        "Id": "b80a43e4-154c-4af9-b570-8b5563dbd7f5",
+        "Bindings": {
+          "$id": "21"
+        },
+        "RenderingSkip": 0,
+        "Name": "Screen1"
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "22",
+    "$values": []
+  }
+}

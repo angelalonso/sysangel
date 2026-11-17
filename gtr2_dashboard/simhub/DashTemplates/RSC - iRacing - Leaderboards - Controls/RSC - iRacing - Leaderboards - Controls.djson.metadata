@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - iRacing - Leaderboards - Controls",
+  "Description": "RSC - iRacing - Leaderboards - Controls",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 180.0,
+  "Height": 35.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

@@ -1,0 +1,28 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - Forza Horizon 5 Map",
+  "Description": "Forza Horizon 5 Map",
+  "Author": "Romainrob",
+  "ScreenCount": 5.0,
+  "InGameScreensIndexs": [
+    1,
+    2,
+    3
+  ],
+  "IdleScreensIndexs": [
+    0,
+    3
+  ],
+  "MainPreviewIndex": 1,
+  "IsOverlay": false,
+  "Width": 1920.0,
+  "Height": 1200.0,
+  "OverlaySizeWarning": true,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": [
+    1,
+    2,
+    3
+  ]
+}

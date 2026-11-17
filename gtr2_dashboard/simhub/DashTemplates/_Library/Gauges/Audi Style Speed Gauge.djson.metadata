@@ -1,0 +1,17 @@
+{
+  "Category": null,
+  "Title": null,
+  "Description": null,
+  "Author": null,
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": false,
+  "Width": 570.0,
+  "Height": 550.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0
+}

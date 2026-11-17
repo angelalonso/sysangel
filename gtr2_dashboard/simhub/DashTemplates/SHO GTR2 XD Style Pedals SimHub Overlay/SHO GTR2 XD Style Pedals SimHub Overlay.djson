@@ -1,0 +1,678 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "d9dc33de-1aaf-42e6-931a-4c9be0905f65",
+  "BaseHeight": 150,
+  "BaseWidth": 90,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 2,
+                "BorderBottom": 2,
+                "BorderLeft": 2,
+                "BorderRight": 2,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 150.0,
+              "Left": 0.0,
+              "Opacity": 50.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 90.0,
+              "BorderBottom": 2,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 2,
+              "BorderRight": 2,
+              "BorderTop": 2,
+              "Id": "a206f75a-1c57-4ac5-bf10-e12711c15908",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RectangleItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "11",
+                "BorderColor": "#FFFFA500",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "12"
+                }
+              },
+              "Height": 4.0,
+              "Left": 14.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 14.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFA500",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "c5cb8698-d547-4c8a-b14f-ae660871209a",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "ClutchIndicatorRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "13",
+                "BackgroundColor": {
+                  "$id": "14",
+                  "Formula": {
+                    "$id": "15",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('Clutch') >= 100 ) return 'DodgerBlue';\r\nif ( $prop('Clutch') > 0 ) return 'DimGray';\r\nreturn 'Black';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "16",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "17",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "18"
+                }
+              },
+              "Height": 122.0,
+              "Left": 14.0,
+              "Opacity": 100.0,
+              "Top": 16.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 14.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "959efa93-278b-4a8f-ab99-cb281db0cfc6",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "ClutchActuatedRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "19",
+                "BackgroundColor": {
+                  "$id": "20",
+                  "Formula": {
+                    "$id": "21",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Clutch') > 0 ) return '#40B0E0E6' // PowderBlue Alpha=64\r\n//'Red' //'SlateGray'\r\n//if ( $prop('Clutch') > 0 ) return '#B0FF0000' // Red A176\r\n//if ( $prop('Clutch') > 0 ) return 'White'\r\n//if ( $prop('Clutch') > 0 ) return 'Gray'\r\nif ( $prop('Clutch') > 0 ) return 'DimGray'\r\nreturn 'Black'\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "22",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "IsLinearGauge": true,
+              "GaugeAlignment": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "GaugeColor": "#FF1E90FF",
+              "Minimum": 0.0,
+              "Maximum": 100.0,
+              "Value": 20.0,
+              "Steps": 0.0,
+              "PAW": 24.0,
+              "Rotation": 270.0,
+              "UseRotation": true,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "23",
+                "BorderColor": "#FFFFA500",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "24"
+                }
+              },
+              "Height": 14.0,
+              "Left": -40.0,
+              "Opacity": 100.0,
+              "Top": 70.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 122.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFA500",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "ec386ce3-a92a-439d-a995-9e514d691398",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "ClutchLinearGauge",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "25",
+                "Value": {
+                  "$id": "26",
+                  "Formula": {
+                    "$id": "27",
+                    "Interpreter": 1,
+                    "Expression": "return $prop('Clutch')"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                }
+              }
+            },
+            {
+              "$id": "28",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "29",
+                "BorderColor": "#FFFFA500",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "30"
+                }
+              },
+              "Height": 4.0,
+              "Left": 38.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 14.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFA500",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "c5cb8698-d547-4c8a-b14f-ae660871209a",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "BrakeIndicatorRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "31",
+                "BackgroundColor": {
+                  "$id": "32",
+                  "Formula": {
+                    "$id": "33",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('Brake') >= 100 ) return 'Red';\r\nif ( $prop('Brake') > 0 ) return 'DimGray';\r\nreturn 'Black';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "34",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "35",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "36"
+                }
+              },
+              "Height": 122.0,
+              "Left": 38.0,
+              "Opacity": 100.0,
+              "Top": 16.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 14.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "959efa93-278b-4a8f-ab99-cb281db0cfc6",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "BrakeActuatedRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "37",
+                "BackgroundColor": {
+                  "$id": "38",
+                  "Formula": {
+                    "$id": "39",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Brake') > 0 ) return '#40B0E0E6' // PowderBlue Alpha=64\r\n//if ( $prop('Brake') > 0 ) return '#B0FF0000' // Red A176\r\n//if ( $prop('Brake') > 0 ) return 'White'\r\n//if ( $prop('Brake') > 0 ) return 'Gray'\r\nif ( $prop('Brake') > 0 ) return 'DimGray'\r\nreturn 'Black'\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "40",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "IsLinearGauge": true,
+              "GaugeAlignment": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "GaugeColor": "#FFFF0000",
+              "Minimum": 0.0,
+              "Maximum": 100.0,
+              "Value": 20.0,
+              "Steps": 0.0,
+              "PAW": 24.0,
+              "Rotation": 270.0,
+              "UseRotation": true,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "41",
+                "BorderColor": "#FFFFA500",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "42"
+                }
+              },
+              "Height": 14.0,
+              "Left": -16.0,
+              "Opacity": 100.0,
+              "Top": 70.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 122.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFA500",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "ec386ce3-a92a-439d-a995-9e514d691398",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "BrakeLinearGauge",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "43",
+                "Value": {
+                  "$id": "44",
+                  "Formula": {
+                    "$id": "45",
+                    "Interpreter": 1,
+                    "Expression": "return $prop('Brake')"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                }
+              }
+            },
+            {
+              "$id": "46",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "47",
+                "BorderColor": "#FFFFA500",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "48"
+                }
+              },
+              "Height": 4.0,
+              "Left": 62.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 14.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFA500",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "c5cb8698-d547-4c8a-b14f-ae660871209a",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "ThrottleIndicatorRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "49",
+                "BackgroundColor": {
+                  "$id": "50",
+                  "Formula": {
+                    "$id": "51",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('Throttle') >= 100 ) return 'LimeGreen';\r\nif ( $prop('Throttle') > 0 ) return 'DimGray';\r\nreturn 'Black';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "52",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "53",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "54"
+                }
+              },
+              "Height": 122.0,
+              "Left": 62.0,
+              "Opacity": 100.0,
+              "Top": 16.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 14.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "959efa93-278b-4a8f-ab99-cb281db0cfc6",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "ThrottleActuatedRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "55",
+                "BackgroundColor": {
+                  "$id": "56",
+                  "Formula": {
+                    "$id": "57",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Throttle') > 0 ) return '#40B0E0E6' // PowderBlue Alpha=64\r\n//if ( $prop('Throttle') > 0 ) return '#B0FF0000' // Red A176\r\n//if ( $prop('Throttle') > 0 ) return '#80FFFFFF' // White A128\r\n//if ( $prop('Throttle') > 0 ) return '#C0FFFFFF' // White A192\r\n//if ( $prop('Throttle') > 0 ) return 'White'\r\n//if ( $prop('Throttle') > 0 ) return 'Gray'\r\nif ( $prop('Throttle') > 0 ) return 'DimGray'\r\nreturn 'Black'\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "58",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "IsLinearGauge": true,
+              "GaugeAlignment": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "GaugeColor": "#FF32CD32",
+              "Minimum": 0.0,
+              "Maximum": 100.0,
+              "Value": 20.0,
+              "Steps": 0.0,
+              "PAW": 24.0,
+              "Rotation": 270.0,
+              "UseRotation": true,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "59",
+                "BorderColor": "#FFFFA500",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "60"
+                }
+              },
+              "Height": 14.0,
+              "Left": 8.0,
+              "Opacity": 100.0,
+              "Top": 70.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 122.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFA500",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "ec386ce3-a92a-439d-a995-9e514d691398",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "ThrottleLinearGauge",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "61",
+                "Value": {
+                  "$id": "62",
+                  "Formula": {
+                    "$id": "63",
+                    "Interpreter": 1,
+                    "Expression": "return $prop('Throttle')\r\n//return $prop('GameRawData.Data.unfilteredThrottle')"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "90b264c0-eb3c-414d-ba2c-7dce13d9dc99",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "64"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": true,
+  "ShowBoundingRectangles": true,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "65",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "66",
+    "Title": "SHO XD Style Pedals SimHub Overlay",
+    "Author": "Shovas",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "67",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "68",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 90.0,
+    "Height": 150.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "69",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

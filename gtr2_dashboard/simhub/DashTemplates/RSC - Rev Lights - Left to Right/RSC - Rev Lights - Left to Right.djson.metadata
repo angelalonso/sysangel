@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - Rev Lights - Left to Right",
+  "Description": "Rev Lights - Left to Right",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 1280.0,
+  "Height": 164.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

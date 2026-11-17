@@ -1,0 +1,90 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "bd97118e-175b-4f66-bd71-b55d77fdfd5d",
+  "BaseHeight": 400,
+  "BaseWidth": 400,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "SolidColorBrush": {
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "#text": "#FFFF0000"
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 131.0,
+              "Top": 128.0,
+              "Width": 100.0,
+              "Height": 100.0,
+              "Opacity": 100.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "131,128,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": false,
+              "Id": "8e2af0f3-6e3d-4a15-b09d-c3ed95172f6a",
+              "IsSelected": true,
+              "Bindings": {
+                "$id": "6"
+              },
+              "RenderingSkip": 0,
+              "Name": "LinearShadeItem0"
+            }
+          ]
+        },
+        "SelectedItems": {
+          "$type": "System.Linq.Enumerable+WhereEnumerableIterator`1[[SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IGDashItem, SimHub.Plugins]], System.Core",
+          "$values": [
+            {
+              "$ref": "5"
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "5"
+        },
+        "CanOpen": false,
+        "IsFreezed": false,
+        "Id": "bc74bb2d-031f-4751-8009-25cd1030e68e",
+        "Bindings": {
+          "$id": "7"
+        },
+        "RenderingSkip": 0,
+        "Name": "Screen1"
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "8",
+    "$values": []
+  }
+}

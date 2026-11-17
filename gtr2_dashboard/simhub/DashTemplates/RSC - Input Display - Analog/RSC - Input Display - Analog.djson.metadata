@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - Input Display - Analog",
+  "Description": "Input Display - Analog",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 658.0,
+  "Height": 200.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

@@ -11,8 +11,9 @@ make test     # core and filesystem workflow tests (needs a display; use xvfb-ru
 - Assign tracked game files to named full-file versions.
 - Save selected files as line-based patches and apply them to the original file.
 - Add, edit, clone and delete named versions from the Config Versions screen.
-- Pre-launch command lists: add, edit and remove commands; the commands run before the game
-  starts and the status area confirms what ran (and any failure). Details are also in `launcher.log`.
+- Pre-launch command lists: add, edit and remove commands; each command can be blocking or
+  non-blocking so independent commands can run in parallel before the game starts. The status
+  area confirms what ran (and any failure); details are also in `launcher.log`.
 - Store versions, modes, configuration, and logs beside the launcher.
 - Back up each original game file once in `originals/` before changing it.
 - Apply selected resolution and controller modes; controller entries take precedence

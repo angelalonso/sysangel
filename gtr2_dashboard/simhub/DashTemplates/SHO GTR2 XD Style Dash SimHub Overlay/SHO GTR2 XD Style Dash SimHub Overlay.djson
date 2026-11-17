@@ -1,0 +1,724 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "27f2dd99-2a08-49a5-842f-0ae0cd953c26",
+  "BaseHeight": 236,
+  "BaseWidth": 600,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 236.0,
+              "Left": 0.0,
+              "Opacity": 50.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 600.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "529a9ce7-25a5-499a-b0cb-5ed8b8101f45",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "BGRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "11",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "12"
+                }
+              },
+              "Height": 20.0,
+              "Left": 20.0,
+              "Opacity": 100.0,
+              "Top": 20.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 560.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "d5e99333-e854-4a8d-83eb-37640269a09d",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RpmActuatedRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "13",
+                "BackgroundColor": {
+                  "$id": "14",
+                  "Formula": {
+                    "$id": "15",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('EngineIgnitionOn') ) return 'DimGray'\r\n//if ( $prop('EngineStarted') && $prop('Rpms') > 0 ) return 'DimGray'\r\nreturn 'Transparent'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "16",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "IsLinearGauge": true,
+              "GaugeAlignment": 0,
+              "AutoSize": false,
+              "AutoSizeScale": 1.0,
+              "GaugeColor": "#FF32CD32",
+              "Minimum": 0.0,
+              "Maximum": 100.0,
+              "Value": 20.0,
+              "Steps": 0.0,
+              "PAW": 112.0,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "17",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 2,
+                "BorderBottom": 2,
+                "BorderLeft": 2,
+                "BorderRight": 2,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "18",
+                  "BorderColor": {
+                    "$id": "19",
+                    "Formula": {
+                      "$id": "20",
+                      "Interpreter": 1,
+                      "Expression": "//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\n//return 'Orange';\r\nif ( $prop('EngineStarted') && $prop('Rpms') > 0 ) return 'Orange'\r\nreturn 'DimGray'"
+                    },
+                    "Mode": 2,
+                    "TargetPropertyName": "BorderColor"
+                  }
+                }
+              },
+              "Height": 20.0,
+              "Left": 20.0,
+              "Opacity": 100.0,
+              "Top": 20.0,
+              "Visible": true,
+              "BlinkDelay": 750.0,
+              "BlinkEnabled": false,
+              "Width": 560.0,
+              "BorderBottom": 2,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 2,
+              "BorderRight": 2,
+              "BorderTop": 2,
+              "Id": "9c1beaa5-a8b7-4638-8d55-84178cab6799",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RpmLinearGauge",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "21",
+                "Value": {
+                  "$id": "22",
+                  "Formula": {
+                    "$id": "23",
+                    "Interpreter": 1,
+                    "Expression": "//return $prop('MaxSpeedKmh')\r\n//$prop('CarSettings_MaxRPM')\r\n//$prop('CarSettings_RedLineRPM')\r\nreturn $prop('Rpms')"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                },
+                "Maximum": {
+                  "$id": "24",
+                  "Formula": {
+                    "$id": "25",
+                    "Interpreter": 1,
+                    "Expression": "return $prop('CarSettings_MaxRPM')\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Maximum"
+                },
+                "GaugeColor": {
+                  "$id": "26",
+                  "Formula": {
+                    "$id": "27",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\n//$prop('CarSettings_CurrentGearRedLineRPM')\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Red';\r\nif ( $prop('Rpms') > $prop('CarSettings_CurrentGearRedLineRPM') ) return 'Gold';\r\n//if ( $prop('CarSettings_RPMShiftLight2') ) return 'DarkGreen'\r\n//if ( $prop('CarSettings_RPMShiftLight1') ) return 'ForestGreen'\r\nreturn 'LimeGreen';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "GaugeColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "28",
+                  "Formula": {
+                    "$id": "29",
+                    "Interpreter": 1,
+                    "Expression": "// Bug: PitLimiterOn is just enabled/disabled when in pits not when you engage/disengage the pit limiter\r\n//if ( $prop('PitLimiterOn') ) return true;\r\nreturn false;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                }
+              }
+            },
+            {
+              "$id": "30",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.SpeedText, SimHub.Plugins",
+              "Category": "Engine",
+              "Format": "0",
+              "NoDataText": "0",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 0,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF808080",
+              "Font": "Segoe UI",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "TextColor": "#FFFFA500",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseMonospacedText": false,
+              "CharWidth": 40.0,
+              "SpecialCharsWidth": 20.0,
+              "SpecialChars": ".,:;",
+              "TextMask": "",
+              "TextMaskColor": "#FF808080",
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "31",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "32"
+                }
+              },
+              "Height": 100.0,
+              "Left": 35.0,
+              "Opacity": 100.0,
+              "Top": 60.0,
+              "Visible": true,
+              "BlinkDelay": 200.0,
+              "BlinkEnabled": false,
+              "Width": 180.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "2d43c289-74a9-49be-bc70-46e2ec5bd76f",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "SpeedValue",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "33",
+                "TextColor": {
+                  "$id": "34",
+                  "Formula": {
+                    "$id": "35",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\nif ( ! $prop('EngineIgnitionOn') ) return 'DimGray'\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Red';\r\nreturn 'Orange';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "TextColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "36",
+                  "Formula": {
+                    "$id": "37",
+                    "Interpreter": 1,
+                    "Expression": "if ( ! $prop('EngineIgnitionOn') ) return false\r\n//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return true;\r\nreturn false;\r\n\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                }
+              }
+            },
+            {
+              "$id": "38",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.GearText, SimHub.Plugins",
+              "Category": "Engine",
+              "GearBlinkText": false,
+              "GearBlinkDelay": 200,
+              "TextColor": "#FFFFA500",
+              "BackgroundColor": "#00FFFFFF",
+              "GearBackgoundColor": "#00FFFFFF",
+              "IgnoreNeutralGear": false,
+              "GearBlinkBackgroundColor": "#FFFF0000",
+              "GearBlinkBackground": false,
+              "GearTextColor": "#FFFFA500",
+              "GearBlinkTextColor": "#00FFFFFF",
+              "DesignerText": "N",
+              "NoDataText": "N",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 0,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF808080",
+              "Font": "Segoe UI",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 140.0,
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseMonospacedText": false,
+              "CharWidth": 40.0,
+              "SpecialCharsWidth": 20.0,
+              "SpecialChars": ".,:;",
+              "TextMask": "",
+              "TextMaskColor": "#FF808080",
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "39",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "40"
+                }
+              },
+              "Height": 140.0,
+              "Left": 230.0,
+              "Opacity": 100.0,
+              "Top": 40.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 140.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "4847c695-c38e-4b5a-9819-0e25977bf39d",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "GearValue",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "41",
+                "GearBlinkTextColor": {
+                  "$id": "42",
+                  "Formula": {
+                    "$id": "43",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Transparent';\r\nreturn 'Orange';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "GearBlinkTextColor"
+                },
+                "GearTextColor": {
+                  "$id": "44",
+                  "Formula": {
+                    "$id": "45",
+                    "Interpreter": 1,
+                    "Expression": "if ( ! $prop('EngineIgnitionOn') ) return 'DimGray'\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Red';\r\nreturn 'Orange'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "GearTextColor"
+                }
+              }
+            },
+            {
+              "$id": "46",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.RPMText, SimHub.Plugins",
+              "Category": "Engine",
+              "Format": "0",
+              "NoDataText": "0",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 0,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF808080",
+              "Font": "Segoe UI",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "TextColor": "#FFFFA500",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseMonospacedText": false,
+              "CharWidth": 40.0,
+              "SpecialCharsWidth": 20.0,
+              "SpecialChars": ".,:;",
+              "TextMask": "",
+              "TextMaskColor": "#FF808080",
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "47",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "48"
+                }
+              },
+              "Height": 100.0,
+              "Left": 381.0,
+              "Opacity": 100.0,
+              "Top": 60.0,
+              "Visible": true,
+              "BlinkDelay": 200.0,
+              "BlinkEnabled": false,
+              "Width": 180.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "799726ef-bee2-4289-a979-8ffb06921715",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RPMValue",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "49",
+                "TextColor": {
+                  "$id": "50",
+                  "Formula": {
+                    "$id": "51",
+                    "Interpreter": 1,
+                    "Expression": "if ( ! $prop('EngineIgnitionOn') ) return 'DimGray'\r\n//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Red';\r\nreturn 'Orange';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "TextColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "52",
+                  "Formula": {
+                    "$id": "53",
+                    "Interpreter": 1,
+                    "Expression": "if ( ! $prop('EngineIgnitionOn') ) return false\r\n//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return true;\r\nreturn false;\r\n\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                }
+              }
+            },
+            {
+              "$id": "54",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "55",
+                "BorderColor": "#FF696969",
+                "BorderTop": 2,
+                "BorderBottom": 2,
+                "BorderLeft": 2,
+                "BorderRight": 2,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "56",
+                  "BorderColor": {
+                    "$id": "57",
+                    "Formula": {
+                      "$id": "58",
+                      "Interpreter": 1,
+                      "Expression": "if ( ! $prop('EngineIgnitionOn') ) return 'DimGray'\r\n//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\n//if ( $prop('PitLimiterOn') ) return 'Orange';\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Orange';\r\nreturn 'DimGray';"
+                    },
+                    "Mode": 2,
+                    "TargetPropertyName": "BorderColor"
+                  }
+                }
+              },
+              "Height": 20.0,
+              "Left": 20.0,
+              "Opacity": 100.0,
+              "Top": 196.0,
+              "Visible": true,
+              "BlinkDelay": 750.0,
+              "BlinkEnabled": false,
+              "Width": 560.0,
+              "BorderBottom": 2,
+              "BorderColor": "#FF696969",
+              "BorderLeft": 2,
+              "BorderRight": 2,
+              "BorderTop": 2,
+              "Id": "463b2b91-d70c-41cd-850c-c4f5db755cd2",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "ShiftRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "59",
+                "BackgroundColor": {
+                  "$id": "60",
+                  "Formula": {
+                    "$id": "61",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'Red';\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'Red';\r\nreturn 'Transparent';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "62",
+                  "Formula": {
+                    "$id": "63",
+                    "Interpreter": 1,
+                    "Expression": "// Bug: PitLimiterOn is just enabled/disabled when in pits not when you engage/disengage the pit limiter\r\n//if ( $prop('PitLimiterOn') ) return true;\r\nreturn false;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                }
+              }
+            },
+            {
+              "$id": "64",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 0,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF808080",
+              "Font": "Segoe UI",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 30.0,
+              "Text": "SHIFT",
+              "TextColor": "#FF696969",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseMonospacedText": false,
+              "CharWidth": 40.0,
+              "SpecialCharsWidth": 20.0,
+              "SpecialChars": ".,:;",
+              "TextMask": "",
+              "TextMaskColor": "#FF808080",
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "65",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "66"
+                }
+              },
+              "Height": 40.0,
+              "Left": 200.0,
+              "Opacity": 100.0,
+              "Top": 195.0,
+              "Visible": false,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 200.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "4a36cc16-c69e-4a8b-9c69-861fc6f5c544",
+              "IsFreezed": true,
+              "IsSelected": false,
+              "Name": "ShiftText",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "67",
+                "TextColor": {
+                  "$id": "68",
+                  "Formula": {
+                    "$id": "69",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('Rpms') >= $prop('CarSettings_RedLineRPM') ) return 'White';\r\nif ( $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return 'White';\r\nreturn 'DimGray';"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "TextColor"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "062f07c1-f080-4156-873c-98ab4c36bc0b",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "70"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": true,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "71",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "72",
+    "Title": "SHO XD Style Dash SimHub Overlay",
+    "Author": "Shovas",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "73",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "74",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 600.0,
+    "Height": 236.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "75",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

@@ -1,0 +1,20 @@
+{
+  "Category": null,
+  "Title": "SHO XD Style Awareness SimHub Overlay",
+  "Description": null,
+  "Author": "Shovas",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "ShowInTaskBar": true,
+  "Width": 800.0,
+  "Height": 450.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

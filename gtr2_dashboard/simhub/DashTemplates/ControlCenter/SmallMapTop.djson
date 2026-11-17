@@ -1,0 +1,491 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "95967f8a-1dc7-4712-a3f1-93a3216338b2",
+  "BaseHeight": 104,
+  "BaseWidth": 901,
+  "BackgroundColor": "#00FFFFFF",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "_ExposedProperties": {
+          "$id": "4",
+          "Items": {
+            "$id": "5",
+            "$values": []
+          },
+          "Bindings": {
+            "$id": "6"
+          }
+        },
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "7",
+          "$values": [
+            {
+              "$id": "8",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.GradientItem, SimHub.Plugins",
+              "Color": {
+                "SolidColorBrush": {
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "#text": "#FF4D4D4D"
+                }
+              },
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "9",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,15",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 15,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "10"
+                }
+              },
+              "Height": 104.0,
+              "Left": 642.0,
+              "Opacity": 100.0,
+              "Position": "642,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 260.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "7f7d6c55-9033-4065-8909-8e62ac6d0d27",
+              "IsSelected": true,
+              "Name": "MapLapGradient1",
+              "Bindings": {
+                "$id": "11"
+              }
+            },
+            {
+              "$id": "12",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.GradientItem, SimHub.Plugins",
+              "Color": {
+                "SolidColorBrush": {
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "#text": "#FF4D4D4D"
+                }
+              },
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "13",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "14"
+                }
+              },
+              "Height": 87.0,
+              "Left": 249.0,
+              "Opacity": 100.0,
+              "Position": "249,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 393.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "7f7d6c55-9033-4065-8909-8e62ac6d0d27",
+              "IsSelected": true,
+              "Name": "GradientItem111",
+              "Bindings": {
+                "$id": "15"
+              }
+            },
+            {
+              "$id": "16",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.GradientItem, SimHub.Plugins",
+              "Color": {
+                "SolidColorBrush": {
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "#text": "#FF4D4D4D"
+                }
+              },
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "17",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,15,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 15,
+                "Bindings": {
+                  "$id": "18"
+                }
+              },
+              "Height": 104.0,
+              "Left": -2.0,
+              "Opacity": 100.0,
+              "Position": "-2,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 255.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "7f7d6c55-9033-4065-8909-8e62ac6d0d27",
+              "IsSelected": true,
+              "Name": "MapLapGradient",
+              "Bindings": {
+                "$id": "19"
+              }
+            },
+            {
+              "$id": "20",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.CurrentLapTime, SimHub.Plugins",
+              "Category": "Lap",
+              "TimeFormat": "mm\\:ss\\.fff",
+              "EmptyTimeText": "--:--:---",
+              "Font": "Consolas",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 61.0,
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "21",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "22"
+                }
+              },
+              "Height": 89.0,
+              "Left": 281.0,
+              "Opacity": 100.0,
+              "Position": "281,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 338.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 1,
+              "IsFreezed": false,
+              "Id": "a572f3ab-2009-44b0-88b6-261dcf133cc7",
+              "IsSelected": true,
+              "Name": "CurrentLapTime0",
+              "Bindings": {
+                "$id": "23"
+              }
+            },
+            {
+              "$id": "24",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Sui Generis Light",
+              "FontWeight": "Normal",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 50.0,
+              "Text": "12/12",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "25",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "26"
+                }
+              },
+              "Height": 74.0,
+              "Left": 105.0,
+              "Opacity": 100.0,
+              "Position": "105,14.6666666666667,0,0",
+              "Top": 14.666666666666664,
+              "Visible": true,
+              "Width": 145.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "014387c7-4ef6-4cff-9625-1463e5ab35d9",
+              "IsSelected": true,
+              "Name": "TextItem1",
+              "Bindings": {
+                "$id": "27",
+                "Text": {
+                  "$id": "28",
+                  "Formula": {
+                    "$id": "29",
+                    "Expression": "format([DataCorePlugin.GameData.NewData.CurrentLap],'0') + '/' + format([DataCorePlugin.GameData.NewData.TotalLaps],'0')"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            },
+            {
+              "$id": "30",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "Text": "LAP",
+              "TextColor": "#FFB8B8B8",
+              "HorizontalAlignment": 0,
+              "VerticalAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "31",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "32"
+                }
+              },
+              "Height": 56.0,
+              "Left": 29.0,
+              "Opacity": 100.0,
+              "Position": "29,23,0,0",
+              "Top": 23.0,
+              "Visible": true,
+              "Width": 131.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "014387c7-4ef6-4cff-9625-1463e5ab35d9",
+              "IsSelected": true,
+              "Name": "TextItem1111",
+              "Bindings": {
+                "$id": "33"
+              }
+            },
+            {
+              "$id": "34",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "Text": "Pos.",
+              "TextColor": "#FFB8B8B8",
+              "HorizontalAlignment": 0,
+              "VerticalAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "35",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "36"
+                }
+              },
+              "Height": 54.0,
+              "Left": 673.0,
+              "Opacity": 100.0,
+              "Position": "673,23,0,0",
+              "Top": 23.0,
+              "Visible": true,
+              "Width": 93.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "014387c7-4ef6-4cff-9625-1463e5ab35d9",
+              "IsSelected": true,
+              "Name": "PositionLabel",
+              "Bindings": {
+                "$id": "37"
+              }
+            },
+            {
+              "$id": "38",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Sui Generis Light",
+              "FontWeight": "Normal",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 70.0,
+              "Text": "99",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "39",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "40"
+                }
+              },
+              "Height": 100.0,
+              "Left": 738.0,
+              "Opacity": 100.0,
+              "Position": "738,1,0,0",
+              "Top": 1.0,
+              "Visible": true,
+              "Width": 165.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "014387c7-4ef6-4cff-9625-1463e5ab35d9",
+              "IsSelected": true,
+              "Name": "TextItem12",
+              "Bindings": {
+                "$id": "41",
+                "Text": {
+                  "$id": "42",
+                  "Formula": {
+                    "$id": "43",
+                    "Expression": "[DataCorePlugin.GameData.NewData.Position]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "16"
+        },
+        "RenderingSkip": 0,
+        "Id": "b02f0d87-5bf5-4652-95c7-475c0eb4ff09",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "44"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "45",
+    "$values": []
+  }
+}

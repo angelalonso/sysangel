@@ -1,0 +1,312 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "d1dd0ec5-0ed5-4766-8ed1-c103718e13ac",
+  "BaseHeight": 160,
+  "BaseWidth": 160,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 160.0,
+              "Left": 0.0,
+              "Opacity": 50.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 160.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "b27053b7-3333-4211-b98f-ee0dac91bc03",
+              "IsFreezed": true,
+              "IsSelected": false,
+              "Name": "RectangleItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IntegratedLedItem, SimHub.Plugins",
+              "Settings": {
+                "$id": "11",
+                "LastGameProfiles": {
+                  "$id": "12"
+                },
+                "LastUsedProfile": "00000000-0000-0000-0000-000000000000",
+                "GlobalBrightness": 100.0,
+                "SingleColorRenderMode": 0,
+                "AllOnExceptEffects_KeepOffOutOfGame": true,
+                "LightLedsOnBrightnessChange": true,
+                "ForcedLedCount": -1,
+                "Profiles": [
+                  {
+                    "$id": "13",
+                    "TestLedsGameData": {
+                      "$id": "14",
+                      "GearEx": 0,
+                      "FuelMax": 100.0,
+                      "RPMSMax": 10000.0,
+                      "TurboMax": 3.5,
+                      "TurnIndicatorLeftEnabled": false,
+                      "TurnIndicatorRightEnabled": false,
+                      "SessionBestDeltaEx": 0.0,
+                      "AllTimeBestDeltaEx": 0.0,
+                      "DRSEnabled": false,
+                      "DRSAvailable": false,
+                      "MaxRpm": 10000.0,
+                      "GameRunning": false,
+                      "Fuel": 0.0,
+                      "RPMPercent": 0.0,
+                      "RPMRedlineReached": false,
+                      "SpeedKmh": 0.0,
+                      "SpeedMph": 0.0,
+                      "Turbo": 0.0,
+                      "TurboPercent": 0.0,
+                      "Gear": "N",
+                      "IsInPitLane": false,
+                      "PitLimiterOn": false,
+                      "AbsEnabled": false,
+                      "AbsActive": false,
+                      "TCEnabled": false,
+                      "TCActive": false,
+                      "LowFuelAlert": false,
+                      "SpotterCarLeft": false,
+                      "SpotterCarRight": false,
+                      "BlackFlag": false,
+                      "YellowFlag": false,
+                      "WhiteFlag": false,
+                      "BlueFlag": false,
+                      "GreenFlag": false,
+                      "CarStartedTime": "0001-01-01T00:00:00",
+                      "SessionBestDelta": 0.0,
+                      "AllTimeBestDelta": 0.0
+                    },
+                    "LedContainers": [
+                      {
+                        "$id": "15",
+                        "$type": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Groups.CustomConditionalGroupContainer, SimHub.Plugins",
+                        "TriggerFormula": {
+                          "$id": "16",
+                          "Interpreter": 1,
+                          "Expression": "if ($prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM') ) return false\r\nif ( $prop('Rpms') > $prop('CarSettings_CurrentGearRedLineRPM') ) return true\r\nreturn false\r\n"
+                        },
+                        "ClearBackgroundWhenActive": false,
+                        "LedContainers": [
+                          {
+                            "$id": "17",
+                            "$type": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Flags.RedlineReachedContainer, SimHub.Plugins",
+                            "LedCount": 1,
+                            "Color": "Orange",
+                            "BlinkEnabled": false,
+                            "BlinkDelay": 500,
+                            "DualBlinkTimingEnabled": false,
+                            "OffDelay": 750,
+                            "OnDelay": 125,
+                            "StartPosition": 1,
+                            "ContainerId": "db5ee02b-7026-49c6-b134-70ddbd099d57",
+                            "ContainerType": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Flags.RedlineReachedContainer",
+                            "Description": "Generates a static color when the redline is reached",
+                            "IsEnabled": true
+                          }
+                        ],
+                        "StackLeftToRight": false,
+                        "StartPosition": 1,
+                        "ContainerId": "d073f427-44d3-4d05-b281-e4b355178a4c",
+                        "ContainerType": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Groups.CustomConditionalGroupContainer",
+                        "Description": "Enable content based on a custom formula",
+                        "IsEnabled": true
+                      },
+                      {
+                        "$id": "18",
+                        "$type": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Groups.CustomConditionalGroupContainer, SimHub.Plugins",
+                        "TriggerFormula": {
+                          "$id": "19",
+                          "Interpreter": 1,
+                          "Expression": "return $prop('Rpms') * 1.0234375 >= $prop('CarSettings_MaxRPM')"
+                        },
+                        "ClearBackgroundWhenActive": false,
+                        "LedContainers": [
+                          {
+                            "$id": "20",
+                            "$type": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Flags.RedlineReachedContainer, SimHub.Plugins",
+                            "LedCount": 1,
+                            "Color": "Red",
+                            "BlinkEnabled": true,
+                            "BlinkDelay": 100,
+                            "DualBlinkTimingEnabled": false,
+                            "OffDelay": 750,
+                            "OnDelay": 125,
+                            "StartPosition": 1,
+                            "ContainerId": "db5ee02b-7026-49c6-b134-70ddbd099d57",
+                            "ContainerType": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Flags.RedlineReachedContainer",
+                            "Description": "Generates a static color when the redline is reached",
+                            "IsEnabled": true
+                          }
+                        ],
+                        "StackLeftToRight": false,
+                        "StartPosition": 1,
+                        "ContainerId": "82e8bfa4-8e5d-4ee5-b755-68713778bb1e",
+                        "ContainerType": "SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Groups.CustomConditionalGroupContainer",
+                        "Description": "Enable content based on a custom formula copy",
+                        "IsEnabled": true
+                      }
+                    ],
+                    "GlobalBrightness": 50.0,
+                    "UseProfileBrightness": false,
+                    "Error": "",
+                    "LastLoaded": "0001-01-01T00:00:00",
+                    "Name": "Default Profile",
+                    "ProfileId": "d404786b-45d3-47fc-a69e-c254d94a3ed1"
+                  }
+                ]
+              },
+              "LedCount": 1,
+              "Height": 160.0,
+              "Width": 160.0,
+              "MinimumLedSpacing": 5,
+              "Vertical": false,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "21",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "22"
+                }
+              },
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 750.0,
+              "BlinkEnabled": false,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "8d93bf36-1b9d-4a73-89c5-3a1b74dee2a5",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "IntegratedLedItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "23"
+              }
+            }
+          ]
+        },
+        "Id": "82d7aab8-e6f2-42c8-aaf5-1c77f2f25508",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "24"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": false,
+  "HideLabels": true,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "25",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "26",
+    "Title": "SHO XD Style Shift Light SimHub Overlay",
+    "Author": "Shovas",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "27",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "28",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 160.0,
+    "Height": 160.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "29",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

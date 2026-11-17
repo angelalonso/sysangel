@@ -1,0 +1,103 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "b126aa9f-be73-4e75-ba5a-5b1db66da1c6",
+  "BaseHeight": 79,
+  "BaseWidth": 170,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.SpeedText, SimHub.Plugins",
+              "Category": "Engine",
+              "UseMph": false,
+              "Format": "0",
+              "NoDataText": "0",
+              "Font": "Sui Generis Light",
+              "FontWeight": "Normal",
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 0.0,
+              "Top": 0.0,
+              "Width": 170.0,
+              "Height": 79.0,
+              "Opacity": 100.0,
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "6",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "7"
+                }
+              },
+              "Position": "0,0,0,0",
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "c649d684-0f9b-43f7-9045-c48648478bbb",
+              "IsSelected": true,
+              "Name": "SpeedText0",
+              "Bindings": {
+                "$id": "8"
+              }
+            }
+          ]
+        },
+        "SelectedItems": {
+          "$type": "System.Linq.Enumerable+WhereEnumerableIterator`1[[SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IGDashItem, SimHub.Plugins]], System.Core",
+          "$values": [
+            {
+              "$ref": "5"
+            }
+          ]
+        },
+        "RenderingSkip": 0,
+        "CanOpen": false,
+        "Id": "2fce2682-36a1-4988-9c17-177c83a4ab5d",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "9"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "10",
+    "$values": []
+  }
+}

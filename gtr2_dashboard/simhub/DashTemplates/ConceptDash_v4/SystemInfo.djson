@@ -1,0 +1,43 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "0b1ce8d3-02a0-4019-b243-c76dfb077855",
+  "BaseHeight": 400,
+  "BaseWidth": 400,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": []
+        },
+        "SelectedItems": {
+          "$type": "System.Linq.Enumerable+WhereEnumerableIterator`1[[SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IGDashItem, SimHub.Plugins]], System.Core",
+          "$values": []
+        },
+        "CanOpen": false,
+        "IsFreezed": false,
+        "Id": "8a0708f1-992d-4210-b917-aa386060d354",
+        "Bindings": {
+          "$id": "5"
+        },
+        "RenderingSkip": 0,
+        "Name": "Screen1"
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "6",
+    "$values": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "Category": null,
+  "Title": "SHO XD Style Awareness Left SimHub Overlay",
+  "Description": "",
+  "Author": "Shovas",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "ShowInTaskBar": true,
+  "Width": 25.0,
+  "Height": 600.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

@@ -1,0 +1,21 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - Twitch Chat",
+  "Description": "Twitch Chat",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [
+    0
+  ],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 310.0,
+  "Height": 360.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

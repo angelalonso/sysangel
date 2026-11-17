@@ -1,0 +1,229 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "42f4c66f-ac9f-43df-bf01-24a7ce3c1007",
+  "BaseHeight": 100,
+  "BaseWidth": 100,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.EllipseItem, SimHub.Plugins",
+              "FillColor": "#FF808080",
+              "EllipseColor": "#FFFFFFFF",
+              "EllipseThickness": 5.0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "6",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "7"
+                }
+              },
+              "Height": 60.0,
+              "Left": 20.0,
+              "Opacity": 100.0,
+              "Top": 20.0,
+              "Visible": true,
+              "Width": 60.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ea051d79-3f35-44b5-8afb-8062daf1f54b",
+              "IsSelected": false,
+              "Name": "EllipseItem0",
+              "Sid": 0,
+              "Bindings": {
+                "$id": "8"
+              }
+            },
+            {
+              "$id": "9",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.EllipseItem, SimHub.Plugins",
+              "FillColor": "#FF00BFFF",
+              "EllipseColor": "#FFFFFFFF",
+              "EllipseThickness": 0.0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 32.0,
+              "BorderStyle": {
+                "$id": "10",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "11"
+                }
+              },
+              "Height": 80.0,
+              "Left": 10.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": false,
+              "Width": 80.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ea051d79-3f35-44b5-8afb-8062daf1f54b",
+              "IsSelected": false,
+              "Name": "EllipseItem01",
+              "Sid": 1,
+              "Bindings": {
+                "$id": "12"
+              }
+            },
+            {
+              "$id": "13",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.EllipseItem, SimHub.Plugins",
+              "FillColor": "#FFF83231",
+              "EllipseColor": "#FFFFFFFF",
+              "EllipseThickness": 0.0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 32.0,
+              "BorderStyle": {
+                "$id": "14",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "15"
+                }
+              },
+              "Height": 80.0,
+              "Left": 10.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": false,
+              "Width": 80.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ea051d79-3f35-44b5-8afb-8062daf1f54b",
+              "IsSelected": false,
+              "Name": "EllipseItem011",
+              "Sid": 2,
+              "Bindings": {
+                "$id": "16"
+              }
+            },
+            {
+              "$id": "17",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.EllipseItem, SimHub.Plugins",
+              "FillColor": "#FFFF9944",
+              "EllipseColor": "#FFFFFFFF",
+              "EllipseThickness": 0.0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 32.0,
+              "BorderStyle": {
+                "$id": "18",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "19"
+                }
+              },
+              "Height": 80.0,
+              "Left": 10.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": true,
+              "Width": 80.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ea051d79-3f35-44b5-8afb-8062daf1f54b",
+              "IsSelected": true,
+              "Name": "EllipseItem0111",
+              "Sid": 2,
+              "Bindings": {
+                "$id": "20"
+              }
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "17"
+        },
+        "RenderingSkip": 0,
+        "Id": "2c264bda-7bc5-402a-8918-2dd840518cf7",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "21"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "22",
+    "$values": []
+  }
+}

@@ -1,0 +1,523 @@
+{
+  "Version": 2,
+  "Id": "7a98f961-d9a0-4c83-9b65-922112b9d052",
+  "BaseHeight": 720,
+  "BaseWidth": 1280,
+  "BackgroundColor": "#FF000000",
+  "Screens": [
+    {
+      "InGameScreen": true,
+      "IdleScreen": true,
+      "PitScreen": false,
+      "ScreenId": "a531933b-c0a1-4a6c-9864-782407af59c4",
+      "ForegroundLayerScreenId": "a16f6e53-d3e9-4743-92ad-ae3e48accd11",
+      "BackgroundLayerScreenId": "a16f6e53-d3e9-4743-92ad-ae3e48accd11",
+      "IsForegroundLayer": false,
+      "IsBackgroundLayer": false,
+      "BackgroundColor": "#FF000000",
+      "IsSelected": true,
+      "Items": [
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Height": 190.0,
+          "Width": 550.0,
+          "BackgroundColor": "#00FFFFFF",
+          "BorderStyle": {},
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingTop": 10,
+                "PaddingBottom": 10,
+                "PaddingLeft": 10,
+                "PaddingRight": 10
+              },
+              "FontStyle": "Normal",
+              "FontSize": 117.0,
+              "Text": "-:--.---",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 2,
+              "UseMonospacedText": true,
+              "CharWidth": 70.0,
+              "SpecialCharsWidth": 30.0,
+              "OriginalText": "Text",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {},
+              "Height": 190.0,
+              "Left": 690.0,
+              "Top": 250.0,
+              "Visible": true,
+              "Width": 550.0,
+              "Behavior": {
+                "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.TimespanText.Imp.LastLapTime, SimHub.Plugins",
+                "Settings": {
+                  "AlwaysAppendSign": false,
+                  "SecondsDecimals": 3,
+                  "ForceMinutes": true,
+                  "TimeFormat": 1,
+                  "AllowSecondsDecimals": true,
+                  "IsSectorBehavior": false
+                }
+              },
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "Last lap time",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingRight": 21
+              },
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "Text": "Last lap",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {
+                "BorderBottom": 3
+              },
+              "Height": 50.0,
+              "Left": 690.0,
+              "Top": 250.0,
+              "Visible": true,
+              "Width": 550.0,
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "TextItem2",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            }
+          ],
+          "Group": true,
+          "Left": 690.0,
+          "Top": 250.0,
+          "Visible": true,
+          "Id": "2937dcfc-a116-4134-8b9d-8909f16d2e88",
+          "Name": "LastLapTime",
+          "Sid": 0
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Height": 190.0,
+          "Width": 550.0,
+          "BackgroundColor": "#00FFFFFF",
+          "BorderStyle": {},
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingTop": 10,
+                "PaddingBottom": 10,
+                "PaddingLeft": 10,
+                "PaddingRight": 10
+              },
+              "FontStyle": "Normal",
+              "FontSize": 117.0,
+              "Text": "-:--.---",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 2,
+              "UseMonospacedText": true,
+              "CharWidth": 70.0,
+              "SpecialCharsWidth": 30.0,
+              "OriginalText": "Text",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {},
+              "Height": 190.0,
+              "Left": 690.0,
+              "Top": 450.0,
+              "Visible": true,
+              "Width": 550.0,
+              "Behavior": {
+                "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.TimespanText.Imp.SessionBestTime, SimHub.Plugins",
+                "Settings": {
+                  "AlwaysAppendSign": false,
+                  "SecondsDecimals": 3,
+                  "ForceMinutes": true,
+                  "TimeFormat": 1,
+                  "AllowSecondsDecimals": true,
+                  "IsSectorBehavior": false
+                }
+              },
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "Session best time",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingRight": 21
+              },
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "Text": "Session Best",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {
+                "BorderBottom": 3
+              },
+              "Height": 50.0,
+              "Left": 690.0,
+              "Top": 450.0,
+              "Visible": true,
+              "Width": 550.0,
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "TextItem",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            }
+          ],
+          "Group": true,
+          "Left": 690.0,
+          "Top": 450.0,
+          "Visible": true,
+          "Id": "af76d48d-0d0b-4bba-87e8-5b4d5d4b461d",
+          "IsSelected": true,
+          "Name": "SessionBestTime",
+          "Sid": 0
+        }
+      ],
+      "Id": "6a88c47c-42ac-404b-ae93-591e12ae9821",
+      "Name": "MainScreen",
+      "Sid": 0
+    },
+    {
+      "InGameScreen": false,
+      "IdleScreen": false,
+      "PitScreen": false,
+      "ScreenId": "a16f6e53-d3e9-4743-92ad-ae3e48accd11",
+      "IsForegroundLayer": false,
+      "IsBackgroundLayer": true,
+      "BackgroundColor": "#FF000000",
+      "Items": [
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.GradientItem, SimHub.Plugins",
+          "Color": {
+            "LinearGradientBrush": {
+              "@StartPoint": "0.5,0",
+              "@EndPoint": "1,0.5",
+              "@MappingMode": "RelativeToBoundingBox",
+              "@SpreadMethod": "Pad",
+              "@Opacity": "1",
+              "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+              "LinearGradientBrush.GradientStops": {
+                "GradientStop": [
+                  {
+                    "@Color": "#FF000000",
+                    "@Offset": "0"
+                  },
+                  {
+                    "@Color": "#FF333333",
+                    "@Offset": "1"
+                  }
+                ]
+              }
+            }
+          },
+          "BackgroundColor": "#00FFFFFF",
+          "BorderStyle": {},
+          "Height": 730.0,
+          "Left": 0.0,
+          "Top": -10.0,
+          "Visible": true,
+          "Width": 1280.0,
+          "Id": "c3d97763-2dbb-4248-a2b6-ae63debe3498",
+          "Name": "GradientItem",
+          "Sid": 0
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Height": 620.0,
+          "Width": 500.0,
+          "BackgroundColor": "#00FFFFFF",
+          "BorderStyle": {},
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {},
+              "FontStyle": "Normal",
+              "FontSize": 567.0,
+              "Text": "N",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "OriginalText": "Text",
+              "OriginalTextColor": "#FFFFFFFF",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {},
+              "Height": 480.0,
+              "Left": 170.0,
+              "Top": 20.0,
+              "Visible": true,
+              "Width": 500.0,
+              "Behavior": {
+                "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.CurrentGear.CurrentGearBehavior, SimHub.Plugins",
+                "Settings": {
+                  "UseTextColorFlash": true,
+                  "DefaultTextColor": "#FFFFFFFF",
+                  "FlashTextColor": "#FFA85454",
+                  "UseBackgroundFlashColor": false,
+                  "DefaultBackgroundColor": "#00FFFFFF",
+                  "FlashBackgroundColor": "#FFDB7093",
+                  "FlashInterval": 100
+                }
+              },
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "Current Gear",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingTop": 10,
+                "PaddingBottom": 10,
+                "PaddingLeft": 10,
+                "PaddingRight": 10
+              },
+              "FontStyle": "Normal",
+              "FontSize": 117.0,
+              "Text": "0",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 2,
+              "UseMonospacedText": true,
+              "CharWidth": 70.0,
+              "SpecialCharsWidth": 30.0,
+              "OriginalText": "Text",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {},
+              "Height": 170.0,
+              "Left": 170.0,
+              "Top": 470.0,
+              "Visible": true,
+              "Width": 500.0,
+              "Behavior": {
+                "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.DoubleText.Imp.Speed, SimHub.Plugins",
+                "Settings": {
+                  "Decimals": 0,
+                  "DefaultValue": 0.0,
+                  "AppendUnit": false,
+                  "AlwaysAddSign": false
+                }
+              },
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "Speed",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            }
+          ],
+          "Group": true,
+          "Left": 170.0,
+          "Top": 20.0,
+          "Visible": true,
+          "Id": "d2a1ad2c-e391-4e74-ac8a-0b0e800a4c76",
+          "Name": "GearAndSpeed",
+          "Sid": 0
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Height": 190.0,
+          "Width": 550.0,
+          "BackgroundColor": "#00FFFFFF",
+          "BorderStyle": {},
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingTop": 10,
+                "PaddingBottom": 10,
+                "PaddingLeft": 10,
+                "PaddingRight": 10
+              },
+              "FontStyle": "Normal",
+              "FontSize": 117.0,
+              "Text": "-:--.-",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 2,
+              "UseMonospacedText": true,
+              "CharWidth": 70.0,
+              "SpecialCharsWidth": 30.0,
+              "OriginalText": "Text",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {},
+              "Height": 190.0,
+              "Left": 690.0,
+              "Top": 50.0,
+              "Visible": true,
+              "Width": 550.0,
+              "Behavior": {
+                "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.TimespanText.Imp.LapTime, SimHub.Plugins",
+                "Settings": {
+                  "AlwaysAppendSign": false,
+                  "SecondsDecimals": 1,
+                  "ForceMinutes": true,
+                  "TimeFormat": 1,
+                  "AllowSecondsDecimals": true,
+                  "IsSectorBehavior": false
+                }
+              },
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "Current lap time",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "RussellSquare",
+              "FontWeight": "Normal",
+              "TextPadding": {
+                "PaddingRight": 21
+              },
+              "FontStyle": "Normal",
+              "FontSize": 40.0,
+              "Text": "Lap time",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {
+                "BorderBottom": 3
+              },
+              "Height": 50.0,
+              "Left": 690.0,
+              "Top": 50.0,
+              "Visible": true,
+              "Width": 550.0,
+              "Id": "5024105a-c395-411d-b8a6-3cf0eefc7714",
+              "Name": "TextItem3",
+              "OriginalName": "TextItem",
+              "Sid": 0
+            }
+          ],
+          "Group": true,
+          "Left": 690.0,
+          "Top": 50.0,
+          "Visible": true,
+          "Id": "6661ab2f-3129-4042-a9a7-fcbd6f86f9a1",
+          "Name": "LapTime",
+          "Sid": 0
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.VerticalLinearGaugeItem, SimHub.Plugins",
+          "GaugeAlignment": 2,
+          "AutoSize": false,
+          "AutoSizeScale": 1.0,
+          "GaugeColor": "#FFFFFFFF",
+          "Minimum": 0.0,
+          "Maximum": 100.0,
+          "Value": 0.0,
+          "Steps": 0.0,
+          "PAW": 0.0,
+          "BackgroundColor": "#FF353535",
+          "BorderStyle": {},
+          "Height": 590.0,
+          "Left": 90.0,
+          "Top": 20.0,
+          "Visible": true,
+          "Width": 80.0,
+          "Behavior": {
+            "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.Gauges.RPM, SimHub.Plugins"
+          },
+          "Id": "d3112e22-c866-4558-83a8-df9a723236a1",
+          "IsSelected": true,
+          "Name": "RPMs",
+          "OriginalName": "VerticalLinearGaugeItem",
+          "Sid": 0
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+          "IsLinearGauge": true,
+          "GaugeAlignment": 0,
+          "AutoSize": false,
+          "AutoSizeScale": 1.0,
+          "GaugeColor": "#FFFFFFFF",
+          "Minimum": 0.0,
+          "Maximum": 100.0,
+          "Value": 0.0,
+          "Steps": 0.0,
+          "PAW": 0.0,
+          "BackgroundColor": "#FF737373",
+          "BorderStyle": {},
+          "Height": 60.0,
+          "Left": 0.0,
+          "Opacity": 10.0,
+          "Top": 660.0,
+          "Visible": true,
+          "Width": 1280.0,
+          "Behavior": {
+            "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.Gauges.LapPercentage, SimHub.Plugins"
+          },
+          "Id": "25a4a5ca-ecbb-46a1-b6aa-8338a5aea278",
+          "Name": "Lap percentage",
+          "OriginalName": "LinearGaugeItem",
+          "Sid": 0
+        }
+      ],
+      "Id": "0024a08c-452e-443b-a167-5fc89b850cba",
+      "Name": "BaScreen",
+      "Sid": 0
+    }
+  ],
+  "SnapToGrid": true,
+  "HideLabels": false,
+  "ShowForeground": true,
+  "ForegroundOpacity": 50.0,
+  "ShowBackground": true,
+  "BackgroundOpacity": 50.0,
+  "ShowBoundingRectangles": true,
+  "GridSize": 10,
+  "Images": [],
+  "Metadata": {
+    "ScreenCount": 2.0,
+    "InGameScreensIndexs": [
+      0
+    ],
+    "IdleScreensIndexs": [
+      0
+    ],
+    "MainPreviewIndex": 0,
+    "IsOverlay": false,
+    "ShowInTaskBar": true,
+    "Width": 1280.0,
+    "Height": 720.0,
+    "OverlaySizeWarning": true,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": []
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": false,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

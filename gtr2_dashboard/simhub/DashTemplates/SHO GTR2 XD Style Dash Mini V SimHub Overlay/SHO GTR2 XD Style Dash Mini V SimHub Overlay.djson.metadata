@@ -1,0 +1,20 @@
+{
+  "Category": null,
+  "Title": "SHO XD Style Dash Mini V SimHub Overlay",
+  "Description": null,
+  "Author": "Shovas",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "ShowInTaskBar": true,
+  "Width": 240.0,
+  "Height": 240.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

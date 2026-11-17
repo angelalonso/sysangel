@@ -1,0 +1,477 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "c79f6c93-1a16-4597-920f-d99473ffc170",
+  "BaseHeight": 100,
+  "BaseWidth": 100,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 100.0,
+              "Left": 0.0,
+              "Opacity": 50.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 100.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "02b7466d-a513-457b-8955-edef1619f2c1",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RectangleItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RadarItem, SimHub.Plugins",
+              "WebVisible": true,
+              "PlayerStyle": {
+                "$id": "11",
+                "LabelFont": "Segoe UI",
+                "LabelFontSize": 14.0,
+                "LabelColor": "#FF000000",
+                "DotColor": "#FFF0E68C",
+                "DotBorderThickness": 0.0,
+                "DotBordercolor": "#FFFFFFFF",
+                "DotRadius": 20.0,
+                "Bindings": {
+                  "$id": "12"
+                }
+              },
+              "OpponentStyle": {
+                "$id": "13",
+                "LabelFont": "Segoe UI",
+                "LabelFontSize": 14.0,
+                "LabelColor": "#FFFFFFFF",
+                "DotColor": "#FFFFA500",
+                "DotBorderThickness": 0.0,
+                "DotBordercolor": "#FFFFFFFF",
+                "DotRadius": 30.0,
+                "Bindings": {
+                  "$id": "14"
+                }
+              },
+              "UseSmoothedPlayerAngle": true,
+              "Scale": 0.5,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "15",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 10,
+                "RadiusTopRight": 10,
+                "RadiusBottomLeft": 10,
+                "RadiusBottomRight": 10,
+                "Bindings": {
+                  "$id": "16"
+                }
+              },
+              "Height": 100.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 100.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "a190bc5a-5af7-4767-be5b-f0883d2a2b71",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "RadarItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "17"
+              }
+            },
+            {
+              "$id": "18",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "19",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "20"
+                }
+              },
+              "Height": 4.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": false,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 100.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "5339e971-4aa8-4801-b1af-766341c84446",
+              "IsFreezed": true,
+              "IsSelected": false,
+              "Name": "FrontIndicatorRect",
+              "RenderingSkip": 60,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "21",
+                "BackgroundColor": {
+                  "$id": "22",
+                  "Formula": {
+                    "$id": "23",
+                    "Interpreter": 1,
+                    "Expression": "gap = Math.abs($prop('PersistantTrackerPlugin.DriverAhead_00_Gap'))\r\nif ( gap < 1 ) return 'Red'\r\nreturn 'Transparent'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                }
+              }
+            },
+            {
+              "$id": "24",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "25",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "26"
+                }
+              },
+              "Height": 100.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 4.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "5339e971-4aa8-4801-b1af-766341c84446",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "LeftIndicatorRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "27",
+                "BackgroundColor": {
+                  "$id": "28",
+                  "Formula": {
+                    "$id": "29",
+                    "Interpreter": 1,
+                    "Expression": "angle = $prop('SpotterCarLeftAngle')\r\nif ( angle ) return 'Red'\r\nreturn 'Transparent'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "30",
+                  "Formula": {
+                    "$id": "31",
+                    "Interpreter": 1,
+                    "Expression": "angle = $prop('SpotterCarLeftAngle')\r\nif ( angle ) return true\r\nreturn false"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                }
+              }
+            },
+            {
+              "$id": "32",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "33",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "34"
+                }
+              },
+              "Height": 100.0,
+              "Left": 96.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 4.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "5339e971-4aa8-4801-b1af-766341c84446",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RightIndicatorRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "35",
+                "BackgroundColor": {
+                  "$id": "36",
+                  "Formula": {
+                    "$id": "37",
+                    "Interpreter": 1,
+                    "Expression": "angle = $prop('SpotterCarRightAngle')\r\nif ( angle ) return 'Red'\r\nreturn 'Transparent'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "38",
+                  "Formula": {
+                    "$id": "39",
+                    "Interpreter": 1,
+                    "Expression": "angle = $prop('SpotterCarRightAngle')\r\nif ( angle ) return true\r\nreturn false"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                }
+              }
+            },
+            {
+              "$id": "40",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "41",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "42"
+                }
+              },
+              "Height": 4.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 96.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 100.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "5339e971-4aa8-4801-b1af-766341c84446",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RearIndicatorRect1",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "43",
+                "BackgroundColor": {
+                  "$id": "44",
+                  "Formula": {
+                    "$id": "45",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('SpotterCarLeftAngle') ) return false // Covered by left/right indicators\r\n//if ( $prop('SpotterCarRightAngle') ) return false // Covered by left/right indicators\r\n\r\ngap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\nif ( gap > 0.2 && gap < 0.4 ) return 'Red'\r\nif ( gap > 0.4 && gap < 0.8 ) return 'Orange'\r\nif ( gap > 0.8 && gap < 1.2 ) return 'White'\r\nreturn 'Transparent'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "46",
+                  "Formula": {
+                    "$id": "47",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('SpotterCarLeftAngle') ) return false // Covered by left/right indicators\r\nif ( $prop('SpotterCarRightAngle') ) return false // Covered by left/right indicators\r\n\r\ngap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\nif ( gap > 0.2 && gap < 1.2 ) return true\r\nreturn false"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                },
+                "BlinkDelay": {
+                  "$id": "48",
+                  "Formula": {
+                    "$id": "49",
+                    "Interpreter": 1,
+                    "Expression": "gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\nif ( gap > 0.2 && gap < 0.4 ) return 250\r\nif ( gap > 0.4 && gap < 0.8 ) return 500\r\nif ( gap > 0.8 && gap < 1.2 ) return 750\r\nreturn 250"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkDelay"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "7436c509-848c-4be3-9e49-350cd7690cb1",
+        "Name": "Radar",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "50"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": true,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "51",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "52",
+    "Title": "SHO XD Style Radar SimHub Overlay",
+    "Author": "Shovas (SimHub Original Design)",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "53",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "54",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 100.0,
+    "Height": 100.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "55",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

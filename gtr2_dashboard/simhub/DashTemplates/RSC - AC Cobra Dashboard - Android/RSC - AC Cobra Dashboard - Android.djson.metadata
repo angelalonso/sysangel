@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - AC Cobra Dashboard - Android",
+  "Description": "AC Cobra  Dashboard - Android",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": false,
+  "Width": 1280.0,
+  "Height": 500.0,
+  "OverlaySizeWarning": true,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

@@ -1,0 +1,19 @@
+{
+  "Category": null,
+  "Title": "SHO XD Style Map SimHumb Overlay",
+  "Description": null,
+  "Author": "Shovas",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 300.0,
+  "Height": 300.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

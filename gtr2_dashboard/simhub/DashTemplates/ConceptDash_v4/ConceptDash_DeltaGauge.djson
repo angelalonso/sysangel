@@ -1,0 +1,129 @@
+{
+  "$id": "1",
+  "Id": "3117fe49-cd29-4cc4-b89d-63dfee045742",
+  "BaseHeight": 40,
+  "BaseWidth": 400,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "BackgroundColor": "#FF000000",
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ProgressBarItem, SimHub.Plugins",
+              "AutoSize": false,
+              "AutoSizeScale": 1.0,
+              "ProgressBarColor": "#FFFF6347",
+              "Minimum": 0.0,
+              "Maximum": 1.0,
+              "Value": 0.55,
+              "Steps": 0.0,
+              "ProgressBarAlignment": 2,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 0.0,
+              "Top": 1.0,
+              "Width": 200.0,
+              "Height": 40.0,
+              "EnableReflection": false,
+              "ReflectionTranslate": 1.0,
+              "Opacity": 1.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 5,
+              "BorderBottom": 5,
+              "BorderLeft": 5,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "0,1,0,0",
+              "Rotation": 0.0,
+              "Id": "2b1ad03b-923e-4fd0-a894-ef097140acc2",
+              "IsSelected": true,
+              "Bindings": {
+                "$id": "6",
+                "Value": {
+                  "$id": "7",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "8",
+                    "Expression": "isnull([persistanttrackerplugin.AllTimeBestLiveDeltaProgressSeconds],0)"
+                  }
+                }
+              },
+              "RenderingSkip": 0,
+              "Name": "ProgressBarItem0"
+            },
+            {
+              "$id": "9",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ProgressBarItem, SimHub.Plugins",
+              "AutoSize": false,
+              "AutoSizeScale": 1.0,
+              "ProgressBarColor": "#FF1E90FF",
+              "Minimum": 0.0,
+              "Maximum": -1.0,
+              "Value": -1.0,
+              "Steps": 0.0,
+              "ProgressBarAlignment": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 200.0,
+              "Top": 1.0,
+              "Width": 200.0,
+              "Height": 40.0,
+              "EnableReflection": false,
+              "ReflectionTranslate": 1.0,
+              "Opacity": 1.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 5,
+              "BorderBottom": 5,
+              "BorderLeft": 0,
+              "BorderRight": 5,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "200,1,0,0",
+              "Rotation": 0.0,
+              "Id": "2b1ad03b-923e-4fd0-a894-ef097140acc2",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "10",
+                "Value": {
+                  "$id": "11",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "12",
+                    "Expression": "isnull([persistanttrackerplugin.AllTimeBestLiveDeltaProgressSeconds],0)"
+                  }
+                }
+              },
+              "RenderingSkip": 0,
+              "Name": "ProgressBarItem0"
+            }
+          ]
+        },
+        "IsSelected": false,
+        "SelectedItem": {
+          "$ref": "5"
+        },
+        "Id": "4175b546-e0e7-4e5a-ab3d-540eaa2d5048",
+        "Bindings": {
+          "$id": "13"
+        },
+        "RenderingSkip": 0
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "14",
+    "$values": []
+  }
+}

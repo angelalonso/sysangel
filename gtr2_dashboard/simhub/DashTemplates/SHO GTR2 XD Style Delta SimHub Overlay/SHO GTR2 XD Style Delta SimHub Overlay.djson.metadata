@@ -1,0 +1,19 @@
+{
+  "Category": null,
+  "Title": "SHO XD Style Delta SimHub Overlay",
+  "Description": "",
+  "Author": "Shovas (Original Design Kane - RF2 - DeltaBar)",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 670.0,
+  "Height": 90.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

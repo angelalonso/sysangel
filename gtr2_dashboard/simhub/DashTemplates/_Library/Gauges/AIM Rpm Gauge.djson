@@ -1,0 +1,126 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "e35ed485-1236-48ee-ab97-bc1c7bd42681",
+  "BaseHeight": 118,
+  "BaseWidth": 980,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "BackgroundImage": "None",
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "GaugeImage": "AIMPROGRESSBAR",
+              "GaugeColor": "#00FFFFFF",
+              "Minimum": 0.0,
+              "Maximum": 100.0,
+              "Value": 100.0,
+              "Steps": 98.0,
+              "PAW": 980.0,
+              "GaugeAlignment": 0,
+              "Rotation": 0.0,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "6",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "7"
+                }
+              },
+              "Height": 118.01646971073247,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 980.13678234337135,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "cb711ac6-1655-40fe-937e-11429744cb9e",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RPMGauge",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "8",
+                "Value": {
+                  "$id": "9",
+                  "Formula": {
+                    "$id": "10",
+                    "Interpreter": 0,
+                    "Expression": "[SerialDashPlugin.ComputedRPMPercent]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "3b53198f-5cc7-4900-b029-f876f861d775",
+        "Name": "Screen1",
+        "RenderingSkip": 0,
+        "Sid": 0,
+        "Bindings": {
+          "$id": "11"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "12",
+    "$values": [
+      {
+        "$id": "13",
+        "Name": "AIMPROGRESSBAR",
+        "Extension": ".png",
+        "Data": "iVBORw0KGgoAAAANSUhEUgAAA9QAAAB2CAYAAAAp6Nv8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMYSURBVHhe7dmxjcMwFAVByYWw/7rYiA0CgoKLrIUBBjeTiMELf7LQOcZ4H3/MOc/rebOzW+zsFju7xc5usbNb7OwWO7vlv+1e1xcAAAB4QFADAABAIKgBAAAgENQAAAAQCGoAAAAIBDUAAAAEghoAAAACQQ0AAACBoAYAAIBAUAMAAEAgqAEAACAQ1AAAABAIagAAAAgENQAAAASCGgAAAAJBDQAAAIGgBgAAgEBQAwAAQCCoAQAAIBDUAAAAEAhqAAAACAQ1AAAABIIaAAAAAkENAAAAgaAGAACAQFADAABAIKgBAAAgENQAAAAQCGoAAAAIBDUAAAAEghoAAAACQQ0AAACBoAYAAIBAUAMAAEAgqAEAACAQ1AAAABAIagAAAAgENQAAAASCGgAAAAJBDQAAAIGgBgAAgEBQAwAAQCCoAQAAIBDUAAAAEAhqAAAACAQ1AAAABIIaAAAAAkENAAAAgaAGAACAQFADAABAIKgBAAAgENQAAAAQCGoAAAAIBDUAAAAEghoAAAACQQ0AAACBoAYAAIBAUAMAAEAgqAEAACAQ1AAAABAIagAAAAgENQAAAASCGgAAAAJBDQAAAIGgBgAAgEBQAwAAQCCoAQAAIBDUAAAAEAhqAAAACAQ1AAAABIIaAAAAAkENAAAAgaAGAACAQFADAABAIKgBAAAgENQAAAAQCGoAAAAIBDUAAAAEghoAAAACQQ0AAACBoAYAAIBAUAMAAEAgqAEAACAQ1AAAABAIagAAAAgENQAAAASCGgAAAAJBDQAAAIGgBgAAgEBQAwAAQCCoAQAAIBDUAAAAEAhqAAAACAQ1AAAABIIaAAAAAkENAAAAgaAGAACAQFADAABAIKgBAAAgENQAAAAQCGoAAAAIBDUAAAAE5xjjfb1vc87zet6+3cET7o+d3B87uT92cn/s5P7Y6df35w81AAAABIIaAAAAAkENAAAAgaAGAACAQFADAABAIKgBAAAgENQAAAAQCGoAAAAIBDUAAAAEghoAAAACQQ0AAACBoAYAAIBAUAMAAEAgqAEAAOCx4/gAqlHA+mz7NKIAAAAASUVORK5CYIIAQsQcAAAAgBAxBwAAACBEzAEAAAAIEXMAAAAAQsQcAAAAgBAxBwAAACBEzAEAAAAIEXMAAAAAQsQcAAAAgBAxBwAAACBEzAEAAAAIEXMAAAAAMo7jBUKXCQmpjkZ0AAAAAElFTkSuQmCCqdUAAAAASUVORK5CYII="
+      }
+    ]
+  },
+  "Metadata": {
+    "$id": "14"
+  }
+}

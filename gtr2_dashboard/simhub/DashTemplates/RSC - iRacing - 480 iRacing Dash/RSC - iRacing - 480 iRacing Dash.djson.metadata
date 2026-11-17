@@ -1,0 +1,21 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - iRacing - 480 iRacing Dash",
+  "Description": "A SimHub dashboard for iRacing",
+  "Author": "Romainrob",
+  "ScreenCount": 6.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": false,
+  "Width": 800.0,
+  "Height": 480.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": [
+    0
+  ]
+}

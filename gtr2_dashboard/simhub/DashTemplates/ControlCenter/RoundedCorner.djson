@@ -1,0 +1,95 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "ab64b692-0ce1-46a9-9888-2aac86c04b4b",
+  "BaseHeight": 107,
+  "BaseWidth": 1155,
+  "BackgroundColor": "#00FFFFFF",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "_ExposedProperties": {
+          "$id": "4",
+          "Items": {
+            "$id": "5",
+            "$values": []
+          },
+          "Bindings": {
+            "$id": "6"
+          }
+        },
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "7",
+          "$values": [
+            {
+              "$id": "8",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "9",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 45,
+                "BorderBottom": 0,
+                "BorderLeft": 70,
+                "BorderRight": 70,
+                "CornerRadius": "70,70,0,0",
+                "RadiusTopLeft": 70,
+                "RadiusTopRight": 70,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "10"
+                }
+              },
+              "Height": 114.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Position": "0,-22,0,0",
+              "Top": -22.0,
+              "Visible": true,
+              "Width": 1155.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 70,
+              "BorderRight": 70,
+              "BorderTop": 45,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "49601ed6-172f-4b9e-8b6f-c72aa9232015",
+              "IsSelected": false,
+              "Name": "RectangleItem0",
+              "Bindings": {
+                "$id": "11"
+              }
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "8"
+        },
+        "RenderingSkip": 0,
+        "Id": "2cc41d98-e01c-41f3-ac66-7bfc189ea403",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "12"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "13",
+    "$values": []
+  }
+}

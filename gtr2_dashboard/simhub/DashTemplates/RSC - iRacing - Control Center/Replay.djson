@@ -1,0 +1,1935 @@
+{
+  "DashboardDebugManager": {
+    "LastPlacement": "199,150,1280,800",
+    "Maximized": false
+  },
+  "Version": 2,
+  "Id": "283351cb-6277-40b2-8d04-928baea9a334",
+  "BaseHeight": 800,
+  "BaseWidth": 1280,
+  "BackgroundColor": "#FF000000",
+  "Screens": [
+    {
+      "Name": "Screen",
+      "InGameScreen": true,
+      "IdleScreen": true,
+      "PitScreen": false,
+      "ScreenId": "cd9c6698-ccac-42e2-812e-16d02c4bed80",
+      "AllowOverlays": true,
+      "IsForegroundLayer": false,
+      "IsOverlayLayer": false,
+      "OverlayTriggerExpression": {
+        "Expression": ""
+      },
+      "ScreenEnabledExpression": {
+        "Expression": ""
+      },
+      "OverlayMaxDuration": 0,
+      "OverlayMinDuration": 0,
+      "IsBackgroundLayer": false,
+      "BackgroundColor": "#FF000000",
+      "Items": [
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 655.0,
+          "Left": 640.0,
+          "Height": 132.67499999999996,
+          "Width": 600.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 655.0,
+              "Left": 1040.0,
+              "RepeatTopOffset": 137.0,
+              "Height": 125.0,
+              "Width": 200.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 60.0,
+                  "Text": "u",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF006400",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderLeft": 2
+                  },
+                  "Height": 125.0,
+                  "Left": 1040.0,
+                  "Top": 655.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Car_Next",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 200x125",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 125.0,
+                  "Left": 1040.0,
+                  "Top": 655.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Next Car"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 655.0,
+              "Left": 840.0,
+              "RepeatTopOffset": 137.0,
+              "Height": 132.67499999999996,
+              "Width": 200.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": "",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF006400",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderLeft": 2,
+                    "BorderRight": 2
+                  },
+                  "Height": 125.0,
+                  "Left": 840.0,
+                  "Top": 655.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Text",
+                  "Bindings": {
+                    "BackgroundColor": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.CamCarIdx] == [DataCorePlugin.GameRawData.Telemetry.PlayerCarIdx] ? 'DarkGreen' : 'Yellow'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "BackgroundColor"
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "Car Symbol White",
+                  "AutoSize": true,
+                  "AutoSizeScale": 0.25,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 130.5,
+                  "Left": 874.75,
+                  "Top": 657.175,
+                  "Visible": true,
+                  "Width": 130.5,
+                  "Name": "Car",
+                  "Bindings": {
+                    "Image": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.CamCarIdx] == [DataCorePlugin.GameRawData.Telemetry.PlayerCarIdx] ? 'Car Symbol White' : 'Car Symbol Black'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "Image"
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Car_Player",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 200x125",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 125.0,
+                  "Left": 840.0,
+                  "Top": 655.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Player Car"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 655.0,
+              "Left": 640.0,
+              "RepeatTopOffset": 137.0,
+              "Height": 125.0,
+              "Width": 200.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 60.0,
+                  "Text": "t",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF006400",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderRight": 2
+                  },
+                  "Height": 125.0,
+                  "Left": 640.0,
+                  "Top": 655.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Car_Previous",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 200x125",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 125.0,
+                  "Left": 640.0,
+                  "Top": 655.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Previous Car"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Car"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 510.0,
+          "Left": 640.0,
+          "Height": 125.0,
+          "Width": 600.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 510.0,
+              "Left": 1040.0,
+              "RepeatTopOffset": 137.0,
+              "Height": 125.0,
+              "Width": 200.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 60.0,
+                  "Text": "u",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF006400",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 125.0,
+                  "Left": 1040.0,
+                  "Top": 510.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Camera_Next",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 200x125",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 125.0,
+                  "Left": 1040.0,
+                  "Top": 510.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Next Camera"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 510.0,
+              "Left": 840.0,
+              "RepeatTopOffset": 137.0,
+              "Height": 125.0,
+              "Width": 200.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "ShadowColor": "#00FFFFFF",
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": "",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 125.0,
+                  "Left": 840.0,
+                  "Top": 510.0,
+                  "Visible": false,
+                  "Width": 200.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "Camera Symbol White",
+                  "AutoSize": true,
+                  "AutoSizeScale": 0.9,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 90.9,
+                  "Left": 899.59999999999991,
+                  "Top": 526.0,
+                  "Visible": true,
+                  "Width": 90.9,
+                  "Name": "Camera"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Camera"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 510.0,
+              "Left": 640.0,
+              "RepeatTopOffset": 137.0,
+              "Height": 125.0,
+              "Width": 200.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 60.0,
+                  "Text": "t",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF006400",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 125.0,
+                  "Left": 640.0,
+                  "Top": 510.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Camera_Previous",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 200x125",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 125.0,
+                  "Left": 640.0,
+                  "Top": 510.0,
+                  "Visible": true,
+                  "Width": 200.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Previous Camera"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Camera"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 655.0,
+          "Left": 465.0,
+          "RepeatTopOffset": 150.0,
+          "Height": 125.0,
+          "Width": 150.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "Futura Md BT",
+              "FontWeight": "SemiBold",
+              "FontSize": 80.0,
+              "Text": "!",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "TextMask": "0000000000",
+              "BackgroundColor": "#FF000000",
+              "BorderStyle": {
+                "BorderColor": "#FF2F4F4F",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4
+              },
+              "Height": 125.0,
+              "Left": 465.0,
+              "Top": 655.0,
+              "Visible": true,
+              "Width": 150.0,
+              "Name": "Text",
+              "Bindings": {
+                "BackgroundColor": {
+                  "Formula": {
+                    "Expression": "[DataCorePlugin.GameRawData.Telemetry.IsDiskLoggingActive] ? 'Yellow' : 'Black'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BackgroundColor"
+                },
+                "TextColor": {
+                  "Formula": {
+                    "Expression": "[DataCorePlugin.GameRawData.Telemetry.IsDiskLoggingActive] ? 'Black' : 'White' "
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "TextColor"
+                }
+              }
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+              "SimulatedKey": 0,
+              "SimulatedKeyV2": {
+                "Win": false,
+                "Ctrl": false,
+                "Alt": false,
+                "Shift": false
+              },
+              "SimulateKey": false,
+              "TriggerAction": "IRacingExtraProperties.Telemetry_Marker",
+              "TriggerSimHubInputName": "TactileButtonPress",
+              "IsEnabled": true,
+              "PressedImage": "Button Slate Gray 150x125",
+              "DisabledOpacity": 50,
+              "PressedOpacity": 50,
+              "AutoSize": false,
+              "BackgroundColor": "#00FFFFFF",
+              "Height": 125.0,
+              "Left": 465.0,
+              "Top": 655.0,
+              "Visible": true,
+              "Width": 150.0,
+              "Name": "Button"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Telemetry Marker"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 510.0,
+          "Left": 465.0,
+          "RepeatTopOffset": 150.0,
+          "Height": 125.0,
+          "Width": 150.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "Webdings",
+              "FontWeight": "SemiBold",
+              "FontSize": 100.0,
+              "Text": "",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "TextMask": "0000000000",
+              "BackgroundColor": "#FF000000",
+              "BorderStyle": {
+                "BorderColor": "#FF2F4F4F",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4
+              },
+              "Height": 125.0,
+              "Left": 465.0,
+              "Top": 510.0,
+              "Visible": true,
+              "Width": 150.0,
+              "Name": "Text"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+              "Image": "Telemetry White",
+              "AutoSize": true,
+              "AutoSizeScale": 0.03,
+              "BackgroundColor": "#00FFFFFF",
+              "Height": 64.23,
+              "Left": 500.01,
+              "Top": 540.385,
+              "Visible": true,
+              "Width": 79.98,
+              "Name": "Telemetry",
+              "Bindings": {
+                "Image": {
+                  "Formula": {
+                    "Expression": "[DataCorePlugin.GameRawData.Telemetry.IsDiskLoggingActive] ?  'Telemetry Red' : 'Telemetry White'"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Image"
+                }
+              }
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+              "SimulatedKey": 0,
+              "SimulatedKeyV2": {
+                "Win": false,
+                "Ctrl": false,
+                "Alt": false,
+                "Shift": false
+              },
+              "SimulateKey": false,
+              "TriggerAction": "IRacingExtraProperties.Telemetry_Toggle",
+              "TriggerSimHubInputName": "TactileButtonPress",
+              "IsEnabled": true,
+              "PressedImage": "Button Slate Gray 150x125",
+              "DisabledOpacity": 50,
+              "PressedOpacity": 50,
+              "AutoSize": false,
+              "BackgroundColor": "#00FFFFFF",
+              "Height": 125.0,
+              "Left": 465.0,
+              "Top": 510.0,
+              "Visible": true,
+              "Width": 150.0,
+              "Name": "Button"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Telemetry Toggle"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 655.0,
+          "Left": 40.0,
+          "RepeatTopOffset": 175.0,
+          "Height": 125.0,
+          "Width": 400.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "Futura Md BT",
+              "FontWeight": "SemiBold",
+              "FontSize": 50.0,
+              "Text": "RACE START",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "TextMask": "0000000000",
+              "BackgroundColor": "#FF8B0000",
+              "BorderStyle": {
+                "BorderColor": "#FF808080"
+              },
+              "Height": 125.0,
+              "Left": 40.0,
+              "Top": 655.0,
+              "Visible": true,
+              "Width": 400.0,
+              "Name": "Text"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+              "SimulatedKey": 0,
+              "SimulatedKeyV2": {
+                "Win": false,
+                "Ctrl": false,
+                "Alt": false,
+                "Shift": false
+              },
+              "SimulateKey": false,
+              "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_StartOfRace",
+              "TriggerSimHubInputName": "TactileButtonPress",
+              "IsEnabled": true,
+              "PressedImage": "Button Slate Gray 400x125",
+              "DisabledOpacity": 50,
+              "PressedOpacity": 50,
+              "AutoSize": false,
+              "BackgroundColor": "#00FFFFFF",
+              "Height": 125.0,
+              "Left": 40.0,
+              "Top": 655.0,
+              "Visible": true,
+              "Width": 400.0,
+              "Name": "Button"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Race Start"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 510.0,
+          "Left": 40.0,
+          "RepeatTopOffset": 175.0,
+          "Height": 125.0,
+          "Width": 400.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "Futura Md BT",
+              "FontWeight": "SemiBold",
+              "FontSize": 50.0,
+              "Text": "TEXTURES",
+              "TextColor": "#FF000000",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "TextMask": "0000000000",
+              "BackgroundColor": "#FFFFFF00",
+              "BorderStyle": {
+                "BorderColor": "#FF808080"
+              },
+              "Height": 125.0,
+              "Left": 40.0,
+              "Top": 510.0,
+              "Visible": true,
+              "Width": 400.0,
+              "Name": "Text"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+              "SimulatedKey": 0,
+              "SimulatedKeyV2": {
+                "Win": false,
+                "Ctrl": false,
+                "Alt": false,
+                "Shift": false
+              },
+              "SimulateKey": false,
+              "TriggerAction": "IRacingExtraProperties.Reload_Textures",
+              "TriggerSimHubInputName": "TactileButtonPress",
+              "IsEnabled": true,
+              "PressedImage": "Button Slate Gray 400x125",
+              "DisabledOpacity": 50,
+              "PressedOpacity": 50,
+              "AutoSize": false,
+              "BackgroundColor": "#00FFFFFF",
+              "Height": 125.0,
+              "Left": 40.0,
+              "Top": 510.0,
+              "Visible": true,
+              "Width": 400.0,
+              "Name": "Button"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Reload Textures"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 275.0,
+          "Left": 40.0,
+          "Height": 221.0,
+          "Width": 1200.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 1090.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": "*",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF483D8B",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 1090.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Session_Next",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 1090.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Next  Session"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 915.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": "*",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF483D8B",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 915.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Lap_Next",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 915.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Next Lap"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 740.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": "*",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF483D8B",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 740.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Incident_Next",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 740.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Next Incident"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 565.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 7,
+                    "PaddingLeft": 12
+                  },
+                  "FontSize": 100.0,
+                  "Text": "",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF8B0000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 565.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text",
+                  "Bindings": {
+                    "BackgroundColor": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySlowMotion] ? 'Yellow' : 'DarkRed' "
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "BackgroundColor"
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Speed_SlowMotion",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 565.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "Slow Motion White",
+                  "AutoSize": true,
+                  "AutoSizeScale": 3.0,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 66.0,
+                  "Left": 617.5,
+                  "Top": 319.0,
+                  "Visible": true,
+                  "Width": 57.0,
+                  "Name": "Slow Motion",
+                  "Bindings": {
+                    "Image": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySlowMotion] ? 'Slow Motion Black' : 'Slow Motion White' "
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "Image"
+                    }
+                  }
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Slow Motion"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 390.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": ")",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF483D8B",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 390.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Incident_Previous",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 390.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Previous Incident"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 215.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": ")",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF483D8B",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 215.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Lap_Previous",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 215.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Previous Lap"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 275.0,
+              "Left": 40.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": ")",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF483D8B",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 40.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Session_Previous",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 40.0,
+                  "Top": 275.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Previous Session"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "Futura Md BT",
+              "FontWeight": "SemiBold",
+              "TextPadding": {
+                "PaddingTop": 5
+              },
+              "FontSize": 35.0,
+              "Text": "SESSION      LAP          INC.                        INC.          LAP      SESSION",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 0,
+              "VerticalAlignment": 1,
+              "TextMask": "0000000000",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {
+                "BorderColor": "#FF808080"
+              },
+              "Height": 50.0,
+              "Left": 40.0,
+              "Top": 431.0,
+              "Visible": true,
+              "Width": 1200.0,
+              "Name": "Text"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "Font": "Futura Md BT",
+              "FontWeight": "SemiBold",
+              "TextPadding": {
+                "PaddingTop": 5
+              },
+              "FontSize": 60.0,
+              "Text": "16",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "TextMask": "0000000000",
+              "BackgroundColor": "#00FFFFFF",
+              "BorderStyle": {
+                "BorderColor": "#FF808080"
+              },
+              "Height": 70.0,
+              "Left": 40.0,
+              "Top": 426.0,
+              "Visible": true,
+              "Width": 1200.0,
+              "Name": "Speed",
+              "Bindings": {
+                "Text": {
+                  "Formula": {
+                    "Expression": "([DataCorePlugin.GameRawData.Telemetry.ReplayPlaySlowMotion] ? '1/': '') +\r\n\r\n(\r\nabs([DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed])\r\n+\r\n([DataCorePlugin.GameRawData.Telemetry.ReplayPlaySlowMotion] ? 1 : 0))"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Navigation"
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Top": 100.0,
+          "Left": 40.0,
+          "Height": 150.0,
+          "Width": 1200.0,
+          "BackgroundColor": "#00FFFFFF",
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 1090.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 100.0,
+                  "Text": ":",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 1090.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_End",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 1090.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "End"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 915.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": "*",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 915.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Frame_Next",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 915.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Next Frame"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 740.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 100.0,
+                  "Text": "8",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 740.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text",
+                  "Bindings": {
+                    "BackgroundColor": {
+                      "Formula": {
+                        "Expression": "![DataCorePlugin.GameRawData.Telemetry.ReplayPlaySlowMotion] && ([DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] > 1) ? 'Yellow' : 'DarkSlateGray'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "BackgroundColor"
+                    },
+                    "TextColor": {
+                      "Formula": {
+                        "Expression": "![DataCorePlugin.GameRawData.Telemetry.ReplayPlaySlowMotion] && ([DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] > 1) ? 'Black' : 'White'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "TextColor"
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Speed_FastForward",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 740.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Fast Forward"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 565.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 100.0,
+                  "Text": "4",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 565.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text",
+                  "Bindings": {
+                    "BackgroundColor": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] == 0 ? 'Yellow' : 'DarkSlateGray' "
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "BackgroundColor"
+                    },
+                    "TextColor": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] == 0 ?  'Black' : 'White'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "TextColor"
+                    },
+                    "Text": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] == 0 ? '4' : ';'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "Text"
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Speed_PlayPause",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 565.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Play Pause"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 390.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 100.0,
+                  "Text": "7",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 390.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text",
+                  "Bindings": {
+                    "BackgroundColor": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] < 0 ? 'Yellow' : 'DarkSlateGray'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "BackgroundColor"
+                    },
+                    "TextColor": {
+                      "Formula": {
+                        "Expression": "[DataCorePlugin.GameRawData.Telemetry.ReplayPlaySpeed] < 0 ? 'Black' : 'White'"
+                      },
+                      "Mode": 2,
+                      "TargetPropertyName": "TextColor"
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_Speed_Rewind",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 390.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Rewind"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 215.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Wingdings 3",
+                  "FontWeight": "SemiBold",
+                  "TextPadding": {
+                    "PaddingTop": 5
+                  },
+                  "FontSize": 100.0,
+                  "Text": ")",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 215.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Frame_Previous",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 215.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Previous Frame"
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Top": 100.0,
+              "Left": 40.0,
+              "RepeatTopOffset": 150.0,
+              "Height": 150.0,
+              "Width": 150.0,
+              "BackgroundColor": "#00FFFFFF",
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                  "IsTextItem": true,
+                  "Font": "Webdings",
+                  "FontWeight": "SemiBold",
+                  "FontSize": 100.0,
+                  "Text": "9",
+                  "TextColor": "#FFFFFFFF",
+                  "HorizontalAlignment": 1,
+                  "VerticalAlignment": 1,
+                  "TextMask": "0000000000",
+                  "BackgroundColor": "#FF2F4F4F",
+                  "BorderStyle": {
+                    "BorderColor": "#FF808080"
+                  },
+                  "Height": 150.0,
+                  "Left": 40.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Text"
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ButtonItem, SimHub.Plugins",
+                  "SimulatedKey": 0,
+                  "SimulatedKeyV2": {
+                    "Win": false,
+                    "Ctrl": false,
+                    "Alt": false,
+                    "Shift": false
+                  },
+                  "SimulateKey": false,
+                  "TriggerAction": "IRacingExtraProperties.Replay_MoveTo_Start",
+                  "TriggerSimHubInputName": "TactileButtonPress",
+                  "IsEnabled": true,
+                  "PressedImage": "Button Slate Gray 150x150",
+                  "DisabledOpacity": 50,
+                  "PressedOpacity": 50,
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 150.0,
+                  "Left": 40.0,
+                  "Top": 100.0,
+                  "Visible": true,
+                  "Width": 150.0,
+                  "Name": "Button"
+                }
+              ],
+              "Group": true,
+              "Visible": true,
+              "Name": "Start"
+            }
+          ],
+          "Group": true,
+          "Visible": true,
+          "Name": "Speed"
+        }
+      ]
+    }
+  ],
+  "SnapToGrid": false,
+  "HideLabels": true,
+  "ShowForeground": true,
+  "ForegroundOpacity": 100.0,
+  "ShowBackground": true,
+  "BackgroundOpacity": 100.0,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "Images": [
+    {
+      "Name": "Button Slate Gray 150x125",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 402,
+      "MD5": "990aaf05014ca0255eac53dfb2c918d8"
+    },
+    {
+      "Name": "Button Slate Gray 150x150",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 455,
+      "MD5": "f312eed680f29f09cabf6956d25be0c8"
+    },
+    {
+      "Name": "Button Slate Gray 200x125",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 434,
+      "MD5": "855e0deffc815d030937183c5b2a62b8"
+    },
+    {
+      "Name": "Button Slate Gray 400x125",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 527,
+      "MD5": "9e6c7183d1eaca0562454183e3b92760"
+    },
+    {
+      "Name": "Car Symbol Black",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 10152,
+      "MD5": "d65186a734cae6b86ce7be9c810ad146"
+    },
+    {
+      "Name": "Car Symbol White",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 522,
+      "Height": 522,
+      "Length": 4448,
+      "MD5": "187c7df32a74c120702da5e2cf99691d"
+    },
+    {
+      "Name": "Slow Motion Black",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 1391,
+      "MD5": "1d84fcaf6dcc164a7d5f2dd10a84f1bc"
+    },
+    {
+      "Name": "Slow Motion White",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 19,
+      "Height": 22,
+      "Length": 1668,
+      "MD5": "1d7808423ccfa8d5fef613a0f5dcf143"
+    },
+    {
+      "Name": "Camera Symbol White",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 101,
+      "Height": 101,
+      "Length": 3780,
+      "MD5": "cdf20afb740d9de2b7985aa05ad81f05"
+    },
+    {
+      "Name": "Telemetry Black",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 30579,
+      "MD5": "13df2aab933cc0497c7570bac21ba621"
+    },
+    {
+      "Name": "Telemetry White",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 2666,
+      "Height": 2141,
+      "Length": 30796,
+      "MD5": "9cc71e2442553bda1c90dcc9ca59778e"
+    },
+    {
+      "Name": "Telemetry Red",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 30799,
+      "MD5": "d1fed5cbb7110d465cdd25931086bc75"
+    }
+  ],
+  "Metadata": {
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": [
+      0
+    ],
+    "IdleScreensIndexs": [
+      0
+    ],
+    "MainPreviewIndex": 0,
+    "IsOverlay": false,
+    "Width": 1280.0,
+    "Height": 800.0,
+    "OverlaySizeWarning": true,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": false,
+    "PitScreensIndexs": []
+  },
+  "ShowOnScreenControls": false,
+  "IsOverlay": false,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": false
+}

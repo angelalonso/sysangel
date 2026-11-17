@@ -1,0 +1,20 @@
+{
+  "Category": null,
+  "Title": "GTR2 Numbers Dashboard",
+  "Description": "RPM, speed and gear display for GTR2.",
+  "Author": "sysangel",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "ShowInTaskBar": true,
+  "Width": 960.0,
+  "Height": 420.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

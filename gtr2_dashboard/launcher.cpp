@@ -637,6 +637,7 @@ struct AddFormDlg {
     Fl_Button* browseExtBtn = nullptr;
     Fl_Button* selectPatch_ = nullptr;
     Fl_Multi_Browser* cmdsBrowser = nullptr;
+    Fl_Check_Button* blockingCb = nullptr;
     Fl_Button *addCmdBtn = nullptr, *editCmdBtn = nullptr, *removeCmdBtn = nullptr;
     bool ok_ = false;
     std::string rel_, ver_;
@@ -664,13 +665,15 @@ static void afToggleConfigType(Fl_Widget*, void* p) {
         if (f->editCmdBtn) f->editCmdBtn->show();
         if (f->removeCmdBtn) f->removeCmdBtn->show();
 
-        f->fileLabel->copy_label("Pre-launch commands (executed sequentially before game launch):");
+        if (f->blockingCb) f->blockingCb->show();
+        f->fileLabel->copy_label("Pre-launch commands (blocking commands wait; parallel commands start immediately):");
         f->nameLabel->copy_label("Command List Version Name (e.g., default, high_perf):");
     } else {
         if (f->cmdsBrowser) f->cmdsBrowser->hide();
         if (f->addCmdBtn) f->addCmdBtn->hide();
         if (f->editCmdBtn) f->editCmdBtn->hide();
         if (f->removeCmdBtn) f->removeCmdBtn->hide();
+        if (f->blockingCb) f->blockingCb->hide();
 
         f->fileIn->show();
         if (f->browseBtn) f->browseBtn->show();
@@ -1024,20 +1027,81 @@ static void afBrowseExternal(Fl_Widget*, void* p) {
     }
 }
 
+struct CommandSpec {
+    std::string command;
+    bool blocking = true;
+};
+
+static CommandSpec parseCommandSpec(const std::string& line) {
+    constexpr const char* blockingPrefix = "@blocking\t";
+    constexpr const char* nonBlockingPrefix = "@nonblocking\t";
+    if (line.rfind(nonBlockingPrefix, 0) == 0)
+        return {line.substr(std::strlen(nonBlockingPrefix)), false};
+    if (line.rfind(blockingPrefix, 0) == 0)
+        return {line.substr(std::strlen(blockingPrefix)), true};
+    constexpr const char* parallelDisplay = "[parallel] ";
+    constexpr const char* blockingDisplay = "[blocking] ";
+    if (line.rfind(parallelDisplay, 0) == 0)
+        return {line.substr(std::strlen(parallelDisplay)), false};
+    if (line.rfind(blockingDisplay, 0) == 0)
+        return {line.substr(std::strlen(blockingDisplay)), true};
+    return {line, true};
+}
+
 // Non-blank, trimmed commands shown in the list, in order.
 static std::vector<std::string> collectCommands(Fl_Multi_Browser* b) {
     std::vector<std::string> cmds;
     for (int i = 1; i <= b->size(); ++i) {
-        std::string line = trimCopy(b->text(i));
-        if (!line.empty()) cmds.push_back(line);
+        CommandSpec spec = parseCommandSpec(b->text(i));
+        spec.command = trimCopy(spec.command);
+        if (!spec.command.empty()) cmds.push_back(spec.command);
     }
     return cmds;
+}
+
+static std::string serializeCommandSpec(const CommandSpec& spec) {
+    return std::string(spec.blocking ? "@blocking\t" : "@nonblocking\t") + spec.command;
+}
+
+static std::string displayCommandSpec(const CommandSpec& spec) {
+    return std::string(spec.blocking ? "[blocking] " : "[parallel] ") + spec.command;
+}
+
+static CommandSpec commandAt(Fl_Multi_Browser* b, int row) {
+    return parseCommandSpec(b->text(row));
+}
+
+static std::vector<std::string> collectCommandLines(Fl_Multi_Browser* b) {
+    std::vector<std::string> lines;
+    for (int i = 1; i <= b->size(); ++i) {
+        CommandSpec spec = commandAt(b, i);
+        spec.command = trimCopy(spec.command);
+        if (!spec.command.empty()) lines.push_back(serializeCommandSpec(spec));
+    }
+    return lines;
+}
+
+static void afCommandSelectionCb(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    int row = selectedRow(f->cmdsBrowser);
+    if (row && f->blockingCb)
+        f->blockingCb->value(commandAt(f->cmdsBrowser, row).blocking ? 1 : 0);
+}
+
+static void afBlockingChangedCb(Fl_Widget*, void* p) {
+    AddFormDlg* f = (AddFormDlg*)p;
+    int row = selectedRow(f->cmdsBrowser);
+    if (!row) return;
+    CommandSpec spec = commandAt(f->cmdsBrowser, row);
+    spec.blocking = f->blockingCb->value() != 0;
+    f->cmdsBrowser->text(row, displayCommandSpec(spec).c_str());
 }
 
 static bool afAppendCommand(AddFormDlg* f, const std::string& text, std::string& error) {
     std::string cmd = trimCopy(text);
     if (cmd.empty()) { error = "A command cannot be empty."; return false; }
-    f->cmdsBrowser->add(cmd.c_str());
+    CommandSpec spec{cmd, !f->blockingCb || f->blockingCb->value() != 0};
+    f->cmdsBrowser->add(displayCommandSpec(spec).c_str());
     return true;
 }
 
@@ -1045,7 +1109,9 @@ static bool afReplaceCommand(AddFormDlg* f, int row, const std::string& text, st
     if (row < 1 || row > f->cmdsBrowser->size()) { error = "Select a command from the list to edit."; return false; }
     std::string cmd = trimCopy(text);
     if (cmd.empty()) { error = "A command cannot be empty. Use Remove command to delete it."; return false; }
-    f->cmdsBrowser->text(row, cmd.c_str());
+    CommandSpec spec = commandAt(f->cmdsBrowser, row);
+    spec.command = cmd;
+    f->cmdsBrowser->text(row, displayCommandSpec(spec).c_str());
     return true;
 }
 
@@ -1061,8 +1127,8 @@ static void afEditCmdCb(Fl_Widget*, void* p) {
     AddFormDlg* f = (AddFormDlg*)p;
     int row = selectedRow(f->cmdsBrowser);
     if (!row) { fl_alert("%s", "Select a command from the list to edit."); return; }
-    std::string current = f->cmdsBrowser->text(row);
-    const char* in = fl_input("Edit command:", current.c_str());
+    CommandSpec spec = commandAt(f->cmdsBrowser, row);
+    const char* in = fl_input("Edit command:", spec.command.c_str());
     if (!in) return;
     std::string err;
     if (!afReplaceCommand(f, row, in, err)) fl_alert("%s", err.c_str());
@@ -1076,6 +1142,7 @@ static void afRemoveCmdCb(Fl_Widget*, void* p) {
         return;
     }
     f->cmdsBrowser->remove(idx);
+    afCommandSelectionCb(nullptr, f);
 }
 
 // ---- version operations (shared by the dialogs; GUI-free so they can be tested) ----
@@ -1251,7 +1318,7 @@ static void afOk(Fl_Widget*, void* p) {
     VerKind kind = isCmds ? VerKind::Commands : (isPatch ? VerKind::Patch : VerKind::Full);
     std::string rel = f->fileIn->value();
     std::string ver = f->nameIn->value();
-    std::vector<std::string> lines = isCmds ? collectCommands(f->cmdsBrowser) : f->patchLines_;
+    std::vector<std::string> lines = isCmds ? collectCommandLines(f->cmdsBrowser) : f->patchLines_;
 
     std::string err, outRel;
     if (!createVersion(rel, ver, kind, lines, err, &outRel)) {
@@ -1307,6 +1374,7 @@ static void buildAddVersionWindow(AddFormDlg& f, const std::string& prefillRel) 
 
     // Pre-launch commands controls (shared layout area, initially hidden)
     f.cmdsBrowser = mkMultiBrowser(10, 84, 540, 100);
+    f.cmdsBrowser->callback(afCommandSelectionCb, &f);
     f.cmdsBrowser->hide();
 
     f.addCmdBtn = new Fl_Button(10, 188, 110, 25, "Add command");
@@ -1320,6 +1388,11 @@ static void buildAddVersionWindow(AddFormDlg& f, const std::string& prefillRel) 
     f.removeCmdBtn = new Fl_Button(260, 188, 130, 25, "Remove command");
     f.removeCmdBtn->callback(afRemoveCmdCb, &f);
     f.removeCmdBtn->hide();
+
+    f.blockingCb = new Fl_Check_Button(400, 188, 150, 25, "Wait for completion");
+    f.blockingCb->value(1);
+    f.blockingCb->callback(afBlockingChangedCb, &f);
+    f.blockingCb->hide();
 
     f.nameLabel = mkLabel(10, 225, 540, "Version name (e.g. 1080p, xbox):");
     f.nameIn = new Fl_Input(10, 247, 540, 25);
@@ -1732,8 +1805,34 @@ static void onEditMode(Fl_Widget*, void* p) {
     editMode(*c, name);
 }
 
-static int runSynchronousCommand(const std::string& cmdLine, const fs::path& workDir) {
+static int runSynchronousCommand(const std::string& cmdLine, const fs::path& workDir, bool blocking = true) {
     if (cmdLine.empty()) return 0;
+    if (!blocking) {
+#ifdef _WIN32
+        std::string command = "cmd.exe /C " + cmdLine;
+        std::vector<char> mutableCommand(command.begin(), command.end());
+        mutableCommand.push_back('\0');
+        STARTUPINFOA startup{};
+        startup.cb = sizeof(startup);
+        PROCESS_INFORMATION process{};
+        BOOL ok = CreateProcessA(nullptr, mutableCommand.data(), nullptr, nullptr, FALSE,
+                                 CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW, nullptr,
+                                 S(workDir).c_str(), &startup, &process);
+        if (!ok) return -1;
+        CloseHandle(process.hThread);
+        CloseHandle(process.hProcess);
+        return 0;
+#else
+        pid_t pid = fork();
+        if (pid < 0) return -1;
+        if (pid == 0) {
+            if (chdir(workDir.c_str()) != 0) _exit(126);
+            execl("/bin/sh", "sh", "-c", cmdLine.c_str(), (char*)nullptr);
+            _exit(127);
+        }
+        return 0;
+#endif
+    }
 #ifdef _WIN32
     fs::path oldDir = fs::current_path();
     std::error_code ec;
@@ -1758,7 +1857,7 @@ static int runSynchronousCommand(const std::string& cmdLine, const fs::path& wor
 
 // ---- pre-launch commands -------------------------------------------------------------
 
-using CommandRunner = std::function<int(const std::string&, const fs::path&)>;
+using CommandRunner = std::function<int(const std::string&, const fs::path&, bool)>;
 
 struct PreLaunchList {
     std::string mode, version;
@@ -1789,7 +1888,7 @@ static std::string missingPreLaunchMessage() {
 }
 
 struct PreLaunchReport {
-    struct Ran { std::string command; int code = 0; };
+    struct Ran { std::string command; int code = 0; bool blocking = true; };
     std::vector<Ran> ran;        // every command that was executed, in order
     std::vector<std::string> lines;  // one confirmation line per command (also written to the log)
     int failed = 0;
@@ -1800,12 +1899,14 @@ static PreLaunchReport runPreLaunchCommands(const fs::path& workDir, const Comma
     for (auto& l : selectedPreLaunchLists()) {
         if (!l.exists) continue;
         for (auto& raw : readLines(versionPath(kPreLaunchRel, l.version, false))) {
-            std::string cmd = trimCopy(raw);
+            CommandSpec spec = parseCommandSpec(raw);
+            std::string cmd = trimCopy(spec.command);
             if (cmd.empty()) continue;
-            int code = run(cmd, workDir);
-            r.ran.push_back({cmd, code});
+            int code = run(cmd, workDir, spec.blocking);
+            r.ran.push_back({cmd, code, spec.blocking});
             if (code != 0) ++r.failed;
-            std::string line = std::string("Pre-launch command ") + (code == 0 ? "ran OK" : "FAILED") +
+            std::string line = std::string("Pre-launch command ") +
+                               (spec.blocking ? (code == 0 ? "ran OK" : "FAILED") : (code == 0 ? "started" : "FAILED")) +
                                " (exit code " + std::to_string(code) + ", " + l.mode + " / '" + l.version +
                                "'): " + cmd;
             r.lines.push_back(line);

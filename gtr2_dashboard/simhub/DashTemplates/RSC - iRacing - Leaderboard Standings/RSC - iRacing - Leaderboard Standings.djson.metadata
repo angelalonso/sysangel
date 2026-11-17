@@ -1,0 +1,20 @@
+{
+  "SimHubVersion": "9.1.19",
+  "Category": "iRacing Overlay Pack",
+  "Title": "RSC - iRacing - Leaderboard Standings",
+  "Description": "Standings Leaderboard",
+  "Author": "Romainrob",
+  "ScreenCount": 2.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 1816.0,
+  "Height": 1080.0,
+  "OverlaySizeWarning": true,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

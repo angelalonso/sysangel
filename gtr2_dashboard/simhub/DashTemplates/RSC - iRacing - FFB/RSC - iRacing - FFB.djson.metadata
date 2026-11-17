@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - iRacing - FFB",
+  "Description": "iRacing - FFB",
+  "Author": "Romainrob ",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 490.0,
+  "Height": 104.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

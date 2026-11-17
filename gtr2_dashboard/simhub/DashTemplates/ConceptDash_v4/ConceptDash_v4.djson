@@ -1,0 +1,779 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "983c208c-076b-490c-814e-77dc997f9a03",
+  "BaseHeight": 720,
+  "BaseWidth": 1280,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "InGameScreen": true,
+        "IdleScreen": true,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0,0",
+                  "@EndPoint": "6.12303176911189E-17,1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF3B3A3A",
+                        "@Offset": "0"
+                      },
+                      {
+                        "@Color": "#FF292929",
+                        "@Offset": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": -1.0,
+              "Top": 614.0,
+              "Width": 1306.0,
+              "Height": 114.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 1.0,
+              "BorderTop": 2,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FF808080",
+              "Position": "-1,614,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "65bdd934-92ec-4f6a-b848-f00541f3f897",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "6"
+              },
+              "RenderingSkip": 0,
+              "Name": "LinearShadeItem02"
+            },
+            {
+              "$id": "7",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0,0",
+                  "@EndPoint": "6.12303176911189E-17,1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF8F8F8F",
+                        "@Offset": "0"
+                      },
+                      {
+                        "@Color": "#FF5E5E5E",
+                        "@Offset": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 581.0,
+              "Top": 277.0,
+              "Width": 701.0,
+              "Height": 340.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 1.0,
+              "BorderTop": 2,
+              "BorderBottom": 2,
+              "BorderLeft": 2,
+              "BorderRight": 0,
+              "BorderColor": "#FF808080",
+              "Position": "581,277,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "65bdd934-92ec-4f6a-b848-f00541f3f897",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "8"
+              },
+              "RenderingSkip": 0,
+              "Name": "LinearShadeItem01"
+            },
+            {
+              "$id": "9",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 1,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "conceptdash_displayswitcher.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 581.0,
+              "Top": 294.0,
+              "Width": 700.0,
+              "Height": 340.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "581,294,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "af6bf27d-65eb-47e5-8bdd-cfe5c4ae2904",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "10"
+              },
+              "RenderingSkip": 0,
+              "Name": "SubScreen"
+            },
+            {
+              "$id": "11",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "conceptdash_speedgauge.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 55.0,
+              "Top": 103.0,
+              "Width": 465.0,
+              "Height": 471.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "55,103,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "020d200e-e18b-4daf-96ae-2698c140494a",
+              "IsSelected": true,
+              "Bindings": {
+                "$id": "12"
+              },
+              "RenderingSkip": 0,
+              "Name": "MainGauge"
+            },
+            {
+              "$id": "13",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0,0",
+                  "@EndPoint": "6.12303176911189E-17,1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF3B3A3A",
+                        "@Offset": "0"
+                      },
+                      {
+                        "@Color": "#FF292929",
+                        "@Offset": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 581.0,
+              "Top": 147.0,
+              "Width": 701.0,
+              "Height": 149.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 1.0,
+              "BorderTop": 2,
+              "BorderBottom": 2,
+              "BorderLeft": 2,
+              "BorderRight": 0,
+              "BorderColor": "#FF808080",
+              "Position": "581,147,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "65bdd934-92ec-4f6a-b848-f00541f3f897",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "14"
+              },
+              "RenderingSkip": 0,
+              "Name": "DeltaBarBackground"
+            },
+            {
+              "$id": "15",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0,0",
+                  "@EndPoint": "6.12303176911189E-17,1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF3B3A3A",
+                        "@Offset": "0"
+                      },
+                      {
+                        "@Color": "#FF292929",
+                        "@Offset": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 581.0,
+              "Top": 82.0,
+              "Width": 361.0,
+              "Height": 149.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 1.0,
+              "BorderTop": 2,
+              "BorderBottom": 2,
+              "BorderLeft": 2,
+              "BorderRight": 0,
+              "BorderColor": "#FF808080",
+              "Position": "581,82,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "65bdd934-92ec-4f6a-b848-f00541f3f897",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "16"
+              },
+              "RenderingSkip": 0,
+              "Name": "LapTimeBackgound"
+            },
+            {
+              "$id": "17",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearShadeItem, SimHub.Plugins",
+              "Color": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0,0",
+                  "@EndPoint": "6.12303176911189E-17,1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF3B3A3A",
+                        "@Offset": "0"
+                      },
+                      {
+                        "@Color": "#FF292929",
+                        "@Offset": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 934.0,
+              "Top": 82.0,
+              "Width": 361.0,
+              "Height": 149.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 1.0,
+              "BorderTop": 2,
+              "BorderBottom": 2,
+              "BorderLeft": 2,
+              "BorderRight": 0,
+              "BorderColor": "#FF808080",
+              "Position": "934,82,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "65bdd934-92ec-4f6a-b848-f00541f3f897",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "18"
+              },
+              "RenderingSkip": 0,
+              "Name": "DeltaBackgound"
+            },
+            {
+              "$id": "19",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Sui Generis",
+              "FontWeight": "Normal",
+              "FontStyle": "Normal",
+              "FontSize": 44.0,
+              "Text": "LAP TIME",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 602.0,
+              "Top": 109.0,
+              "Width": 316.0,
+              "Height": 34.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "602,109,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "1fa3a485-ecf5-4231-b878-cb992a40d29c",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "20"
+              },
+              "RenderingSkip": 0,
+              "Name": "LapTimeLabel"
+            },
+            {
+              "$id": "21",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Sui Generis",
+              "FontWeight": "Normal",
+              "FontStyle": "Normal",
+              "FontSize": 44.0,
+              "Text": "DELTA",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 950.0,
+              "Top": 109.0,
+              "Width": 316.0,
+              "Height": 34.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "950,109,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "6b4fc97c-3038-4a81-97ae-a6ec73d6520e",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "22"
+              },
+              "RenderingSkip": 0,
+              "Name": "DeltaLabel"
+            },
+            {
+              "$id": "23",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "ExtraBlack",
+              "FontStyle": "Normal",
+              "FontSize": 66.0,
+              "Text": "+0.00",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 941.0,
+              "Top": 143.0,
+              "Width": 329.0,
+              "Height": 72.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "941,143,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "062492a6-f663-46af-997d-4eeb6c140212",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "24",
+                "Text": {
+                  "$id": "25",
+                  "FormatString": "",
+                  "LineReturn": false,
+                  "Mode": 2,
+                  "RightAlign": false,
+                  "Formula": {
+                    "$id": "26",
+                    "Expression": "(isnull([PersistantTrackerPlugin.AllTimeBestLiveDeltaSeconds],0) >=0?'+':'')+format(isnull([PersistantTrackerPlugin.AllTimeBestLiveDeltaSeconds],0) ,'0.00')"
+                  }
+                }
+              },
+              "RenderingSkip": 1,
+              "Name": "DeltaValue"
+            },
+            {
+              "$id": "27",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "conceptdash_rpmbar.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 0.0,
+              "Top": 0.0,
+              "Width": 1280.0,
+              "Height": 95.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "0,0,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "e05a0497-5fee-466a-820d-3be92449886d",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "28"
+              },
+              "RenderingSkip": 0,
+              "Name": "RpmBar"
+            },
+            {
+              "$id": "29",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.5,
+              "FileName": "conceptdash_deltagauge.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 635.0,
+              "Top": 231.0,
+              "Width": 600.0,
+              "Height": 60.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "635,231,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "1f7e3ceb-1835-4002-99a1-18e4768d85e8",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "30"
+              },
+              "RenderingSkip": 2,
+              "Name": "DeltaBar"
+            },
+            {
+              "$id": "31",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "conceptdash_laptimesbar.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 270.0,
+              "Top": 586.0,
+              "Width": 718.0,
+              "Height": 188.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "270,586,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "58a6463f-4fb2-42f3-a9ea-73729a129b28",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "32"
+              },
+              "RenderingSkip": 0,
+              "Name": "LapTimesBar"
+            },
+            {
+              "$id": "33",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.CurrentLapTime, SimHub.Plugins",
+              "Category": "Lap",
+              "TimeFormat": "mm\\:ss\\.fff",
+              "EmptyTimeText": "--:--:---",
+              "Font": "Consolas",
+              "FontWeight": "ExtraBold",
+              "FontStyle": "Normal",
+              "FontSize": 66.0,
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "CornerRadius": "0,0,0,0",
+              "RadiusTopRight": 0,
+              "RadiusBottomLeft": 0,
+              "RadiusTopLeft": 0,
+              "RadiusBottomRight": 0,
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 597.0,
+              "Top": 143.0,
+              "Width": 329.0,
+              "Height": 72.0,
+              "Opacity": 100.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "597,143,0,0",
+              "Rotation": 0.0,
+              "CanOpen": false,
+              "IsFreezed": true,
+              "Id": "da763ba6-f4f0-45f8-af60-e023237eaed8",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "34"
+              },
+              "RenderingSkip": 0,
+              "Name": "CurrentLapTime0"
+            },
+            {
+              "$id": "35",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "SystemInfo2.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 1144.0,
+              "Top": 642.0,
+              "Width": 136.0,
+              "Height": 110.0,
+              "Opacity": 100.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "1144,642,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "ec1fcb72-d868-41c1-8981-4db99d03a867",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "36"
+              },
+              "RenderingSkip": 0,
+              "Name": "SystemInfo2"
+            },
+            {
+              "$id": "37",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "timewidget.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": -14.0,
+              "Top": 642.0,
+              "Width": 136.0,
+              "Height": 110.0,
+              "Opacity": 100.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "-14,642,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": true,
+              "Id": "cd1bd5bd-d46e-4445-b802-04969090a836",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "38"
+              },
+              "RenderingSkip": 0,
+              "Name": "TimeWidget"
+            }
+          ]
+        },
+        "SelectedItems": {
+          "$type": "System.Linq.Enumerable+WhereEnumerableIterator`1[[SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IGDashItem, SimHub.Plugins]], System.Core",
+          "$values": [
+            {
+              "$ref": "11"
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "11"
+        },
+        "CanOpen": false,
+        "IsFreezed": true,
+        "Id": "1ecfa581-90cb-4c30-8e53-7228cad669df",
+        "Bindings": {
+          "$id": "39"
+        },
+        "RenderingSkip": 0,
+        "Name": "Screen1"
+      },
+      {
+        "$id": "40",
+        "InGameScreen": false,
+        "IdleScreen": false,
+        "BackgroundColor": "#FF000000",
+        "IsSelected": false,
+        "Items": {
+          "$id": "41",
+          "$values": [
+            {
+              "$id": "42",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.WidgetItem, SimHub.Plugins",
+              "CanOpen": true,
+              "NextScreenCommand": 0,
+              "PreviousScreenCommand": 0,
+              "AutoSize": true,
+              "AutoSizeScale": 1.0,
+              "FileName": "conceptdash_speedgauge.djson",
+              "BackgroundColor": "#00FFFFFF",
+              "Visible": true,
+              "Left": 423.0,
+              "Top": 130.0,
+              "Width": 465.0,
+              "Height": 471.0,
+              "Opacity": 10000.0,
+              "BlurRadius": 0.0,
+              "BorderTop": 0,
+              "BorderBottom": 0,
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderColor": "#FFFFFFFF",
+              "Position": "423,130,0,0",
+              "Rotation": 0.0,
+              "IsFreezed": false,
+              "Id": "11728464-1fd2-4f91-9e13-16685b5eec30",
+              "IsSelected": false,
+              "Bindings": {
+                "$id": "43"
+              },
+              "RenderingSkip": 0,
+              "Name": "Item1"
+            }
+          ]
+        },
+        "SelectedItems": {
+          "$type": "System.Linq.Enumerable+WhereEnumerableIterator`1[[SimHub.Plugins.OutputPlugins.GraphicalDash.Models.IGDashItem, SimHub.Plugins]], System.Core",
+          "$values": []
+        },
+        "SelectedItem": {
+          "$ref": "40"
+        },
+        "CanOpen": false,
+        "IsFreezed": false,
+        "Id": "2198cc05-b50e-4404-983e-063b4a25ac65",
+        "Bindings": {
+          "$id": "44"
+        },
+        "RenderingSkip": 0,
+        "Name": "Screen2"
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "45",
+    "$values": []
+  }
+}

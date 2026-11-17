@@ -1,0 +1,234 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "9d2a5d18-c774-450b-8fb6-3be9e1f85a44",
+  "BaseHeight": 14,
+  "BaseWidth": 600,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#FFFF0000",
+                "BorderTop": 0,
+                "BorderBottom": 1,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 14.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 600.0,
+              "BorderBottom": 1,
+              "BorderColor": "#FFFF0000",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "02b7466d-a513-457b-8955-edef1619f2c1",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "BGRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.EllipseItem, SimHub.Plugins",
+              "FillColor": "#00FFFFFF",
+              "EllipseColor": "#00FFFFFF",
+              "EllipseThickness": 2.0,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 6.0,
+              "EnableBlur": true,
+              "BorderStyle": {
+                "$id": "11",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "12"
+                }
+              },
+              "Height": 14.0,
+              "Left": 0.0,
+              "Opacity": 50.0,
+              "Top": 6.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 600.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "587fc343-d8ee-4005-8e04-5c528d99e03f",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RearIndicatorEllipse",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "13",
+                "EllipseColor": {
+                  "$id": "14",
+                  "Formula": {
+                    "$id": "15",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('SpotterCarLeftAngle') ) return false // Covered by left/right indicators\r\n//if ( $prop('SpotterCarRightAngle') ) return false // Covered by left/right indicators\r\n\r\n//let ret = 'Transparent'\r\n//let gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\n//if ( gap > 0.2 && gap < 0.4 ) ret = 'Red'\r\n//if ( gap > 0.4 && gap < 0.8 ) ret = 'Orange'\r\n//if ( gap > 0.8 && gap < 1.2 ) ret = 'White'\r\n//return ret\r\n\r\nlet gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\nif ( ! gap ) return 999\r\nif ( gap < 0.2 ) return 999 // Display left/right indicator if within 0.2s instead of rear indicator\r\nreturn gap\r\n"
+                  },
+                  "StartColor": "#FFFF0000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FFFFFFFF",
+                  "MiddleColorValue": 1.2,
+                  "EndColor": "#00FFFFFF",
+                  "StartColorValue": 0.2,
+                  "EndColorValue": 1.5,
+                  "Mode": 4,
+                  "TargetPropertyName": "EllipseColor"
+                },
+                "BlinkDelay": {
+                  "$id": "16",
+                  "Formula": {
+                    "$id": "17",
+                    "Interpreter": 1,
+                    "Expression": "return 250\r\n//gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\n//if ( ! gap ) return 250\r\n//if ( gap > 0.2 && gap < 0.4 ) return 250\r\n//if ( gap > 0.4 && gap < 0.8 ) return 500\r\n//if ( gap > 0.8 && gap < 1.2 ) return 750\r\n//return 250"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkDelay"
+                },
+                "BlinkEnabled": {
+                  "$id": "18",
+                  "Formula": {
+                    "$id": "19",
+                    "Interpreter": 1,
+                    "Expression": "return false\r\n//if ( $prop('SpotterCarLeftAngle') ) return false // Covered by left/right indicators\r\n//if ( $prop('SpotterCarRightAngle') ) return false // Covered by left/right indicators\r\n\r\n//gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\n//if ( gap > 0.2 && gap < 1.2 ) return true\r\n//return false"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                },
+                "FillColor": {
+                  "$id": "20",
+                  "Formula": {
+                    "$id": "21",
+                    "Interpreter": 1,
+                    "Expression": "//if ( $prop('SpotterCarLeftAngle') ) return false // Covered by left/right indicators\r\n//if ( $prop('SpotterCarRightAngle') ) return false // Covered by left/right indicators\r\n\r\n//let ret = 'Transparent'\r\n//let gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\n//if ( gap > 0.2 && gap < 0.4 ) ret = 'Red'\r\n//if ( gap > 0.4 && gap < 0.8 ) ret = 'Orange'\r\n//if ( gap > 0.8 && gap < 1.2 ) ret = 'White'\r\n//return ret\r\n\r\nlet gap = Math.abs($prop('PersistantTrackerPlugin.DriverBehind_00_Gap'))\r\nif ( ! gap ) return 999\r\nif ( gap < 0.2 ) return 999 // Display left/right indicator if within 0.2s instead of rear indicator\r\nreturn gap\r\n"
+                  },
+                  "StartColor": "#FFFF0000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FFFFFFFF",
+                  "MiddleColorValue": 1.2,
+                  "EndColor": "#00FFFFFF",
+                  "StartColorValue": 0.2,
+                  "EndColorValue": 1.5,
+                  "Mode": 4,
+                  "TargetPropertyName": "FillColor"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "7436c509-848c-4be3-9e49-350cd7690cb1",
+        "Name": "Radar",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "22"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": true,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "23",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "24",
+    "Title": "SHO XD Style Awareness Rear SimHub Overlay",
+    "Description": "",
+    "Author": "Shovas",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "25",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "26",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 600.0,
+    "Height": 14.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "27",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

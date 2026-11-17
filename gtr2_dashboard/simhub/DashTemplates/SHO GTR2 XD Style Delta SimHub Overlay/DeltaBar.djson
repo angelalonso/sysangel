@@ -1,0 +1,613 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "f24c4a7e-d855-4a50-98ac-0f791874b2f4",
+  "BaseHeight": 90,
+  "BaseWidth": 670,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 34.0,
+              "Left": 0.0,
+              "Opacity": 75.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 670.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "6c1c082e-4612-4b10-a4f7-6e38f17e01a7",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RectangleItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9",
+                "Visible": {
+                  "$id": "10",
+                  "Formula": {
+                    "$id": "11",
+                    "Interpreter": 1,
+                    "Expression": "//return $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') != 0\r\nif ( $prop('IsInPit') ) return false;\r\nif ( $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') === null ) return false;\r\nreturn true;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            },
+            {
+              "$id": "12",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "13",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "14"
+                }
+              },
+              "Height": 40.0,
+              "Left": 259.0,
+              "Opacity": 0.0,
+              "Top": 41.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 165.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "e362afbc-412b-4af4-9ebd-cbfdc1c8097b",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RectangleItem1",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "15"
+              }
+            },
+            {
+              "$id": "16",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FF000000",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "17",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "18"
+                }
+              },
+              "Height": 32.0,
+              "Left": 2.0,
+              "Opacity": 50.0,
+              "Top": 1.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 666.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "a0bd99d8-e732-472e-9a75-60fc1f5919fa",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "PreDeltaRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "19",
+                "Visible": {
+                  "$id": "20",
+                  "Formula": {
+                    "$id": "21",
+                    "Interpreter": 1,
+                    "Expression": "if ( $prop('IsInPit') ) return false;\r\nif ( $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') === null ) return true;\r\nreturn false;\r\n//return $prop('DeltaToSessionBest')\r\n//return deltaSec != null && deltaSec != 0 && $prop('IsInPit') != 0\r\n//deltaSec = $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\n//return deltaSec != null && deltaSec != 0 && $prop('IsInPit') != 0\r\n// Bad attribute: && $prop('DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall') == 0"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            },
+            {
+              "$id": "22",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 2,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF000000",
+              "Font": "Segoe UI",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 20.0,
+              "Text": "WAITING FOR DELTA",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseMonospacedText": false,
+              "CharWidth": 40.0,
+              "SpecialCharsWidth": 20.0,
+              "SpecialChars": ".,:;",
+              "TextMask": "",
+              "TextMaskColor": "#FF808080",
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "23",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "24"
+                }
+              },
+              "Height": 32.0,
+              "Left": 2.0,
+              "Opacity": 100.0,
+              "Top": 1.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 666.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "ce10d703-35de-4938-ace9-46cc69dd7e0f",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "PreDelta",
+              "RenderingSkip": 0,
+              "Sid": 1,
+              "Bindings": {
+                "$id": "25",
+                "Visible": {
+                  "$id": "26",
+                  "Formula": {
+                    "$id": "27",
+                    "Interpreter": 1,
+                    "Expression": "//[PersistantTrackerPlugin.SessionBestLiveDeltaSeconds] != 0 &&\r\n//[DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall] = 0\r\n//return $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') == 0 && $prop('DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall') == 0\r\n//return $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') == 0\r\n// Bad attribute: && $prop('DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall') == 0\r\n//return true\r\n//return $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\nif ( $prop('IsInPit') ) return false;\r\n//Bad: if ( $prop('DeltaToSessionBest') === null ) return true;\r\nif ( $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') === null ) return true;\r\nreturn false;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            },
+            {
+              "$id": "28",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "ShadowDepth": 1,
+              "ShadowBlur": 2,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF000000",
+              "Font": "Segoe UI",
+              "FontWeight": "Bold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 35.0,
+              "Text": "- : -- : --",
+              "TextColor": "#00FFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseMonospacedText": false,
+              "CharWidth": 40.0,
+              "SpecialCharsWidth": 20.0,
+              "SpecialChars": ".,:;",
+              "TextMask": "",
+              "TextMaskColor": "#FF808080",
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "29",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "30"
+                }
+              },
+              "Height": 40.0,
+              "Left": 235.0,
+              "Opacity": 100.0,
+              "Top": 41.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 200.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "ce10d703-35de-4938-ace9-46cc69dd7e0f",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "Delta",
+              "RenderingSkip": 0,
+              "Sid": 1,
+              "Bindings": {
+                "$id": "31",
+                "Text": {
+                  "$id": "32",
+                  "FormatString": "0.00",
+                  "Formula": {
+                    "$id": "33",
+                    "Interpreter": 1,
+                    "Expression": "//(isnull([PersistantTrackerPlugin.SessionBestLiveDeltaSeconds],0) >=0?'+ ':'')\r\n//+format(isnull([PersistantTrackerPlugin.SessionBestLiveDeltaSeconds],0) ,'0.00')\r\n//[PersistantTrackerPlugin.AllTimeBestLiveDeltaProgressSeconds]\r\n//delta = $prop('PersistantTrackerPlugin.AllTimeBestLiveDeltaProgressSeconds')\r\n//delta = $prop('PersistantTrackerPlugin.SessionBestLiveDeltaProgressSeconds')\r\n//delta = $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\n\r\ndefaultReturn = '+ 0.00'\r\n\r\n// Only report on valid laps\r\nisValidLap = $prop('DataCorePlugin.Computed.Fuel_CurrentLapIsValidForTracking')\r\nif ( ! isValidLap ) return defaultReturn\r\n\r\ndelta = $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\nif ( delta  ) {\r\n  if ( delta > 0 ) return '+ ' + Math.abs(delta).toFixed(2)\r\n  if ( delta < 0 ) return '- ' + Math.abs(delta).toFixed(2)\r\n  return defaultReturn\r\n}\r\nreturn defaultReturn"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                },
+                "TextColor": {
+                  "$id": "34",
+                  "Formula": {
+                    "$id": "35",
+                    "Interpreter": 1,
+                    "Expression": "defaultReturn = '0.00'\r\n\r\n// Only report on valid laps\r\nisValidLap = $prop('DataCorePlugin.Computed.Fuel_CurrentLapIsValidForTracking')\r\nif ( ! isValidLap ) return defaultReturn\r\n\r\nreturn $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')"
+                  },
+                  "StartColor": "#FF23D623",
+                  "EnableMiddleColor": true,
+                  "MiddleColor": "#FFFFFFFF",
+                  "MiddleColorValue": 0.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": -0.1,
+                  "EndColorValue": 1.0,
+                  "Mode": 4,
+                  "TargetPropertyName": "TextColor"
+                },
+                "Visible": {
+                  "$id": "36",
+                  "Formula": {
+                    "$id": "37",
+                    "Interpreter": 1,
+                    "Expression": "//[PersistantTrackerPlugin.SessionBestLiveDeltaSeconds] != 0 &&\r\n//[DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall] = 0\r\n//return $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\n//return $prop('DeltaToSessionBest')\r\nif ( $prop('IsInPit') ) return false;\r\nif ( $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') === null ) return false;\r\nreturn true;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            },
+            {
+              "$id": "38",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "IsLinearGauge": true,
+              "GaugeAlignment": 2,
+              "AutoSize": false,
+              "AutoSizeScale": 1.0,
+              "GaugeColor": "#FFFF0000",
+              "Minimum": 0.0,
+              "Maximum": 5.0,
+              "Value": 1.2,
+              "Steps": 0.0,
+              "PAW": 80.0,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00453B3B",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "39",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 6,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 6,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "40"
+                }
+              },
+              "Height": 32.0,
+              "Left": 2.0,
+              "Opacity": 100.0,
+              "Top": 1.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 333.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "7d90a740-e54a-4b45-a84a-eef0b337b032",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "Losing",
+              "RenderingSkip": 0,
+              "Sid": 2,
+              "Bindings": {
+                "$id": "41",
+                "Value": {
+                  "$id": "42",
+                  "Formula": {
+                    "$id": "43",
+                    "Interpreter": 1,
+                    "Expression": "defaultReturn = '0.00'\r\n\r\n// Only report on valid laps\r\nisValidLap = $prop('DataCorePlugin.Computed.Fuel_CurrentLapIsValidForTracking')\r\nif ( ! isValidLap ) return defaultReturn\r\n\r\nvar delta = $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\nif ( ! delta ) return defaultReturn\r\n\r\nreturn delta\r\n\r\n//return format(d, '0.00')\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                },
+                "GaugeColor": {
+                  "$id": "44",
+                  "Formula": {
+                    "$id": "45",
+                    "Interpreter": 1,
+                    "Expression": "//[PersistantTrackerPlugin.SessionBestLiveDeltaProgressSeconds]\r\n\r\ndefaultReturn = '0.00'\r\n\r\n// Only report on valid laps\r\nisValidLap = $prop('DataCorePlugin.Computed.Fuel_CurrentLapIsValidForTracking')\r\nif ( ! isValidLap ) return defaultReturn\r\n\r\nreturn $prop('PersistantTrackerPlugin.SessionBestLiveDeltaProgressSeconds')"
+                  },
+                  "StartColor": "#FF23D623",
+                  "EnableMiddleColor": true,
+                  "MiddleColor": "#FFFFFFFF",
+                  "MiddleColorValue": 0.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": -0.1,
+                  "EndColorValue": 0.1,
+                  "Mode": 4,
+                  "TargetPropertyName": "GaugeColor"
+                },
+                "Visible": {
+                  "$id": "46",
+                  "Formula": {
+                    "$id": "47",
+                    "Interpreter": 1,
+                    "Expression": "//[PersistantTrackerPlugin.SessionBestLiveDeltaSeconds] != 0 &&\r\n//[DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall] = 0\r\nif ( $prop('IsInPit') ) return false;\r\nif ( $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') !== null ) return true;\r\nreturn false;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            },
+            {
+              "$id": "48",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.LinearGaugeItem, SimHub.Plugins",
+              "IsLinearGauge": true,
+              "GaugeAlignment": 0,
+              "AutoSize": false,
+              "AutoSizeScale": 1.0,
+              "GaugeColor": "#FF40CC2D",
+              "Minimum": 0.0,
+              "Maximum": -5.0,
+              "Value": -1.2,
+              "Steps": 0.0,
+              "PAW": 80.0,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00453B3B",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "49",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 6,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 6,
+                "Bindings": {
+                  "$id": "50"
+                }
+              },
+              "Height": 32.0,
+              "Left": 335.0,
+              "Opacity": 100.0,
+              "Top": 1.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 333.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "7d90a740-e54a-4b45-a84a-eef0b337b032",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "Gaining",
+              "RenderingSkip": 0,
+              "Sid": 3,
+              "Bindings": {
+                "$id": "51",
+                "Value": {
+                  "$id": "52",
+                  "Formula": {
+                    "$id": "53",
+                    "Interpreter": 1,
+                    "Expression": "defaultReturn = '0.00'\r\n\r\n// Only report on valid laps\r\nisValidLap = $prop('DataCorePlugin.Computed.Fuel_CurrentLapIsValidForTracking')\r\nif ( ! isValidLap ) return defaultReturn\r\n\r\nvar delta = $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds')\r\nif ( ! delta ) return defaultReturn\r\n\r\nreturn delta\r\n\r\n//return format(d, '0.00')\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                },
+                "GaugeColor": {
+                  "$id": "54",
+                  "Formula": {
+                    "$id": "55",
+                    "Interpreter": 1,
+                    "Expression": "//[PersistantTrackerPlugin.SessionBestLiveDeltaProgressSeconds]\r\n\r\ndefaultReturn = '0.00'\r\n\r\n// Only report on valid laps\r\nisValidLap = $prop('DataCorePlugin.Computed.Fuel_CurrentLapIsValidForTracking')\r\nif ( ! isValidLap ) return defaultReturn\r\n\r\nreturn $prop('PersistantTrackerPlugin.SessionBestLiveDeltaProgressSeconds')"
+                  },
+                  "StartColor": "#FF23D623",
+                  "EnableMiddleColor": true,
+                  "MiddleColor": "#FFFFFFFF",
+                  "MiddleColorValue": 0.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": -0.1,
+                  "EndColorValue": 0.1,
+                  "Mode": 4,
+                  "TargetPropertyName": "GaugeColor"
+                },
+                "Visible": {
+                  "$id": "56",
+                  "Formula": {
+                    "$id": "57",
+                    "Interpreter": 1,
+                    "Expression": "//[PersistantTrackerPlugin.SessionBestLiveDeltaSeconds] != 0 &&\r\n//[DataCorePlugin.GameRawData.CurrentPlayer.mInGarageStall] = 0\r\nif ( $prop('IsInPit') ) return false;\r\nif ( $prop('PersistantTrackerPlugin.SessionBestLiveDeltaSeconds') !== null ) return true;\r\nreturn false;"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "3b6daa08-fb5d-4483-8594-2c51c056f0bf",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "58"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": false,
+  "HideLabels": true,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "59",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "60",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "61",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "62",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 670.0,
+    "Height": 90.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "63",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": false,
+  "EnableOnDashboardMessaging": true
+}

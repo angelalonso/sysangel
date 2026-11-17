@@ -1,0 +1,19 @@
+{
+  "Category": null,
+  "Title": "SHO XD Style Tyres SimHub Overlay",
+  "Description": null,
+  "Author": "Shovas (Sikjar Original Design)",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 400.0,
+  "Height": 400.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

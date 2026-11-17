@@ -1,0 +1,367 @@
+{
+  "Variables": {
+    "DashboardVariables": []
+  },
+  "DashboardDebugManager": {
+    "WindowPositionSettings": {
+      "IsFullScreen": false,
+      "Position": "104,104,800,450",
+      "TopMost": false,
+      "AllowTransparency": false,
+      "CloseOnMonitorLoss": false,
+      "NoWindowActivate": false
+    }
+  },
+  "Version": 2,
+  "Id": "c9a63583-1437-4baa-b4b3-6bb215339605",
+  "BaseHeight": 413,
+  "BaseWidth": 970,
+  "BackgroundColor": "#FF000000",
+  "Screens": [
+    {
+      "RenderingSkip": 0,
+      "Name": "Screen2",
+      "InGameScreen": true,
+      "IdleScreen": false,
+      "PitScreen": false,
+      "ScreenId": "a8f1812d-b447-4c63-99e9-818b6ea1fa64",
+      "AllowOverlays": true,
+      "IsForegroundLayer": false,
+      "IsOverlayLayer": false,
+      "OverlayTriggerExpression": {
+        "Expression": ""
+      },
+      "ScreenEnabledExpression": {
+        "Expression": ""
+      },
+      "OverlayMaxDuration": 0,
+      "OverlayMinDuration": 0,
+      "IsBackgroundLayer": false,
+      "BackgroundColor": "#00FFFFFF",
+      "Items": [
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 60.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 88.0,
+          "Top": 50.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "Sector1",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "[DataCorePlugin.GameData.Sector1Time]"
+              },
+              "Mode": 2
+            },
+            "TextColor": {
+              "Formula": {
+                "Expression": "if(isnull([Sector1Time]),0.5,if([Sector1Time]<=[Sector1BestTime],1, 0))"
+              },
+              "StartColor": "#FFFFDD00",
+              "EnableMiddleColor": true,
+              "MiddleColor": "#FF808080",
+              "MiddleColorValue": 0.5,
+              "EndColor": "#FF32CD32",
+              "StartColorValue": 0.0,
+              "EndColorValue": 1.0,
+              "Mode": 4
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 60.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 378.0,
+          "Top": 50.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "Sector2",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "[DataCorePlugin.GameData.Sector2Time]"
+              },
+              "Mode": 2
+            },
+            "TextColor": {
+              "Formula": {
+                "Expression": "if(isnull([Sector2Time]),0.5,if([Sector2Time]<=[Sector2BestTime],1, 0))"
+              },
+              "StartColor": "#FFFFDD00",
+              "EnableMiddleColor": true,
+              "MiddleColor": "#FF808080",
+              "MiddleColorValue": 0.5,
+              "EndColor": "#FF32CD32",
+              "StartColorValue": 0.0,
+              "EndColorValue": 1.0,
+              "Mode": 4
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 60.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 674.0,
+          "Top": 50.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "Sector3",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "if(isnull([DataCorePlugin.GameData.Sector3Time]),[DataCorePlugin.GameData.Sector3LastLapTime],[DataCorePlugin.GameData.Sector3Time])"
+              },
+              "Mode": 2
+            },
+            "TextColor": {
+              "Formula": {
+                "Expression": "if(if(isnull([DataCorePlugin.GameData.Sector3Time]),[DataCorePlugin.GameData.Sector3LastLapTime],[DataCorePlugin.GameData.Sector3Time])<=[Sector3BestLapTime],1, 0))"
+              },
+              "StartColor": "#FFFFDD00",
+              "EnableMiddleColor": true,
+              "MiddleColor": "#FF808080",
+              "MiddleColorValue": 0.5,
+              "EndColor": "#FF32CD32",
+              "StartColorValue": 0.0,
+              "EndColorValue": 1.0,
+              "Mode": 4
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 34.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 133.0,
+          "Top": -10.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "BestS1",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "[Sector1BestTime]"
+              },
+              "Mode": 2
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 34.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 426.0,
+          "Top": -10.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "BestS2",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "[Sector2BestTime]"
+              },
+              "Mode": 2
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 34.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 719.0,
+          "Top": -10.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "BestS3",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "[Sector3BestTime]"
+              },
+              "Mode": 2
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 34.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 133.0,
+          "Top": 125.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "TopS1",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "getbestsplittime(1)"
+              },
+              "Mode": 2
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 34.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 426.0,
+          "Top": 125.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "TopS2",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "getbestsplittime(2)"
+              },
+              "Mode": 2
+            }
+          }
+        },
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+          "IsTextItem": true,
+          "Font": "Bahnschrift",
+          "FontSize": 34.0,
+          "Text": "--.--.---",
+          "TextColor": "#FFFFFFFF",
+          "HorizontalAlignment": 1,
+          "VerticalAlignment": 1,
+          "BackgroundColor": "#00FFFFFF",
+          "Height": 100.0,
+          "Left": 719.0,
+          "Top": 125.0,
+          "Visible": true,
+          "Width": 290.0,
+          "Name": "TopS3",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Text": {
+              "FormatString": "mm\\.ss\\.fff",
+              "Formula": {
+                "Expression": "getbestsplittime(3)"
+              },
+              "Mode": 2
+            }
+          }
+        }
+      ],
+      "MinimumRefreshIntervalMS": 0.0
+    }
+  ],
+  "SnapToGrid": false,
+  "HideLabels": true,
+  "ShowForeground": true,
+  "ForegroundOpacity": 100.0,
+  "ShowBackground": true,
+  "BackgroundOpacity": 100.0,
+  "ShowBoundingRectangles": false,
+  "GridSize": 4,
+  "Images": [],
+  "Metadata": {
+    "SimHubVersion": "9.5.4",
+    "Title": "JustSectors",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": [
+      0
+    ],
+    "IdleScreensIndexs": [],
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "Width": 970.0,
+    "Height": 413.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": []
+  },
+  "ShowOnScreenControls": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

@@ -730,13 +730,19 @@ void testAddVersionCommandList() {
     check(collectCommands(f.cmdsBrowser) == Lines({"echo one", "echo changed"}), "refused edit changed the list");
     f.cmdsBrowser->remove(1);
     check(collectCommands(f.cmdsBrowser) == Lines({"echo changed"}), "command not removed");
+    f.cmdsBrowser->select(1);
+    f.blockingCb->value(0);
+    afBlockingChangedCb(nullptr, &f);
+    CommandSpec configured = parseCommandSpec(collectCommandLines(f.cmdsBrowser)[0]);
+    check(configured.command == "echo changed" && !configured.blocking,
+          "non-blocking command setting was not saved");
     delete f.win_;
-    covers({"REQ-PRE-01", "REQ-PRE-08"});
+    covers({"REQ-PRE-01", "REQ-PRE-08", "REQ-PRE-09"});
 }
 
 // ------------------------------------------------------------------ pre-launch commands
 
-struct Call { std::string cmd; fs::path dir; };
+struct Call { std::string cmd; fs::path dir; bool blocking = true; };
 
 void testPreLaunchConfiguredIsNeverMissing(const fs::path& root) {
     resetEnv(root);
@@ -798,7 +804,10 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
 
     // Nothing selected -> nothing runs, nothing is claimed.
     std::vector<Call> calls;
-    CommandRunner recorder = [&](const std::string& c, const fs::path& d) { calls.push_back({c, d}); return 0; };
+    CommandRunner recorder = [&](const std::string& c, const fs::path& d, bool blocking) {
+        calls.push_back({c, d, blocking});
+        return 0;
+    };
     auto none = runPreLaunchCommands(root, recorder);
     check(calls.empty() && none.ran.empty() && preLaunchSummary(none).empty(), "commands ran with no mode selected");
 
@@ -809,7 +818,9 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
     auto report = runPreLaunchCommands(work, recorder);
     check(calls.size() == 3 && calls[0].cmd == "echo one" && calls[1].cmd == "echo two" && calls[2].cmd == "echo three",
           "pre-launch commands did not run sequentially in order (resolution list, then controller list)");
-    check(calls[0].dir == work && calls[2].dir == work, "commands were not run from the given working directory");
+    check(calls[0].dir == work && calls[2].dir == work &&
+              calls[0].blocking && calls[2].blocking,
+          "commands were not run from the given working directory or lost blocking mode");
     check(report.failed == 0 && report.ran.size() == 3, "report counts wrong");
     covers({"REQ-PRE-02", "REQ-PRE-07"});
 
@@ -834,7 +845,7 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
     covers({"REQ-PRE-03"});
 
     // A failure is reported and survives the launch message (it used to be overwritten).
-    CommandRunner failing = [&](const std::string& c, const fs::path&) { return c == "echo two" ? 3 : 0; };
+    CommandRunner failing = [&](const std::string& c, const fs::path&, bool) { return c == "echo two" ? 3 : 0; };
     auto bad = runPreLaunchCommands(work, failing);
     check(bad.failed == 1 && bad.ran.size() == 3, "a failing command stopped the others or was not counted");
     check(contains(bad.lines[1], "FAILED") && contains(bad.lines[1], "exit code 3"), "failure line lacks the exit code");
@@ -853,8 +864,21 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
     check(calls.size() == 2, "available lists must still be runnable by the runner");
     covers({"REQ-PRE-05"});
 
+    check(saveEditedVersion(kPreLaunchRel, "first", VerKind::Commands,
+                            {"@nonblocking\t echo one", "@blocking\t echo two"}, err), err);
+    calls.clear();
+    selectMode(g_cats[1], "");
+    auto mixed = runPreLaunchCommands(work, recorder);
+    check(mixed.ran.size() == 2 && calls.size() == 2 &&
+              !calls[0].blocking && calls[1].blocking,
+          "blocking and non-blocking command settings were not honored in order");
+    check(contains(mixed.lines[0], "started") && contains(mixed.lines[1], "ran OK"),
+          "command status did not distinguish non-blocking start from blocking completion");
+    covers({"REQ-PRE-09"});
+
     // Both modes pointing at pre-launch lists is not a file override.
     check(createVersion("x", "second", VerKind::Commands, {"echo three"}, err), err);
+    selectMode(g_cats[1], "pad");
     onApply(nullptr, nullptr);
     check(!contains(statusText(), "set by both modes") && contains(statusText(), "2 pre-launch command list(s)"),
           "pre-launch lists were treated as overriding each other: " + statusText());

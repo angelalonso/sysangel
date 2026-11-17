@@ -1,0 +1,285 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "15fb51c6-6d8a-4850-b9df-e4b5a9863b6b",
+  "BaseHeight": 550,
+  "BaseWidth": 570,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "4",
+          "$values": [
+            {
+              "$id": "5",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.DialGaugeItem, SimHub.Plugins",
+              "ShowRadialGauge": false,
+              "RadialGaugeStartOffset": 0.0,
+              "RadialGaugeRadius": 214.0,
+              "RadialGaugeThickness": 26.0,
+              "RadialGaugeColor": "#FFFFFF00",
+              "RangeOptimalStartValue": 0.0,
+              "RangeOptimalEndValue": 269.0,
+              "RangeIndicatorRadius": 221.0,
+              "RangeIndicatorThickness": 14.0,
+              "BelowOptimalStyle": {
+                "$id": "6",
+                "ArcColor": "#00FFFFFF",
+                "EnableLabelColor": false,
+                "LabelColor": "#FFFF0000",
+                "EnableMajorColor": false,
+                "MajorColor": "#FFFF0000",
+                "EnableMinorColor": false,
+                "MinorColor": "#FFFF0000",
+                "Bindings": {
+                  "$id": "7"
+                }
+              },
+              "OptimalStyle": {
+                "$id": "8",
+                "ArcColor": "#00FFFFFF",
+                "EnableLabelColor": false,
+                "LabelColor": "#FFFF0000",
+                "EnableMajorColor": false,
+                "MajorColor": "#FFFF0000",
+                "EnableMinorColor": false,
+                "MinorColor": "#FFFF0000",
+                "Bindings": {
+                  "$id": "9"
+                }
+              },
+              "AboveOptimalStyle": {
+                "$id": "10",
+                "ArcColor": "#FFFF0000",
+                "EnableLabelColor": true,
+                "LabelColor": "#FFC20000",
+                "EnableMajorColor": false,
+                "MajorColor": "#FFFF0000",
+                "EnableMinorColor": false,
+                "MinorColor": "#FFFF0000",
+                "Bindings": {
+                  "$id": "11"
+                }
+              },
+              "ShowNeedle": true,
+              "NeedleImage": "AudiStyleNeedle",
+              "NeedleLength": 263.0,
+              "NeedleOffset": -37.0,
+              "NeedleThickness": 24.0,
+              "CapRadius": 59.0,
+              "Value": 3.95,
+              "Minimum": 0.0,
+              "Maximum": 300.0,
+              "OuterRadius": 263.0,
+              "InnerRadius": 40.0,
+              "OuterStrokeThickness": 10.0,
+              "InnerStrokeThickness": 5.0,
+              "DialStrokeColor": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0.5,0",
+                  "@EndPoint": "0.5,1",
+                  "@MappingMode": "RelativeToBoundingBox",
+                  "@SpreadMethod": "Pad",
+                  "@Opacity": "1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF5D5D5D",
+                        "@Offset": "0.3801652892561983"
+                      },
+                      {
+                        "@Color": "#FF8F8E8E",
+                        "@Offset": "0.52479338842975209"
+                      }
+                    ]
+                  }
+                }
+              },
+              "DialBackgroundColor": {
+                "LinearGradientBrush": {
+                  "@StartPoint": "0.5,0",
+                  "@EndPoint": "0.5,1",
+                  "@MappingMode": "RelativeToBoundingBox",
+                  "@SpreadMethod": "Pad",
+                  "@Opacity": "1",
+                  "@xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                  "LinearGradientBrush.GradientStops": {
+                    "GradientStop": [
+                      {
+                        "@Color": "#FF050505",
+                        "@Offset": "0.441860465116279"
+                      },
+                      {
+                        "@Color": "#FF0B0B0B",
+                        "@Offset": "0.61627906976744184"
+                      }
+                    ]
+                  }
+                }
+              },
+              "ShowDialGlassEffect": false,
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "ScaleGlowRadius": 8.0,
+              "ScaleGlowColor": "#FF808080",
+              "StartAngle": 138.0,
+              "SweepAngle": 266.0,
+              "ScaleLabelStyle": {
+                "$id": "12",
+                "LabelFont": "Sui Generis Light",
+                "LabelFontSize": 32.0,
+                "LabelFontWeight": "Normal",
+                "LabelFontStyle": "Normal",
+                "LabelColor": "#FFFFFFFF",
+                "LabelRadius": 175.0,
+                "LabelSize": "30,30",
+                "Bindings": {
+                  "$id": "13"
+                }
+              },
+              "AlternateScaleLabelStyle": {
+                "$id": "14",
+                "Enabled": true,
+                "LabelFont": "Sui Generis Light",
+                "LabelFontSize": 23.0,
+                "LabelFontWeight": "Normal",
+                "LabelFontStyle": "Normal",
+                "LabelColor": "#FFFFFFFF",
+                "LabelRadius": 169.0,
+                "LabelSize": "1,1",
+                "Bindings": {
+                  "$id": "15"
+                }
+              },
+              "CustomScaleLabels": "",
+              "TicksPerLabel": 3.0,
+              "LabelCircleRotation": false,
+              "LabelAngleOffset": 0.0,
+              "MajorTickRadius": 228.0,
+              "MajorDivisionsCount": 10.0,
+              "MajorTickColor": "#FF000000",
+              "MajorTickSize": "20,5",
+              "MinorTickColor": "#FFF0FFFF",
+              "MinorTickRadius": 228.0,
+              "MinorTickSize": "20,1",
+              "MinorDivisionsCount": 1.0,
+              "CurrentAngle": 0.0,
+              "DirtyScale": false,
+              "Rotation": 0.0,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "16",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "17"
+                }
+              },
+              "Height": 550.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 570.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "f714ebbc-8ada-4c72-8344-fbd000af0179",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "SpeedGauge",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "18",
+                "Value": {
+                  "$id": "19",
+                  "Formula": {
+                    "$id": "20",
+                    "Interpreter": 0,
+                    "Expression": "[DataCorePlugin.GameData.NewData.FilteredSpeedLocal]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Value"
+                },
+                "Maximum": {
+                  "$id": "21",
+                  "Formula": {
+                    "$id": "22",
+                    "Interpreter": 0,
+                    "Expression": "if(isnull([DataCorePlugin.GameData.NewData.SpeedLocalUnit],0) == 'MPH', 200, 300)"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Maximum"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "f011b809-006b-413a-90cd-549d95e8dd41",
+        "Name": "Screen1",
+        "RenderingSkip": 0,
+        "Sid": 0,
+        "Bindings": {
+          "$id": "23"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": false,
+  "HideLabels": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "24",
+    "$values": [
+      {
+        "$id": "25",
+        "Name": "AudiStyleNeedle",
+        "Extension": ".png",
+        "Data": "iVBORw0KGgoAAAANSUhEUgAAANoAAAASCAYAAAA9psACAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTM0A1t6AAADjElEQVRoQ+3by2oTURwG8JncZmKaZCZpOrn3fkuatmm1eEHduRBXFVrEG6gLUdGViCBUKJZuRV25E7e+gAtXvoI738IHOH4nmTnOmTnRChNs6/+DX3qhJZT5f+cMM1ONMab9Jror9he83xk2CiWS8A4MW//FTaVS0WZmZhLj4+NGrVbL4Gur2WxOT01NXXBdnJycvLi4uLjvs7e0tPR5eXmZcZ1Op2dhYWGXm5+fF+bm5jwvPdPT01t4vw0O76XUaDROcWNjY87o6KjFFYvFvEqhUOjBnxMH1UJwUKpyR4lyRBMs0UFo6+vrFrC1tTVJt9sVVldXhZWVFYlXsGDRPCih0G63hVarFYLSCiipgJKGoKTC7OysgIUiBGUWsFhIUPAvKPE+7HH1et2zG+Q4zmWU/RyccZ0ulUp+GxwK38rlcoVsNutnuyxXnjNNM4Vjpyp6kKqsB0UZclTl8ousaNtOne3omT96msqzB5niAAWlW/kSuzpakRXLwqZfwem5Uqqwc7Vmz9lqQzhTrcsqNcnExIQERRSwu4agnALKKMFZQUi1WhVwxiApl8sSFFuCnfw97HhQaM8LDjt5j23b9/L5/KprBZahw2EBaPu0RkZGnHQ6nTnhBp8Piol5ogL/IaqScRpKtcmLwncUvjvwVZ4PEB8K9+Ayy7IYVl+G48AMw2CJRILFYjF+zimKdsepsXd6+r/0zMypGdmBbo9YbDtry/j3fLYCLuVstmEXhVNWQXIyb4e0LZuhhAKKKEEpJfxYB6GgEhRUwmfDD+X9lslknvg8wux4HnpQ3vvQwa4+AeM+TQ/mreGqp1KpBJdMJkOQOIfP+cd/uggMtWiPnSr7pBvkGPgYM9leMv1L4vdeJcyem8aJvlQ65IZK0mTnjTRbN/vWDDOkmwqzMYN8Dv1QwBCULoTPbsDzeDx+3eeaBzO+HVCEgq7rfrYfOmFBEuSdP6qiPXcq7KuWJORQ+qQncfah9naAfT3B7qpo8YG2tBjrarpkSdOrkRXtlVNm3/FGhBDZGy22GVnRXuNnf6C9hBDZB02nohEybJEWjU4dCVGL9NSRLoaQw+zYXAyhy/vHB13eP8SX9+mGtYLiRrWHblj/Zzes6REsegQLw06PYEUUVck4eqiYHiqmRBBVufz6L26wqtK/yfyiGtgoUY5ogiU6iP7L4HhDoRrEQfzDNEwUSiQJliJ6TPsJbZAaWOprtZQAAAAASUVORK5CYII="
+      }
+    ]
+  },
+  "Metadata": {
+    "$id": "26"
+  }
+}

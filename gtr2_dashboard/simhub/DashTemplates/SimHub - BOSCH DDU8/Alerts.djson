@@ -1,0 +1,357 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "6c9825f3-e97e-44b2-b802-da73f4beb028",
+  "BaseHeight": 720,
+  "BaseWidth": 1280,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Repetitions": 0.0,
+              "RepeatLeftOffset": 0.0,
+              "RepeatTopOffset": 30.0,
+              "Height": 90.0,
+              "Width": 1060.0,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "Rotation": 0.0,
+              "Opacity": 100.0,
+              "BorderStyle": {
+                "$id": "7",
+                "AllBorders": 0,
+                "AllCornerRadius": 0,
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "RenderingSkip": 0,
+              "ShowSelection": true,
+              "CanResize": false,
+              "Childrens": {
+                "$id": "9",
+                "$values": [
+                  {
+                    "$id": "10",
+                    "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                    "IsTextItem": true,
+                    "ShadowDepth": 0,
+                    "ShadowBlur": 0,
+                    "ShadowDirection": 315,
+                    "ShadowColor": "#FF808080",
+                    "Font": "Segoe UI",
+                    "FontWeight": "Normal",
+                    "TextWrapping": 1,
+                    "FontStyle": "Normal",
+                    "FontSize": 51.0,
+                    "Text": "",
+                    "TextColor": "#FFFFFFFF",
+                    "HorizontalAlignment": 2,
+                    "VerticalAlignment": 2,
+                    "Rotation": 0.0,
+                    "UseRotation": false,
+                    "CanResize": true,
+                    "BackgroundColor": "#FF1F4CC3",
+                    "BlurRadius": 0.0,
+                    "EnableBlur": false,
+                    "BorderStyle": {
+                      "$id": "11",
+                      "AllBorders": 4,
+                      "AllCornerRadius": 3,
+                      "BorderColor": "#FFB2B2B2",
+                      "BorderTop": 4,
+                      "BorderBottom": 4,
+                      "BorderLeft": 4,
+                      "BorderRight": 4,
+                      "CornerRadius": "3,3,3,3",
+                      "RadiusTopLeft": 3,
+                      "RadiusTopRight": 3,
+                      "RadiusBottomLeft": 3,
+                      "RadiusBottomRight": 3,
+                      "Bindings": {
+                        "$id": "12"
+                      }
+                    },
+                    "Height": 90.0,
+                    "Left": 110.0,
+                    "Opacity": 100.0,
+                    "Top": 620.0,
+                    "Visible": true,
+                    "Width": 1060.0,
+                    "BorderBottom": 4,
+                    "BorderColor": "#FFB2B2B2",
+                    "BorderLeft": 4,
+                    "BorderRight": 4,
+                    "BorderTop": 4,
+                    "Id": "4dace2fa-ccf3-4157-ac66-a049b6b2b916",
+                    "IsFreezed": false,
+                    "IsSelected": false,
+                    "Name": "TextItem3",
+                    "RenderingSkip": 0,
+                    "Sid": 0,
+                    "Bindings": {
+                      "$id": "13"
+                    }
+                  },
+                  {
+                    "$id": "14",
+                    "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+                    "IsTextItem": true,
+                    "ShadowDepth": 0,
+                    "ShadowBlur": 0,
+                    "ShadowDirection": 315,
+                    "ShadowColor": "#FF808080",
+                    "Font": "Segoe UI",
+                    "FontWeight": "SemiBold",
+                    "TextWrapping": 1,
+                    "FontStyle": "Normal",
+                    "FontSize": 49.0,
+                    "Text": "TITLE",
+                    "TextColor": "#FFFFFFFF",
+                    "HorizontalAlignment": 1,
+                    "VerticalAlignment": 2,
+                    "Rotation": 0.0,
+                    "UseRotation": false,
+                    "CanResize": true,
+                    "BackgroundColor": "#00FFFFFF",
+                    "BlurRadius": 0.0,
+                    "EnableBlur": false,
+                    "BorderStyle": {
+                      "$id": "15",
+                      "AllBorders": 0,
+                      "AllCornerRadius": 0,
+                      "BorderColor": "#FFB2B2B2",
+                      "BorderTop": 0,
+                      "BorderBottom": 0,
+                      "BorderLeft": 0,
+                      "BorderRight": 0,
+                      "CornerRadius": "0,0,0,0",
+                      "RadiusTopLeft": 0,
+                      "RadiusTopRight": 0,
+                      "RadiusBottomLeft": 0,
+                      "RadiusBottomRight": 0,
+                      "Bindings": {
+                        "$id": "16"
+                      }
+                    },
+                    "Height": 65.0,
+                    "Left": 115.0,
+                    "Opacity": 100.0,
+                    "Top": 630.0,
+                    "Visible": true,
+                    "Width": 1050.0,
+                    "BorderBottom": 0,
+                    "BorderColor": "#FFB2B2B2",
+                    "BorderLeft": 0,
+                    "BorderRight": 0,
+                    "BorderTop": 0,
+                    "Id": "4dace2fa-ccf3-4157-ac66-a049b6b2b916",
+                    "IsFreezed": false,
+                    "IsSelected": false,
+                    "Name": "TextItem3",
+                    "RenderingSkip": 0,
+                    "Sid": 0,
+                    "Bindings": {
+                      "$id": "17",
+                      "Text": {
+                        "$id": "18",
+                        "FormatString": "0.0 ",
+                        "Formula": {
+                          "$id": "19",
+                          "Interpreter": 0,
+                          "Expression": "isnull([DataCorePlugin.PluginNotification_Title],'') +' : '+isnull([DataCorePlugin.PluginNotification_Content],'') "
+                        },
+                        "StartColor": "#FF000000",
+                        "EnableMiddleColor": false,
+                        "MiddleColor": "#FF000000",
+                        "MiddleColorValue": 1.0,
+                        "EndColor": "#FFFF0000",
+                        "StartColorValue": 0.0,
+                        "EndColorValue": 1.0,
+                        "Mode": 2,
+                        "TargetPropertyName": "Text"
+                      }
+                    }
+                  }
+                ]
+              },
+              "Group": true,
+              "UseRotation": false,
+              "EnableBlur": false,
+              "Left": 110.0,
+              "Top": 620.0,
+              "Visible": false,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "876f9d23-6754-4630-a75b-5ba9fa670554",
+              "IsSelected": false,
+              "Name": "SystemMessage",
+              "Sid": 0,
+              "Bindings": {
+                "$id": "20",
+                "Visible": {
+                  "$id": "21",
+                  "Formula": {
+                    "$id": "22",
+                    "Interpreter": 0,
+                    "Expression": "[DataCorePlugin.PluginNotification_Active]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Visible"
+                }
+              }
+            },
+            {
+              "$id": "23",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn.GameNotification, SimHub.Plugins",
+              "IsSelected": true,
+              "Name": "GameNotification1",
+              "Visible": true,
+              "Width": 1060.0,
+              "Height": 90.0,
+              "IsFreezed": false,
+              "Rotation": 0.0,
+              "BorderStyle": {
+                "$id": "24",
+                "AllBorders": 4,
+                "AllCornerRadius": 3,
+                "BorderColor": "#FFB2B2B2",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4,
+                "CornerRadius": "3,3,3,3",
+                "RadiusTopLeft": 3,
+                "RadiusTopRight": 3,
+                "RadiusBottomLeft": 3,
+                "RadiusBottomRight": 3,
+                "Bindings": {
+                  "$id": "25"
+                }
+              },
+              "EnableBlur": false,
+              "CanResize": true,
+              "DesignerText": "New lap : 1:50.000 (+1.000)",
+              "Category": "Events",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 0,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF808080",
+              "Font": "Segoe UI",
+              "FontWeight": "SemiBold",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 49.0,
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "UseRotation": false,
+              "BackgroundColor": "#FF1F4CC3",
+              "BlurRadius": 0.0,
+              "Left": 110.0,
+              "Opacity": 100.0,
+              "Top": 620.0,
+              "BorderBottom": 4,
+              "BorderColor": "#FFB2B2B2",
+              "BorderLeft": 4,
+              "BorderRight": 4,
+              "BorderTop": 4,
+              "Id": "1de2b170-6bfe-4ab0-8f91-b0fd0d4d8faa",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "26"
+              }
+            }
+          ]
+        },
+        "Id": "93946a72-3589-4ad7-95f1-f37793d7c63e",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "27"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": false,
+  "ShowBoundingRectangles": true,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "28",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "29",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "30",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "31",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": false,
+    "Width": 1280.0,
+    "Height": 720.0,
+    "OverlaySizeWarning": true,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "32",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "IsOverlay": false,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

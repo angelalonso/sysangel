@@ -1,0 +1,252 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "cafc2627-8ad1-4218-a1a7-71ba07a30f39",
+  "BaseHeight": 68,
+  "BaseWidth": 902,
+  "BackgroundColor": "#00FFFFFF",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "_ExposedProperties": {
+          "$id": "4",
+          "Items": {
+            "$id": "5",
+            "$values": []
+          },
+          "Bindings": {
+            "$id": "6"
+          }
+        },
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "7",
+          "$values": [
+            {
+              "$id": "8",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Bold",
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "30.0/70L",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "9",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "10"
+                }
+              },
+              "Height": 68.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Position": "0,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 228.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "6d0d3c53-0f94-42a2-813c-22e3758d703a",
+              "IsSelected": false,
+              "Name": "FuelText",
+              "Bindings": {
+                "$id": "11",
+                "Text": {
+                  "$id": "12",
+                  "Formula": {
+                    "$id": "13",
+                    "Expression": "format([DataCorePlugin.GameData.NewData.Fuel],'0.0') + '/' + format([DataCorePlugin.GameData.NewData.MaxFuel],'0L')"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            },
+            {
+              "$id": "14",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Bold",
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "0Laps",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "15",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "16"
+                }
+              },
+              "Height": 68.0,
+              "Left": 274.0,
+              "Opacity": 100.0,
+              "Position": "274,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 228.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "6d0d3c53-0f94-42a2-813c-22e3758d703a",
+              "IsSelected": false,
+              "Name": "FuelText1",
+              "Bindings": {
+                "$id": "17",
+                "Text": {
+                  "$id": "18",
+                  "FormatString": "0Laps",
+                  "Formula": {
+                    "$id": "19",
+                    "Expression": "[DataCorePlugin.Computed.Fuel_RemainingLaps]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            },
+            {
+              "$id": "20",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Bold",
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "0.0L/Laps",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 2,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "21",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "22"
+                }
+              },
+              "Height": 68.0,
+              "Left": 674.0,
+              "Opacity": 100.0,
+              "Position": "674,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 228.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "6d0d3c53-0f94-42a2-813c-22e3758d703a",
+              "IsSelected": false,
+              "Name": "FuelText11",
+              "Bindings": {
+                "$id": "23",
+                "Text": {
+                  "$id": "24",
+                  "FormatString": "0.0L/Laps",
+                  "Formula": {
+                    "$id": "25",
+                    "Expression": "[DataCorePlugin.Computed.Fuel_LitersPerLap]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            }
+          ]
+        },
+        "RenderingSkip": 0,
+        "Id": "323af3b4-07a7-45f3-8070-5b8839961778",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "26"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "27",
+    "$values": []
+  }
+}

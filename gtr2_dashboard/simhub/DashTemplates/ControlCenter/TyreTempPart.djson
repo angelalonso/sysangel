@@ -1,0 +1,328 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "b206c47a-7d0a-4cf4-85fb-d5ee2352abf0",
+  "BaseHeight": 141,
+  "BaseWidth": 305,
+  "BackgroundColor": "#00FFFFFF",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "_ExposedProperties": {
+          "$id": "4",
+          "Items": {
+            "$id": "5",
+            "$values": []
+          },
+          "Bindings": {
+            "$id": "6"
+          }
+        },
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "7",
+          "$values": [
+            {
+              "$id": "8",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Normal",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "23°",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "9",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4,
+                "CornerRadius": "9,9,9,9",
+                "RadiusTopLeft": 9,
+                "RadiusTopRight": 9,
+                "RadiusBottomLeft": 9,
+                "RadiusBottomRight": 9,
+                "Bindings": {
+                  "$id": "10"
+                }
+              },
+              "Height": 56.0,
+              "Left": 175.0,
+              "Opacity": 100.0,
+              "Position": "175,85,0,0",
+              "Top": 85.0,
+              "Visible": true,
+              "Width": 129.0,
+              "BorderBottom": 4,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 4,
+              "BorderRight": 4,
+              "BorderTop": 4,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ca9b3793-4987-4daa-a977-452b853808af",
+              "IsSelected": true,
+              "Name": "TextItem011",
+              "Bindings": {
+                "$id": "11",
+                "Text": {
+                  "$id": "12",
+                  "FormatString": "0°",
+                  "Formula": {
+                    "$id": "13",
+                    "Expression": "[DataCorePlugin.GameData.NewData.TyreCoreTemperature4]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            },
+            {
+              "$id": "14",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Normal",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "23°",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "15",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4,
+                "CornerRadius": "9,9,9,9",
+                "RadiusTopLeft": 9,
+                "RadiusTopRight": 9,
+                "RadiusBottomLeft": 9,
+                "RadiusBottomRight": 9,
+                "Bindings": {
+                  "$id": "16"
+                }
+              },
+              "Height": 56.0,
+              "Left": 1.0,
+              "Opacity": 100.0,
+              "Position": "1,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 129.0,
+              "BorderBottom": 4,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 4,
+              "BorderRight": 4,
+              "BorderTop": 4,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ca9b3793-4987-4daa-a977-452b853808af",
+              "IsSelected": true,
+              "Name": "TyreTemp1",
+              "Bindings": {
+                "$id": "17",
+                "Text": {
+                  "$id": "18",
+                  "FormatString": "0°",
+                  "Formula": {
+                    "$id": "19",
+                    "Expression": "[DataCorePlugin.GameData.NewData.TyreCoreTemperature1]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            },
+            {
+              "$id": "20",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Normal",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "23°",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "21",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4,
+                "CornerRadius": "9,9,9,9",
+                "RadiusTopLeft": 9,
+                "RadiusTopRight": 9,
+                "RadiusBottomLeft": 9,
+                "RadiusBottomRight": 9,
+                "Bindings": {
+                  "$id": "22"
+                }
+              },
+              "Height": 56.0,
+              "Left": 176.0,
+              "Opacity": 100.0,
+              "Position": "176,0,0,0",
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 129.0,
+              "BorderBottom": 4,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 4,
+              "BorderRight": 4,
+              "BorderTop": 4,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ca9b3793-4987-4daa-a977-452b853808af",
+              "IsSelected": true,
+              "Name": "TyreTemp2",
+              "Bindings": {
+                "$id": "23",
+                "Text": {
+                  "$id": "24",
+                  "FormatString": "0°",
+                  "Formula": {
+                    "$id": "25",
+                    "Expression": "[DataCorePlugin.GameData.NewData.TyreCoreTemperature2]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            },
+            {
+              "$id": "26",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "Font": "Consolas",
+              "FontWeight": "Normal",
+              "TextWrapping": 1,
+              "FontStyle": "Normal",
+              "FontSize": 46.0,
+              "Text": "23°",
+              "TextColor": "#FFFFFFFF",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "BorderStyle": {
+                "$id": "27",
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 4,
+                "BorderBottom": 4,
+                "BorderLeft": 4,
+                "BorderRight": 4,
+                "CornerRadius": "9,9,9,9",
+                "RadiusTopLeft": 9,
+                "RadiusTopRight": 9,
+                "RadiusBottomLeft": 9,
+                "RadiusBottomRight": 9,
+                "Bindings": {
+                  "$id": "28"
+                }
+              },
+              "Height": 56.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Position": "0,85,0,0",
+              "Top": 85.0,
+              "Visible": true,
+              "Width": 129.0,
+              "BorderBottom": 4,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 4,
+              "BorderRight": 4,
+              "BorderTop": 4,
+              "Rotation": 0.0,
+              "RenderingSkip": 0,
+              "IsFreezed": false,
+              "Id": "ca9b3793-4987-4daa-a977-452b853808af",
+              "IsSelected": true,
+              "Name": "TyreTemp3",
+              "Bindings": {
+                "$id": "29",
+                "Text": {
+                  "$id": "30",
+                  "FormatString": "0°",
+                  "Formula": {
+                    "$id": "31",
+                    "Expression": "[DataCorePlugin.GameData.NewData.TyreCoreTemperature3]"
+                  },
+                  "StartColor": "#FF000000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#FF000000",
+                  "MiddleColorValue": 1.0,
+                  "EndColor": "#FFFF0000",
+                  "StartColorValue": 0.0,
+                  "EndColorValue": 1.0,
+                  "Mode": 2,
+                  "TargetPropertyName": "Text"
+                }
+              }
+            }
+          ]
+        },
+        "SelectedItem": {
+          "$ref": "26"
+        },
+        "RenderingSkip": 0,
+        "Id": "e6e44bec-be09-4b58-8e85-d30cfcff7d50",
+        "Name": "Screen1",
+        "Bindings": {
+          "$id": "32"
+        }
+      }
+    ]
+  },
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "33",
+    "$values": []
+  }
+}

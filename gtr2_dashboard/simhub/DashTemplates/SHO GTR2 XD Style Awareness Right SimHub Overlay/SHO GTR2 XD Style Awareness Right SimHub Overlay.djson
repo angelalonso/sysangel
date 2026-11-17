@@ -1,0 +1,224 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "cc63e2e3-b4c3-4359-9887-a76b446f1af6",
+  "BaseHeight": 600,
+  "BaseWidth": 25,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#00FFFFFF",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "BorderColor": "#FFFF0000",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 1,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 600.0,
+              "Left": 0.0,
+              "Opacity": 50.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 25.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFF0000",
+              "BorderLeft": 0,
+              "BorderRight": 1,
+              "BorderTop": 0,
+              "Id": "02b7466d-a513-457b-8955-edef1619f2c1",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "BGRect",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.EllipseItem, SimHub.Plugins",
+              "FillColor": "#00FFFFFF",
+              "EllipseColor": "#00FFFFFF",
+              "EllipseThickness": 0.0,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 6.0,
+              "EnableBlur": true,
+              "BorderStyle": {
+                "$id": "11",
+                "BorderColor": "#00FFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "12"
+                }
+              },
+              "Height": 600.0,
+              "Left": 13.0,
+              "Opacity": 95.0,
+              "Top": 0.0,
+              "Visible": true,
+              "BlinkDelay": 250.0,
+              "BlinkEnabled": false,
+              "Width": 25.0,
+              "BorderBottom": 0,
+              "BorderColor": "#00FFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "587fc343-d8ee-4005-8e04-5c528d99e03f",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RightIndicatorEllipse",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "13",
+                "EllipseColor": {
+                  "$id": "14",
+                  "Formula": {
+                    "$id": "15",
+                    "Interpreter": 1,
+                    "Expression": "//angle = $prop('SpotterCarRightAngle')\r\n//if ( angle ) return 'Red'\r\n//return 'Transparent'\r\n\r\ndist = $prop('SpotterCarRightDistance')\r\nif ( ! dist ) return 999\r\nreturn dist\r\n\r\n// StartColor=2: Distance seems to be from center of car to the other center of the car so min distance is always about 2 meters"
+                  },
+                  "StartColor": "#FFFF0000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#00FFFFFF",
+                  "MiddleColorValue": 9.0,
+                  "EndColor": "#00FFFFFF",
+                  "StartColorValue": 2.0,
+                  "EndColorValue": 10.0,
+                  "Mode": 4,
+                  "TargetPropertyName": "EllipseColor"
+                },
+                "BlinkEnabled": {
+                  "$id": "16",
+                  "Formula": {
+                    "$id": "17",
+                    "Interpreter": 1,
+                    "Expression": "//angle = $prop('SpotterCarRightAngle')\r\n//if ( angle ) return true\r\nreturn false\r\n"
+                  },
+                  "Mode": 2,
+                  "TargetPropertyName": "BlinkEnabled"
+                },
+                "FillColor": {
+                  "$id": "18",
+                  "Formula": {
+                    "$id": "19",
+                    "Interpreter": 1,
+                    "Expression": "//angle = $prop('SpotterCarRightAngle')\r\n//if ( angle ) return 'Red'\r\n//return 'Transparent'\r\n\r\ndist = $prop('SpotterCarRightDistance')\r\nif ( ! dist ) return 999\r\nreturn dist\r\n\r\n// StartColor=2: Distance seems to be from center of car to the other center of the car so min distance is always about 2 meters"
+                  },
+                  "StartColor": "#FFFF0000",
+                  "EnableMiddleColor": false,
+                  "MiddleColor": "#00FFFFFF",
+                  "MiddleColorValue": 9.0,
+                  "EndColor": "#00FFFFFF",
+                  "StartColorValue": 2.0,
+                  "EndColorValue": 10.0,
+                  "Mode": 4,
+                  "TargetPropertyName": "FillColor"
+                }
+              }
+            }
+          ]
+        },
+        "Id": "7436c509-848c-4be3-9e49-350cd7690cb1",
+        "Name": "Radar",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "20"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": true,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "21",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "22",
+    "Title": "SHO XD Style Awareness Right SimHub Overlay",
+    "Description": "",
+    "Author": "Shovas",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "23",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "24",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "ShowInTaskBar": true,
+    "Width": 25.0,
+    "Height": 600.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "25",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

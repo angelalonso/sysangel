@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - Le Jacky Show - Sheep Skin Steering Wheel",
+  "Description": "Sheep Skin Steering Wheel",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 1100.0,
+  "Height": 400.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

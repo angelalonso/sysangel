@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - Stunt Car Racer Overlay",
+  "Description": "An homage Stunt Car Racer",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 356.0,
+  "Height": 200.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}

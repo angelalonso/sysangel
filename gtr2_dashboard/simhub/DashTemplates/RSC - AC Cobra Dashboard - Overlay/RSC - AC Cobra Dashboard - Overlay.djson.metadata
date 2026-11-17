@@ -1,0 +1,19 @@
+{
+  "Category": "RSC",
+  "Title": "RSC - AC Cobra Dashboard - Overlay",
+  "Description": "AC Cobra - Dashboard - Overlay",
+  "Author": "Romainrob",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "Width": 640.0,
+  "Height": 250.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": []
+}
