@@ -73,14 +73,14 @@ GTR2 Dashboard launcher.
 | ID | Requirement | Verified by |
 | --- | --- | --- |
 | REQ-PRE-01 | The Add Version screen has an **Edit command** button for pre-launch command lists. It is shown only for that type and changes the selected command in place; an empty command, or no selected command, is refused and leaves the list unchanged. | testScreensHaveButtons, testAddVersionCommandList |
-| REQ-PRE-02 | Commands of the selected modes run before the game starts, from the executable's folder, with blocking commands waiting in list order. Resolution commands are started before controller commands. | testPreLaunchRunAndConfirm, testRealCommandRunner |
+| REQ-PRE-02 | Commands of the selected modes run before the game starts, from the executable's folder. Ordinary commands start asynchronously; sleep-style commands (`sleep`, or Windows `timeout`) wait before the next command and before launch. Resolution commands are started before controller commands. | testPreLaunchRunAndConfirm, testRealCommandRunner |
 | REQ-PRE-03 | After launching, the status area confirms which pre-launch commands ran (count and command text) and each command is also written to `launcher.log` with its exit code, mode and version. | testPreLaunchRunAndConfirm |
 | REQ-PRE-04 | A failing command is reported with its exit code; the failure message is not overwritten by the "Launched" message, and the remaining commands still run. | testPreLaunchRunAndConfirm |
 | REQ-PRE-05 | A selected pre-launch version that does not exist is reported (version name and mode) and the game is not launched; it is never silently skipped. Apply also refuses and changes nothing. | testPreLaunchRunAndConfirm, testPreLaunchConfiguredIsNeverMissing |
 | REQ-PRE-06 | A pre-launch version that exists is never reported as missing: not in the mode editor, not by Apply, not at Launch (regression: the `[pre-launch]` list suffix was removed with the wrong length, so the saved name could never be found). | testPreLaunchConfiguredIsNeverMissing, testVersionDisplayParsing |
 | REQ-PRE-07 | Command lists from the resolution and the controller mode all run; they never override each other and are not reported as an overridden file by Apply. | testPreLaunchRunAndConfirm |
 | REQ-PRE-08 | On the Add Version screen commands can be added (trimmed, non-blank) and removed. | testAddVersionCommandList |
-| REQ-PRE-09 | Each pre-launch command can be marked blocking or non-blocking. Blocking commands wait for completion before the next command starts; non-blocking commands are started without waiting, so later commands can run in parallel. Existing command-list files remain blocking by default. | testPreLaunchRunAndConfirm, testAddVersionCommandList |
+| REQ-PRE-09 | Pre-launch commands start asynchronously by default so they do not block the next command or the main launch. Sleep-style commands are the exception and act as barriers; existing blocking/non-blocking markers remain readable for compatibility but do not change this scheduling. | testPreLaunchRunAndConfirm, testAddVersionCommandList |
 
 ## Patch-line selection
 

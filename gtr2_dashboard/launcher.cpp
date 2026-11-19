@@ -666,7 +666,7 @@ static void afToggleConfigType(Fl_Widget*, void* p) {
         if (f->removeCmdBtn) f->removeCmdBtn->show();
 
         if (f->blockingCb) f->blockingCb->show();
-        f->fileLabel->copy_label("Pre-launch commands (blocking commands wait; parallel commands start immediately):");
+        f->fileLabel->copy_label("Pre-launch commands (commands run in parallel; sleep/timeout commands wait):");
         f->nameLabel->copy_label("Command List Version Name (e.g., default, high_perf):");
     } else {
         if (f->cmdsBrowser) f->cmdsBrowser->hide();
@@ -1864,6 +1864,21 @@ struct PreLaunchList {
     bool exists = false;
 };
 
+// Sleep-style commands are the only pre-launch barriers. Everything else is
+// started asynchronously so it cannot delay the next command or the launch.
+static bool isSleepCommand(const std::string& command) {
+    std::string s = trimCopy(command);
+    size_t end = s.find_first_of(" \t");
+    std::string executable = s.substr(0, end);
+#ifdef _WIN32
+    std::transform(executable.begin(), executable.end(), executable.begin(),
+                   [](unsigned char ch) { return (char)std::tolower(ch); });
+    return executable == "sleep" || executable == "timeout";
+#else
+    return executable == "sleep";
+#endif
+}
+
 // Pre-launch command lists of the selected modes: resolution first, then controller.
 // Lists from different modes never override each other; all of them run.
 static std::vector<PreLaunchList> selectedPreLaunchLists() {
@@ -1902,11 +1917,12 @@ static PreLaunchReport runPreLaunchCommands(const fs::path& workDir, const Comma
             CommandSpec spec = parseCommandSpec(raw);
             std::string cmd = trimCopy(spec.command);
             if (cmd.empty()) continue;
-            int code = run(cmd, workDir, spec.blocking);
-            r.ran.push_back({cmd, code, spec.blocking});
+            bool barrier = isSleepCommand(cmd);
+            int code = run(cmd, workDir, barrier);
+            r.ran.push_back({cmd, code, barrier});
             if (code != 0) ++r.failed;
             std::string line = std::string("Pre-launch command ") +
-                               (spec.blocking ? (code == 0 ? "ran OK" : "FAILED") : (code == 0 ? "started" : "FAILED")) +
+                               (barrier ? (code == 0 ? "ran OK" : "FAILED") : (code == 0 ? "started" : "FAILED")) +
                                " (exit code " + std::to_string(code) + ", " + l.mode + " / '" + l.version +
                                "'): " + cmd;
             r.lines.push_back(line);

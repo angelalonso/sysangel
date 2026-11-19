@@ -819,13 +819,13 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
     check(calls.size() == 3 && calls[0].cmd == "echo one" && calls[1].cmd == "echo two" && calls[2].cmd == "echo three",
           "pre-launch commands did not run sequentially in order (resolution list, then controller list)");
     check(calls[0].dir == work && calls[2].dir == work &&
-              calls[0].blocking && calls[2].blocking,
-          "commands were not run from the given working directory or lost blocking mode");
+              !calls[0].blocking && !calls[2].blocking,
+          "commands were not run from the given working directory or started asynchronously");
     check(report.failed == 0 && report.ran.size() == 3, "report counts wrong");
     covers({"REQ-PRE-02", "REQ-PRE-07"});
 
     // Confirmation shown to the user and written to the log.
-    check(report.lines.size() == 3 && contains(report.lines[0], "ran OK") && contains(report.lines[0], "echo one") &&
+    check(report.lines.size() == 3 && contains(report.lines[0], "started") && contains(report.lines[0], "echo one") &&
               contains(report.lines[0], "resolution 'hd'") && contains(report.lines[2], "controller 'pad'"),
           "per-command confirmation lines are missing details");
     std::string summary = preLaunchSummary(report);
@@ -839,7 +839,7 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
         std::ifstream in(g_base / "launcher.log");
         log.assign(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>());
     }
-    check(contains(log, "echo one") && contains(log, "echo three") && contains(log, "ran OK"),
+    check(contains(log, "echo one") && contains(log, "echo three") && contains(log, "started"),
           "pre-launch confirmation was not written to launcher.log");
     check(composeLaunchStatus(none, "Launched.") == "Launched.", "launch status changed when no command ran");
     covers({"REQ-PRE-03"});
@@ -865,15 +865,16 @@ void testPreLaunchRunAndConfirm(const fs::path& root) {
     covers({"REQ-PRE-05"});
 
     check(saveEditedVersion(kPreLaunchRel, "first", VerKind::Commands,
-                            {"@nonblocking\t echo one", "@blocking\t echo two"}, err), err);
+                            {"@blocking\t echo one", "@nonblocking\t echo two", "sleep 0"}, err), err);
     calls.clear();
     selectMode(g_cats[1], "");
     auto mixed = runPreLaunchCommands(work, recorder);
-    check(mixed.ran.size() == 2 && calls.size() == 2 &&
-              !calls[0].blocking && calls[1].blocking,
-          "blocking and non-blocking command settings were not honored in order");
-    check(contains(mixed.lines[0], "started") && contains(mixed.lines[1], "ran OK"),
-          "command status did not distinguish non-blocking start from blocking completion");
+    check(mixed.ran.size() == 3 && calls.size() == 3 &&
+              !calls[0].blocking && !calls[1].blocking && calls[2].blocking,
+          "ordinary commands were not asynchronous or sleep was not a barrier");
+    check(contains(mixed.lines[0], "started") && contains(mixed.lines[1], "started") &&
+              contains(mixed.lines[2], "ran OK"),
+          "command status did not distinguish asynchronous commands from sleep barriers");
     covers({"REQ-PRE-09"});
 
     // Both modes pointing at pre-launch lists is not a file override.
