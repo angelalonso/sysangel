@@ -90,8 +90,19 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "GTR2 Mod Files",
         eframe::NativeOptions::default(),
-        Box::new(|_| Ok(Box::new(ModFilesApp::default()))),
+        Box::new(|creation_context| {
+            configure_ui(&creation_context.egui_ctx);
+            Ok(Box::new(ModFilesApp::default()))
+        }),
     )
+}
+
+fn configure_ui(ctx: &egui::Context) {
+    ctx.set_pixels_per_point(1.2);
+    let mut style = (*ctx.style()).clone();
+    style.spacing.button_padding = egui::vec2(12.0, 8.0);
+    style.spacing.interact_size = egui::vec2(40.0, 32.0);
+    ctx.set_style(style);
 }
 
 impl eframe::App for ModFilesApp {
